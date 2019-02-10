@@ -14,6 +14,8 @@ tests n =
   , holds n $ \(FunE_III ff) (IntE xx) (IntE yy) -> isJust . evaluateInt $ ff :$ xx :$ yy
   , holds n $ \(FunE ff) -> isNothing $ evaluateInt ff
   , holds n $ \(IntE xx) -> isNothing $ evaluateIntToInt xx
+
+  , (counterExample n $ \(IntE xx) -> False) == Just ["_ :: Int"]
   ]
 
 evaluateIntToInt :: Expr -> Maybe (Int -> Int)

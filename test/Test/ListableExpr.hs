@@ -20,13 +20,21 @@ import Test.LeanCheck
 import Data.Haexpress.Fixtures
 import Data.Function (on)
 
-newtype IntE0  =  IntE0 { unIntE0 :: Expr } deriving Show
-newtype IntEV  =  IntEV { unIntEV :: Expr } deriving Show
-newtype IntE   =  IntE  { unIntE  :: Expr } deriving Show
+newtype IntE0  =  IntE0 { unIntE0 :: Expr }
+newtype IntEV  =  IntEV { unIntEV :: Expr }
+newtype IntE   =  IntE  { unIntE  :: Expr }
 
-newtype FunE_III  =  FunE_III { unFunE_III :: Expr } deriving Show
-newtype FunE_II   =  FunE_II  { unFunE_II  :: Expr } deriving Show
-newtype FunE      =  FunE     { unFunE     :: Expr } deriving Show
+newtype FunE_III  =  FunE_III { unFunE_III :: Expr }
+newtype FunE_II   =  FunE_II  { unFunE_II  :: Expr }
+newtype FunE      =  FunE     { unFunE     :: Expr }
+
+instance Show IntE0 where  show (IntE0 e) = show e
+instance Show IntEV where  show (IntEV e) = show e
+instance Show IntE  where  show (IntE  e) = show e
+
+instance Show FunE_III where  show (FunE_III e) = show e
+instance Show FunE_II  where  show (FunE_II  e) = show e
+instance Show FunE     where  show (FunE     e) = show e
 
 -- TODO: change derivin Show above to explicitly show instance that shows inner value
 
