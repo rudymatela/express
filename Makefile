@@ -4,7 +4,9 @@
 # License:     3-Clause BSD  (see the file LICENSE)
 # Maintainer:  Rudy Matela <rudy@matela.com.br>
 TESTS = \
-  test/main
+  test/main \
+  test/fixtures \
+  test/listable
 EGS =
 BENCHS =
 GHCIMPORTDIRS = src:test
@@ -15,7 +17,7 @@ all: mk/toplibs
 
 all-all: mk/All.o
 
-test: $(patsubst %,%.run,$(TESTS))
+test: $(patsubst %,%.run,$(TESTS)) test-sdist
 
 %.run: %
 	./$<

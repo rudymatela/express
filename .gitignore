@@ -16,6 +16,7 @@ TAGS
 tags
 test/main
 test/listable
+test/fixtures
 doc/*.html
 doc/*.css
 doc/*.js

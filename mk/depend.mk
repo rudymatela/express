@@ -27,6 +27,32 @@ src/Data/Haexpress.o: \
   src/Data/Haexpress/Core.hs
 src/Data/Haexpress/Utils/String.o: \
   src/Data/Haexpress/Utils/String.hs
+test/fixtures.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/fixtures.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Core.hs
+test/fixtures: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/fixtures.hs \
+  mk/toplibs
+test/listable.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/listable.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Core.hs
+test/listable: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/listable.hs \
+  mk/toplibs
 test/main.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -53,3 +79,7 @@ test/Test.o: \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Core.hs
+test/Test: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  mk/toplibs
