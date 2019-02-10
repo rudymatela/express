@@ -116,6 +116,8 @@ toDynamic (e1 :$ e2)  = do v1 <- toDynamic e1
 eval :: Typeable a => a -> Expr -> a
 eval x e = fromMaybe x (evaluate e)
 
+-- TODO: decide whether to always show the type
+-- TODO: decide whether to always show holes
 instance Show Expr where
   showsPrec d e = showParen (d > 10)
                 $ showsPrecExpr 0 e
