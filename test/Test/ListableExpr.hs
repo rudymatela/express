@@ -27,7 +27,8 @@ newtype FunE_III  =  FunE_III { unFunE_III :: Expr } deriving Show
 newtype FunE_II   =  FunE_II  { unFunE_II  :: Expr } deriving Show
 newtype FunE      =  FunE     { unFunE     :: Expr } deriving Show
 
--- change derivin Show above to explicitly show instance that shows inner value
+-- TODO: change derivin Show above to explicitly show instance that shows inner value
+-- TODO: add variables
 
 instance Listable IntE0 where  tiers  =  (IntE0 . val) `mapT` (tiers :: [[Int]])
 instance Listable IntE  where

@@ -2,6 +2,7 @@ module Test
   ( module Test.LeanCheck
   , module Data.Haexpress.Fixtures
   , module Test.ListableExpr
+  , module Data.Maybe
   , mainTest
   )
 where
@@ -10,6 +11,7 @@ import System.Environment (getArgs)
 import System.Exit (exitFailure)
 import Data.List (elemIndices)
 
+import Data.Maybe
 import Test.LeanCheck
 import Test.ListableExpr
 import Data.Haexpress.Fixtures
