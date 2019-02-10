@@ -23,8 +23,8 @@ module Data.Haexpress.Fixtures
   -- * Terminal values are named in words (e.g.: 'zero', 'bee', 'cee', 'dee').
   -- * Variables have their characters duplicated (e.g.: 'xx', 'xxss');
   -- * Functions encoded as expressions are followed by "E" (e.g.: 'idE', 'plusE');
-  -- * Functions over expressions are primed (e.g.: @id'@, @negate'@);
-  -- * Operators are surrounded by dashes (e.g.: '(-+-)', '(-*-)').
+  -- * Functions over expressions are primed (e.g.: 'id'', 'negate'');
+  -- * Operators are surrounded by dashes (e.g.: '-+-', '-*-').
 
   -- ** Integers
   , zero, one, two, three, minusOne, minusTwo
