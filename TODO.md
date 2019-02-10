@@ -3,8 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* Move into standalone repo
-
 * Add `test/listable.hs` to test Listable Expr itself;
 
 * Document `Data.Haexpress.Fixtures` module throughly;
