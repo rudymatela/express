@@ -21,6 +21,7 @@ import Data.Haexpress.Fixtures
 import Data.Function (on)
 
 newtype IntE0  =  IntE0 { unIntE0 :: Expr } deriving Show
+newtype IntEV  =  IntEV { unIntEV :: Expr } deriving Show
 newtype IntE   =  IntE  { unIntE  :: Expr } deriving Show
 
 newtype FunE_III  =  FunE_III { unFunE_III :: Expr } deriving Show
@@ -31,9 +32,12 @@ newtype FunE      =  FunE     { unFunE     :: Expr } deriving Show
 -- TODO: add variables
 
 instance Listable IntE0 where  tiers  =  (IntE0 . val) `mapT` (tiers :: [[Int]])
+instance Listable IntEV where  list  =  map (IntEV . (`var` (undefined :: Int))) ["x", "y", "z", "x'"] -- TODO: infinite list
 instance Listable IntE  where
   tiers  =  mapT IntE
-         $  cons1 unIntE0
+         $  cons0 i_
+         \/ cons1 unIntEV
+         \/ cons1 unIntE0
          \/ cons2 (\(FunE_II f) (IntE xx) -> f :$ xx)
          \/ cons3 (\(FunE_III f) (IntE xx) (IntE yy) -> f :$ xx :$ yy)
 
