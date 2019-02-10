@@ -124,7 +124,7 @@ prec _ = 9
 isPrefix :: String -> Bool
 isPrefix = not . isInfix
 
--- | Is the string of the form @`string`@
+-- | Is the string of the form @\`string\`@
 isInfixedPrefix :: String -> Bool
 isInfixedPrefix s | not (atomic s) = False
 isInfixedPrefix ('`':cs)           = last cs == '`'

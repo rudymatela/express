@@ -53,7 +53,7 @@ value s x = Value s (toDyn x)
 val :: (Typeable a, Show a) => a -> Expr
 val x = Value (show x) (toDyn x)
 
--- | @var "x" (undefined :: Ty)@ returns a variable of type 'Ty' named "x"
+-- | @var "x" (undefined :: Ty)@ returns a variable of type @Ty@ named "x"
 var :: Typeable a => String -> a -> Expr
 var s a = value ('_':s) (undefined `asTypeOf` a)
 

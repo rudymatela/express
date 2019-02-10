@@ -5,6 +5,8 @@ List of things TO DO for haexpress
 
 * Add `test/listable.hs` to test Listable Expr itself;
 
+* Add `test/fixtures.hs` to test Expr fixtures themselves;
+
 * Document `Data.Haexpress.Fixtures` module throughly;
 
 * Document `test/Test.ListableExpr` module throughly;
