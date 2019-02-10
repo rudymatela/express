@@ -21,6 +21,8 @@ List of things TO DO for haexpress
 
 * Create `Data.Haexpress.Instances` module with a sketch of how to deal with instances;
 
+* add the `Name` typeclass?
+
 * partially replace `Test.Speculate.Expr` with this
 
 * partially replace `Test.Extrapolate.Core` with this

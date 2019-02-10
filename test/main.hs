@@ -1,16 +1,10 @@
 -- Copyright (c) 2017-2018 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
-import Data.List (elemIndices)
-import System.Exit (exitFailure)
 import Data.Maybe (isJust)
 
 main :: IO ()
-main = do
-  case elemIndices False (tests 360) of
-    [] -> putStrLn "Tests passed."
-    is -> do putStrLn ("Failed tests:" ++ show is)
-             exitFailure
+main = mainTest tests 360
 
 tests :: Int -> [Bool]
 tests n =
