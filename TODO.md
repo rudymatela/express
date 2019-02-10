@@ -3,9 +3,13 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* Add `test/listable.hs` to test Listable Expr itself;
+* remove IntE0 and IntEV types?
 
-* Add `test/fixtures.hs` to test Expr fixtures themselves;
+* add isGround
+
+* more tests in test/listable (including using isGround)
+
+* more tests in test/fixtures
 
 * 100% haddock coverage
 
