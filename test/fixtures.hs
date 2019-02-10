@@ -8,4 +8,8 @@ main = mainTest tests 360
 tests :: Int -> [Bool]
 tests n =
   [ True
+  
+  , show i_ == "_ :: Int" -- TODO: fix me
+  , show xx == "x :: Int"
+  , show yy == "y :: Int"
   ]
