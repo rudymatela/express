@@ -60,7 +60,7 @@ var s a = value ('_':s) (undefined `asTypeOf` a)
 
 -- | A typed hole.
 hole :: Typeable a => a -> Expr
-hole a = var "_" (undefined `asTypeOf` a)
+hole a = var "" (undefined `asTypeOf` a)
 
 -- | Creates a 'var'iable with the same type as the given 'Expr'.
 --
