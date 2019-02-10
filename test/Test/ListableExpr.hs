@@ -29,7 +29,6 @@ newtype FunE_II   =  FunE_II  { unFunE_II  :: Expr } deriving Show
 newtype FunE      =  FunE     { unFunE     :: Expr } deriving Show
 
 -- TODO: change derivin Show above to explicitly show instance that shows inner value
--- TODO: add variables
 
 instance Listable IntE0 where  tiers  =  (IntE0 . val) `mapT` (tiers :: [[Int]])
 instance Listable IntEV where  list  =  map (IntEV . (`var` (undefined :: Int))) ["x", "y", "z", "x'"] -- TODO: infinite list
