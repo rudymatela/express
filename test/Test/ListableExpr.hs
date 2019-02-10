@@ -32,6 +32,7 @@ instance Show IntE0 where  show (IntE0 e) = show e
 instance Show IntEV where  show (IntEV e) = show e
 instance Show IntE  where  show (IntE  e) = show e
 
+-- TODO: rename to IntToInt and IntToIntToInt
 instance Show FunE_III where  show (FunE_III e) = show e
 instance Show FunE_II  where  show (FunE_II  e) = show e
 instance Show FunE     where  show (FunE     e) = show e
