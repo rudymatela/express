@@ -27,7 +27,7 @@ module Data.Haexpress.Fixtures
   -- * Operators are surrounded by dashes (e.g.: '-+-', '-*-').
 
   -- ** Integers
-  , xx, yy
+  , i_, xx, yy
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
   , id', negate', abs'
@@ -58,6 +58,9 @@ evalChar = eval $ evalError "Char"
 
 evaluateChar :: Expr -> Maybe Char
 evaluateChar = evaluate
+
+i_ :: Expr
+i_  =  hole (undefined :: Int)
 
 xx :: Expr
 xx  =  var "x" (undefined :: Int)

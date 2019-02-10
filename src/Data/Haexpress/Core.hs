@@ -21,6 +21,7 @@ where
 
 -- TODO: talk about convertion of preceding variables with "_"
 -- TODO: document all functions with examples
+-- TODO: more exports
 
 import Data.Dynamic
 import Data.Typeable (TypeRep, typeOf, funResultTy)
