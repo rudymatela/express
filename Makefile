@@ -17,7 +17,7 @@ all: mk/toplibs
 
 all-all: mk/All.o
 
-test: $(patsubst %,%.run,$(TESTS)) test-sdist
+test: $(patsubst %,%.run,$(TESTS)) test-sdist diff-test
 
 %.run: %
 	./$<
@@ -44,10 +44,10 @@ diff-test: $(patsubst %,%.diff-test,$(BENCHS))
 update-diff-test: $(patsubst %,%.update-diff-test,$(BENCHS))
 
 %.diff-test: %
-	./$< | diff -rud tests/model/$<.out -
+	./$< | diff -rud test/model/$<.out -
 
 %.update-diff-test: %
-	./$< >           tests/model/$<.out
+	./$< >           test/model/$<.out
 
 test-via-everything: test test-via-cabal test-via-stack
 
