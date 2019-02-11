@@ -21,11 +21,9 @@ module Data.Haexpress.Core
   , eval
   , typ
   , toDynamic
-  -- * Unfolding Exprs
-  , unfoldApp
-  , unfoldTuple
---, unfoldList
   -- * Utilities
+  , unfoldApp
+  , hasVar
   , varAsTypeOf
   )
 where
@@ -48,16 +46,39 @@ data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dyna
 -- | It takes a string representation of a value and a value, returning an
 --   'Expr' with that terminal value.  Examples:
 --
--- > value "0" 0
--- > value "'a'" 'a'
--- > value "True" True
--- > value "id" (id :: Int -> Int)
--- > value "(+)" ((+) :: Int -> Int -> Int)
--- > value "sort" (sort :: [Bool] -> [Bool])
+-- > > value "0" (0 :: Integer)
+-- > 0 :: Integer
+--
+-- > > value "'a'" 'a'
+-- > 'a' :: Char
+--
+-- > > value "True" True
+-- > True :: Bool
+--
+-- > > value "id" (id :: Int -> Int)
+-- > id :: Int -> Int
+--
+-- > > value "(+)" ((+) :: Int -> Int -> Int)
+-- > (+) :: Int -> Int -> Int
+--
+-- > > value "sort" (sort :: [Bool] -> [Bool])
+-- > sort :: [Bool] -> [Bool]
 value :: Typeable a => String -> a -> Expr
 value s x = Value s (toDyn x)
 
 -- | A shorthand for 'value' for values that are 'Show' instances.
+-- Examples:
+--
+-- > > val (0 :: Int)
+-- > 0 :: Int
+--
+-- > > val 'a'
+-- > 'a' :: Char
+--
+-- > > val True
+-- > True :: Bool
+--
+-- Example equivalences to 'value':
 --
 -- > val 0     =  value "0" 0
 -- > val 'a'   =  value "'a'" 'a' 
@@ -70,10 +91,13 @@ val x = value (show x) x
 --
 -- > > value "id" (id :: () -> ()) $$ val ()
 -- > Just (id () :: ())
+--
 -- > > value "abs" (abs :: Int -> Int) $$ val (1337 :: Int)
 -- > Just (abs 1337 :: Int)
+--
 -- > > value "abs" (abs :: Int -> Int) $$ val 'a'
 -- > Nothing
+--
 -- > > value "abs" (abs :: Int -> Int) $$ val ()
 -- > Nothing
 ($$) :: Expr -> Expr -> Maybe Expr
@@ -86,8 +110,10 @@ e1 $$ e2  =  case typ e1 `funResultTy` typ e2 of
 --
 -- > > var "x" (undefined :: Int)
 -- > x :: Int
+--
 -- > > var "u" (undefined :: ())
 -- > u :: ()
+--
 -- > > var "xs" (undefined :: [Int])
 -- > xs :: [Int]
 var :: Typeable a => String -> a -> Expr
@@ -97,6 +123,7 @@ var s a = value ('_':s) (undefined `asTypeOf` a)
 --
 -- > > hole (undefined :: Int)
 -- > _ :: Int
+--
 -- > > hole (undefined :: Maybe String)
 -- > _ :: Maybe [Char]
 hole :: Typeable a => a -> Expr
@@ -108,14 +135,19 @@ hole a = var "" (undefined `asTypeOf` a)
 -- > > let one = val (1 :: Int)
 -- > > let bee = val 'b'
 -- > > let absE = value "abs" (abs :: Int -> Int)
+--
 -- > > typ one
 -- > Int
+--
 -- > > typ bee
 -- > Char
+--
 -- > > typ absE
 -- > Int -> Int
+--
 -- > > typ (absE :$ one)
 -- > Int
+--
 -- > > typ (absE :$ bee)
 -- > *** Exception: type mismatch, cannot apply Int -> Int to Char
 typ :: Expr -> TypeRep
@@ -136,16 +168,22 @@ typ (e1 :$ e2) =
 -- > > let one = val (1 :: Int)
 -- > > let bee = val 'b'
 -- > > let negateE = value "negate" (negate :: Int -> Int)
+--
 -- > > evaluate one :: Maybe Int
 -- > Just 1
+--
 -- > > evaluate one :: Maybe Char
 -- > Nothing
+--
 -- > > evaluate bee :: Maybe Int
 -- > Nothing
+--
 -- > > evaluate bee :: Maybe Char
 -- > Just 'b'
+--
 -- > > evaluate $ negateE :$ one :: Maybe Int
 -- > Just (-1)
+--
 -- > > evaluate $ negateE :$ bee :: Maybe Int
 -- > Nothing
 evaluate :: Typeable a => Expr -> Maybe a
@@ -153,11 +191,33 @@ evaluate e = toDynamic e >>= fromDynamic
 
 -- | Evaluates an expression when possible (correct type).
 --   Returns a default value otherwise.
+--
+-- > > let two = val (2 :: Int)
+-- > > let three = val (3 :: Int)
+-- > > let e1 -+- e2 = value "+" ((+) :: Int->Int->Int) :$ e1 :$ e2
+--
+-- > > eval 0 $ two -+- three :: Int
+-- > 5
+--
+-- > > eval 'z' $ two -+- three :: Char
+-- > 'z'
+--
+-- > > eval 0 $ two -+- val '3' :: Int
+-- > 0
 eval :: Typeable a => a -> Expr -> a
 eval x e = fromMaybe x (evaluate e)
 
 -- | Evaluates an expression to a terminal 'Dynamic' value when possible.
---   Returns nothing otherwise.
+--   Returns 'Nothing' otherwise.
+--
+-- > > toDynamic $ val (123 :: Int) :: Maybe Dynamic
+-- > Just <<Int>>
+--
+-- > > toDynamic $ value "abs" (abs :: Int -> Int) :$ val (-1 :: Int)
+-- > Just <<Int>>
+--
+-- > > toDynamic $ value "abs" (abs :: Int -> Int) :$ val 'a'
+-- > Nothing
 toDynamic :: Expr -> Maybe Dynamic
 toDynamic (Value _ x) = Just x
 toDynamic (e1 :$ e2)  = do v1 <- toDynamic e1
@@ -245,42 +305,69 @@ showExpr = showPrecExpr 0
 
 -- TODO: the above show instance is getting big.  Move it into a separate file?
 
-isTuple :: Expr -> Bool
-isTuple = not . null . unfoldTuple
-
-unfoldTuple :: Expr -> [Expr]
-unfoldTuple = u . unfoldApp
-  where
-  u (Value cs _:es) | not (null es) && cs == replicate (length es - 1) ','
-                       = es
-  u _   = []
-
 -- TODO: isList
 -- TODO: unfoldList
 -- TODO: isGround
 
--- | Unfold function application:
+-- | Unfold a function application 'Expr' into a list of function and
+--   arguments.
 --
--- > (((f :$ e1) :$ e2) :$ e3) = [f,e1,e2,e3]
+-- > e0                    =    e0                      =  [e0]
+-- > e0 :$ e1              =    e0 :$ e1                =  [e0,e1]
+-- > e0 :$ e1 :$ e2        =   (e0 :$ e1) :$ e2         =  [e0,e1,e2]
+-- > e0 :$ e1 :$ e2 :$ e3  =  ((e0 :$ e1) :$ e2) :$ e3  =  [e0,e1,e2,e3]
 unfoldApp :: Expr -> [Expr]
 unfoldApp (ef :$ ex) = unfoldApp ef ++ [ex]
 unfoldApp  ef        = [ef]
 
+-- | Unfold a tuple 'Expr' into a list of values.
+--
+-- > > let pair' a b = value "," ((,) :: Bool->Char->(Bool,Char)) :$ a :$ b
+--
+-- > > pair' (val True) (val 'a')
+-- > (True,'a') :: (Bool,Char)
+--
+-- > > unfoldTuple $ pair' (val True) (val 'a')
+-- > [True :: Bool,'a' :: Char]
+--
+-- > > let trio' a b c = value ",," ((,,) :: Bool->Char->Int->(Bool,Char,Int)) :$ a :$ b :$ c
+--
+-- > > trio' (val False) (val 'b') (val (9 :: Int))
+-- > (False,'b',9) :: (Bool,Char,Int)
+--
+-- > > unfoldTuple $ trio' (val False) (val 'b') (val (9 :: Int))
+-- > [False :: Bool,'b' :: Char,9 :: Int]
+unfoldTuple :: Expr -> [Expr]
+unfoldTuple = u . unfoldApp
+  where
+  u (Value cs _:es) | not (null es) && cs == replicate (length es - 1) ',' = es
+  u _   = [] -- TODO: only return an empty list for units
+-- NOTE: the above function does not work when the representation of the
+--       tupling function is (,) or (,,) or (,,,) or ...
+--       This is intentional to allow the 'Show' 'Expr' instance
+--       to present (,,) 1 2 differently than (1,2).
+
+isTuple :: Expr -> Bool
+isTuple = not . null . unfoldTuple
+
+-- | Check if an 'Expr' has a variable.  (By convention, any value whose
+--   'String' representation starts with @'_'@.)
+--
+-- > > hasVar $ value "not" not :$ val True
+-- > False
+--
+-- > > hasVar $ value "&&" (&&) :$ var "p" (undefined :: Bool) :$ val True
+-- > True
+hasVar :: Expr -> Bool
+hasVar (e1 :$ e2) = hasVar e1 || hasVar e2
+hasVar (Value ('_':_) _) = True
+hasVar _ = False
 
 -- | Creates a 'var'iable with the same type as the given 'Expr'.
 --
 -- > > let one = val (1::Int)
 -- > > "x" `varAsTypeOf` one
 -- > x :: Int
---
--- You should use 'var' instead if you are creating values directly from types:
---
--- > > "x" `varAsTypeOf` (val (undefined :: Int))
--- > x :: Int
--- > > "c" `varAsTypeOf` (val (undefined :: Char))
--- > c :: Char
---
--- You should consider using 'var' instead of this.
 varAsTypeOf :: String -> Expr -> Expr
 varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
   where
