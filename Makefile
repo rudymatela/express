@@ -8,7 +8,7 @@ TESTS = \
   test/fixtures \
   test/listable
 EGS =
-BENCHS =
+BENCHS = bench/tiers
 GHCIMPORTDIRS = src:test
 GHCFLAGS = -O2 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)
 HADDOCKFLAGS = --no-print-missing-docs
@@ -38,6 +38,16 @@ test-via-cabal:
 
 test-via-stack:
 	stack test
+
+diff-test: $(patsubst %,%.diff-test,$(BENCHS))
+
+update-diff-test: $(patsubst %,%.update-diff-test,$(BENCHS))
+
+%.diff-test: %
+	./$< | diff -rud tests/model/$<.out -
+
+%.update-diff-test: %
+	./$< >           tests/model/$<.out
 
 test-via-everything: test test-via-cabal test-via-stack
 

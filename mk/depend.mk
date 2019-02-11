@@ -1,3 +1,16 @@
+bench/tiers.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Core.hs \
+  bench/tiers.hs
+bench/tiers: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  bench/tiers.hs \
+  mk/toplibs
 mk/All.o: \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress.hs \
