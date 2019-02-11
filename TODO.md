@@ -3,10 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* remove IntE0 and IntEV types?
-
-* add isGround
-
 * more tests in test/listable (including using isGround)
 
 * more tests in test/fixtures
