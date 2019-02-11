@@ -56,5 +56,5 @@ instance Listable FunE     where  tiers  =  mapT FunE
                                          \/ cons1 unFunE_III
 
 instance Listable Expr where
-  tiers  =  cons1 unIntE
+  tiers  =  reset (cons1 unIntE)
         \/  cons1 unFunE `addWeight` 1

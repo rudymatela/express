@@ -1,7 +1,6 @@
-map length (tiers :: [[ Expr ]])  =  [0,1,4,18,81,436,...]
+map length (tiers :: [[ Expr ]])  =  [1,4,16,81,437,2576,...]
 tiers :: [[ Expr ]]  =
-  [ []
-  , [_ :: Int]
+  [ [_ :: Int]
   , [ x :: Int
     , 0 :: Int
     , id _ :: Int
@@ -23,8 +22,6 @@ tiers :: [[ Expr ]]  =
     , id _ + _ :: Int
     , (_ + _) + _ :: Int
     , _ * _ :: Int
-    , id :: Int -> Int
-    , (+) :: Int -> Int -> Int
     ]
   , [ z :: Int
     , -1 :: Int
@@ -105,8 +102,8 @@ tiers :: [[ Expr ]]  =
     , 0 * _ :: Int
     , id _ * _ :: Int
     , (_ + _) * _ :: Int
-    , negate :: Int -> Int
-    , (*) :: Int -> Int -> Int
+    , id :: Int -> Int
+    , (+) :: Int -> Int -> Int
     ]
   , [ x' :: Int
     , 2 :: Int
@@ -543,6 +540,2584 @@ tiers :: [[ Expr ]]  =
     , (id _ + _) * _ :: Int
     , ((_ + _) + _) * _ :: Int
     , (_ * _) * _ :: Int
+    , negate :: Int -> Int
+    , (*) :: Int -> Int -> Int
+    ]
+  , [ -2 :: Int
+    , id x' :: Int
+    , id 2 :: Int
+    , id (id z) :: Int
+    , id (id (-1)) :: Int
+    , id (id (id y)) :: Int
+    , id (id (id 1)) :: Int
+    , id (id (id (id x))) :: Int
+    , id (id (id (id 0))) :: Int
+    , id (id (id (id (id _)))) :: Int
+    , id (id (id (id (_ + _)))) :: Int
+    , id (id (id (negate _))) :: Int
+    , id (id (id (_ + x))) :: Int
+    , id (id (id (_ + 0))) :: Int
+    , id (id (id (_ + id _))) :: Int
+    , id (id (id (_ + (_ + _)))) :: Int
+    , id (id (id (x + _))) :: Int
+    , id (id (id (0 + _))) :: Int
+    , id (id (id (id _ + _))) :: Int
+    , id (id (id ((_ + _) + _))) :: Int
+    , id (id (id (_ * _))) :: Int
+    , id (id (negate x)) :: Int
+    , id (id (negate 0)) :: Int
+    , id (id (negate (id _))) :: Int
+    , id (id (negate (_ + _))) :: Int
+    , id (id (abs _)) :: Int
+    , id (id (_ + y)) :: Int
+    , id (id (_ + 1)) :: Int
+    , id (id (_ + id x)) :: Int
+    , id (id (_ + id 0)) :: Int
+    , id (id (_ + id (id _))) :: Int
+    , id (id (_ + id (_ + _))) :: Int
+    , id (id (_ + negate _)) :: Int
+    , id (id (_ + (_ + x))) :: Int
+    , id (id (_ + (_ + 0))) :: Int
+    , id (id (_ + (_ + id _))) :: Int
+    , id (id (_ + (_ + (_ + _)))) :: Int
+    , id (id (_ + (x + _))) :: Int
+    , id (id (_ + (0 + _))) :: Int
+    , id (id (_ + (id _ + _))) :: Int
+    , id (id (_ + ((_ + _) + _))) :: Int
+    , id (id (_ + _ * _)) :: Int
+    , id (id (x + x)) :: Int
+    , id (id (x + 0)) :: Int
+    , id (id (x + id _)) :: Int
+    , id (id (x + (_ + _))) :: Int
+    , id (id (0 + x)) :: Int
+    , id (id (0 + 0)) :: Int
+    , id (id (0 + id _)) :: Int
+    , id (id (0 + (_ + _))) :: Int
+    , id (id (id _ + x)) :: Int
+    , id (id (id _ + 0)) :: Int
+    , id (id (id _ + id _)) :: Int
+    , id (id (id _ + (_ + _))) :: Int
+    , id (id ((_ + _) + x)) :: Int
+    , id (id ((_ + _) + 0)) :: Int
+    , id (id ((_ + _) + id _)) :: Int
+    , id (id ((_ + _) + (_ + _))) :: Int
+    , id (id (y + _)) :: Int
+    , id (id (1 + _)) :: Int
+    , id (id (id x + _)) :: Int
+    , id (id (id 0 + _)) :: Int
+    , id (id (id (id _) + _)) :: Int
+    , id (id (id (_ + _) + _)) :: Int
+    , id (id (negate _ + _)) :: Int
+    , id (id ((_ + x) + _)) :: Int
+    , id (id ((_ + 0) + _)) :: Int
+    , id (id ((_ + id _) + _)) :: Int
+    , id (id ((_ + (_ + _)) + _)) :: Int
+    , id (id ((x + _) + _)) :: Int
+    , id (id ((0 + _) + _)) :: Int
+    , id (id ((id _ + _) + _)) :: Int
+    , id (id (((_ + _) + _) + _)) :: Int
+    , id (id (_ * _ + _)) :: Int
+    , id (id (_ * x)) :: Int
+    , id (id (_ * 0)) :: Int
+    , id (id (_ * id _)) :: Int
+    , id (id (_ * (_ + _))) :: Int
+    , id (id (x * _)) :: Int
+    , id (id (0 * _)) :: Int
+    , id (id (id _ * _)) :: Int
+    , id (id ((_ + _) * _)) :: Int
+    , id (negate y) :: Int
+    , id (negate 1) :: Int
+    , id (negate (id x)) :: Int
+    , id (negate (id 0)) :: Int
+    , id (negate (id (id _))) :: Int
+    , id (negate (id (_ + _))) :: Int
+    , id (negate (negate _)) :: Int
+    , id (negate (_ + x)) :: Int
+    , id (negate (_ + 0)) :: Int
+    , id (negate (_ + id _)) :: Int
+    , id (negate (_ + (_ + _))) :: Int
+    , id (negate (x + _)) :: Int
+    , id (negate (0 + _)) :: Int
+    , id (negate (id _ + _)) :: Int
+    , id (negate ((_ + _) + _)) :: Int
+    , id (negate (_ * _)) :: Int
+    , id (abs x) :: Int
+    , id (abs 0) :: Int
+    , id (abs (id _)) :: Int
+    , id (abs (_ + _)) :: Int
+    , id (_ + z) :: Int
+    , id (_ + (-1)) :: Int
+    , id (_ + id y) :: Int
+    , id (_ + id 1) :: Int
+    , id (_ + id (id x)) :: Int
+    , id (_ + id (id 0)) :: Int
+    , id (_ + id (id (id _))) :: Int
+    , id (_ + id (id (_ + _))) :: Int
+    , id (_ + id (negate _)) :: Int
+    , id (_ + id (_ + x)) :: Int
+    , id (_ + id (_ + 0)) :: Int
+    , id (_ + id (_ + id _)) :: Int
+    , id (_ + id (_ + (_ + _))) :: Int
+    , id (_ + id (x + _)) :: Int
+    , id (_ + id (0 + _)) :: Int
+    , id (_ + id (id _ + _)) :: Int
+    , id (_ + id ((_ + _) + _)) :: Int
+    , id (_ + id (_ * _)) :: Int
+    , id (_ + negate x) :: Int
+    , id (_ + negate 0) :: Int
+    , id (_ + negate (id _)) :: Int
+    , id (_ + negate (_ + _)) :: Int
+    , id (_ + abs _) :: Int
+    , id (_ + (_ + y)) :: Int
+    , id (_ + (_ + 1)) :: Int
+    , id (_ + (_ + id x)) :: Int
+    , id (_ + (_ + id 0)) :: Int
+    , id (_ + (_ + id (id _))) :: Int
+    , id (_ + (_ + id (_ + _))) :: Int
+    , id (_ + (_ + negate _)) :: Int
+    , id (_ + (_ + (_ + x))) :: Int
+    , id (_ + (_ + (_ + 0))) :: Int
+    , id (_ + (_ + (_ + id _))) :: Int
+    , id (_ + (_ + (_ + (_ + _)))) :: Int
+    , id (_ + (_ + (x + _))) :: Int
+    , id (_ + (_ + (0 + _))) :: Int
+    , id (_ + (_ + (id _ + _))) :: Int
+    , id (_ + (_ + ((_ + _) + _))) :: Int
+    , id (_ + (_ + _ * _)) :: Int
+    , id (_ + (x + x)) :: Int
+    , id (_ + (x + 0)) :: Int
+    , id (_ + (x + id _)) :: Int
+    , id (_ + (x + (_ + _))) :: Int
+    , id (_ + (0 + x)) :: Int
+    , id (_ + (0 + 0)) :: Int
+    , id (_ + (0 + id _)) :: Int
+    , id (_ + (0 + (_ + _))) :: Int
+    , id (_ + (id _ + x)) :: Int
+    , id (_ + (id _ + 0)) :: Int
+    , id (_ + (id _ + id _)) :: Int
+    , id (_ + (id _ + (_ + _))) :: Int
+    , id (_ + ((_ + _) + x)) :: Int
+    , id (_ + ((_ + _) + 0)) :: Int
+    , id (_ + ((_ + _) + id _)) :: Int
+    , id (_ + ((_ + _) + (_ + _))) :: Int
+    , id (_ + (y + _)) :: Int
+    , id (_ + (1 + _)) :: Int
+    , id (_ + (id x + _)) :: Int
+    , id (_ + (id 0 + _)) :: Int
+    , id (_ + (id (id _) + _)) :: Int
+    , id (_ + (id (_ + _) + _)) :: Int
+    , id (_ + (negate _ + _)) :: Int
+    , id (_ + ((_ + x) + _)) :: Int
+    , id (_ + ((_ + 0) + _)) :: Int
+    , id (_ + ((_ + id _) + _)) :: Int
+    , id (_ + ((_ + (_ + _)) + _)) :: Int
+    , id (_ + ((x + _) + _)) :: Int
+    , id (_ + ((0 + _) + _)) :: Int
+    , id (_ + ((id _ + _) + _)) :: Int
+    , id (_ + (((_ + _) + _) + _)) :: Int
+    , id (_ + (_ * _ + _)) :: Int
+    , id (_ + _ * x) :: Int
+    , id (_ + _ * 0) :: Int
+    , id (_ + _ * id _) :: Int
+    , id (_ + _ * (_ + _)) :: Int
+    , id (_ + x * _) :: Int
+    , id (_ + 0 * _) :: Int
+    , id (_ + id _ * _) :: Int
+    , id (_ + (_ + _) * _) :: Int
+    , id (x + y) :: Int
+    , id (x + 1) :: Int
+    , id (x + id x) :: Int
+    , id (x + id 0) :: Int
+    , id (x + id (id _)) :: Int
+    , id (x + id (_ + _)) :: Int
+    , id (x + negate _) :: Int
+    , id (x + (_ + x)) :: Int
+    , id (x + (_ + 0)) :: Int
+    , id (x + (_ + id _)) :: Int
+    , id (x + (_ + (_ + _))) :: Int
+    , id (x + (x + _)) :: Int
+    , id (x + (0 + _)) :: Int
+    , id (x + (id _ + _)) :: Int
+    , id (x + ((_ + _) + _)) :: Int
+    , id (x + _ * _) :: Int
+    , id (0 + y) :: Int
+    , id (0 + 1) :: Int
+    , id (0 + id x) :: Int
+    , id (0 + id 0) :: Int
+    , id (0 + id (id _)) :: Int
+    , id (0 + id (_ + _)) :: Int
+    , id (0 + negate _) :: Int
+    , id (0 + (_ + x)) :: Int
+    , id (0 + (_ + 0)) :: Int
+    , id (0 + (_ + id _)) :: Int
+    , id (0 + (_ + (_ + _))) :: Int
+    , id (0 + (x + _)) :: Int
+    , id (0 + (0 + _)) :: Int
+    , id (0 + (id _ + _)) :: Int
+    , id (0 + ((_ + _) + _)) :: Int
+    , id (0 + _ * _) :: Int
+    , id (id _ + y) :: Int
+    , id (id _ + 1) :: Int
+    , id (id _ + id x) :: Int
+    , id (id _ + id 0) :: Int
+    , id (id _ + id (id _)) :: Int
+    , id (id _ + id (_ + _)) :: Int
+    , id (id _ + negate _) :: Int
+    , id (id _ + (_ + x)) :: Int
+    , id (id _ + (_ + 0)) :: Int
+    , id (id _ + (_ + id _)) :: Int
+    , id (id _ + (_ + (_ + _))) :: Int
+    , id (id _ + (x + _)) :: Int
+    , id (id _ + (0 + _)) :: Int
+    , id (id _ + (id _ + _)) :: Int
+    , id (id _ + ((_ + _) + _)) :: Int
+    , id (id _ + _ * _) :: Int
+    , id ((_ + _) + y) :: Int
+    , id ((_ + _) + 1) :: Int
+    , id ((_ + _) + id x) :: Int
+    , id ((_ + _) + id 0) :: Int
+    , id ((_ + _) + id (id _)) :: Int
+    , id ((_ + _) + id (_ + _)) :: Int
+    , id ((_ + _) + negate _) :: Int
+    , id ((_ + _) + (_ + x)) :: Int
+    , id ((_ + _) + (_ + 0)) :: Int
+    , id ((_ + _) + (_ + id _)) :: Int
+    , id ((_ + _) + (_ + (_ + _))) :: Int
+    , id ((_ + _) + (x + _)) :: Int
+    , id ((_ + _) + (0 + _)) :: Int
+    , id ((_ + _) + (id _ + _)) :: Int
+    , id ((_ + _) + ((_ + _) + _)) :: Int
+    , id ((_ + _) + _ * _) :: Int
+    , id (y + x) :: Int
+    , id (y + 0) :: Int
+    , id (y + id _) :: Int
+    , id (y + (_ + _)) :: Int
+    , id (1 + x) :: Int
+    , id (1 + 0) :: Int
+    , id (1 + id _) :: Int
+    , id (1 + (_ + _)) :: Int
+    , id (id x + x) :: Int
+    , id (id x + 0) :: Int
+    , id (id x + id _) :: Int
+    , id (id x + (_ + _)) :: Int
+    , id (id 0 + x) :: Int
+    , id (id 0 + 0) :: Int
+    , id (id 0 + id _) :: Int
+    , id (id 0 + (_ + _)) :: Int
+    , id (id (id _) + x) :: Int
+    , id (id (id _) + 0) :: Int
+    , id (id (id _) + id _) :: Int
+    , id (id (id _) + (_ + _)) :: Int
+    , id (id (_ + _) + x) :: Int
+    , id (id (_ + _) + 0) :: Int
+    , id (id (_ + _) + id _) :: Int
+    , id (id (_ + _) + (_ + _)) :: Int
+    , id (negate _ + x) :: Int
+    , id (negate _ + 0) :: Int
+    , id (negate _ + id _) :: Int
+    , id (negate _ + (_ + _)) :: Int
+    , id ((_ + x) + x) :: Int
+    , id ((_ + x) + 0) :: Int
+    , id ((_ + x) + id _) :: Int
+    , id ((_ + x) + (_ + _)) :: Int
+    , id ((_ + 0) + x) :: Int
+    , id ((_ + 0) + 0) :: Int
+    , id ((_ + 0) + id _) :: Int
+    , id ((_ + 0) + (_ + _)) :: Int
+    , id ((_ + id _) + x) :: Int
+    , id ((_ + id _) + 0) :: Int
+    , id ((_ + id _) + id _) :: Int
+    , id ((_ + id _) + (_ + _)) :: Int
+    , id ((_ + (_ + _)) + x) :: Int
+    , id ((_ + (_ + _)) + 0) :: Int
+    , id ((_ + (_ + _)) + id _) :: Int
+    , id ((_ + (_ + _)) + (_ + _)) :: Int
+    , id ((x + _) + x) :: Int
+    , id ((x + _) + 0) :: Int
+    , id ((x + _) + id _) :: Int
+    , id ((x + _) + (_ + _)) :: Int
+    , id ((0 + _) + x) :: Int
+    , id ((0 + _) + 0) :: Int
+    , id ((0 + _) + id _) :: Int
+    , id ((0 + _) + (_ + _)) :: Int
+    , id ((id _ + _) + x) :: Int
+    , id ((id _ + _) + 0) :: Int
+    , id ((id _ + _) + id _) :: Int
+    , id ((id _ + _) + (_ + _)) :: Int
+    , id (((_ + _) + _) + x) :: Int
+    , id (((_ + _) + _) + 0) :: Int
+    , id (((_ + _) + _) + id _) :: Int
+    , id (((_ + _) + _) + (_ + _)) :: Int
+    , id (_ * _ + x) :: Int
+    , id (_ * _ + 0) :: Int
+    , id (_ * _ + id _) :: Int
+    , id (_ * _ + (_ + _)) :: Int
+    , id (z + _) :: Int
+    , id ((-1) + _) :: Int
+    , id (id y + _) :: Int
+    , id (id 1 + _) :: Int
+    , id (id (id x) + _) :: Int
+    , id (id (id 0) + _) :: Int
+    , id (id (id (id _)) + _) :: Int
+    , id (id (id (_ + _)) + _) :: Int
+    , id (id (negate _) + _) :: Int
+    , id (id (_ + x) + _) :: Int
+    , id (id (_ + 0) + _) :: Int
+    , id (id (_ + id _) + _) :: Int
+    , id (id (_ + (_ + _)) + _) :: Int
+    , id (id (x + _) + _) :: Int
+    , id (id (0 + _) + _) :: Int
+    , id (id (id _ + _) + _) :: Int
+    , id (id ((_ + _) + _) + _) :: Int
+    , id (id (_ * _) + _) :: Int
+    , id (negate x + _) :: Int
+    , id (negate 0 + _) :: Int
+    , id (negate (id _) + _) :: Int
+    , id (negate (_ + _) + _) :: Int
+    , id (abs _ + _) :: Int
+    , id ((_ + y) + _) :: Int
+    , id ((_ + 1) + _) :: Int
+    , id ((_ + id x) + _) :: Int
+    , id ((_ + id 0) + _) :: Int
+    , id ((_ + id (id _)) + _) :: Int
+    , id ((_ + id (_ + _)) + _) :: Int
+    , id ((_ + negate _) + _) :: Int
+    , id ((_ + (_ + x)) + _) :: Int
+    , id ((_ + (_ + 0)) + _) :: Int
+    , id ((_ + (_ + id _)) + _) :: Int
+    , id ((_ + (_ + (_ + _))) + _) :: Int
+    , id ((_ + (x + _)) + _) :: Int
+    , id ((_ + (0 + _)) + _) :: Int
+    , id ((_ + (id _ + _)) + _) :: Int
+    , id ((_ + ((_ + _) + _)) + _) :: Int
+    , id ((_ + _ * _) + _) :: Int
+    , id ((x + x) + _) :: Int
+    , id ((x + 0) + _) :: Int
+    , id ((x + id _) + _) :: Int
+    , id ((x + (_ + _)) + _) :: Int
+    , id ((0 + x) + _) :: Int
+    , id ((0 + 0) + _) :: Int
+    , id ((0 + id _) + _) :: Int
+    , id ((0 + (_ + _)) + _) :: Int
+    , id ((id _ + x) + _) :: Int
+    , id ((id _ + 0) + _) :: Int
+    , id ((id _ + id _) + _) :: Int
+    , id ((id _ + (_ + _)) + _) :: Int
+    , id (((_ + _) + x) + _) :: Int
+    , id (((_ + _) + 0) + _) :: Int
+    , id (((_ + _) + id _) + _) :: Int
+    , id (((_ + _) + (_ + _)) + _) :: Int
+    , id ((y + _) + _) :: Int
+    , id ((1 + _) + _) :: Int
+    , id ((id x + _) + _) :: Int
+    , id ((id 0 + _) + _) :: Int
+    , id ((id (id _) + _) + _) :: Int
+    , id ((id (_ + _) + _) + _) :: Int
+    , id ((negate _ + _) + _) :: Int
+    , id (((_ + x) + _) + _) :: Int
+    , id (((_ + 0) + _) + _) :: Int
+    , id (((_ + id _) + _) + _) :: Int
+    , id (((_ + (_ + _)) + _) + _) :: Int
+    , id (((x + _) + _) + _) :: Int
+    , id (((0 + _) + _) + _) :: Int
+    , id (((id _ + _) + _) + _) :: Int
+    , id ((((_ + _) + _) + _) + _) :: Int
+    , id ((_ * _ + _) + _) :: Int
+    , id (_ * x + _) :: Int
+    , id (_ * 0 + _) :: Int
+    , id (_ * id _ + _) :: Int
+    , id (_ * (_ + _) + _) :: Int
+    , id (x * _ + _) :: Int
+    , id (0 * _ + _) :: Int
+    , id (id _ * _ + _) :: Int
+    , id ((_ + _) * _ + _) :: Int
+    , id (_ * y) :: Int
+    , id (_ * 1) :: Int
+    , id (_ * id x) :: Int
+    , id (_ * id 0) :: Int
+    , id (_ * id (id _)) :: Int
+    , id (_ * id (_ + _)) :: Int
+    , id (_ * negate _) :: Int
+    , id (_ * (_ + x)) :: Int
+    , id (_ * (_ + 0)) :: Int
+    , id (_ * (_ + id _)) :: Int
+    , id (_ * (_ + (_ + _))) :: Int
+    , id (_ * (x + _)) :: Int
+    , id (_ * (0 + _)) :: Int
+    , id (_ * (id _ + _)) :: Int
+    , id (_ * ((_ + _) + _)) :: Int
+    , id (_ * (_ * _)) :: Int
+    , id (x * x) :: Int
+    , id (x * 0) :: Int
+    , id (x * id _) :: Int
+    , id (x * (_ + _)) :: Int
+    , id (0 * x) :: Int
+    , id (0 * 0) :: Int
+    , id (0 * id _) :: Int
+    , id (0 * (_ + _)) :: Int
+    , id (id _ * x) :: Int
+    , id (id _ * 0) :: Int
+    , id (id _ * id _) :: Int
+    , id (id _ * (_ + _)) :: Int
+    , id ((_ + _) * x) :: Int
+    , id ((_ + _) * 0) :: Int
+    , id ((_ + _) * id _) :: Int
+    , id ((_ + _) * (_ + _)) :: Int
+    , id (y * _) :: Int
+    , id (1 * _) :: Int
+    , id (id x * _) :: Int
+    , id (id 0 * _) :: Int
+    , id (id (id _) * _) :: Int
+    , id (id (_ + _) * _) :: Int
+    , id (negate _ * _) :: Int
+    , id ((_ + x) * _) :: Int
+    , id ((_ + 0) * _) :: Int
+    , id ((_ + id _) * _) :: Int
+    , id ((_ + (_ + _)) * _) :: Int
+    , id ((x + _) * _) :: Int
+    , id ((0 + _) * _) :: Int
+    , id ((id _ + _) * _) :: Int
+    , id (((_ + _) + _) * _) :: Int
+    , id ((_ * _) * _) :: Int
+    , negate z :: Int
+    , negate (-1) :: Int
+    , negate (id y) :: Int
+    , negate (id 1) :: Int
+    , negate (id (id x)) :: Int
+    , negate (id (id 0)) :: Int
+    , negate (id (id (id _))) :: Int
+    , negate (id (id (_ + _))) :: Int
+    , negate (id (negate _)) :: Int
+    , negate (id (_ + x)) :: Int
+    , negate (id (_ + 0)) :: Int
+    , negate (id (_ + id _)) :: Int
+    , negate (id (_ + (_ + _))) :: Int
+    , negate (id (x + _)) :: Int
+    , negate (id (0 + _)) :: Int
+    , negate (id (id _ + _)) :: Int
+    , negate (id ((_ + _) + _)) :: Int
+    , negate (id (_ * _)) :: Int
+    , negate (negate x) :: Int
+    , negate (negate 0) :: Int
+    , negate (negate (id _)) :: Int
+    , negate (negate (_ + _)) :: Int
+    , negate (abs _) :: Int
+    , negate (_ + y) :: Int
+    , negate (_ + 1) :: Int
+    , negate (_ + id x) :: Int
+    , negate (_ + id 0) :: Int
+    , negate (_ + id (id _)) :: Int
+    , negate (_ + id (_ + _)) :: Int
+    , negate (_ + negate _) :: Int
+    , negate (_ + (_ + x)) :: Int
+    , negate (_ + (_ + 0)) :: Int
+    , negate (_ + (_ + id _)) :: Int
+    , negate (_ + (_ + (_ + _))) :: Int
+    , negate (_ + (x + _)) :: Int
+    , negate (_ + (0 + _)) :: Int
+    , negate (_ + (id _ + _)) :: Int
+    , negate (_ + ((_ + _) + _)) :: Int
+    , negate (_ + _ * _) :: Int
+    , negate (x + x) :: Int
+    , negate (x + 0) :: Int
+    , negate (x + id _) :: Int
+    , negate (x + (_ + _)) :: Int
+    , negate (0 + x) :: Int
+    , negate (0 + 0) :: Int
+    , negate (0 + id _) :: Int
+    , negate (0 + (_ + _)) :: Int
+    , negate (id _ + x) :: Int
+    , negate (id _ + 0) :: Int
+    , negate (id _ + id _) :: Int
+    , negate (id _ + (_ + _)) :: Int
+    , negate ((_ + _) + x) :: Int
+    , negate ((_ + _) + 0) :: Int
+    , negate ((_ + _) + id _) :: Int
+    , negate ((_ + _) + (_ + _)) :: Int
+    , negate (y + _) :: Int
+    , negate (1 + _) :: Int
+    , negate (id x + _) :: Int
+    , negate (id 0 + _) :: Int
+    , negate (id (id _) + _) :: Int
+    , negate (id (_ + _) + _) :: Int
+    , negate (negate _ + _) :: Int
+    , negate ((_ + x) + _) :: Int
+    , negate ((_ + 0) + _) :: Int
+    , negate ((_ + id _) + _) :: Int
+    , negate ((_ + (_ + _)) + _) :: Int
+    , negate ((x + _) + _) :: Int
+    , negate ((0 + _) + _) :: Int
+    , negate ((id _ + _) + _) :: Int
+    , negate (((_ + _) + _) + _) :: Int
+    , negate (_ * _ + _) :: Int
+    , negate (_ * x) :: Int
+    , negate (_ * 0) :: Int
+    , negate (_ * id _) :: Int
+    , negate (_ * (_ + _)) :: Int
+    , negate (x * _) :: Int
+    , negate (0 * _) :: Int
+    , negate (id _ * _) :: Int
+    , negate ((_ + _) * _) :: Int
+    , abs y :: Int
+    , abs 1 :: Int
+    , abs (id x) :: Int
+    , abs (id 0) :: Int
+    , abs (id (id _)) :: Int
+    , abs (id (_ + _)) :: Int
+    , abs (negate _) :: Int
+    , abs (_ + x) :: Int
+    , abs (_ + 0) :: Int
+    , abs (_ + id _) :: Int
+    , abs (_ + (_ + _)) :: Int
+    , abs (x + _) :: Int
+    , abs (0 + _) :: Int
+    , abs (id _ + _) :: Int
+    , abs ((_ + _) + _) :: Int
+    , abs (_ * _) :: Int
+    , _ + x' :: Int
+    , _ + 2 :: Int
+    , _ + id z :: Int
+    , _ + id (-1) :: Int
+    , _ + id (id y) :: Int
+    , _ + id (id 1) :: Int
+    , _ + id (id (id x)) :: Int
+    , _ + id (id (id 0)) :: Int
+    , _ + id (id (id (id _))) :: Int
+    , _ + id (id (id (_ + _))) :: Int
+    , _ + id (id (negate _)) :: Int
+    , _ + id (id (_ + x)) :: Int
+    , _ + id (id (_ + 0)) :: Int
+    , _ + id (id (_ + id _)) :: Int
+    , _ + id (id (_ + (_ + _))) :: Int
+    , _ + id (id (x + _)) :: Int
+    , _ + id (id (0 + _)) :: Int
+    , _ + id (id (id _ + _)) :: Int
+    , _ + id (id ((_ + _) + _)) :: Int
+    , _ + id (id (_ * _)) :: Int
+    , _ + id (negate x) :: Int
+    , _ + id (negate 0) :: Int
+    , _ + id (negate (id _)) :: Int
+    , _ + id (negate (_ + _)) :: Int
+    , _ + id (abs _) :: Int
+    , _ + id (_ + y) :: Int
+    , _ + id (_ + 1) :: Int
+    , _ + id (_ + id x) :: Int
+    , _ + id (_ + id 0) :: Int
+    , _ + id (_ + id (id _)) :: Int
+    , _ + id (_ + id (_ + _)) :: Int
+    , _ + id (_ + negate _) :: Int
+    , _ + id (_ + (_ + x)) :: Int
+    , _ + id (_ + (_ + 0)) :: Int
+    , _ + id (_ + (_ + id _)) :: Int
+    , _ + id (_ + (_ + (_ + _))) :: Int
+    , _ + id (_ + (x + _)) :: Int
+    , _ + id (_ + (0 + _)) :: Int
+    , _ + id (_ + (id _ + _)) :: Int
+    , _ + id (_ + ((_ + _) + _)) :: Int
+    , _ + id (_ + _ * _) :: Int
+    , _ + id (x + x) :: Int
+    , _ + id (x + 0) :: Int
+    , _ + id (x + id _) :: Int
+    , _ + id (x + (_ + _)) :: Int
+    , _ + id (0 + x) :: Int
+    , _ + id (0 + 0) :: Int
+    , _ + id (0 + id _) :: Int
+    , _ + id (0 + (_ + _)) :: Int
+    , _ + id (id _ + x) :: Int
+    , _ + id (id _ + 0) :: Int
+    , _ + id (id _ + id _) :: Int
+    , _ + id (id _ + (_ + _)) :: Int
+    , _ + id ((_ + _) + x) :: Int
+    , _ + id ((_ + _) + 0) :: Int
+    , _ + id ((_ + _) + id _) :: Int
+    , _ + id ((_ + _) + (_ + _)) :: Int
+    , _ + id (y + _) :: Int
+    , _ + id (1 + _) :: Int
+    , _ + id (id x + _) :: Int
+    , _ + id (id 0 + _) :: Int
+    , _ + id (id (id _) + _) :: Int
+    , _ + id (id (_ + _) + _) :: Int
+    , _ + id (negate _ + _) :: Int
+    , _ + id ((_ + x) + _) :: Int
+    , _ + id ((_ + 0) + _) :: Int
+    , _ + id ((_ + id _) + _) :: Int
+    , _ + id ((_ + (_ + _)) + _) :: Int
+    , _ + id ((x + _) + _) :: Int
+    , _ + id ((0 + _) + _) :: Int
+    , _ + id ((id _ + _) + _) :: Int
+    , _ + id (((_ + _) + _) + _) :: Int
+    , _ + id (_ * _ + _) :: Int
+    , _ + id (_ * x) :: Int
+    , _ + id (_ * 0) :: Int
+    , _ + id (_ * id _) :: Int
+    , _ + id (_ * (_ + _)) :: Int
+    , _ + id (x * _) :: Int
+    , _ + id (0 * _) :: Int
+    , _ + id (id _ * _) :: Int
+    , _ + id ((_ + _) * _) :: Int
+    , _ + negate y :: Int
+    , _ + negate 1 :: Int
+    , _ + negate (id x) :: Int
+    , _ + negate (id 0) :: Int
+    , _ + negate (id (id _)) :: Int
+    , _ + negate (id (_ + _)) :: Int
+    , _ + negate (negate _) :: Int
+    , _ + negate (_ + x) :: Int
+    , _ + negate (_ + 0) :: Int
+    , _ + negate (_ + id _) :: Int
+    , _ + negate (_ + (_ + _)) :: Int
+    , _ + negate (x + _) :: Int
+    , _ + negate (0 + _) :: Int
+    , _ + negate (id _ + _) :: Int
+    , _ + negate ((_ + _) + _) :: Int
+    , _ + negate (_ * _) :: Int
+    , _ + abs x :: Int
+    , _ + abs 0 :: Int
+    , _ + abs (id _) :: Int
+    , _ + abs (_ + _) :: Int
+    , _ + (_ + z) :: Int
+    , _ + (_ + (-1)) :: Int
+    , _ + (_ + id y) :: Int
+    , _ + (_ + id 1) :: Int
+    , _ + (_ + id (id x)) :: Int
+    , _ + (_ + id (id 0)) :: Int
+    , _ + (_ + id (id (id _))) :: Int
+    , _ + (_ + id (id (_ + _))) :: Int
+    , _ + (_ + id (negate _)) :: Int
+    , _ + (_ + id (_ + x)) :: Int
+    , _ + (_ + id (_ + 0)) :: Int
+    , _ + (_ + id (_ + id _)) :: Int
+    , _ + (_ + id (_ + (_ + _))) :: Int
+    , _ + (_ + id (x + _)) :: Int
+    , _ + (_ + id (0 + _)) :: Int
+    , _ + (_ + id (id _ + _)) :: Int
+    , _ + (_ + id ((_ + _) + _)) :: Int
+    , _ + (_ + id (_ * _)) :: Int
+    , _ + (_ + negate x) :: Int
+    , _ + (_ + negate 0) :: Int
+    , _ + (_ + negate (id _)) :: Int
+    , _ + (_ + negate (_ + _)) :: Int
+    , _ + (_ + abs _) :: Int
+    , _ + (_ + (_ + y)) :: Int
+    , _ + (_ + (_ + 1)) :: Int
+    , _ + (_ + (_ + id x)) :: Int
+    , _ + (_ + (_ + id 0)) :: Int
+    , _ + (_ + (_ + id (id _))) :: Int
+    , _ + (_ + (_ + id (_ + _))) :: Int
+    , _ + (_ + (_ + negate _)) :: Int
+    , _ + (_ + (_ + (_ + x))) :: Int
+    , _ + (_ + (_ + (_ + 0))) :: Int
+    , _ + (_ + (_ + (_ + id _))) :: Int
+    , _ + (_ + (_ + (_ + (_ + _)))) :: Int
+    , _ + (_ + (_ + (x + _))) :: Int
+    , _ + (_ + (_ + (0 + _))) :: Int
+    , _ + (_ + (_ + (id _ + _))) :: Int
+    , _ + (_ + (_ + ((_ + _) + _))) :: Int
+    , _ + (_ + (_ + _ * _)) :: Int
+    , _ + (_ + (x + x)) :: Int
+    , _ + (_ + (x + 0)) :: Int
+    , _ + (_ + (x + id _)) :: Int
+    , _ + (_ + (x + (_ + _))) :: Int
+    , _ + (_ + (0 + x)) :: Int
+    , _ + (_ + (0 + 0)) :: Int
+    , _ + (_ + (0 + id _)) :: Int
+    , _ + (_ + (0 + (_ + _))) :: Int
+    , _ + (_ + (id _ + x)) :: Int
+    , _ + (_ + (id _ + 0)) :: Int
+    , _ + (_ + (id _ + id _)) :: Int
+    , _ + (_ + (id _ + (_ + _))) :: Int
+    , _ + (_ + ((_ + _) + x)) :: Int
+    , _ + (_ + ((_ + _) + 0)) :: Int
+    , _ + (_ + ((_ + _) + id _)) :: Int
+    , _ + (_ + ((_ + _) + (_ + _))) :: Int
+    , _ + (_ + (y + _)) :: Int
+    , _ + (_ + (1 + _)) :: Int
+    , _ + (_ + (id x + _)) :: Int
+    , _ + (_ + (id 0 + _)) :: Int
+    , _ + (_ + (id (id _) + _)) :: Int
+    , _ + (_ + (id (_ + _) + _)) :: Int
+    , _ + (_ + (negate _ + _)) :: Int
+    , _ + (_ + ((_ + x) + _)) :: Int
+    , _ + (_ + ((_ + 0) + _)) :: Int
+    , _ + (_ + ((_ + id _) + _)) :: Int
+    , _ + (_ + ((_ + (_ + _)) + _)) :: Int
+    , _ + (_ + ((x + _) + _)) :: Int
+    , _ + (_ + ((0 + _) + _)) :: Int
+    , _ + (_ + ((id _ + _) + _)) :: Int
+    , _ + (_ + (((_ + _) + _) + _)) :: Int
+    , _ + (_ + (_ * _ + _)) :: Int
+    , _ + (_ + _ * x) :: Int
+    , _ + (_ + _ * 0) :: Int
+    , _ + (_ + _ * id _) :: Int
+    , _ + (_ + _ * (_ + _)) :: Int
+    , _ + (_ + x * _) :: Int
+    , _ + (_ + 0 * _) :: Int
+    , _ + (_ + id _ * _) :: Int
+    , _ + (_ + (_ + _) * _) :: Int
+    , _ + (x + y) :: Int
+    , _ + (x + 1) :: Int
+    , _ + (x + id x) :: Int
+    , _ + (x + id 0) :: Int
+    , _ + (x + id (id _)) :: Int
+    , _ + (x + id (_ + _)) :: Int
+    , _ + (x + negate _) :: Int
+    , _ + (x + (_ + x)) :: Int
+    , _ + (x + (_ + 0)) :: Int
+    , _ + (x + (_ + id _)) :: Int
+    , _ + (x + (_ + (_ + _))) :: Int
+    , _ + (x + (x + _)) :: Int
+    , _ + (x + (0 + _)) :: Int
+    , _ + (x + (id _ + _)) :: Int
+    , _ + (x + ((_ + _) + _)) :: Int
+    , _ + (x + _ * _) :: Int
+    , _ + (0 + y) :: Int
+    , _ + (0 + 1) :: Int
+    , _ + (0 + id x) :: Int
+    , _ + (0 + id 0) :: Int
+    , _ + (0 + id (id _)) :: Int
+    , _ + (0 + id (_ + _)) :: Int
+    , _ + (0 + negate _) :: Int
+    , _ + (0 + (_ + x)) :: Int
+    , _ + (0 + (_ + 0)) :: Int
+    , _ + (0 + (_ + id _)) :: Int
+    , _ + (0 + (_ + (_ + _))) :: Int
+    , _ + (0 + (x + _)) :: Int
+    , _ + (0 + (0 + _)) :: Int
+    , _ + (0 + (id _ + _)) :: Int
+    , _ + (0 + ((_ + _) + _)) :: Int
+    , _ + (0 + _ * _) :: Int
+    , _ + (id _ + y) :: Int
+    , _ + (id _ + 1) :: Int
+    , _ + (id _ + id x) :: Int
+    , _ + (id _ + id 0) :: Int
+    , _ + (id _ + id (id _)) :: Int
+    , _ + (id _ + id (_ + _)) :: Int
+    , _ + (id _ + negate _) :: Int
+    , _ + (id _ + (_ + x)) :: Int
+    , _ + (id _ + (_ + 0)) :: Int
+    , _ + (id _ + (_ + id _)) :: Int
+    , _ + (id _ + (_ + (_ + _))) :: Int
+    , _ + (id _ + (x + _)) :: Int
+    , _ + (id _ + (0 + _)) :: Int
+    , _ + (id _ + (id _ + _)) :: Int
+    , _ + (id _ + ((_ + _) + _)) :: Int
+    , _ + (id _ + _ * _) :: Int
+    , _ + ((_ + _) + y) :: Int
+    , _ + ((_ + _) + 1) :: Int
+    , _ + ((_ + _) + id x) :: Int
+    , _ + ((_ + _) + id 0) :: Int
+    , _ + ((_ + _) + id (id _)) :: Int
+    , _ + ((_ + _) + id (_ + _)) :: Int
+    , _ + ((_ + _) + negate _) :: Int
+    , _ + ((_ + _) + (_ + x)) :: Int
+    , _ + ((_ + _) + (_ + 0)) :: Int
+    , _ + ((_ + _) + (_ + id _)) :: Int
+    , _ + ((_ + _) + (_ + (_ + _))) :: Int
+    , _ + ((_ + _) + (x + _)) :: Int
+    , _ + ((_ + _) + (0 + _)) :: Int
+    , _ + ((_ + _) + (id _ + _)) :: Int
+    , _ + ((_ + _) + ((_ + _) + _)) :: Int
+    , _ + ((_ + _) + _ * _) :: Int
+    , _ + (y + x) :: Int
+    , _ + (y + 0) :: Int
+    , _ + (y + id _) :: Int
+    , _ + (y + (_ + _)) :: Int
+    , _ + (1 + x) :: Int
+    , _ + (1 + 0) :: Int
+    , _ + (1 + id _) :: Int
+    , _ + (1 + (_ + _)) :: Int
+    , _ + (id x + x) :: Int
+    , _ + (id x + 0) :: Int
+    , _ + (id x + id _) :: Int
+    , _ + (id x + (_ + _)) :: Int
+    , _ + (id 0 + x) :: Int
+    , _ + (id 0 + 0) :: Int
+    , _ + (id 0 + id _) :: Int
+    , _ + (id 0 + (_ + _)) :: Int
+    , _ + (id (id _) + x) :: Int
+    , _ + (id (id _) + 0) :: Int
+    , _ + (id (id _) + id _) :: Int
+    , _ + (id (id _) + (_ + _)) :: Int
+    , _ + (id (_ + _) + x) :: Int
+    , _ + (id (_ + _) + 0) :: Int
+    , _ + (id (_ + _) + id _) :: Int
+    , _ + (id (_ + _) + (_ + _)) :: Int
+    , _ + (negate _ + x) :: Int
+    , _ + (negate _ + 0) :: Int
+    , _ + (negate _ + id _) :: Int
+    , _ + (negate _ + (_ + _)) :: Int
+    , _ + ((_ + x) + x) :: Int
+    , _ + ((_ + x) + 0) :: Int
+    , _ + ((_ + x) + id _) :: Int
+    , _ + ((_ + x) + (_ + _)) :: Int
+    , _ + ((_ + 0) + x) :: Int
+    , _ + ((_ + 0) + 0) :: Int
+    , _ + ((_ + 0) + id _) :: Int
+    , _ + ((_ + 0) + (_ + _)) :: Int
+    , _ + ((_ + id _) + x) :: Int
+    , _ + ((_ + id _) + 0) :: Int
+    , _ + ((_ + id _) + id _) :: Int
+    , _ + ((_ + id _) + (_ + _)) :: Int
+    , _ + ((_ + (_ + _)) + x) :: Int
+    , _ + ((_ + (_ + _)) + 0) :: Int
+    , _ + ((_ + (_ + _)) + id _) :: Int
+    , _ + ((_ + (_ + _)) + (_ + _)) :: Int
+    , _ + ((x + _) + x) :: Int
+    , _ + ((x + _) + 0) :: Int
+    , _ + ((x + _) + id _) :: Int
+    , _ + ((x + _) + (_ + _)) :: Int
+    , _ + ((0 + _) + x) :: Int
+    , _ + ((0 + _) + 0) :: Int
+    , _ + ((0 + _) + id _) :: Int
+    , _ + ((0 + _) + (_ + _)) :: Int
+    , _ + ((id _ + _) + x) :: Int
+    , _ + ((id _ + _) + 0) :: Int
+    , _ + ((id _ + _) + id _) :: Int
+    , _ + ((id _ + _) + (_ + _)) :: Int
+    , _ + (((_ + _) + _) + x) :: Int
+    , _ + (((_ + _) + _) + 0) :: Int
+    , _ + (((_ + _) + _) + id _) :: Int
+    , _ + (((_ + _) + _) + (_ + _)) :: Int
+    , _ + (_ * _ + x) :: Int
+    , _ + (_ * _ + 0) :: Int
+    , _ + (_ * _ + id _) :: Int
+    , _ + (_ * _ + (_ + _)) :: Int
+    , _ + (z + _) :: Int
+    , _ + ((-1) + _) :: Int
+    , _ + (id y + _) :: Int
+    , _ + (id 1 + _) :: Int
+    , _ + (id (id x) + _) :: Int
+    , _ + (id (id 0) + _) :: Int
+    , _ + (id (id (id _)) + _) :: Int
+    , _ + (id (id (_ + _)) + _) :: Int
+    , _ + (id (negate _) + _) :: Int
+    , _ + (id (_ + x) + _) :: Int
+    , _ + (id (_ + 0) + _) :: Int
+    , _ + (id (_ + id _) + _) :: Int
+    , _ + (id (_ + (_ + _)) + _) :: Int
+    , _ + (id (x + _) + _) :: Int
+    , _ + (id (0 + _) + _) :: Int
+    , _ + (id (id _ + _) + _) :: Int
+    , _ + (id ((_ + _) + _) + _) :: Int
+    , _ + (id (_ * _) + _) :: Int
+    , _ + (negate x + _) :: Int
+    , _ + (negate 0 + _) :: Int
+    , _ + (negate (id _) + _) :: Int
+    , _ + (negate (_ + _) + _) :: Int
+    , _ + (abs _ + _) :: Int
+    , _ + ((_ + y) + _) :: Int
+    , _ + ((_ + 1) + _) :: Int
+    , _ + ((_ + id x) + _) :: Int
+    , _ + ((_ + id 0) + _) :: Int
+    , _ + ((_ + id (id _)) + _) :: Int
+    , _ + ((_ + id (_ + _)) + _) :: Int
+    , _ + ((_ + negate _) + _) :: Int
+    , _ + ((_ + (_ + x)) + _) :: Int
+    , _ + ((_ + (_ + 0)) + _) :: Int
+    , _ + ((_ + (_ + id _)) + _) :: Int
+    , _ + ((_ + (_ + (_ + _))) + _) :: Int
+    , _ + ((_ + (x + _)) + _) :: Int
+    , _ + ((_ + (0 + _)) + _) :: Int
+    , _ + ((_ + (id _ + _)) + _) :: Int
+    , _ + ((_ + ((_ + _) + _)) + _) :: Int
+    , _ + ((_ + _ * _) + _) :: Int
+    , _ + ((x + x) + _) :: Int
+    , _ + ((x + 0) + _) :: Int
+    , _ + ((x + id _) + _) :: Int
+    , _ + ((x + (_ + _)) + _) :: Int
+    , _ + ((0 + x) + _) :: Int
+    , _ + ((0 + 0) + _) :: Int
+    , _ + ((0 + id _) + _) :: Int
+    , _ + ((0 + (_ + _)) + _) :: Int
+    , _ + ((id _ + x) + _) :: Int
+    , _ + ((id _ + 0) + _) :: Int
+    , _ + ((id _ + id _) + _) :: Int
+    , _ + ((id _ + (_ + _)) + _) :: Int
+    , _ + (((_ + _) + x) + _) :: Int
+    , _ + (((_ + _) + 0) + _) :: Int
+    , _ + (((_ + _) + id _) + _) :: Int
+    , _ + (((_ + _) + (_ + _)) + _) :: Int
+    , _ + ((y + _) + _) :: Int
+    , _ + ((1 + _) + _) :: Int
+    , _ + ((id x + _) + _) :: Int
+    , _ + ((id 0 + _) + _) :: Int
+    , _ + ((id (id _) + _) + _) :: Int
+    , _ + ((id (_ + _) + _) + _) :: Int
+    , _ + ((negate _ + _) + _) :: Int
+    , _ + (((_ + x) + _) + _) :: Int
+    , _ + (((_ + 0) + _) + _) :: Int
+    , _ + (((_ + id _) + _) + _) :: Int
+    , _ + (((_ + (_ + _)) + _) + _) :: Int
+    , _ + (((x + _) + _) + _) :: Int
+    , _ + (((0 + _) + _) + _) :: Int
+    , _ + (((id _ + _) + _) + _) :: Int
+    , _ + ((((_ + _) + _) + _) + _) :: Int
+    , _ + ((_ * _ + _) + _) :: Int
+    , _ + (_ * x + _) :: Int
+    , _ + (_ * 0 + _) :: Int
+    , _ + (_ * id _ + _) :: Int
+    , _ + (_ * (_ + _) + _) :: Int
+    , _ + (x * _ + _) :: Int
+    , _ + (0 * _ + _) :: Int
+    , _ + (id _ * _ + _) :: Int
+    , _ + ((_ + _) * _ + _) :: Int
+    , _ + _ * y :: Int
+    , _ + _ * 1 :: Int
+    , _ + _ * id x :: Int
+    , _ + _ * id 0 :: Int
+    , _ + _ * id (id _) :: Int
+    , _ + _ * id (_ + _) :: Int
+    , _ + _ * negate _ :: Int
+    , _ + _ * (_ + x) :: Int
+    , _ + _ * (_ + 0) :: Int
+    , _ + _ * (_ + id _) :: Int
+    , _ + _ * (_ + (_ + _)) :: Int
+    , _ + _ * (x + _) :: Int
+    , _ + _ * (0 + _) :: Int
+    , _ + _ * (id _ + _) :: Int
+    , _ + _ * ((_ + _) + _) :: Int
+    , _ + _ * (_ * _) :: Int
+    , _ + x * x :: Int
+    , _ + x * 0 :: Int
+    , _ + x * id _ :: Int
+    , _ + x * (_ + _) :: Int
+    , _ + 0 * x :: Int
+    , _ + 0 * 0 :: Int
+    , _ + 0 * id _ :: Int
+    , _ + 0 * (_ + _) :: Int
+    , _ + id _ * x :: Int
+    , _ + id _ * 0 :: Int
+    , _ + id _ * id _ :: Int
+    , _ + id _ * (_ + _) :: Int
+    , _ + (_ + _) * x :: Int
+    , _ + (_ + _) * 0 :: Int
+    , _ + (_ + _) * id _ :: Int
+    , _ + (_ + _) * (_ + _) :: Int
+    , _ + y * _ :: Int
+    , _ + 1 * _ :: Int
+    , _ + id x * _ :: Int
+    , _ + id 0 * _ :: Int
+    , _ + id (id _) * _ :: Int
+    , _ + id (_ + _) * _ :: Int
+    , _ + negate _ * _ :: Int
+    , _ + (_ + x) * _ :: Int
+    , _ + (_ + 0) * _ :: Int
+    , _ + (_ + id _) * _ :: Int
+    , _ + (_ + (_ + _)) * _ :: Int
+    , _ + (x + _) * _ :: Int
+    , _ + (0 + _) * _ :: Int
+    , _ + (id _ + _) * _ :: Int
+    , _ + ((_ + _) + _) * _ :: Int
+    , _ + (_ * _) * _ :: Int
+    , x + z :: Int
+    , x + (-1) :: Int
+    , x + id y :: Int
+    , x + id 1 :: Int
+    , x + id (id x) :: Int
+    , x + id (id 0) :: Int
+    , x + id (id (id _)) :: Int
+    , x + id (id (_ + _)) :: Int
+    , x + id (negate _) :: Int
+    , x + id (_ + x) :: Int
+    , x + id (_ + 0) :: Int
+    , x + id (_ + id _) :: Int
+    , x + id (_ + (_ + _)) :: Int
+    , x + id (x + _) :: Int
+    , x + id (0 + _) :: Int
+    , x + id (id _ + _) :: Int
+    , x + id ((_ + _) + _) :: Int
+    , x + id (_ * _) :: Int
+    , x + negate x :: Int
+    , x + negate 0 :: Int
+    , x + negate (id _) :: Int
+    , x + negate (_ + _) :: Int
+    , x + abs _ :: Int
+    , x + (_ + y) :: Int
+    , x + (_ + 1) :: Int
+    , x + (_ + id x) :: Int
+    , x + (_ + id 0) :: Int
+    , x + (_ + id (id _)) :: Int
+    , x + (_ + id (_ + _)) :: Int
+    , x + (_ + negate _) :: Int
+    , x + (_ + (_ + x)) :: Int
+    , x + (_ + (_ + 0)) :: Int
+    , x + (_ + (_ + id _)) :: Int
+    , x + (_ + (_ + (_ + _))) :: Int
+    , x + (_ + (x + _)) :: Int
+    , x + (_ + (0 + _)) :: Int
+    , x + (_ + (id _ + _)) :: Int
+    , x + (_ + ((_ + _) + _)) :: Int
+    , x + (_ + _ * _) :: Int
+    , x + (x + x) :: Int
+    , x + (x + 0) :: Int
+    , x + (x + id _) :: Int
+    , x + (x + (_ + _)) :: Int
+    , x + (0 + x) :: Int
+    , x + (0 + 0) :: Int
+    , x + (0 + id _) :: Int
+    , x + (0 + (_ + _)) :: Int
+    , x + (id _ + x) :: Int
+    , x + (id _ + 0) :: Int
+    , x + (id _ + id _) :: Int
+    , x + (id _ + (_ + _)) :: Int
+    , x + ((_ + _) + x) :: Int
+    , x + ((_ + _) + 0) :: Int
+    , x + ((_ + _) + id _) :: Int
+    , x + ((_ + _) + (_ + _)) :: Int
+    , x + (y + _) :: Int
+    , x + (1 + _) :: Int
+    , x + (id x + _) :: Int
+    , x + (id 0 + _) :: Int
+    , x + (id (id _) + _) :: Int
+    , x + (id (_ + _) + _) :: Int
+    , x + (negate _ + _) :: Int
+    , x + ((_ + x) + _) :: Int
+    , x + ((_ + 0) + _) :: Int
+    , x + ((_ + id _) + _) :: Int
+    , x + ((_ + (_ + _)) + _) :: Int
+    , x + ((x + _) + _) :: Int
+    , x + ((0 + _) + _) :: Int
+    , x + ((id _ + _) + _) :: Int
+    , x + (((_ + _) + _) + _) :: Int
+    , x + (_ * _ + _) :: Int
+    , x + _ * x :: Int
+    , x + _ * 0 :: Int
+    , x + _ * id _ :: Int
+    , x + _ * (_ + _) :: Int
+    , x + x * _ :: Int
+    , x + 0 * _ :: Int
+    , x + id _ * _ :: Int
+    , x + (_ + _) * _ :: Int
+    , 0 + z :: Int
+    , 0 + (-1) :: Int
+    , 0 + id y :: Int
+    , 0 + id 1 :: Int
+    , 0 + id (id x) :: Int
+    , 0 + id (id 0) :: Int
+    , 0 + id (id (id _)) :: Int
+    , 0 + id (id (_ + _)) :: Int
+    , 0 + id (negate _) :: Int
+    , 0 + id (_ + x) :: Int
+    , 0 + id (_ + 0) :: Int
+    , 0 + id (_ + id _) :: Int
+    , 0 + id (_ + (_ + _)) :: Int
+    , 0 + id (x + _) :: Int
+    , 0 + id (0 + _) :: Int
+    , 0 + id (id _ + _) :: Int
+    , 0 + id ((_ + _) + _) :: Int
+    , 0 + id (_ * _) :: Int
+    , 0 + negate x :: Int
+    , 0 + negate 0 :: Int
+    , 0 + negate (id _) :: Int
+    , 0 + negate (_ + _) :: Int
+    , 0 + abs _ :: Int
+    , 0 + (_ + y) :: Int
+    , 0 + (_ + 1) :: Int
+    , 0 + (_ + id x) :: Int
+    , 0 + (_ + id 0) :: Int
+    , 0 + (_ + id (id _)) :: Int
+    , 0 + (_ + id (_ + _)) :: Int
+    , 0 + (_ + negate _) :: Int
+    , 0 + (_ + (_ + x)) :: Int
+    , 0 + (_ + (_ + 0)) :: Int
+    , 0 + (_ + (_ + id _)) :: Int
+    , 0 + (_ + (_ + (_ + _))) :: Int
+    , 0 + (_ + (x + _)) :: Int
+    , 0 + (_ + (0 + _)) :: Int
+    , 0 + (_ + (id _ + _)) :: Int
+    , 0 + (_ + ((_ + _) + _)) :: Int
+    , 0 + (_ + _ * _) :: Int
+    , 0 + (x + x) :: Int
+    , 0 + (x + 0) :: Int
+    , 0 + (x + id _) :: Int
+    , 0 + (x + (_ + _)) :: Int
+    , 0 + (0 + x) :: Int
+    , 0 + (0 + 0) :: Int
+    , 0 + (0 + id _) :: Int
+    , 0 + (0 + (_ + _)) :: Int
+    , 0 + (id _ + x) :: Int
+    , 0 + (id _ + 0) :: Int
+    , 0 + (id _ + id _) :: Int
+    , 0 + (id _ + (_ + _)) :: Int
+    , 0 + ((_ + _) + x) :: Int
+    , 0 + ((_ + _) + 0) :: Int
+    , 0 + ((_ + _) + id _) :: Int
+    , 0 + ((_ + _) + (_ + _)) :: Int
+    , 0 + (y + _) :: Int
+    , 0 + (1 + _) :: Int
+    , 0 + (id x + _) :: Int
+    , 0 + (id 0 + _) :: Int
+    , 0 + (id (id _) + _) :: Int
+    , 0 + (id (_ + _) + _) :: Int
+    , 0 + (negate _ + _) :: Int
+    , 0 + ((_ + x) + _) :: Int
+    , 0 + ((_ + 0) + _) :: Int
+    , 0 + ((_ + id _) + _) :: Int
+    , 0 + ((_ + (_ + _)) + _) :: Int
+    , 0 + ((x + _) + _) :: Int
+    , 0 + ((0 + _) + _) :: Int
+    , 0 + ((id _ + _) + _) :: Int
+    , 0 + (((_ + _) + _) + _) :: Int
+    , 0 + (_ * _ + _) :: Int
+    , 0 + _ * x :: Int
+    , 0 + _ * 0 :: Int
+    , 0 + _ * id _ :: Int
+    , 0 + _ * (_ + _) :: Int
+    , 0 + x * _ :: Int
+    , 0 + 0 * _ :: Int
+    , 0 + id _ * _ :: Int
+    , 0 + (_ + _) * _ :: Int
+    , id _ + z :: Int
+    , id _ + (-1) :: Int
+    , id _ + id y :: Int
+    , id _ + id 1 :: Int
+    , id _ + id (id x) :: Int
+    , id _ + id (id 0) :: Int
+    , id _ + id (id (id _)) :: Int
+    , id _ + id (id (_ + _)) :: Int
+    , id _ + id (negate _) :: Int
+    , id _ + id (_ + x) :: Int
+    , id _ + id (_ + 0) :: Int
+    , id _ + id (_ + id _) :: Int
+    , id _ + id (_ + (_ + _)) :: Int
+    , id _ + id (x + _) :: Int
+    , id _ + id (0 + _) :: Int
+    , id _ + id (id _ + _) :: Int
+    , id _ + id ((_ + _) + _) :: Int
+    , id _ + id (_ * _) :: Int
+    , id _ + negate x :: Int
+    , id _ + negate 0 :: Int
+    , id _ + negate (id _) :: Int
+    , id _ + negate (_ + _) :: Int
+    , id _ + abs _ :: Int
+    , id _ + (_ + y) :: Int
+    , id _ + (_ + 1) :: Int
+    , id _ + (_ + id x) :: Int
+    , id _ + (_ + id 0) :: Int
+    , id _ + (_ + id (id _)) :: Int
+    , id _ + (_ + id (_ + _)) :: Int
+    , id _ + (_ + negate _) :: Int
+    , id _ + (_ + (_ + x)) :: Int
+    , id _ + (_ + (_ + 0)) :: Int
+    , id _ + (_ + (_ + id _)) :: Int
+    , id _ + (_ + (_ + (_ + _))) :: Int
+    , id _ + (_ + (x + _)) :: Int
+    , id _ + (_ + (0 + _)) :: Int
+    , id _ + (_ + (id _ + _)) :: Int
+    , id _ + (_ + ((_ + _) + _)) :: Int
+    , id _ + (_ + _ * _) :: Int
+    , id _ + (x + x) :: Int
+    , id _ + (x + 0) :: Int
+    , id _ + (x + id _) :: Int
+    , id _ + (x + (_ + _)) :: Int
+    , id _ + (0 + x) :: Int
+    , id _ + (0 + 0) :: Int
+    , id _ + (0 + id _) :: Int
+    , id _ + (0 + (_ + _)) :: Int
+    , id _ + (id _ + x) :: Int
+    , id _ + (id _ + 0) :: Int
+    , id _ + (id _ + id _) :: Int
+    , id _ + (id _ + (_ + _)) :: Int
+    , id _ + ((_ + _) + x) :: Int
+    , id _ + ((_ + _) + 0) :: Int
+    , id _ + ((_ + _) + id _) :: Int
+    , id _ + ((_ + _) + (_ + _)) :: Int
+    , id _ + (y + _) :: Int
+    , id _ + (1 + _) :: Int
+    , id _ + (id x + _) :: Int
+    , id _ + (id 0 + _) :: Int
+    , id _ + (id (id _) + _) :: Int
+    , id _ + (id (_ + _) + _) :: Int
+    , id _ + (negate _ + _) :: Int
+    , id _ + ((_ + x) + _) :: Int
+    , id _ + ((_ + 0) + _) :: Int
+    , id _ + ((_ + id _) + _) :: Int
+    , id _ + ((_ + (_ + _)) + _) :: Int
+    , id _ + ((x + _) + _) :: Int
+    , id _ + ((0 + _) + _) :: Int
+    , id _ + ((id _ + _) + _) :: Int
+    , id _ + (((_ + _) + _) + _) :: Int
+    , id _ + (_ * _ + _) :: Int
+    , id _ + _ * x :: Int
+    , id _ + _ * 0 :: Int
+    , id _ + _ * id _ :: Int
+    , id _ + _ * (_ + _) :: Int
+    , id _ + x * _ :: Int
+    , id _ + 0 * _ :: Int
+    , id _ + id _ * _ :: Int
+    , id _ + (_ + _) * _ :: Int
+    , (_ + _) + z :: Int
+    , (_ + _) + (-1) :: Int
+    , (_ + _) + id y :: Int
+    , (_ + _) + id 1 :: Int
+    , (_ + _) + id (id x) :: Int
+    , (_ + _) + id (id 0) :: Int
+    , (_ + _) + id (id (id _)) :: Int
+    , (_ + _) + id (id (_ + _)) :: Int
+    , (_ + _) + id (negate _) :: Int
+    , (_ + _) + id (_ + x) :: Int
+    , (_ + _) + id (_ + 0) :: Int
+    , (_ + _) + id (_ + id _) :: Int
+    , (_ + _) + id (_ + (_ + _)) :: Int
+    , (_ + _) + id (x + _) :: Int
+    , (_ + _) + id (0 + _) :: Int
+    , (_ + _) + id (id _ + _) :: Int
+    , (_ + _) + id ((_ + _) + _) :: Int
+    , (_ + _) + id (_ * _) :: Int
+    , (_ + _) + negate x :: Int
+    , (_ + _) + negate 0 :: Int
+    , (_ + _) + negate (id _) :: Int
+    , (_ + _) + negate (_ + _) :: Int
+    , (_ + _) + abs _ :: Int
+    , (_ + _) + (_ + y) :: Int
+    , (_ + _) + (_ + 1) :: Int
+    , (_ + _) + (_ + id x) :: Int
+    , (_ + _) + (_ + id 0) :: Int
+    , (_ + _) + (_ + id (id _)) :: Int
+    , (_ + _) + (_ + id (_ + _)) :: Int
+    , (_ + _) + (_ + negate _) :: Int
+    , (_ + _) + (_ + (_ + x)) :: Int
+    , (_ + _) + (_ + (_ + 0)) :: Int
+    , (_ + _) + (_ + (_ + id _)) :: Int
+    , (_ + _) + (_ + (_ + (_ + _))) :: Int
+    , (_ + _) + (_ + (x + _)) :: Int
+    , (_ + _) + (_ + (0 + _)) :: Int
+    , (_ + _) + (_ + (id _ + _)) :: Int
+    , (_ + _) + (_ + ((_ + _) + _)) :: Int
+    , (_ + _) + (_ + _ * _) :: Int
+    , (_ + _) + (x + x) :: Int
+    , (_ + _) + (x + 0) :: Int
+    , (_ + _) + (x + id _) :: Int
+    , (_ + _) + (x + (_ + _)) :: Int
+    , (_ + _) + (0 + x) :: Int
+    , (_ + _) + (0 + 0) :: Int
+    , (_ + _) + (0 + id _) :: Int
+    , (_ + _) + (0 + (_ + _)) :: Int
+    , (_ + _) + (id _ + x) :: Int
+    , (_ + _) + (id _ + 0) :: Int
+    , (_ + _) + (id _ + id _) :: Int
+    , (_ + _) + (id _ + (_ + _)) :: Int
+    , (_ + _) + ((_ + _) + x) :: Int
+    , (_ + _) + ((_ + _) + 0) :: Int
+    , (_ + _) + ((_ + _) + id _) :: Int
+    , (_ + _) + ((_ + _) + (_ + _)) :: Int
+    , (_ + _) + (y + _) :: Int
+    , (_ + _) + (1 + _) :: Int
+    , (_ + _) + (id x + _) :: Int
+    , (_ + _) + (id 0 + _) :: Int
+    , (_ + _) + (id (id _) + _) :: Int
+    , (_ + _) + (id (_ + _) + _) :: Int
+    , (_ + _) + (negate _ + _) :: Int
+    , (_ + _) + ((_ + x) + _) :: Int
+    , (_ + _) + ((_ + 0) + _) :: Int
+    , (_ + _) + ((_ + id _) + _) :: Int
+    , (_ + _) + ((_ + (_ + _)) + _) :: Int
+    , (_ + _) + ((x + _) + _) :: Int
+    , (_ + _) + ((0 + _) + _) :: Int
+    , (_ + _) + ((id _ + _) + _) :: Int
+    , (_ + _) + (((_ + _) + _) + _) :: Int
+    , (_ + _) + (_ * _ + _) :: Int
+    , (_ + _) + _ * x :: Int
+    , (_ + _) + _ * 0 :: Int
+    , (_ + _) + _ * id _ :: Int
+    , (_ + _) + _ * (_ + _) :: Int
+    , (_ + _) + x * _ :: Int
+    , (_ + _) + 0 * _ :: Int
+    , (_ + _) + id _ * _ :: Int
+    , (_ + _) + (_ + _) * _ :: Int
+    , y + y :: Int
+    , y + 1 :: Int
+    , y + id x :: Int
+    , y + id 0 :: Int
+    , y + id (id _) :: Int
+    , y + id (_ + _) :: Int
+    , y + negate _ :: Int
+    , y + (_ + x) :: Int
+    , y + (_ + 0) :: Int
+    , y + (_ + id _) :: Int
+    , y + (_ + (_ + _)) :: Int
+    , y + (x + _) :: Int
+    , y + (0 + _) :: Int
+    , y + (id _ + _) :: Int
+    , y + ((_ + _) + _) :: Int
+    , y + _ * _ :: Int
+    , 1 + y :: Int
+    , 1 + 1 :: Int
+    , 1 + id x :: Int
+    , 1 + id 0 :: Int
+    , 1 + id (id _) :: Int
+    , 1 + id (_ + _) :: Int
+    , 1 + negate _ :: Int
+    , 1 + (_ + x) :: Int
+    , 1 + (_ + 0) :: Int
+    , 1 + (_ + id _) :: Int
+    , 1 + (_ + (_ + _)) :: Int
+    , 1 + (x + _) :: Int
+    , 1 + (0 + _) :: Int
+    , 1 + (id _ + _) :: Int
+    , 1 + ((_ + _) + _) :: Int
+    , 1 + _ * _ :: Int
+    , id x + y :: Int
+    , id x + 1 :: Int
+    , id x + id x :: Int
+    , id x + id 0 :: Int
+    , id x + id (id _) :: Int
+    , id x + id (_ + _) :: Int
+    , id x + negate _ :: Int
+    , id x + (_ + x) :: Int
+    , id x + (_ + 0) :: Int
+    , id x + (_ + id _) :: Int
+    , id x + (_ + (_ + _)) :: Int
+    , id x + (x + _) :: Int
+    , id x + (0 + _) :: Int
+    , id x + (id _ + _) :: Int
+    , id x + ((_ + _) + _) :: Int
+    , id x + _ * _ :: Int
+    , id 0 + y :: Int
+    , id 0 + 1 :: Int
+    , id 0 + id x :: Int
+    , id 0 + id 0 :: Int
+    , id 0 + id (id _) :: Int
+    , id 0 + id (_ + _) :: Int
+    , id 0 + negate _ :: Int
+    , id 0 + (_ + x) :: Int
+    , id 0 + (_ + 0) :: Int
+    , id 0 + (_ + id _) :: Int
+    , id 0 + (_ + (_ + _)) :: Int
+    , id 0 + (x + _) :: Int
+    , id 0 + (0 + _) :: Int
+    , id 0 + (id _ + _) :: Int
+    , id 0 + ((_ + _) + _) :: Int
+    , id 0 + _ * _ :: Int
+    , id (id _) + y :: Int
+    , id (id _) + 1 :: Int
+    , id (id _) + id x :: Int
+    , id (id _) + id 0 :: Int
+    , id (id _) + id (id _) :: Int
+    , id (id _) + id (_ + _) :: Int
+    , id (id _) + negate _ :: Int
+    , id (id _) + (_ + x) :: Int
+    , id (id _) + (_ + 0) :: Int
+    , id (id _) + (_ + id _) :: Int
+    , id (id _) + (_ + (_ + _)) :: Int
+    , id (id _) + (x + _) :: Int
+    , id (id _) + (0 + _) :: Int
+    , id (id _) + (id _ + _) :: Int
+    , id (id _) + ((_ + _) + _) :: Int
+    , id (id _) + _ * _ :: Int
+    , id (_ + _) + y :: Int
+    , id (_ + _) + 1 :: Int
+    , id (_ + _) + id x :: Int
+    , id (_ + _) + id 0 :: Int
+    , id (_ + _) + id (id _) :: Int
+    , id (_ + _) + id (_ + _) :: Int
+    , id (_ + _) + negate _ :: Int
+    , id (_ + _) + (_ + x) :: Int
+    , id (_ + _) + (_ + 0) :: Int
+    , id (_ + _) + (_ + id _) :: Int
+    , id (_ + _) + (_ + (_ + _)) :: Int
+    , id (_ + _) + (x + _) :: Int
+    , id (_ + _) + (0 + _) :: Int
+    , id (_ + _) + (id _ + _) :: Int
+    , id (_ + _) + ((_ + _) + _) :: Int
+    , id (_ + _) + _ * _ :: Int
+    , negate _ + y :: Int
+    , negate _ + 1 :: Int
+    , negate _ + id x :: Int
+    , negate _ + id 0 :: Int
+    , negate _ + id (id _) :: Int
+    , negate _ + id (_ + _) :: Int
+    , negate _ + negate _ :: Int
+    , negate _ + (_ + x) :: Int
+    , negate _ + (_ + 0) :: Int
+    , negate _ + (_ + id _) :: Int
+    , negate _ + (_ + (_ + _)) :: Int
+    , negate _ + (x + _) :: Int
+    , negate _ + (0 + _) :: Int
+    , negate _ + (id _ + _) :: Int
+    , negate _ + ((_ + _) + _) :: Int
+    , negate _ + _ * _ :: Int
+    , (_ + x) + y :: Int
+    , (_ + x) + 1 :: Int
+    , (_ + x) + id x :: Int
+    , (_ + x) + id 0 :: Int
+    , (_ + x) + id (id _) :: Int
+    , (_ + x) + id (_ + _) :: Int
+    , (_ + x) + negate _ :: Int
+    , (_ + x) + (_ + x) :: Int
+    , (_ + x) + (_ + 0) :: Int
+    , (_ + x) + (_ + id _) :: Int
+    , (_ + x) + (_ + (_ + _)) :: Int
+    , (_ + x) + (x + _) :: Int
+    , (_ + x) + (0 + _) :: Int
+    , (_ + x) + (id _ + _) :: Int
+    , (_ + x) + ((_ + _) + _) :: Int
+    , (_ + x) + _ * _ :: Int
+    , (_ + 0) + y :: Int
+    , (_ + 0) + 1 :: Int
+    , (_ + 0) + id x :: Int
+    , (_ + 0) + id 0 :: Int
+    , (_ + 0) + id (id _) :: Int
+    , (_ + 0) + id (_ + _) :: Int
+    , (_ + 0) + negate _ :: Int
+    , (_ + 0) + (_ + x) :: Int
+    , (_ + 0) + (_ + 0) :: Int
+    , (_ + 0) + (_ + id _) :: Int
+    , (_ + 0) + (_ + (_ + _)) :: Int
+    , (_ + 0) + (x + _) :: Int
+    , (_ + 0) + (0 + _) :: Int
+    , (_ + 0) + (id _ + _) :: Int
+    , (_ + 0) + ((_ + _) + _) :: Int
+    , (_ + 0) + _ * _ :: Int
+    , (_ + id _) + y :: Int
+    , (_ + id _) + 1 :: Int
+    , (_ + id _) + id x :: Int
+    , (_ + id _) + id 0 :: Int
+    , (_ + id _) + id (id _) :: Int
+    , (_ + id _) + id (_ + _) :: Int
+    , (_ + id _) + negate _ :: Int
+    , (_ + id _) + (_ + x) :: Int
+    , (_ + id _) + (_ + 0) :: Int
+    , (_ + id _) + (_ + id _) :: Int
+    , (_ + id _) + (_ + (_ + _)) :: Int
+    , (_ + id _) + (x + _) :: Int
+    , (_ + id _) + (0 + _) :: Int
+    , (_ + id _) + (id _ + _) :: Int
+    , (_ + id _) + ((_ + _) + _) :: Int
+    , (_ + id _) + _ * _ :: Int
+    , (_ + (_ + _)) + y :: Int
+    , (_ + (_ + _)) + 1 :: Int
+    , (_ + (_ + _)) + id x :: Int
+    , (_ + (_ + _)) + id 0 :: Int
+    , (_ + (_ + _)) + id (id _) :: Int
+    , (_ + (_ + _)) + id (_ + _) :: Int
+    , (_ + (_ + _)) + negate _ :: Int
+    , (_ + (_ + _)) + (_ + x) :: Int
+    , (_ + (_ + _)) + (_ + 0) :: Int
+    , (_ + (_ + _)) + (_ + id _) :: Int
+    , (_ + (_ + _)) + (_ + (_ + _)) :: Int
+    , (_ + (_ + _)) + (x + _) :: Int
+    , (_ + (_ + _)) + (0 + _) :: Int
+    , (_ + (_ + _)) + (id _ + _) :: Int
+    , (_ + (_ + _)) + ((_ + _) + _) :: Int
+    , (_ + (_ + _)) + _ * _ :: Int
+    , (x + _) + y :: Int
+    , (x + _) + 1 :: Int
+    , (x + _) + id x :: Int
+    , (x + _) + id 0 :: Int
+    , (x + _) + id (id _) :: Int
+    , (x + _) + id (_ + _) :: Int
+    , (x + _) + negate _ :: Int
+    , (x + _) + (_ + x) :: Int
+    , (x + _) + (_ + 0) :: Int
+    , (x + _) + (_ + id _) :: Int
+    , (x + _) + (_ + (_ + _)) :: Int
+    , (x + _) + (x + _) :: Int
+    , (x + _) + (0 + _) :: Int
+    , (x + _) + (id _ + _) :: Int
+    , (x + _) + ((_ + _) + _) :: Int
+    , (x + _) + _ * _ :: Int
+    , (0 + _) + y :: Int
+    , (0 + _) + 1 :: Int
+    , (0 + _) + id x :: Int
+    , (0 + _) + id 0 :: Int
+    , (0 + _) + id (id _) :: Int
+    , (0 + _) + id (_ + _) :: Int
+    , (0 + _) + negate _ :: Int
+    , (0 + _) + (_ + x) :: Int
+    , (0 + _) + (_ + 0) :: Int
+    , (0 + _) + (_ + id _) :: Int
+    , (0 + _) + (_ + (_ + _)) :: Int
+    , (0 + _) + (x + _) :: Int
+    , (0 + _) + (0 + _) :: Int
+    , (0 + _) + (id _ + _) :: Int
+    , (0 + _) + ((_ + _) + _) :: Int
+    , (0 + _) + _ * _ :: Int
+    , (id _ + _) + y :: Int
+    , (id _ + _) + 1 :: Int
+    , (id _ + _) + id x :: Int
+    , (id _ + _) + id 0 :: Int
+    , (id _ + _) + id (id _) :: Int
+    , (id _ + _) + id (_ + _) :: Int
+    , (id _ + _) + negate _ :: Int
+    , (id _ + _) + (_ + x) :: Int
+    , (id _ + _) + (_ + 0) :: Int
+    , (id _ + _) + (_ + id _) :: Int
+    , (id _ + _) + (_ + (_ + _)) :: Int
+    , (id _ + _) + (x + _) :: Int
+    , (id _ + _) + (0 + _) :: Int
+    , (id _ + _) + (id _ + _) :: Int
+    , (id _ + _) + ((_ + _) + _) :: Int
+    , (id _ + _) + _ * _ :: Int
+    , ((_ + _) + _) + y :: Int
+    , ((_ + _) + _) + 1 :: Int
+    , ((_ + _) + _) + id x :: Int
+    , ((_ + _) + _) + id 0 :: Int
+    , ((_ + _) + _) + id (id _) :: Int
+    , ((_ + _) + _) + id (_ + _) :: Int
+    , ((_ + _) + _) + negate _ :: Int
+    , ((_ + _) + _) + (_ + x) :: Int
+    , ((_ + _) + _) + (_ + 0) :: Int
+    , ((_ + _) + _) + (_ + id _) :: Int
+    , ((_ + _) + _) + (_ + (_ + _)) :: Int
+    , ((_ + _) + _) + (x + _) :: Int
+    , ((_ + _) + _) + (0 + _) :: Int
+    , ((_ + _) + _) + (id _ + _) :: Int
+    , ((_ + _) + _) + ((_ + _) + _) :: Int
+    , ((_ + _) + _) + _ * _ :: Int
+    , _ * _ + y :: Int
+    , _ * _ + 1 :: Int
+    , _ * _ + id x :: Int
+    , _ * _ + id 0 :: Int
+    , _ * _ + id (id _) :: Int
+    , _ * _ + id (_ + _) :: Int
+    , _ * _ + negate _ :: Int
+    , _ * _ + (_ + x) :: Int
+    , _ * _ + (_ + 0) :: Int
+    , _ * _ + (_ + id _) :: Int
+    , _ * _ + (_ + (_ + _)) :: Int
+    , _ * _ + (x + _) :: Int
+    , _ * _ + (0 + _) :: Int
+    , _ * _ + (id _ + _) :: Int
+    , _ * _ + ((_ + _) + _) :: Int
+    , _ * _ + _ * _ :: Int
+    , z + x :: Int
+    , z + 0 :: Int
+    , z + id _ :: Int
+    , z + (_ + _) :: Int
+    , (-1) + x :: Int
+    , (-1) + 0 :: Int
+    , (-1) + id _ :: Int
+    , (-1) + (_ + _) :: Int
+    , id y + x :: Int
+    , id y + 0 :: Int
+    , id y + id _ :: Int
+    , id y + (_ + _) :: Int
+    , id 1 + x :: Int
+    , id 1 + 0 :: Int
+    , id 1 + id _ :: Int
+    , id 1 + (_ + _) :: Int
+    , id (id x) + x :: Int
+    , id (id x) + 0 :: Int
+    , id (id x) + id _ :: Int
+    , id (id x) + (_ + _) :: Int
+    , id (id 0) + x :: Int
+    , id (id 0) + 0 :: Int
+    , id (id 0) + id _ :: Int
+    , id (id 0) + (_ + _) :: Int
+    , id (id (id _)) + x :: Int
+    , id (id (id _)) + 0 :: Int
+    , id (id (id _)) + id _ :: Int
+    , id (id (id _)) + (_ + _) :: Int
+    , id (id (_ + _)) + x :: Int
+    , id (id (_ + _)) + 0 :: Int
+    , id (id (_ + _)) + id _ :: Int
+    , id (id (_ + _)) + (_ + _) :: Int
+    , id (negate _) + x :: Int
+    , id (negate _) + 0 :: Int
+    , id (negate _) + id _ :: Int
+    , id (negate _) + (_ + _) :: Int
+    , id (_ + x) + x :: Int
+    , id (_ + x) + 0 :: Int
+    , id (_ + x) + id _ :: Int
+    , id (_ + x) + (_ + _) :: Int
+    , id (_ + 0) + x :: Int
+    , id (_ + 0) + 0 :: Int
+    , id (_ + 0) + id _ :: Int
+    , id (_ + 0) + (_ + _) :: Int
+    , id (_ + id _) + x :: Int
+    , id (_ + id _) + 0 :: Int
+    , id (_ + id _) + id _ :: Int
+    , id (_ + id _) + (_ + _) :: Int
+    , id (_ + (_ + _)) + x :: Int
+    , id (_ + (_ + _)) + 0 :: Int
+    , id (_ + (_ + _)) + id _ :: Int
+    , id (_ + (_ + _)) + (_ + _) :: Int
+    , id (x + _) + x :: Int
+    , id (x + _) + 0 :: Int
+    , id (x + _) + id _ :: Int
+    , id (x + _) + (_ + _) :: Int
+    , id (0 + _) + x :: Int
+    , id (0 + _) + 0 :: Int
+    , id (0 + _) + id _ :: Int
+    , id (0 + _) + (_ + _) :: Int
+    , id (id _ + _) + x :: Int
+    , id (id _ + _) + 0 :: Int
+    , id (id _ + _) + id _ :: Int
+    , id (id _ + _) + (_ + _) :: Int
+    , id ((_ + _) + _) + x :: Int
+    , id ((_ + _) + _) + 0 :: Int
+    , id ((_ + _) + _) + id _ :: Int
+    , id ((_ + _) + _) + (_ + _) :: Int
+    , id (_ * _) + x :: Int
+    , id (_ * _) + 0 :: Int
+    , id (_ * _) + id _ :: Int
+    , id (_ * _) + (_ + _) :: Int
+    , negate x + x :: Int
+    , negate x + 0 :: Int
+    , negate x + id _ :: Int
+    , negate x + (_ + _) :: Int
+    , negate 0 + x :: Int
+    , negate 0 + 0 :: Int
+    , negate 0 + id _ :: Int
+    , negate 0 + (_ + _) :: Int
+    , negate (id _) + x :: Int
+    , negate (id _) + 0 :: Int
+    , negate (id _) + id _ :: Int
+    , negate (id _) + (_ + _) :: Int
+    , negate (_ + _) + x :: Int
+    , negate (_ + _) + 0 :: Int
+    , negate (_ + _) + id _ :: Int
+    , negate (_ + _) + (_ + _) :: Int
+    , abs _ + x :: Int
+    , abs _ + 0 :: Int
+    , abs _ + id _ :: Int
+    , abs _ + (_ + _) :: Int
+    , (_ + y) + x :: Int
+    , (_ + y) + 0 :: Int
+    , (_ + y) + id _ :: Int
+    , (_ + y) + (_ + _) :: Int
+    , (_ + 1) + x :: Int
+    , (_ + 1) + 0 :: Int
+    , (_ + 1) + id _ :: Int
+    , (_ + 1) + (_ + _) :: Int
+    , (_ + id x) + x :: Int
+    , (_ + id x) + 0 :: Int
+    , (_ + id x) + id _ :: Int
+    , (_ + id x) + (_ + _) :: Int
+    , (_ + id 0) + x :: Int
+    , (_ + id 0) + 0 :: Int
+    , (_ + id 0) + id _ :: Int
+    , (_ + id 0) + (_ + _) :: Int
+    , (_ + id (id _)) + x :: Int
+    , (_ + id (id _)) + 0 :: Int
+    , (_ + id (id _)) + id _ :: Int
+    , (_ + id (id _)) + (_ + _) :: Int
+    , (_ + id (_ + _)) + x :: Int
+    , (_ + id (_ + _)) + 0 :: Int
+    , (_ + id (_ + _)) + id _ :: Int
+    , (_ + id (_ + _)) + (_ + _) :: Int
+    , (_ + negate _) + x :: Int
+    , (_ + negate _) + 0 :: Int
+    , (_ + negate _) + id _ :: Int
+    , (_ + negate _) + (_ + _) :: Int
+    , (_ + (_ + x)) + x :: Int
+    , (_ + (_ + x)) + 0 :: Int
+    , (_ + (_ + x)) + id _ :: Int
+    , (_ + (_ + x)) + (_ + _) :: Int
+    , (_ + (_ + 0)) + x :: Int
+    , (_ + (_ + 0)) + 0 :: Int
+    , (_ + (_ + 0)) + id _ :: Int
+    , (_ + (_ + 0)) + (_ + _) :: Int
+    , (_ + (_ + id _)) + x :: Int
+    , (_ + (_ + id _)) + 0 :: Int
+    , (_ + (_ + id _)) + id _ :: Int
+    , (_ + (_ + id _)) + (_ + _) :: Int
+    , (_ + (_ + (_ + _))) + x :: Int
+    , (_ + (_ + (_ + _))) + 0 :: Int
+    , (_ + (_ + (_ + _))) + id _ :: Int
+    , (_ + (_ + (_ + _))) + (_ + _) :: Int
+    , (_ + (x + _)) + x :: Int
+    , (_ + (x + _)) + 0 :: Int
+    , (_ + (x + _)) + id _ :: Int
+    , (_ + (x + _)) + (_ + _) :: Int
+    , (_ + (0 + _)) + x :: Int
+    , (_ + (0 + _)) + 0 :: Int
+    , (_ + (0 + _)) + id _ :: Int
+    , (_ + (0 + _)) + (_ + _) :: Int
+    , (_ + (id _ + _)) + x :: Int
+    , (_ + (id _ + _)) + 0 :: Int
+    , (_ + (id _ + _)) + id _ :: Int
+    , (_ + (id _ + _)) + (_ + _) :: Int
+    , (_ + ((_ + _) + _)) + x :: Int
+    , (_ + ((_ + _) + _)) + 0 :: Int
+    , (_ + ((_ + _) + _)) + id _ :: Int
+    , (_ + ((_ + _) + _)) + (_ + _) :: Int
+    , (_ + _ * _) + x :: Int
+    , (_ + _ * _) + 0 :: Int
+    , (_ + _ * _) + id _ :: Int
+    , (_ + _ * _) + (_ + _) :: Int
+    , (x + x) + x :: Int
+    , (x + x) + 0 :: Int
+    , (x + x) + id _ :: Int
+    , (x + x) + (_ + _) :: Int
+    , (x + 0) + x :: Int
+    , (x + 0) + 0 :: Int
+    , (x + 0) + id _ :: Int
+    , (x + 0) + (_ + _) :: Int
+    , (x + id _) + x :: Int
+    , (x + id _) + 0 :: Int
+    , (x + id _) + id _ :: Int
+    , (x + id _) + (_ + _) :: Int
+    , (x + (_ + _)) + x :: Int
+    , (x + (_ + _)) + 0 :: Int
+    , (x + (_ + _)) + id _ :: Int
+    , (x + (_ + _)) + (_ + _) :: Int
+    , (0 + x) + x :: Int
+    , (0 + x) + 0 :: Int
+    , (0 + x) + id _ :: Int
+    , (0 + x) + (_ + _) :: Int
+    , (0 + 0) + x :: Int
+    , (0 + 0) + 0 :: Int
+    , (0 + 0) + id _ :: Int
+    , (0 + 0) + (_ + _) :: Int
+    , (0 + id _) + x :: Int
+    , (0 + id _) + 0 :: Int
+    , (0 + id _) + id _ :: Int
+    , (0 + id _) + (_ + _) :: Int
+    , (0 + (_ + _)) + x :: Int
+    , (0 + (_ + _)) + 0 :: Int
+    , (0 + (_ + _)) + id _ :: Int
+    , (0 + (_ + _)) + (_ + _) :: Int
+    , (id _ + x) + x :: Int
+    , (id _ + x) + 0 :: Int
+    , (id _ + x) + id _ :: Int
+    , (id _ + x) + (_ + _) :: Int
+    , (id _ + 0) + x :: Int
+    , (id _ + 0) + 0 :: Int
+    , (id _ + 0) + id _ :: Int
+    , (id _ + 0) + (_ + _) :: Int
+    , (id _ + id _) + x :: Int
+    , (id _ + id _) + 0 :: Int
+    , (id _ + id _) + id _ :: Int
+    , (id _ + id _) + (_ + _) :: Int
+    , (id _ + (_ + _)) + x :: Int
+    , (id _ + (_ + _)) + 0 :: Int
+    , (id _ + (_ + _)) + id _ :: Int
+    , (id _ + (_ + _)) + (_ + _) :: Int
+    , ((_ + _) + x) + x :: Int
+    , ((_ + _) + x) + 0 :: Int
+    , ((_ + _) + x) + id _ :: Int
+    , ((_ + _) + x) + (_ + _) :: Int
+    , ((_ + _) + 0) + x :: Int
+    , ((_ + _) + 0) + 0 :: Int
+    , ((_ + _) + 0) + id _ :: Int
+    , ((_ + _) + 0) + (_ + _) :: Int
+    , ((_ + _) + id _) + x :: Int
+    , ((_ + _) + id _) + 0 :: Int
+    , ((_ + _) + id _) + id _ :: Int
+    , ((_ + _) + id _) + (_ + _) :: Int
+    , ((_ + _) + (_ + _)) + x :: Int
+    , ((_ + _) + (_ + _)) + 0 :: Int
+    , ((_ + _) + (_ + _)) + id _ :: Int
+    , ((_ + _) + (_ + _)) + (_ + _) :: Int
+    , (y + _) + x :: Int
+    , (y + _) + 0 :: Int
+    , (y + _) + id _ :: Int
+    , (y + _) + (_ + _) :: Int
+    , (1 + _) + x :: Int
+    , (1 + _) + 0 :: Int
+    , (1 + _) + id _ :: Int
+    , (1 + _) + (_ + _) :: Int
+    , (id x + _) + x :: Int
+    , (id x + _) + 0 :: Int
+    , (id x + _) + id _ :: Int
+    , (id x + _) + (_ + _) :: Int
+    , (id 0 + _) + x :: Int
+    , (id 0 + _) + 0 :: Int
+    , (id 0 + _) + id _ :: Int
+    , (id 0 + _) + (_ + _) :: Int
+    , (id (id _) + _) + x :: Int
+    , (id (id _) + _) + 0 :: Int
+    , (id (id _) + _) + id _ :: Int
+    , (id (id _) + _) + (_ + _) :: Int
+    , (id (_ + _) + _) + x :: Int
+    , (id (_ + _) + _) + 0 :: Int
+    , (id (_ + _) + _) + id _ :: Int
+    , (id (_ + _) + _) + (_ + _) :: Int
+    , (negate _ + _) + x :: Int
+    , (negate _ + _) + 0 :: Int
+    , (negate _ + _) + id _ :: Int
+    , (negate _ + _) + (_ + _) :: Int
+    , ((_ + x) + _) + x :: Int
+    , ((_ + x) + _) + 0 :: Int
+    , ((_ + x) + _) + id _ :: Int
+    , ((_ + x) + _) + (_ + _) :: Int
+    , ((_ + 0) + _) + x :: Int
+    , ((_ + 0) + _) + 0 :: Int
+    , ((_ + 0) + _) + id _ :: Int
+    , ((_ + 0) + _) + (_ + _) :: Int
+    , ((_ + id _) + _) + x :: Int
+    , ((_ + id _) + _) + 0 :: Int
+    , ((_ + id _) + _) + id _ :: Int
+    , ((_ + id _) + _) + (_ + _) :: Int
+    , ((_ + (_ + _)) + _) + x :: Int
+    , ((_ + (_ + _)) + _) + 0 :: Int
+    , ((_ + (_ + _)) + _) + id _ :: Int
+    , ((_ + (_ + _)) + _) + (_ + _) :: Int
+    , ((x + _) + _) + x :: Int
+    , ((x + _) + _) + 0 :: Int
+    , ((x + _) + _) + id _ :: Int
+    , ((x + _) + _) + (_ + _) :: Int
+    , ((0 + _) + _) + x :: Int
+    , ((0 + _) + _) + 0 :: Int
+    , ((0 + _) + _) + id _ :: Int
+    , ((0 + _) + _) + (_ + _) :: Int
+    , ((id _ + _) + _) + x :: Int
+    , ((id _ + _) + _) + 0 :: Int
+    , ((id _ + _) + _) + id _ :: Int
+    , ((id _ + _) + _) + (_ + _) :: Int
+    , (((_ + _) + _) + _) + x :: Int
+    , (((_ + _) + _) + _) + 0 :: Int
+    , (((_ + _) + _) + _) + id _ :: Int
+    , (((_ + _) + _) + _) + (_ + _) :: Int
+    , (_ * _ + _) + x :: Int
+    , (_ * _ + _) + 0 :: Int
+    , (_ * _ + _) + id _ :: Int
+    , (_ * _ + _) + (_ + _) :: Int
+    , _ * x + x :: Int
+    , _ * x + 0 :: Int
+    , _ * x + id _ :: Int
+    , _ * x + (_ + _) :: Int
+    , _ * 0 + x :: Int
+    , _ * 0 + 0 :: Int
+    , _ * 0 + id _ :: Int
+    , _ * 0 + (_ + _) :: Int
+    , _ * id _ + x :: Int
+    , _ * id _ + 0 :: Int
+    , _ * id _ + id _ :: Int
+    , _ * id _ + (_ + _) :: Int
+    , _ * (_ + _) + x :: Int
+    , _ * (_ + _) + 0 :: Int
+    , _ * (_ + _) + id _ :: Int
+    , _ * (_ + _) + (_ + _) :: Int
+    , x * _ + x :: Int
+    , x * _ + 0 :: Int
+    , x * _ + id _ :: Int
+    , x * _ + (_ + _) :: Int
+    , 0 * _ + x :: Int
+    , 0 * _ + 0 :: Int
+    , 0 * _ + id _ :: Int
+    , 0 * _ + (_ + _) :: Int
+    , id _ * _ + x :: Int
+    , id _ * _ + 0 :: Int
+    , id _ * _ + id _ :: Int
+    , id _ * _ + (_ + _) :: Int
+    , (_ + _) * _ + x :: Int
+    , (_ + _) * _ + 0 :: Int
+    , (_ + _) * _ + id _ :: Int
+    , (_ + _) * _ + (_ + _) :: Int
+    , x' + _ :: Int
+    , 2 + _ :: Int
+    , id z + _ :: Int
+    , id (-1) + _ :: Int
+    , id (id y) + _ :: Int
+    , id (id 1) + _ :: Int
+    , id (id (id x)) + _ :: Int
+    , id (id (id 0)) + _ :: Int
+    , id (id (id (id _))) + _ :: Int
+    , id (id (id (_ + _))) + _ :: Int
+    , id (id (negate _)) + _ :: Int
+    , id (id (_ + x)) + _ :: Int
+    , id (id (_ + 0)) + _ :: Int
+    , id (id (_ + id _)) + _ :: Int
+    , id (id (_ + (_ + _))) + _ :: Int
+    , id (id (x + _)) + _ :: Int
+    , id (id (0 + _)) + _ :: Int
+    , id (id (id _ + _)) + _ :: Int
+    , id (id ((_ + _) + _)) + _ :: Int
+    , id (id (_ * _)) + _ :: Int
+    , id (negate x) + _ :: Int
+    , id (negate 0) + _ :: Int
+    , id (negate (id _)) + _ :: Int
+    , id (negate (_ + _)) + _ :: Int
+    , id (abs _) + _ :: Int
+    , id (_ + y) + _ :: Int
+    , id (_ + 1) + _ :: Int
+    , id (_ + id x) + _ :: Int
+    , id (_ + id 0) + _ :: Int
+    , id (_ + id (id _)) + _ :: Int
+    , id (_ + id (_ + _)) + _ :: Int
+    , id (_ + negate _) + _ :: Int
+    , id (_ + (_ + x)) + _ :: Int
+    , id (_ + (_ + 0)) + _ :: Int
+    , id (_ + (_ + id _)) + _ :: Int
+    , id (_ + (_ + (_ + _))) + _ :: Int
+    , id (_ + (x + _)) + _ :: Int
+    , id (_ + (0 + _)) + _ :: Int
+    , id (_ + (id _ + _)) + _ :: Int
+    , id (_ + ((_ + _) + _)) + _ :: Int
+    , id (_ + _ * _) + _ :: Int
+    , id (x + x) + _ :: Int
+    , id (x + 0) + _ :: Int
+    , id (x + id _) + _ :: Int
+    , id (x + (_ + _)) + _ :: Int
+    , id (0 + x) + _ :: Int
+    , id (0 + 0) + _ :: Int
+    , id (0 + id _) + _ :: Int
+    , id (0 + (_ + _)) + _ :: Int
+    , id (id _ + x) + _ :: Int
+    , id (id _ + 0) + _ :: Int
+    , id (id _ + id _) + _ :: Int
+    , id (id _ + (_ + _)) + _ :: Int
+    , id ((_ + _) + x) + _ :: Int
+    , id ((_ + _) + 0) + _ :: Int
+    , id ((_ + _) + id _) + _ :: Int
+    , id ((_ + _) + (_ + _)) + _ :: Int
+    , id (y + _) + _ :: Int
+    , id (1 + _) + _ :: Int
+    , id (id x + _) + _ :: Int
+    , id (id 0 + _) + _ :: Int
+    , id (id (id _) + _) + _ :: Int
+    , id (id (_ + _) + _) + _ :: Int
+    , id (negate _ + _) + _ :: Int
+    , id ((_ + x) + _) + _ :: Int
+    , id ((_ + 0) + _) + _ :: Int
+    , id ((_ + id _) + _) + _ :: Int
+    , id ((_ + (_ + _)) + _) + _ :: Int
+    , id ((x + _) + _) + _ :: Int
+    , id ((0 + _) + _) + _ :: Int
+    , id ((id _ + _) + _) + _ :: Int
+    , id (((_ + _) + _) + _) + _ :: Int
+    , id (_ * _ + _) + _ :: Int
+    , id (_ * x) + _ :: Int
+    , id (_ * 0) + _ :: Int
+    , id (_ * id _) + _ :: Int
+    , id (_ * (_ + _)) + _ :: Int
+    , id (x * _) + _ :: Int
+    , id (0 * _) + _ :: Int
+    , id (id _ * _) + _ :: Int
+    , id ((_ + _) * _) + _ :: Int
+    , negate y + _ :: Int
+    , negate 1 + _ :: Int
+    , negate (id x) + _ :: Int
+    , negate (id 0) + _ :: Int
+    , negate (id (id _)) + _ :: Int
+    , negate (id (_ + _)) + _ :: Int
+    , negate (negate _) + _ :: Int
+    , negate (_ + x) + _ :: Int
+    , negate (_ + 0) + _ :: Int
+    , negate (_ + id _) + _ :: Int
+    , negate (_ + (_ + _)) + _ :: Int
+    , negate (x + _) + _ :: Int
+    , negate (0 + _) + _ :: Int
+    , negate (id _ + _) + _ :: Int
+    , negate ((_ + _) + _) + _ :: Int
+    , negate (_ * _) + _ :: Int
+    , abs x + _ :: Int
+    , abs 0 + _ :: Int
+    , abs (id _) + _ :: Int
+    , abs (_ + _) + _ :: Int
+    , (_ + z) + _ :: Int
+    , (_ + (-1)) + _ :: Int
+    , (_ + id y) + _ :: Int
+    , (_ + id 1) + _ :: Int
+    , (_ + id (id x)) + _ :: Int
+    , (_ + id (id 0)) + _ :: Int
+    , (_ + id (id (id _))) + _ :: Int
+    , (_ + id (id (_ + _))) + _ :: Int
+    , (_ + id (negate _)) + _ :: Int
+    , (_ + id (_ + x)) + _ :: Int
+    , (_ + id (_ + 0)) + _ :: Int
+    , (_ + id (_ + id _)) + _ :: Int
+    , (_ + id (_ + (_ + _))) + _ :: Int
+    , (_ + id (x + _)) + _ :: Int
+    , (_ + id (0 + _)) + _ :: Int
+    , (_ + id (id _ + _)) + _ :: Int
+    , (_ + id ((_ + _) + _)) + _ :: Int
+    , (_ + id (_ * _)) + _ :: Int
+    , (_ + negate x) + _ :: Int
+    , (_ + negate 0) + _ :: Int
+    , (_ + negate (id _)) + _ :: Int
+    , (_ + negate (_ + _)) + _ :: Int
+    , (_ + abs _) + _ :: Int
+    , (_ + (_ + y)) + _ :: Int
+    , (_ + (_ + 1)) + _ :: Int
+    , (_ + (_ + id x)) + _ :: Int
+    , (_ + (_ + id 0)) + _ :: Int
+    , (_ + (_ + id (id _))) + _ :: Int
+    , (_ + (_ + id (_ + _))) + _ :: Int
+    , (_ + (_ + negate _)) + _ :: Int
+    , (_ + (_ + (_ + x))) + _ :: Int
+    , (_ + (_ + (_ + 0))) + _ :: Int
+    , (_ + (_ + (_ + id _))) + _ :: Int
+    , (_ + (_ + (_ + (_ + _)))) + _ :: Int
+    , (_ + (_ + (x + _))) + _ :: Int
+    , (_ + (_ + (0 + _))) + _ :: Int
+    , (_ + (_ + (id _ + _))) + _ :: Int
+    , (_ + (_ + ((_ + _) + _))) + _ :: Int
+    , (_ + (_ + _ * _)) + _ :: Int
+    , (_ + (x + x)) + _ :: Int
+    , (_ + (x + 0)) + _ :: Int
+    , (_ + (x + id _)) + _ :: Int
+    , (_ + (x + (_ + _))) + _ :: Int
+    , (_ + (0 + x)) + _ :: Int
+    , (_ + (0 + 0)) + _ :: Int
+    , (_ + (0 + id _)) + _ :: Int
+    , (_ + (0 + (_ + _))) + _ :: Int
+    , (_ + (id _ + x)) + _ :: Int
+    , (_ + (id _ + 0)) + _ :: Int
+    , (_ + (id _ + id _)) + _ :: Int
+    , (_ + (id _ + (_ + _))) + _ :: Int
+    , (_ + ((_ + _) + x)) + _ :: Int
+    , (_ + ((_ + _) + 0)) + _ :: Int
+    , (_ + ((_ + _) + id _)) + _ :: Int
+    , (_ + ((_ + _) + (_ + _))) + _ :: Int
+    , (_ + (y + _)) + _ :: Int
+    , (_ + (1 + _)) + _ :: Int
+    , (_ + (id x + _)) + _ :: Int
+    , (_ + (id 0 + _)) + _ :: Int
+    , (_ + (id (id _) + _)) + _ :: Int
+    , (_ + (id (_ + _) + _)) + _ :: Int
+    , (_ + (negate _ + _)) + _ :: Int
+    , (_ + ((_ + x) + _)) + _ :: Int
+    , (_ + ((_ + 0) + _)) + _ :: Int
+    , (_ + ((_ + id _) + _)) + _ :: Int
+    , (_ + ((_ + (_ + _)) + _)) + _ :: Int
+    , (_ + ((x + _) + _)) + _ :: Int
+    , (_ + ((0 + _) + _)) + _ :: Int
+    , (_ + ((id _ + _) + _)) + _ :: Int
+    , (_ + (((_ + _) + _) + _)) + _ :: Int
+    , (_ + (_ * _ + _)) + _ :: Int
+    , (_ + _ * x) + _ :: Int
+    , (_ + _ * 0) + _ :: Int
+    , (_ + _ * id _) + _ :: Int
+    , (_ + _ * (_ + _)) + _ :: Int
+    , (_ + x * _) + _ :: Int
+    , (_ + 0 * _) + _ :: Int
+    , (_ + id _ * _) + _ :: Int
+    , (_ + (_ + _) * _) + _ :: Int
+    , (x + y) + _ :: Int
+    , (x + 1) + _ :: Int
+    , (x + id x) + _ :: Int
+    , (x + id 0) + _ :: Int
+    , (x + id (id _)) + _ :: Int
+    , (x + id (_ + _)) + _ :: Int
+    , (x + negate _) + _ :: Int
+    , (x + (_ + x)) + _ :: Int
+    , (x + (_ + 0)) + _ :: Int
+    , (x + (_ + id _)) + _ :: Int
+    , (x + (_ + (_ + _))) + _ :: Int
+    , (x + (x + _)) + _ :: Int
+    , (x + (0 + _)) + _ :: Int
+    , (x + (id _ + _)) + _ :: Int
+    , (x + ((_ + _) + _)) + _ :: Int
+    , (x + _ * _) + _ :: Int
+    , (0 + y) + _ :: Int
+    , (0 + 1) + _ :: Int
+    , (0 + id x) + _ :: Int
+    , (0 + id 0) + _ :: Int
+    , (0 + id (id _)) + _ :: Int
+    , (0 + id (_ + _)) + _ :: Int
+    , (0 + negate _) + _ :: Int
+    , (0 + (_ + x)) + _ :: Int
+    , (0 + (_ + 0)) + _ :: Int
+    , (0 + (_ + id _)) + _ :: Int
+    , (0 + (_ + (_ + _))) + _ :: Int
+    , (0 + (x + _)) + _ :: Int
+    , (0 + (0 + _)) + _ :: Int
+    , (0 + (id _ + _)) + _ :: Int
+    , (0 + ((_ + _) + _)) + _ :: Int
+    , (0 + _ * _) + _ :: Int
+    , (id _ + y) + _ :: Int
+    , (id _ + 1) + _ :: Int
+    , (id _ + id x) + _ :: Int
+    , (id _ + id 0) + _ :: Int
+    , (id _ + id (id _)) + _ :: Int
+    , (id _ + id (_ + _)) + _ :: Int
+    , (id _ + negate _) + _ :: Int
+    , (id _ + (_ + x)) + _ :: Int
+    , (id _ + (_ + 0)) + _ :: Int
+    , (id _ + (_ + id _)) + _ :: Int
+    , (id _ + (_ + (_ + _))) + _ :: Int
+    , (id _ + (x + _)) + _ :: Int
+    , (id _ + (0 + _)) + _ :: Int
+    , (id _ + (id _ + _)) + _ :: Int
+    , (id _ + ((_ + _) + _)) + _ :: Int
+    , (id _ + _ * _) + _ :: Int
+    , ((_ + _) + y) + _ :: Int
+    , ((_ + _) + 1) + _ :: Int
+    , ((_ + _) + id x) + _ :: Int
+    , ((_ + _) + id 0) + _ :: Int
+    , ((_ + _) + id (id _)) + _ :: Int
+    , ((_ + _) + id (_ + _)) + _ :: Int
+    , ((_ + _) + negate _) + _ :: Int
+    , ((_ + _) + (_ + x)) + _ :: Int
+    , ((_ + _) + (_ + 0)) + _ :: Int
+    , ((_ + _) + (_ + id _)) + _ :: Int
+    , ((_ + _) + (_ + (_ + _))) + _ :: Int
+    , ((_ + _) + (x + _)) + _ :: Int
+    , ((_ + _) + (0 + _)) + _ :: Int
+    , ((_ + _) + (id _ + _)) + _ :: Int
+    , ((_ + _) + ((_ + _) + _)) + _ :: Int
+    , ((_ + _) + _ * _) + _ :: Int
+    , (y + x) + _ :: Int
+    , (y + 0) + _ :: Int
+    , (y + id _) + _ :: Int
+    , (y + (_ + _)) + _ :: Int
+    , (1 + x) + _ :: Int
+    , (1 + 0) + _ :: Int
+    , (1 + id _) + _ :: Int
+    , (1 + (_ + _)) + _ :: Int
+    , (id x + x) + _ :: Int
+    , (id x + 0) + _ :: Int
+    , (id x + id _) + _ :: Int
+    , (id x + (_ + _)) + _ :: Int
+    , (id 0 + x) + _ :: Int
+    , (id 0 + 0) + _ :: Int
+    , (id 0 + id _) + _ :: Int
+    , (id 0 + (_ + _)) + _ :: Int
+    , (id (id _) + x) + _ :: Int
+    , (id (id _) + 0) + _ :: Int
+    , (id (id _) + id _) + _ :: Int
+    , (id (id _) + (_ + _)) + _ :: Int
+    , (id (_ + _) + x) + _ :: Int
+    , (id (_ + _) + 0) + _ :: Int
+    , (id (_ + _) + id _) + _ :: Int
+    , (id (_ + _) + (_ + _)) + _ :: Int
+    , (negate _ + x) + _ :: Int
+    , (negate _ + 0) + _ :: Int
+    , (negate _ + id _) + _ :: Int
+    , (negate _ + (_ + _)) + _ :: Int
+    , ((_ + x) + x) + _ :: Int
+    , ((_ + x) + 0) + _ :: Int
+    , ((_ + x) + id _) + _ :: Int
+    , ((_ + x) + (_ + _)) + _ :: Int
+    , ((_ + 0) + x) + _ :: Int
+    , ((_ + 0) + 0) + _ :: Int
+    , ((_ + 0) + id _) + _ :: Int
+    , ((_ + 0) + (_ + _)) + _ :: Int
+    , ((_ + id _) + x) + _ :: Int
+    , ((_ + id _) + 0) + _ :: Int
+    , ((_ + id _) + id _) + _ :: Int
+    , ((_ + id _) + (_ + _)) + _ :: Int
+    , ((_ + (_ + _)) + x) + _ :: Int
+    , ((_ + (_ + _)) + 0) + _ :: Int
+    , ((_ + (_ + _)) + id _) + _ :: Int
+    , ((_ + (_ + _)) + (_ + _)) + _ :: Int
+    , ((x + _) + x) + _ :: Int
+    , ((x + _) + 0) + _ :: Int
+    , ((x + _) + id _) + _ :: Int
+    , ((x + _) + (_ + _)) + _ :: Int
+    , ((0 + _) + x) + _ :: Int
+    , ((0 + _) + 0) + _ :: Int
+    , ((0 + _) + id _) + _ :: Int
+    , ((0 + _) + (_ + _)) + _ :: Int
+    , ((id _ + _) + x) + _ :: Int
+    , ((id _ + _) + 0) + _ :: Int
+    , ((id _ + _) + id _) + _ :: Int
+    , ((id _ + _) + (_ + _)) + _ :: Int
+    , (((_ + _) + _) + x) + _ :: Int
+    , (((_ + _) + _) + 0) + _ :: Int
+    , (((_ + _) + _) + id _) + _ :: Int
+    , (((_ + _) + _) + (_ + _)) + _ :: Int
+    , (_ * _ + x) + _ :: Int
+    , (_ * _ + 0) + _ :: Int
+    , (_ * _ + id _) + _ :: Int
+    , (_ * _ + (_ + _)) + _ :: Int
+    , (z + _) + _ :: Int
+    , ((-1) + _) + _ :: Int
+    , (id y + _) + _ :: Int
+    , (id 1 + _) + _ :: Int
+    , (id (id x) + _) + _ :: Int
+    , (id (id 0) + _) + _ :: Int
+    , (id (id (id _)) + _) + _ :: Int
+    , (id (id (_ + _)) + _) + _ :: Int
+    , (id (negate _) + _) + _ :: Int
+    , (id (_ + x) + _) + _ :: Int
+    , (id (_ + 0) + _) + _ :: Int
+    , (id (_ + id _) + _) + _ :: Int
+    , (id (_ + (_ + _)) + _) + _ :: Int
+    , (id (x + _) + _) + _ :: Int
+    , (id (0 + _) + _) + _ :: Int
+    , (id (id _ + _) + _) + _ :: Int
+    , (id ((_ + _) + _) + _) + _ :: Int
+    , (id (_ * _) + _) + _ :: Int
+    , (negate x + _) + _ :: Int
+    , (negate 0 + _) + _ :: Int
+    , (negate (id _) + _) + _ :: Int
+    , (negate (_ + _) + _) + _ :: Int
+    , (abs _ + _) + _ :: Int
+    , ((_ + y) + _) + _ :: Int
+    , ((_ + 1) + _) + _ :: Int
+    , ((_ + id x) + _) + _ :: Int
+    , ((_ + id 0) + _) + _ :: Int
+    , ((_ + id (id _)) + _) + _ :: Int
+    , ((_ + id (_ + _)) + _) + _ :: Int
+    , ((_ + negate _) + _) + _ :: Int
+    , ((_ + (_ + x)) + _) + _ :: Int
+    , ((_ + (_ + 0)) + _) + _ :: Int
+    , ((_ + (_ + id _)) + _) + _ :: Int
+    , ((_ + (_ + (_ + _))) + _) + _ :: Int
+    , ((_ + (x + _)) + _) + _ :: Int
+    , ((_ + (0 + _)) + _) + _ :: Int
+    , ((_ + (id _ + _)) + _) + _ :: Int
+    , ((_ + ((_ + _) + _)) + _) + _ :: Int
+    , ((_ + _ * _) + _) + _ :: Int
+    , ((x + x) + _) + _ :: Int
+    , ((x + 0) + _) + _ :: Int
+    , ((x + id _) + _) + _ :: Int
+    , ((x + (_ + _)) + _) + _ :: Int
+    , ((0 + x) + _) + _ :: Int
+    , ((0 + 0) + _) + _ :: Int
+    , ((0 + id _) + _) + _ :: Int
+    , ((0 + (_ + _)) + _) + _ :: Int
+    , ((id _ + x) + _) + _ :: Int
+    , ((id _ + 0) + _) + _ :: Int
+    , ((id _ + id _) + _) + _ :: Int
+    , ((id _ + (_ + _)) + _) + _ :: Int
+    , (((_ + _) + x) + _) + _ :: Int
+    , (((_ + _) + 0) + _) + _ :: Int
+    , (((_ + _) + id _) + _) + _ :: Int
+    , (((_ + _) + (_ + _)) + _) + _ :: Int
+    , ((y + _) + _) + _ :: Int
+    , ((1 + _) + _) + _ :: Int
+    , ((id x + _) + _) + _ :: Int
+    , ((id 0 + _) + _) + _ :: Int
+    , ((id (id _) + _) + _) + _ :: Int
+    , ((id (_ + _) + _) + _) + _ :: Int
+    , ((negate _ + _) + _) + _ :: Int
+    , (((_ + x) + _) + _) + _ :: Int
+    , (((_ + 0) + _) + _) + _ :: Int
+    , (((_ + id _) + _) + _) + _ :: Int
+    , (((_ + (_ + _)) + _) + _) + _ :: Int
+    , (((x + _) + _) + _) + _ :: Int
+    , (((0 + _) + _) + _) + _ :: Int
+    , (((id _ + _) + _) + _) + _ :: Int
+    , ((((_ + _) + _) + _) + _) + _ :: Int
+    , ((_ * _ + _) + _) + _ :: Int
+    , (_ * x + _) + _ :: Int
+    , (_ * 0 + _) + _ :: Int
+    , (_ * id _ + _) + _ :: Int
+    , (_ * (_ + _) + _) + _ :: Int
+    , (x * _ + _) + _ :: Int
+    , (0 * _ + _) + _ :: Int
+    , (id _ * _ + _) + _ :: Int
+    , ((_ + _) * _ + _) + _ :: Int
+    , _ * y + _ :: Int
+    , _ * 1 + _ :: Int
+    , _ * id x + _ :: Int
+    , _ * id 0 + _ :: Int
+    , _ * id (id _) + _ :: Int
+    , _ * id (_ + _) + _ :: Int
+    , _ * negate _ + _ :: Int
+    , _ * (_ + x) + _ :: Int
+    , _ * (_ + 0) + _ :: Int
+    , _ * (_ + id _) + _ :: Int
+    , _ * (_ + (_ + _)) + _ :: Int
+    , _ * (x + _) + _ :: Int
+    , _ * (0 + _) + _ :: Int
+    , _ * (id _ + _) + _ :: Int
+    , _ * ((_ + _) + _) + _ :: Int
+    , _ * (_ * _) + _ :: Int
+    , x * x + _ :: Int
+    , x * 0 + _ :: Int
+    , x * id _ + _ :: Int
+    , x * (_ + _) + _ :: Int
+    , 0 * x + _ :: Int
+    , 0 * 0 + _ :: Int
+    , 0 * id _ + _ :: Int
+    , 0 * (_ + _) + _ :: Int
+    , id _ * x + _ :: Int
+    , id _ * 0 + _ :: Int
+    , id _ * id _ + _ :: Int
+    , id _ * (_ + _) + _ :: Int
+    , (_ + _) * x + _ :: Int
+    , (_ + _) * 0 + _ :: Int
+    , (_ + _) * id _ + _ :: Int
+    , (_ + _) * (_ + _) + _ :: Int
+    , y * _ + _ :: Int
+    , 1 * _ + _ :: Int
+    , id x * _ + _ :: Int
+    , id 0 * _ + _ :: Int
+    , id (id _) * _ + _ :: Int
+    , id (_ + _) * _ + _ :: Int
+    , negate _ * _ + _ :: Int
+    , (_ + x) * _ + _ :: Int
+    , (_ + 0) * _ + _ :: Int
+    , (_ + id _) * _ + _ :: Int
+    , (_ + (_ + _)) * _ + _ :: Int
+    , (x + _) * _ + _ :: Int
+    , (0 + _) * _ + _ :: Int
+    , (id _ + _) * _ + _ :: Int
+    , ((_ + _) + _) * _ + _ :: Int
+    , (_ * _) * _ + _ :: Int
+    , _ * z :: Int
+    , _ * (-1) :: Int
+    , _ * id y :: Int
+    , _ * id 1 :: Int
+    , _ * id (id x) :: Int
+    , _ * id (id 0) :: Int
+    , _ * id (id (id _)) :: Int
+    , _ * id (id (_ + _)) :: Int
+    , _ * id (negate _) :: Int
+    , _ * id (_ + x) :: Int
+    , _ * id (_ + 0) :: Int
+    , _ * id (_ + id _) :: Int
+    , _ * id (_ + (_ + _)) :: Int
+    , _ * id (x + _) :: Int
+    , _ * id (0 + _) :: Int
+    , _ * id (id _ + _) :: Int
+    , _ * id ((_ + _) + _) :: Int
+    , _ * id (_ * _) :: Int
+    , _ * negate x :: Int
+    , _ * negate 0 :: Int
+    , _ * negate (id _) :: Int
+    , _ * negate (_ + _) :: Int
+    , _ * abs _ :: Int
+    , _ * (_ + y) :: Int
+    , _ * (_ + 1) :: Int
+    , _ * (_ + id x) :: Int
+    , _ * (_ + id 0) :: Int
+    , _ * (_ + id (id _)) :: Int
+    , _ * (_ + id (_ + _)) :: Int
+    , _ * (_ + negate _) :: Int
+    , _ * (_ + (_ + x)) :: Int
+    , _ * (_ + (_ + 0)) :: Int
+    , _ * (_ + (_ + id _)) :: Int
+    , _ * (_ + (_ + (_ + _))) :: Int
+    , _ * (_ + (x + _)) :: Int
+    , _ * (_ + (0 + _)) :: Int
+    , _ * (_ + (id _ + _)) :: Int
+    , _ * (_ + ((_ + _) + _)) :: Int
+    , _ * (_ + _ * _) :: Int
+    , _ * (x + x) :: Int
+    , _ * (x + 0) :: Int
+    , _ * (x + id _) :: Int
+    , _ * (x + (_ + _)) :: Int
+    , _ * (0 + x) :: Int
+    , _ * (0 + 0) :: Int
+    , _ * (0 + id _) :: Int
+    , _ * (0 + (_ + _)) :: Int
+    , _ * (id _ + x) :: Int
+    , _ * (id _ + 0) :: Int
+    , _ * (id _ + id _) :: Int
+    , _ * (id _ + (_ + _)) :: Int
+    , _ * ((_ + _) + x) :: Int
+    , _ * ((_ + _) + 0) :: Int
+    , _ * ((_ + _) + id _) :: Int
+    , _ * ((_ + _) + (_ + _)) :: Int
+    , _ * (y + _) :: Int
+    , _ * (1 + _) :: Int
+    , _ * (id x + _) :: Int
+    , _ * (id 0 + _) :: Int
+    , _ * (id (id _) + _) :: Int
+    , _ * (id (_ + _) + _) :: Int
+    , _ * (negate _ + _) :: Int
+    , _ * ((_ + x) + _) :: Int
+    , _ * ((_ + 0) + _) :: Int
+    , _ * ((_ + id _) + _) :: Int
+    , _ * ((_ + (_ + _)) + _) :: Int
+    , _ * ((x + _) + _) :: Int
+    , _ * ((0 + _) + _) :: Int
+    , _ * ((id _ + _) + _) :: Int
+    , _ * (((_ + _) + _) + _) :: Int
+    , _ * (_ * _ + _) :: Int
+    , _ * (_ * x) :: Int
+    , _ * (_ * 0) :: Int
+    , _ * (_ * id _) :: Int
+    , _ * (_ * (_ + _)) :: Int
+    , _ * (x * _) :: Int
+    , _ * (0 * _) :: Int
+    , _ * (id _ * _) :: Int
+    , _ * ((_ + _) * _) :: Int
+    , x * y :: Int
+    , x * 1 :: Int
+    , x * id x :: Int
+    , x * id 0 :: Int
+    , x * id (id _) :: Int
+    , x * id (_ + _) :: Int
+    , x * negate _ :: Int
+    , x * (_ + x) :: Int
+    , x * (_ + 0) :: Int
+    , x * (_ + id _) :: Int
+    , x * (_ + (_ + _)) :: Int
+    , x * (x + _) :: Int
+    , x * (0 + _) :: Int
+    , x * (id _ + _) :: Int
+    , x * ((_ + _) + _) :: Int
+    , x * (_ * _) :: Int
+    , 0 * y :: Int
+    , 0 * 1 :: Int
+    , 0 * id x :: Int
+    , 0 * id 0 :: Int
+    , 0 * id (id _) :: Int
+    , 0 * id (_ + _) :: Int
+    , 0 * negate _ :: Int
+    , 0 * (_ + x) :: Int
+    , 0 * (_ + 0) :: Int
+    , 0 * (_ + id _) :: Int
+    , 0 * (_ + (_ + _)) :: Int
+    , 0 * (x + _) :: Int
+    , 0 * (0 + _) :: Int
+    , 0 * (id _ + _) :: Int
+    , 0 * ((_ + _) + _) :: Int
+    , 0 * (_ * _) :: Int
+    , id _ * y :: Int
+    , id _ * 1 :: Int
+    , id _ * id x :: Int
+    , id _ * id 0 :: Int
+    , id _ * id (id _) :: Int
+    , id _ * id (_ + _) :: Int
+    , id _ * negate _ :: Int
+    , id _ * (_ + x) :: Int
+    , id _ * (_ + 0) :: Int
+    , id _ * (_ + id _) :: Int
+    , id _ * (_ + (_ + _)) :: Int
+    , id _ * (x + _) :: Int
+    , id _ * (0 + _) :: Int
+    , id _ * (id _ + _) :: Int
+    , id _ * ((_ + _) + _) :: Int
+    , id _ * (_ * _) :: Int
+    , (_ + _) * y :: Int
+    , (_ + _) * 1 :: Int
+    , (_ + _) * id x :: Int
+    , (_ + _) * id 0 :: Int
+    , (_ + _) * id (id _) :: Int
+    , (_ + _) * id (_ + _) :: Int
+    , (_ + _) * negate _ :: Int
+    , (_ + _) * (_ + x) :: Int
+    , (_ + _) * (_ + 0) :: Int
+    , (_ + _) * (_ + id _) :: Int
+    , (_ + _) * (_ + (_ + _)) :: Int
+    , (_ + _) * (x + _) :: Int
+    , (_ + _) * (0 + _) :: Int
+    , (_ + _) * (id _ + _) :: Int
+    , (_ + _) * ((_ + _) + _) :: Int
+    , (_ + _) * (_ * _) :: Int
+    , y * x :: Int
+    , y * 0 :: Int
+    , y * id _ :: Int
+    , y * (_ + _) :: Int
+    , 1 * x :: Int
+    , 1 * 0 :: Int
+    , 1 * id _ :: Int
+    , 1 * (_ + _) :: Int
+    , id x * x :: Int
+    , id x * 0 :: Int
+    , id x * id _ :: Int
+    , id x * (_ + _) :: Int
+    , id 0 * x :: Int
+    , id 0 * 0 :: Int
+    , id 0 * id _ :: Int
+    , id 0 * (_ + _) :: Int
+    , id (id _) * x :: Int
+    , id (id _) * 0 :: Int
+    , id (id _) * id _ :: Int
+    , id (id _) * (_ + _) :: Int
+    , id (_ + _) * x :: Int
+    , id (_ + _) * 0 :: Int
+    , id (_ + _) * id _ :: Int
+    , id (_ + _) * (_ + _) :: Int
+    , negate _ * x :: Int
+    , negate _ * 0 :: Int
+    , negate _ * id _ :: Int
+    , negate _ * (_ + _) :: Int
+    , (_ + x) * x :: Int
+    , (_ + x) * 0 :: Int
+    , (_ + x) * id _ :: Int
+    , (_ + x) * (_ + _) :: Int
+    , (_ + 0) * x :: Int
+    , (_ + 0) * 0 :: Int
+    , (_ + 0) * id _ :: Int
+    , (_ + 0) * (_ + _) :: Int
+    , (_ + id _) * x :: Int
+    , (_ + id _) * 0 :: Int
+    , (_ + id _) * id _ :: Int
+    , (_ + id _) * (_ + _) :: Int
+    , (_ + (_ + _)) * x :: Int
+    , (_ + (_ + _)) * 0 :: Int
+    , (_ + (_ + _)) * id _ :: Int
+    , (_ + (_ + _)) * (_ + _) :: Int
+    , (x + _) * x :: Int
+    , (x + _) * 0 :: Int
+    , (x + _) * id _ :: Int
+    , (x + _) * (_ + _) :: Int
+    , (0 + _) * x :: Int
+    , (0 + _) * 0 :: Int
+    , (0 + _) * id _ :: Int
+    , (0 + _) * (_ + _) :: Int
+    , (id _ + _) * x :: Int
+    , (id _ + _) * 0 :: Int
+    , (id _ + _) * id _ :: Int
+    , (id _ + _) * (_ + _) :: Int
+    , ((_ + _) + _) * x :: Int
+    , ((_ + _) + _) * 0 :: Int
+    , ((_ + _) + _) * id _ :: Int
+    , ((_ + _) + _) * (_ + _) :: Int
+    , (_ * _) * x :: Int
+    , (_ * _) * 0 :: Int
+    , (_ * _) * id _ :: Int
+    , (_ * _) * (_ + _) :: Int
+    , z * _ :: Int
+    , (-1) * _ :: Int
+    , id y * _ :: Int
+    , id 1 * _ :: Int
+    , id (id x) * _ :: Int
+    , id (id 0) * _ :: Int
+    , id (id (id _)) * _ :: Int
+    , id (id (_ + _)) * _ :: Int
+    , id (negate _) * _ :: Int
+    , id (_ + x) * _ :: Int
+    , id (_ + 0) * _ :: Int
+    , id (_ + id _) * _ :: Int
+    , id (_ + (_ + _)) * _ :: Int
+    , id (x + _) * _ :: Int
+    , id (0 + _) * _ :: Int
+    , id (id _ + _) * _ :: Int
+    , id ((_ + _) + _) * _ :: Int
+    , id (_ * _) * _ :: Int
+    , negate x * _ :: Int
+    , negate 0 * _ :: Int
+    , negate (id _) * _ :: Int
+    , negate (_ + _) * _ :: Int
+    , abs _ * _ :: Int
+    , (_ + y) * _ :: Int
+    , (_ + 1) * _ :: Int
+    , (_ + id x) * _ :: Int
+    , (_ + id 0) * _ :: Int
+    , (_ + id (id _)) * _ :: Int
+    , (_ + id (_ + _)) * _ :: Int
+    , (_ + negate _) * _ :: Int
+    , (_ + (_ + x)) * _ :: Int
+    , (_ + (_ + 0)) * _ :: Int
+    , (_ + (_ + id _)) * _ :: Int
+    , (_ + (_ + (_ + _))) * _ :: Int
+    , (_ + (x + _)) * _ :: Int
+    , (_ + (0 + _)) * _ :: Int
+    , (_ + (id _ + _)) * _ :: Int
+    , (_ + ((_ + _) + _)) * _ :: Int
+    , (_ + _ * _) * _ :: Int
+    , (x + x) * _ :: Int
+    , (x + 0) * _ :: Int
+    , (x + id _) * _ :: Int
+    , (x + (_ + _)) * _ :: Int
+    , (0 + x) * _ :: Int
+    , (0 + 0) * _ :: Int
+    , (0 + id _) * _ :: Int
+    , (0 + (_ + _)) * _ :: Int
+    , (id _ + x) * _ :: Int
+    , (id _ + 0) * _ :: Int
+    , (id _ + id _) * _ :: Int
+    , (id _ + (_ + _)) * _ :: Int
+    , ((_ + _) + x) * _ :: Int
+    , ((_ + _) + 0) * _ :: Int
+    , ((_ + _) + id _) * _ :: Int
+    , ((_ + _) + (_ + _)) * _ :: Int
+    , (y + _) * _ :: Int
+    , (1 + _) * _ :: Int
+    , (id x + _) * _ :: Int
+    , (id 0 + _) * _ :: Int
+    , (id (id _) + _) * _ :: Int
+    , (id (_ + _) + _) * _ :: Int
+    , (negate _ + _) * _ :: Int
+    , ((_ + x) + _) * _ :: Int
+    , ((_ + 0) + _) * _ :: Int
+    , ((_ + id _) + _) * _ :: Int
+    , ((_ + (_ + _)) + _) * _ :: Int
+    , ((x + _) + _) * _ :: Int
+    , ((0 + _) + _) * _ :: Int
+    , ((id _ + _) + _) * _ :: Int
+    , (((_ + _) + _) + _) * _ :: Int
+    , (_ * _ + _) * _ :: Int
+    , (_ * x) * _ :: Int
+    , (_ * 0) * _ :: Int
+    , (_ * id _) * _ :: Int
+    , (_ * (_ + _)) * _ :: Int
+    , (x * _) * _ :: Int
+    , (0 * _) * _ :: Int
+    , (id _ * _) * _ :: Int
+    , ((_ + _) * _) * _ :: Int
     , abs :: Int -> Int
     ]
   , ...
