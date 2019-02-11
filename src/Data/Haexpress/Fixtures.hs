@@ -27,7 +27,7 @@ module Data.Haexpress.Fixtures
   -- * Operators are surrounded by dashes (e.g.: '-+-', '-*-').
 
   -- ** Integers
-  , i_, xx, yy
+  , i_, xx, yy, zz, xx''
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
   , id', negate', abs'
@@ -59,37 +59,107 @@ evalChar = eval $ evalError "Char"
 evaluateChar :: Expr -> Maybe Char
 evaluateChar = evaluate
 
+-- | A typed hole of 'Int' type.
+--
+-- > > i_
+-- > _ :: Int
 i_ :: Expr
 i_  =  hole (undefined :: Int)
 
+-- | A variable @x@ of 'Int' type.
+--
+-- > > xx
+-- > x :: Int
 xx :: Expr
 xx  =  var "x" (undefined :: Int)
 
+-- | A variable @y@ of 'Int' type.
+--
+-- > > yy
+-- > y :: Int
 yy :: Expr
 yy  =  var "y" (undefined :: Int)
 
+-- | A variable @z@ of 'Int' type.
+--
+-- > > zz
+-- > z :: Int
+zz :: Expr
+zz  =  var "z" (undefined :: Int)
+
+-- | A variable @x'@ of 'Int' type.
+--
+-- > > xx''
+-- > x' :: Int
+xx'' :: Expr
+xx''  =  var "x'" (undefined :: Int)
+
+-- | The value @0@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > zero
+-- > 0 :: Int
 zero :: Expr
 zero  =  val (0 :: Int)
 
+-- | The value @1@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > one
+-- > 1 :: Int
 one :: Expr
 one  =  val (1 :: Int)
 
+-- | The value @2@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > two
+-- > 2 :: Int
 two :: Expr
 two  =  val (2 :: Int)
 
+-- | The value @3@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > three
+-- > 3 :: Int
 three :: Expr
 three  =  val (3 :: Int)
 
+-- | The value @-1@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > minusOne
+-- > -1 :: Int
 minusOne :: Expr
 minusOne  =  val (-1 :: Int)
 
+-- | The value @-2@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > minusOne
+-- > -2 :: Int
 minusTwo :: Expr
 minusTwo  =  val (-2 :: Int)
 
+-- | The operator '+' for the 'Int' type for use on 'Expr's.  (See also 'plusE'.)
+--
+-- > > two -+- three
+-- > 2 + 3 :: Int
+--
+-- > > minusOne -+- minusTwo -+- zero
+-- > ((-1) + (-2)) + 0 :: Int
+--
+-- > > xx -+- (yy -+- zz)
+-- > x + (y + z) :: Int
 (-+-) :: Expr -> Expr -> Expr
 e1 -+- e2 = plusE :$ e1 :$ e2
 infixl 6 -+-
 
+-- | The operator '+' for the 'Int' type.  (See also '-+-'.)
+--
+-- > > plusE
+-- > (+) :: Int -> Int -> Int
+--
+-- > > plusE :$ one
+-- > (1 +) :: Int -> Int
+--
+-- > > plusE :$ xx :$ yy
+-- > x + y :: Int
 plusE :: Expr
 plusE = value "+" ((+) :: Int -> Int -> Int)
 
@@ -99,9 +169,30 @@ e1 -*- e2 = timesE :$ e1 :$ e2
 timesE :: Expr
 timesE  =  value "*" ((*) :: Int -> Int -> Int)
 
+-- | Constructs an application of 'id' bound to the 'Int' type as an 'Expr'.
+--
+-- > > id' yy
+-- > id yy :: Int
+--
+-- > > id' one
+-- > id 1 :: Int
+--
+-- > > eval 0 (id' one) :: Int
+-- > 1
 id' :: Expr -> Expr
 id' e  =  idE :$ e
+-- TODO: make the above work for several types
 
+-- | The function 'id' for the 'Int' type encoded as an 'Expr'.  (See also 'id''.)
+--
+-- > > idE :$ xx
+-- > id x :: Int
+--
+-- > > idE :$ zero
+-- > id 0 :: Int
+--
+-- > > evaluate $ idE :$ zero :: Maybe Int
+-- > Just 0
 idE :: Expr
 idE  =  value "id" (id :: Int -> Int)
 
@@ -119,15 +210,41 @@ absE  =  value "abs" (abs :: Int -> Int)
 
 a :: Expr
 a  =  val 'a'
+-- TODO: remove aa
 
+-- | The character @'b'@ encoded as an 'Expr'
+--
+-- > > bee
+-- > 'b' :: Char
+--
+-- > > eval 'z' bee
+-- > 'b'
 bee :: Expr
 bee  =  val 'b'
 
+-- | The character @'c'@ encoded as an 'Expr'
+--
+-- > > cee
+-- > 'c' :: Char
+--
+-- > > eval 'z' cee
+-- > 'c'
 cee :: Expr
 cee  =  val 'c'
 
+-- | The character @'d'@ encoded as an 'Expr'
+--
+-- > > dee
+-- > 'd' :: Char
+--
+-- > > eval 'x' dee
+-- > 'd'
 dee :: Expr
 dee  =  val 'd'
 
+-- | A variable named @xs@ of type @[Int]@ encoded as an 'Expr'.
+--
+-- > > xxss
+-- > xs :: [Int]
 xxss :: Expr
 xxss  =  var "xs" (undefined :: [Int])
