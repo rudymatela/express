@@ -7,15 +7,26 @@
 -- Defines the 'Expr' type and utilities involving it
 {-# LANGUAGE CPP, DeriveDataTypeable #-} -- for GHC < 7.10
 module Data.Haexpress.Core
-  ( Expr (..)
+  (
+  -- * The Expr datatype
+    Expr (..)
+  -- * Smart constructors
   , value
   , val
+  , ($$)
   , var
-  , varAsTypeOf
   , hole
+  -- * Evaluating Exprs
   , evaluate
   , eval
+  , typ
   , toDynamic
+  -- * Unfolding Exprs
+  , unfoldApp
+  , unfoldTuple
+--, unfoldList
+  -- * Utilities
+  , varAsTypeOf
   )
 where
 
@@ -30,8 +41,8 @@ import Data.Maybe (fromMaybe)
 import Data.Haexpress.Utils.String
 
 -- | A functional-application expression representation
-data Expr  =  Value String Dynamic
-           |  Expr :$ Expr
+data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dynamic'
+           |  Expr :$ Expr         -- ^ function application between expressions
   deriving Typeable -- for GHC < 7.10
 
 -- | It takes a string representation of a value and a value, returning an
@@ -52,43 +63,61 @@ value s x = Value s (toDyn x)
 -- > val 'a'   =  value "'a'" 'a' 
 -- > val True  =  value "True" True
 val :: (Typeable a, Show a) => a -> Expr
-val x = Value (show x) (toDyn x)
+val x = value (show x) x
 
--- | @var "x" (undefined :: Ty)@ returns a variable of type @Ty@ named "x"
+-- | Creates an 'Expr' representing a function application.
+--   'Just' an 'Expr' application if the types match, 'Nothing' otherwise.
+--
+-- > > value "id" (id :: () -> ()) $$ val ()
+-- > Just (id () :: ())
+-- > > value "abs" (abs :: Int -> Int) $$ val (1337 :: Int)
+-- > Just (abs 1337 :: Int)
+-- > > value "abs" (abs :: Int -> Int) $$ val 'a'
+-- > Nothing
+-- > > value "abs" (abs :: Int -> Int) $$ val ()
+-- > Nothing
+($$) :: Expr -> Expr -> Maybe Expr
+e1 $$ e2  =  case typ e1 `funResultTy` typ e2 of
+             Nothing -> Nothing
+             Just _  -> Just $ e1 :$ e2
+
+-- | Creates an 'Expr' representing a variable with the given name and argument
+--   type.
+--
+-- > > var "x" (undefined :: Int)
+-- > x :: Int
+-- > > var "u" (undefined :: ())
+-- > u :: ()
+-- > > var "xs" (undefined :: [Int])
+-- > xs :: [Int]
 var :: Typeable a => String -> a -> Expr
 var s a = value ('_':s) (undefined `asTypeOf` a)
 
--- | A typed hole.
+-- | Creates an 'Expr' representing a typed hole of the given argument type.
+--
+-- > > hole (undefined :: Int)
+-- > _ :: Int
+-- > > hole (undefined :: Maybe String)
+-- > _ :: Maybe [Char]
 hole :: Typeable a => a -> Expr
 hole a = var "" (undefined `asTypeOf` a)
 
--- | Creates a 'var'iable with the same type as the given 'Expr'.
---
--- > > let one = val (1::Int)
--- > > "x" `varAsTypeOf` one
--- > x :: Int
---
--- You should use 'var' instead if you are creating values directly from types:
---
--- > > "x" `varAsTypeOf` (val (undefined :: Int))
--- > x :: Int
--- > > "c" `varAsTypeOf` (val (undefined :: Char))
--- > c :: Char
---
--- You should consider using 'var' instead of this.
-varAsTypeOf :: String -> Expr -> Expr
-varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
-  where
-  err = error "varAsTypeOf: could not compile Dynamic value, type error?"
-  undefine :: Dynamic -> Dynamic
-#if __GLASGOW_HASKELL__ >= 806
-  undefine (Dynamic t v) = (Dynamic t undefined)
-#else
-  undefine = id -- there's no way to do this using the old Data.Dynamic API.
-#endif
-
 -- | The type of an expression.  This raises errors, but those should not
 --   happen if expressions are smart-constructed.
+--
+-- > > let one = val (1 :: Int)
+-- > > let bee = val 'b'
+-- > > let absE = value "abs" (abs :: Int -> Int)
+-- > > typ one
+-- > Int
+-- > > typ bee
+-- > Char
+-- > > typ absE
+-- > Int -> Int
+-- > > typ (absE :$ one)
+-- > Int
+-- > > typ (absE :$ bee)
+-- > *** Exception: type mismatch, cannot apply Int -> Int to Char
 typ :: Expr -> TypeRep
 typ (Value _ d) = dynTypeRep d
 typ (e1 :$ e2) =
@@ -103,19 +132,37 @@ typ (e1 :$ e2) =
 -- | 'Just' the value of an expression when possible (correct type),
 --   'Nothing' otherwise.
 --   This does not catch errors from 'undefined' 'Dynamic' 'value's.
+--
+-- > > let one = val (1 :: Int)
+-- > > let bee = val 'b'
+-- > > let negateE = value "negate" (negate :: Int -> Int)
+-- > > evaluate one :: Maybe Int
+-- > Just 1
+-- > > evaluate one :: Maybe Char
+-- > Nothing
+-- > > evaluate bee :: Maybe Int
+-- > Nothing
+-- > > evaluate bee :: Maybe Char
+-- > Just 'b'
+-- > > evaluate $ negateE :$ one :: Maybe Int
+-- > Just (-1)
+-- > > evaluate $ negateE :$ bee :: Maybe Int
+-- > Nothing
 evaluate :: Typeable a => Expr -> Maybe a
 evaluate e = toDynamic e >>= fromDynamic
 
+-- | Evaluates an expression when possible (correct type).
+--   Returns a default value otherwise.
+eval :: Typeable a => a -> Expr -> a
+eval x e = fromMaybe x (evaluate e)
+
+-- | Evaluates an expression to a terminal 'Dynamic' value when possible.
+--   Returns nothing otherwise.
 toDynamic :: Expr -> Maybe Dynamic
 toDynamic (Value _ x) = Just x
 toDynamic (e1 :$ e2)  = do v1 <- toDynamic e1
                            v2 <- toDynamic e2
                            dynApply v1 v2
-
--- | Evaluates an expression when possible (correct type, no holes).
---   Returns a default value otherwise.
-eval :: Typeable a => a -> Expr -> a
-eval x e = fromMaybe x (evaluate e)
 
 -- TODO: decide whether to always show the type
 -- TODO: decide whether to always show holes
@@ -170,18 +217,6 @@ showsPrecExpr d (e1 :$ e2) = showParen (d > prec " ")
                            $ showsPrecExpr (prec " ") e1
                            . showString " "
                            . showsPrecExpr (prec " " + 1) e2
--- TODO: the above show instance is getting big.  Move it into a separate file?
-
-isTuple :: Expr -> Bool
-isTuple = not . null . unfoldTuple
-
-unfoldTuple :: Expr -> [Expr]
-unfoldTuple = u . unfoldApp
-  where
-  u (Value cs _:es) | not (null es) && cs == replicate (length es - 1) ','
-                       = es
-  u _   = []
-
 -- bad smell here, repeated code!
 showsTailExpr :: Expr -> String -> String
 showsTailExpr ((Value ":" _ :$ e1@(Value _ _)) :$ e2)
@@ -208,9 +243,51 @@ showPrecExpr n e = showsPrecExpr n e ""
 showExpr :: Expr -> String
 showExpr = showPrecExpr 0
 
+-- TODO: the above show instance is getting big.  Move it into a separate file?
+
+isTuple :: Expr -> Bool
+isTuple = not . null . unfoldTuple
+
+unfoldTuple :: Expr -> [Expr]
+unfoldTuple = u . unfoldApp
+  where
+  u (Value cs _:es) | not (null es) && cs == replicate (length es - 1) ','
+                       = es
+  u _   = []
+
+-- TODO: isList
+-- TODO: unfoldList
+-- TODO: isGround
+
 -- | Unfold function application:
 --
 -- > (((f :$ e1) :$ e2) :$ e3) = [f,e1,e2,e3]
 unfoldApp :: Expr -> [Expr]
 unfoldApp (ef :$ ex) = unfoldApp ef ++ [ex]
 unfoldApp  ef        = [ef]
+
+
+-- | Creates a 'var'iable with the same type as the given 'Expr'.
+--
+-- > > let one = val (1::Int)
+-- > > "x" `varAsTypeOf` one
+-- > x :: Int
+--
+-- You should use 'var' instead if you are creating values directly from types:
+--
+-- > > "x" `varAsTypeOf` (val (undefined :: Int))
+-- > x :: Int
+-- > > "c" `varAsTypeOf` (val (undefined :: Char))
+-- > c :: Char
+--
+-- You should consider using 'var' instead of this.
+varAsTypeOf :: String -> Expr -> Expr
+varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
+  where
+  err = error "varAsTypeOf: could not compile Dynamic value, type error?"
+  undefine :: Dynamic -> Dynamic
+#if __GLASGOW_HASKELL__ >= 806
+  undefine (Dynamic t v) = (Dynamic t undefined)
+#else
+  undefine = id -- there's no way to do this using the old Data.Dynamic API.
+#endif
