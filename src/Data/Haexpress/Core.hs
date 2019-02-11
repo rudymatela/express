@@ -24,6 +24,7 @@ module Data.Haexpress.Core
   -- * Utilities
   , unfoldApp
   , hasVar
+  , isGround
   , varAsTypeOf
   )
 where
@@ -362,6 +363,19 @@ hasVar :: Expr -> Bool
 hasVar (e1 :$ e2) = hasVar e1 || hasVar e2
 hasVar (Value ('_':_) _) = True
 hasVar _ = False
+
+-- | Returns whether a 'Expr' has _no_ variables.
+--   This is equivalent to @not . hasVar@.
+--
+--   The name "ground" comes from term rewriting.
+--
+-- > > isGround $ value "not" not :$ val True
+-- > True
+--
+-- > > isGround $ value "&&" (&&) :$ var "p" (undefined :: Bool) :$ val True
+-- > False
+isGround :: Expr -> Bool
+isGround = not . hasVar
 
 -- | Creates a 'var'iable with the same type as the given 'Expr'.
 --

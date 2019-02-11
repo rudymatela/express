@@ -17,5 +17,6 @@ tests n =
   , holds n $ \e -> isJust (toDynamic e)
   , show (one -+- one) == "1 + 1 :: Int"
   , holds n $ \(IntE xx, IntE yy) -> isJust (toDynamic $ xx -+- yy)
-  , holds n $ \(IntE0 xx, IntE0 yy) -> evalInt (xx -+- yy) == evalInt (yy -+- xx)
+  , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
+                                 ==> evalInt (xx -+- yy) == evalInt (yy -+- xx)
   ]
