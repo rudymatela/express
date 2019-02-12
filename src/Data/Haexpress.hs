@@ -7,11 +7,13 @@
 -- Defines the 'Expr' type and utilities involving it
 module Data.Haexpress
   ( module Data.Haexpress.Core -- TODO: explicitly re-export core entities
+  , module Data.Haexpress.Name
   , (\\\)
   )
 where
 
 import Data.Haexpress.Core
+import Data.Haexpress.Name
 
 
 -- TODO: move stuff below into submodules of its own:
