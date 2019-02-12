@@ -12,8 +12,10 @@ module Data.Haexpress.Fixtures
     module Data.Haexpress
 
   -- * Convenience monomorphically typed evaluation function aliases
+  , evalBool
   , evalInt
   , evalChar
+  , evaluateBool
   , evaluateInt
   , evaluateChar
 
@@ -25,6 +27,15 @@ module Data.Haexpress.Fixtures
   -- * Functions encoded as expressions are followed by "E" (e.g.: 'idE', 'plusE');
   -- * Functions over expressions are primed (e.g.: 'id'', 'negate'');
   -- * Operators are surrounded by dashes (e.g.: '-+-', '-*-').
+
+  -- ** Booleans
+  , b_, pp, qq
+  , falseE
+  , trueE
+  , orE
+  , andE
+  , (-||-)
+  , (-&&-)
 
   -- ** Integers
   , i_, xx, yy, zz, xx''
@@ -48,6 +59,12 @@ import Data.Maybe
 evalError :: String -> a
 evalError tn = error $ "evalInt: cannot evaluate Expr to " ++ tn ++ " type"
 
+evalBool :: Expr -> Bool
+evalBool = eval $ evalError "Bool"
+
+evaluateBool :: Expr -> Maybe Bool
+evaluateBool = evaluate
+
 evalInt :: Expr -> Int
 evalInt = eval $ evalError "Int"
 
@@ -59,6 +76,39 @@ evalChar = eval $ evalError "Char"
 
 evaluateChar :: Expr -> Maybe Char
 evaluateChar = evaluate
+
+-- | 'Expr' representing a hole of 'Bool' type.
+b_ :: Expr
+b_  =  hole (undefined :: Bool)
+
+-- | 'Expr' representing a variable @p :: `Bool`@.
+pp :: Expr
+pp  =  var "p" (undefined :: Bool)
+
+-- | 'Expr' representing a variable @q :: `Bool`@.
+qq :: Expr
+qq  =  var "q" (undefined :: Bool)
+
+falseE :: Expr
+falseE  =  val False
+
+trueE :: Expr
+trueE  =  val True
+
+notE :: Expr
+notE  =  val not
+
+andE :: Expr
+andE  =  val (&&)
+
+orE :: Expr
+orE  =  val (||)
+
+(-&&-) :: Expr -> Expr -> Expr
+pp -&&- qq  =  andE :$ pp :$ qq
+
+(-||-) :: Expr -> Expr -> Expr
+pp -||- qq  =  orE :$ pp :$ qq
 
 -- | A typed hole of 'Int' type.
 --
