@@ -96,13 +96,13 @@ trueE :: Expr
 trueE  =  val True
 
 notE :: Expr
-notE  =  val not
+notE  =  value "not" not
 
 andE :: Expr
-andE  =  val (&&)
+andE  =  value "&&" (&&)
 
 orE :: Expr
-orE  =  val (||)
+orE  =  value "||" (||)
 
 (-&&-) :: Expr -> Expr -> Expr
 pp -&&- qq  =  andE :$ pp :$ qq

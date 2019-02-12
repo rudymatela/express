@@ -14,6 +14,7 @@ bench/tiers: \
 mk/All.o: \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress.hs \
+  src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Core.hs \
   mk/All.hs
 mk/Toplibs.o: \
