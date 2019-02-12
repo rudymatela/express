@@ -43,6 +43,7 @@ module Data.Haexpress.Fixtures
 where
 
 import Data.Haexpress
+import Data.Maybe
 
 evalError :: String -> a
 evalError tn = error $ "evalInt: cannot evaluate Expr to " ++ tn ++ " type"
@@ -169,7 +170,8 @@ e1 -*- e2 = timesE :$ e1 :$ e2
 timesE :: Expr
 timesE  =  value "*" ((*) :: Int -> Int -> Int)
 
--- | Constructs an application of 'id' bound to the 'Int' type as an 'Expr'.
+-- | Constructs an application of 'id' as an 'Expr'.
+--   Only works for 'Int', 'Bool', 'Char', 'String', @[Int]@, @[Bool]@.
 --
 -- > > id' yy
 -- > id yy :: Int
@@ -179,9 +181,25 @@ timesE  =  value "*" ((*) :: Int -> Int -> Int)
 --
 -- > > eval 0 (id' one) :: Int
 -- > 1
+--
+-- > > id' pp
+-- > id p :: Bool
+--
+-- > > id' falseE
+-- > id' False :: Bool
+--
+-- > > eval False $ id' trueE
+-- > True :: Bool
 id' :: Expr -> Expr
-id' e  =  idE :$ e
--- TODO: make the above work for several types
+id' e  =  headOr err $ mapMaybe ($$ e) [ idE -- :: Int -> Int
+                                       , value "id" (id :: Bool -> Bool)
+                                       , value "id" (id :: Char -> Char)
+                                       , value "id" (id :: [Int] -> [Int])
+                                       , value "id" (id :: [Bool] -> [Bool])
+                                       , value "id" (id :: String -> String)
+                                       ]
+  where
+  err = error $ "id': unhandled type " ++ show (typ e)
 
 -- | The function 'id' for the 'Int' type encoded as an 'Expr'.  (See also 'id''.)
 --
@@ -248,3 +266,7 @@ dee  =  val 'd'
 -- > xs :: [Int]
 xxss :: Expr
 xxss  =  var "xs" (undefined :: [Int])
+
+headOr :: a -> [a] -> a
+headOr x []     =  x
+headOr _ (x:_)  =  x
