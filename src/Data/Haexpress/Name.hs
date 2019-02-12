@@ -15,7 +15,7 @@ class Name a where
   name _ = "x"
 
 instance Name ()        where  name _  =  "u"
-instance Name Bool      where  name _  =  "b"
+instance Name Bool      where  name _  =  "p"
 instance Name Int       where  name _  =  "x"
 instance Name Integer   where  name _  =  "x"
 instance Name Char      where  name _  =  "c"

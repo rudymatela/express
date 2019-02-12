@@ -19,4 +19,18 @@ tests n =
   , holds n $ \(IntE xx, IntE yy) -> isJust (toDynamic $ xx -+- yy)
   , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
                                  ==> evalInt (xx -+- yy) == evalInt (yy -+- xx)
+
+  -- tests to Name
+  , name (undefined :: Int) == "x"
+  , name (undefined :: Integer) == "x"
+  , name (undefined :: Char) == "c"
+  , name (undefined :: Bool) == "p"
+  , name (undefined :: [Int]) == "xs"
+  , name (undefined :: [[Int]]) == "xss"
+  , name (undefined :: [Bool]) == "ps"
+  , name (undefined :: [[Bool]]) == "pss"
+  , name (undefined :: Either Bool Char) == "epc"
+  , name (undefined :: Maybe Int) == "mx"
+  , name (undefined :: Maybe [Int]) == "mxs"
+  , name (undefined :: Maybe [[Int]]) == "mxss"
   ]
