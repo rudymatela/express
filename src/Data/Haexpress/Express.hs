@@ -41,7 +41,8 @@ instance (Express a, Express b, Express c, Express d) => Express (a,b,c,d) where
                   :$ expr x :$ expr y :$ expr z :$ expr w
 
 instance Express a => Express [a] where
-  expr (xs@(y:ys))  =  value ":"  ((:) ->>: xs) :$ expr y :$ expr ys
+  expr xs@[]      =  value "[]" ([] -: xs)
+  expr xs@(y:ys)  =  value ":"  ((:) ->>: xs) :$ expr y :$ expr ys
 
 (-:) :: a -> a -> a
 (-:) = asTypeOf -- const
