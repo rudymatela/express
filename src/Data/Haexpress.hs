@@ -6,14 +6,18 @@
 --
 -- Defines the 'Expr' type and utilities involving it
 module Data.Haexpress
-  ( module Data.Haexpress.Core -- TODO: explicitly re-export core entities
+  ( 
+-- TODO: explicitly export everything instead of the modules
+    module Data.Haexpress.Core
   , module Data.Haexpress.Name
+  , module Data.Haexpress.Express
   , (\\\)
   )
 where
 
 import Data.Haexpress.Core
 import Data.Haexpress.Name
+import Data.Haexpress.Express
 
 
 -- TODO: move stuff below into submodules of its own:
