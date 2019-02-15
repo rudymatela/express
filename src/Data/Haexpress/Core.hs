@@ -304,6 +304,13 @@ showPrecExpr n e = showsPrecExpr n e ""
 showExpr :: Expr -> String
 showExpr = showPrecExpr 0
 
+-- | Does not evaluate values when comparing, but rather uses their
+--   representation as strings and their types.
+instance Eq Expr where
+  Value s1 d1 == Value s2 d2  =  dynTypeRep d1 == dynTypeRep d2 && s1 == s2
+  ef1 :$ ex1  == ef2 :$ ex2   =  ef1 == ef2 && ex1 == ex2
+  _           == _            =  False
+
 -- TODO: the above show instance is getting big.  Move it into a separate file?
 
 -- TODO: isList

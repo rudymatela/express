@@ -17,6 +17,7 @@ tags
 bench/tiers
 test/main
 test/listable
+test/express
 test/fixtures
 doc/*.html
 doc/*.css

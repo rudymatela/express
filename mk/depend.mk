@@ -57,6 +57,21 @@ src/Data/Haexpress.o: \
   src/Data/Haexpress/Core.hs
 src/Data/Haexpress/Utils/String.o: \
   src/Data/Haexpress/Utils/String.hs
+test/express.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/express.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Core.hs
+test/express: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/express.hs \
+  mk/toplibs
 test/fixtures.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
