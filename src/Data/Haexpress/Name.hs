@@ -28,6 +28,9 @@ instance (Name a, Name b) => Name (Either a b) where
   name exy  =  "e" ++ name (fromLeft undefined exy)
                    ++ name (fromRight undefined exy)
 
+instance (Name a, Name b) => Name (a,b) where
+  name xy  =  name (fst xy) ++ name (snd xy)
+
 instance (Name a, Name b, Name c) => Name (a,b,c) where
   name xyz  =  name x ++ name y ++ name z  where  (x,y,z)  =  xyz
 
