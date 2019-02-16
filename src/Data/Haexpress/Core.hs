@@ -25,6 +25,7 @@ module Data.Haexpress.Core
   , unfoldApp
   , hasVar
   , isGround
+  , values
   , varAsTypeOf
   )
 where
@@ -37,6 +38,7 @@ import Data.Dynamic
 import Data.Typeable (TypeRep, typeOf, funResultTy)
 import Data.List (intercalate)
 import Data.Maybe (fromMaybe)
+import Data.Monoid ((<>))
 import Data.Haexpress.Utils.String
 
 -- | A functional-application expression representation
@@ -382,7 +384,39 @@ hasVar _ = False
 -- > > isGround $ value "&&" (&&) :$ var "p" (undefined :: Bool) :$ val True
 -- > False
 isGround :: Expr -> Bool
-isGround = not . hasVar
+isGround  =  not . hasVar
+
+-- | Lists all terminal values in an expression in order and with repetitions.
+--
+-- > > values (xx -+- yy)
+-- > [ (+) :: Int -> Int -> Int
+-- > , x :: Int
+-- > , y :: Int ]
+--
+-- > > values (xx -+- (yy -+- zz))
+-- > [(+) :: Int -> Int -> Int
+-- > , x :: Int
+-- > , (+) :: Int -> Int -> Int
+-- > , y :: Int
+-- > , z :: Int ]
+--
+-- > > values (zero -+- (one -*- two))
+-- > [(+) :: Int -> Int -> Int
+-- > , 0 :: Int
+-- > , (*) :: Int -> Int -> Int
+-- > , 1 :: Int
+-- > , 2 :: Int ]
+--
+-- > > values (pp -&&- trueE)
+-- > [(&&) :: Bool -> Bool -> Bool
+-- > , p :: Bool
+-- > , True :: Bool ]
+values :: Expr -> [Expr]
+values e  =  v e []
+  where
+  v :: Expr -> [Expr] -> [Expr]
+  v (e1 :$ e2)  =  v e1 . v e2
+  v e           =  (e:)
 
 -- | Creates a 'var'iable with the same type as the given 'Expr'.
 --

@@ -33,4 +33,10 @@ tests n =
   , name (undefined :: Maybe Int) == "mx"
   , name (undefined :: Maybe [Int]) == "mxs"
   , name (undefined :: Maybe [[Int]]) == "mxss"
+
+  , values (xx -+- yy) == [plusE, xx, yy]
+  , values (xx -+- (yy -+- zz)) == [plusE, xx, plusE, yy, zz]
+  , values ((xx -+- yy) -+- zz) == [plusE, plusE, xx, yy, zz]
+  , values (zero -+- (one -*- two)) == [plusE, zero, timesE, one, two]
+  , values (pp -&&- trueE) == [andE, pp, trueE]
   ]
