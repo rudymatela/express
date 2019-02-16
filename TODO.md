@@ -3,8 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* add `Ord Expr` instance
-
 * more tests in test/listable (including using isGround)
 
 * more tests in test/fixtures

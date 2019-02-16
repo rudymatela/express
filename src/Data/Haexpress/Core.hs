@@ -35,11 +35,14 @@ where
 -- TODO: more exports
 
 import Data.Dynamic
-import Data.Typeable (TypeRep, typeOf, funResultTy)
-import Data.List (intercalate)
+import Data.Function (on)
+import Data.List (intercalate, sort)
 import Data.Maybe (fromMaybe)
 import Data.Monoid ((<>))
+import Data.Typeable (TypeRep, typeOf, funResultTy, splitTyConApp, TyCon, typeRepTyCon)
+
 import Data.Haexpress.Utils.String
+import Data.Haexpress.Utils.Typeable
 
 -- | A functional-application expression representation
 data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dynamic'
@@ -313,7 +316,58 @@ instance Eq Expr where
   ef1 :$ ex1  == ef2 :$ ex2   =  ef1 == ef2 && ex1 == ex2
   _           == _            =  False
 
--- TODO: the above show instance is getting big.  Move it into a separate file?
+instance Ord Expr where
+  compare = compareComplexity <> lexicompare
+
+-- | Compares the complexity of two 'Expr's.
+--   An expression e1 is _strictly simpler_ than another expression e2
+--   if the first of the following conditions to distingish between them is:
+--
+--   1. e1 is smaller in size/length than e2;
+--   2. or, e1 has more distinct variables than e2;
+--   3. or, e1 has more variable occurrences than e2;
+--   4. or, 21 has fewer distinct constants than e2.
+--
+--   They're otherwise considered of equal complexity.
+--
+--   > 
+compareComplexity :: Expr -> Expr -> Ordering
+compareComplexity  =  (compare `on` lengthE)
+                   <> (flip compare `on` length . vars)
+                   <> (flip compare `on` length . repVars)
+                   <> (compare `on` length . consts)
+
+-- TODO: rename lexicompare family?
+
+lexicompareBy :: (Expr -> Expr -> Ordering) -> Expr -> Expr -> Ordering
+lexicompareBy compareConstants = cmp
+  where
+  e1@(Value ('_':s1) _) `cmp` e2@(Value ('_':s2) _)  =  typ e1 `compareTy` typ e2
+                                                     <> s1 `compare` s2
+  (f :$ x)        `cmp` (g :$ y)                     =  f  `cmp` g <> x `cmp` y
+  (_ :$ _)        `cmp` _                            =  GT
+  _               `cmp` (_ :$ _)                     =  LT
+  _               `cmp` Value ('_':_) _              =  GT
+  Value ('_':_) _ `cmp` _                            =  LT
+  e1@(Value _ _)        `cmp` e2@(Value _ _)         =  e1 `compareConstants` e2
+  -- Var < Constants < Apps
+
+lexicompareConstants :: Expr -> Expr -> Ordering
+lexicompareConstants = cmp
+  where
+  e1 `cmp` e2 | typ e1 /= typ e2 = typ e1 `compareTy` typ e2
+  Value s1 _ `cmp` Value s2 _ = s1 `compare` s2
+  _ `cmp` _ = error "lexicompareConstants can only compare constants"
+
+-- | Compare two expressiosn lexicographically
+--
+-- 1st their type arity;
+-- 2nd their type;
+-- 3rd var < constants < apps
+-- 4th lexicographic order on names
+lexicompare :: Expr -> Expr -> Ordering
+lexicompare = lexicompareBy lexicompareConstants
+
 
 -- TODO: isList
 -- TODO: unfoldList
@@ -373,6 +427,13 @@ hasVar (e1 :$ e2) = hasVar e1 || hasVar e2
 hasVar (Value ('_':_) _) = True
 hasVar _ = False
 
+-- | Returns the length of an expression.  In term rewriting terms: |s|
+--
+-- > lengthE == length . values
+lengthE :: Expr -> Int
+lengthE (e1 :$ e2)  = lengthE e1 + lengthE e2
+lengthE _           = 1
+
 -- | Returns whether a 'Expr' has _no_ variables.
 --   This is equivalent to @not . hasVar@.
 --
@@ -385,6 +446,17 @@ hasVar _ = False
 -- > False
 isGround :: Expr -> Bool
 isGround  =  not . hasVar
+
+-- | Returns whether an 'Expr' is a terminal constant.
+isConst :: Expr -> Bool
+isConst  (Value ('_':_) _)  =  False
+isConst  (Value _ _)        =  True
+isConst  _                  =  False
+
+-- | Returns whether an 'Expr' is a terminal constant.
+isVar :: Expr -> Bool
+isVar (Value ('_':_) _)  =  True
+isVar _                  =  False
 
 -- | Lists all terminal values in an expression in order and with repetitions.
 --
@@ -411,12 +483,28 @@ isGround  =  not . hasVar
 -- > [(&&) :: Bool -> Bool -> Bool
 -- > , p :: Bool
 -- > , True :: Bool ]
+--
+-- Runtime is linear on the size of the expression.
 values :: Expr -> [Expr]
 values e  =  v e []
   where
   v :: Expr -> [Expr] -> [Expr]
   v (e1 :$ e2)  =  v e1 . v e2
   v e           =  (e:)
+
+-- | List terminal constants in an expression in order and with repetitions.
+repConsts :: Expr -> [Expr]
+repConsts  =  filter isConst . values
+
+-- | List terminal constants in an expression without repetitions.
+consts :: Expr -> [Expr]
+consts  =  nubSort . repConsts
+
+repVars :: Expr -> [Expr]
+repVars  =  filter isVar . values
+
+vars :: Expr -> [Expr]
+vars  =  nubSort . repVars
 
 -- | Creates a 'var'iable with the same type as the given 'Expr'.
 --
@@ -433,3 +521,12 @@ varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
 #else
   undefine = id -- there's no way to do this using the old Data.Dynamic API.
 #endif
+
+-- TODO: move to Data.Haexpress.Utils.List?
+nubSort :: Ord a => [a] -> [a]
+nubSort  =  nnub . sort
+  where
+  -- linear nub of next values
+  nnub [] = []
+  nnub [x] = [x]
+  nnub (x:xs) = x : nnub (dropWhile (==x) xs)
