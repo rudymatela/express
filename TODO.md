@@ -3,13 +3,13 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
+* add `Ord Expr` instance
+
 * more tests in test/listable (including using isGround)
 
 * more tests in test/fixtures
 
 * 100% haddock coverage
-
-* Add the `assign` and `assigning` functions, perhaps with better names
 
 * Add tests of variable replacement
 
@@ -20,8 +20,6 @@ List of things TO DO for haexpress
 * Create `Data.Haexpress.Express` module with the `Express` type class;
 
 * Create `Data.Haexpress.Instances` module with a sketch of how to deal with instances;
-
-* add the `Name` typeclass?
 
 * partially replace `Test.Speculate.Expr` with this
 
