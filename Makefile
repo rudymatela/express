@@ -7,6 +7,8 @@ TESTS = \
   test/main \
   test/fixtures \
   test/express \
+  test/name \
+  test/utils \
   test/listable
 EGS =
 BENCHS = bench/tiers

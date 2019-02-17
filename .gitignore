@@ -15,10 +15,13 @@ log/
 TAGS
 tags
 bench/tiers
-test/main
-test/listable
+test/core
 test/express
 test/fixtures
+test/listable
+test/main
+test/name
+test/utils
 doc/*.html
 doc/*.css
 doc/*.js
