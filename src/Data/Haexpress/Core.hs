@@ -4,7 +4,11 @@
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
--- Defines the 'Expr' type and utilities involving it
+-- Defines the 'Expr' type and utilities involving it.
+--
+-- The complexity of most functions are given in big O notation
+-- where /n/ is the size of the expression being manipulated or produced.
+-- There may still be a /m/ cost associated with the values being stored in 'Expr's.
 {-# LANGUAGE CPP, DeriveDataTypeable #-} -- for GHC < 7.10
 module Data.Haexpress.Core
   (
@@ -397,8 +401,9 @@ lexicompare = lexicompareBy lexicompareConstants
 -- TODO: unfoldList
 -- TODO: isGround
 
--- | Unfold a function application 'Expr' into a list of function and
---   arguments.
+-- | /O(n)/.
+-- Unfold a function application 'Expr' into a list of function and
+-- arguments.
 --
 -- > e0                    =    e0                      =  [e0]
 -- > e0 :$ e1              =    e0 :$ e1                =  [e0,e1]
@@ -408,7 +413,8 @@ unfoldApp :: Expr -> [Expr]
 unfoldApp (ef :$ ex) = unfoldApp ef ++ [ex]
 unfoldApp  ef        = [ef]
 
--- | Unfold a tuple 'Expr' into a list of values.
+-- | /O(n)/.
+-- Unfold a tuple 'Expr' into a list of values.
 --
 -- > > let pair' a b = value "," ((,) :: Bool->Char->(Bool,Char)) :$ a :$ b
 --
@@ -466,8 +472,9 @@ hasVar _ = False
 isGround :: Expr -> Bool
 isGround  =  not . hasVar
 
--- | Returns whether an 'Expr' is a terminal constant.
---   (cf. 'isGround').
+-- | /O(1)/.
+-- Returns whether an 'Expr' is a terminal constant.
+-- (cf. 'isGround').
 --
 -- > > isConst $ var "x" (undefined :: Int)
 -- > False
@@ -482,7 +489,9 @@ isConst  (Value ('_':_) _)  =  False
 isConst  (Value _ _)        =  True
 isConst  _                  =  False
 
--- | Returns whether an 'Expr' is a terminal variable.
+-- | /O(1)/.
+-- Returns whether an 'Expr' is a terminal variable.
+-- (cf. 'hasVar').
 --
 -- > > isVar $ var "x" (undefined :: Int)
 -- > True
@@ -498,6 +507,7 @@ isVar _                  =  False
 
 -- | /O(n)/.
 -- Lists all terminal values in an expression in order and with repetitions.
+-- (cf. 'nubValues')
 --
 -- > > values (xx -+- yy)
 -- > [ (+) :: Int -> Int -> Int
@@ -522,8 +532,6 @@ isVar _                  =  False
 -- > [ (&&) :: Bool -> Bool -> Bool
 -- > , p :: Bool
 -- > , True :: Bool ]
---
--- Runtime is linear on the size of the expression.
 values :: Expr -> [Expr]
 values e  =  v e []
   where
@@ -533,6 +541,7 @@ values e  =  v e []
 
 -- | /O(n log n)/.
 -- Lists all terminal values in an expression without repetitions.
+-- (cf. 'values')
 --
 -- > > nubValues (xx -+- yy)
 -- > [ x :: Int
@@ -558,7 +567,9 @@ values e  =  v e []
 nubValues :: Expr -> [Expr]
 nubValues  =  nubSort . values
 
--- | List terminal constants in an expression in order and with repetitions.
+-- | /O(n)/.
+-- List terminal constants in an expression in order and with repetitions.
+-- (cf. 'nubConsts')
 --
 -- > > consts (xx -+- yy)
 -- > [ (+) :: Int -> Int -> Int ]
@@ -580,17 +591,65 @@ nubValues  =  nubSort . values
 consts :: Expr -> [Expr]
 consts  =  filter isConst . values
 
--- | List terminal constants in an expression without repetitions.
+-- | /O(n log n)/.
+-- List terminal constants in an expression without repetitions.
+-- (cf. 'consts')
+--
+-- > > nubConsts (xx -+- yy)
+-- > [ (+) :: Int -> Int -> Int ]
+--
+-- > > nubConsts (xx -+- (yy -+- zz))
+-- > [ (+) :: Int -> Int -> Int ]
+--
+-- > > nubConsts (pp -&&- trueE)
+-- > [ True :: Bool
+-- > , (&&) :: Bool -> Bool -> Bool ]
 nubConsts :: Expr -> [Expr]
 nubConsts  =  nubSort . consts
 
+-- | /O(n)/.
+-- Lists all variables in an expression in order and with repetitions.
+-- (cf. 'nubVars')
+--
+-- > > vars (xx -+- yy)
+-- > [ x :: Int
+-- > , y :: Int ]
+--
+-- > > vars (xx -+- (yy -+- xx))
+-- > [ x :: Int
+-- > , y :: Int
+-- > , x :: Int ]
+--
+-- > > vars (zero -+- (one -*- two))
+-- > []
+--
+-- > > vars (pp -&&- trueE)
+-- > [p :: Bool]
 vars :: Expr -> [Expr]
 vars  =  filter isVar . values
 
+-- | /O(n log n)/.
+-- Lists all variables in an expression without repetitions.
+-- (cf. 'vars')
+--
+-- > > nubVars (yy -+- xx)
+-- > [ x :: Int
+-- > , y :: Int ]
+--
+-- > > nubVars (xx -+- (yy -+- xx))
+-- > [ x :: Int
+-- > , y :: Int ]
+--
+-- > > nubVars (zero -+- (one -*- two))
+-- > []
+--
+-- > > nubVars (pp -&&- trueE)
+-- > [p :: Bool]
 nubVars :: Expr -> [Expr]
 nubVars  =  nubSort . vars
 
--- | Creates a 'var'iable with the same type as the given 'Expr'.
+-- | /O(1)/.
+-- Creates a 'var'iable with the same type as the given 'Expr'.
 --
 -- > > let one = val (1::Int)
 -- > > "x" `varAsTypeOf` one
