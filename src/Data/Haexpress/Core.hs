@@ -30,7 +30,7 @@ module Data.Haexpress.Core
   )
 where
 
--- TODO: talk about convertion of preceding variables with "_"
+-- TODO: talk about convention of preceding variables with "_"
 -- TODO: document all functions with examples
 -- TODO: more exports
 
@@ -466,21 +466,21 @@ isVar _                  =  False
 -- > , y :: Int ]
 --
 -- > > values (xx -+- (yy -+- zz))
--- > [(+) :: Int -> Int -> Int
+-- > [ (+) :: Int -> Int -> Int
 -- > , x :: Int
 -- > , (+) :: Int -> Int -> Int
 -- > , y :: Int
 -- > , z :: Int ]
 --
 -- > > values (zero -+- (one -*- two))
--- > [(+) :: Int -> Int -> Int
+-- > [ (+) :: Int -> Int -> Int
 -- > , 0 :: Int
 -- > , (*) :: Int -> Int -> Int
 -- > , 1 :: Int
 -- > , 2 :: Int ]
 --
 -- > > values (pp -&&- trueE)
--- > [(&&) :: Bool -> Bool -> Bool
+-- > [ (&&) :: Bool -> Bool -> Bool
 -- > , p :: Bool
 -- > , True :: Bool ]
 --
@@ -491,8 +491,29 @@ values e  =  v e []
   v :: Expr -> [Expr] -> [Expr]
   v (e1 :$ e2)  =  v e1 . v e2
   v e           =  (e:)
+-- TODO: rename values to repValues?
+-- or maybe blah and nubBlah
+-- or maybe blah and uniqueBlah
 
 -- | List terminal constants in an expression in order and with repetitions.
+--
+-- > > repConsts (xx -+- yy)
+-- > [ (+) :: Int -> Int -> Int ]
+--
+-- > > repConsts (xx -+- (yy -+- zz))
+-- > [ (+) :: Int -> Int -> Int
+-- > , (+) :: Int -> Int -> Int ]
+--
+-- > > repConsts (zero -+- (one -*- two))
+-- > [ (+) :: Int -> Int -> Int
+-- > , 0 :: Int
+-- > , (*) :: Int -> Int -> Int
+-- > , 1 :: Int
+-- > , 2 :: Int ]
+--
+-- > > repConsts (pp -&&- trueE)
+-- > [ (&&) :: Bool -> Bool -> Bool
+-- > , True :: Bool ]
 repConsts :: Expr -> [Expr]
 repConsts  =  filter isConst . values
 
