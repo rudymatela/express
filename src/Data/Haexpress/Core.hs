@@ -41,6 +41,7 @@ import Data.Maybe (fromMaybe)
 import Data.Monoid ((<>))
 import Data.Typeable (TypeRep, typeOf, funResultTy, splitTyConApp, TyCon, typeRepTyCon)
 
+import Data.Haexpress.Utils.List
 import Data.Haexpress.Utils.String
 import Data.Haexpress.Utils.Typeable
 
@@ -542,12 +543,3 @@ varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
 #else
   undefine = id -- there's no way to do this using the old Data.Dynamic API.
 #endif
-
--- TODO: move to Data.Haexpress.Utils.List?
-nubSort :: Ord a => [a] -> [a]
-nubSort  =  nnub . sort
-  where
-  -- linear nub of next values
-  nnub [] = []
-  nnub [x] = [x]
-  nnub (x:xs) = x : nnub (dropWhile (==x) xs)

@@ -1,6 +1,7 @@
--- Copyright (c) 2017-2018 Rudy Matela.
--- Distributed under the 3-Clause BSD licence (see the file LICENSE).
+-- Copyright (c) 2017-2018 Rudy Matela.  -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
+
+import Data.List (sort)
 
 main :: IO ()
 main = mainTest tests 360
@@ -41,4 +42,7 @@ tests n =
   , values (pp -&&- trueE) == [andE, pp, trueE]
 
   , holds n $ \e -> isGround e ==> repConsts e == values e
+
+  , holds n $ \xs -> nubSort xs == nub (sort xs)
+  , holds n $ \xs -> nubSort xs == sort (nub xs)
   ]
