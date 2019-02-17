@@ -39,4 +39,6 @@ tests n =
   , values ((xx -+- yy) -+- zz) == [plusE, plusE, xx, yy, zz]
   , values (zero -+- (one -*- two)) == [plusE, zero, timesE, one, two]
   , values (pp -&&- trueE) == [andE, pp, trueE]
+
+  , holds n $ \e -> isGround e ==> repConsts e == values e
   ]
