@@ -45,4 +45,6 @@ tests n =
 
   , holds n $ \xs -> nubSort xs == nub (sort xs :: [Int])
   , holds n $ \xs -> nubSort xs == sort (nub xs :: [Int])
+
+  , holds n $ isSubsetOf ==== (\xs ys -> all (`elem` ys) (xs :: [Int]))
   ]

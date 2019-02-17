@@ -8,14 +8,16 @@
 -- lists.
 module Data.Haexpress.Utils.List
   ( nubSort
+  , isSubsetOf
   , module Data.List
   )
 where
 
 import Data.List
 
--- | Sorts and remove repetitions in @O (n * log n)@ time.
---   Equivalent to @nub . sort@.
+-- | /O(n log n)/.
+-- Sorts and remove repetitions.
+-- Equivalent to @nub . sort@.
 --
 -- > > nubSort [1,2,3]
 -- > [1,2,3]
@@ -32,3 +34,15 @@ nubSort  =  nnub . sort
   nnub [] = []
   nnub [x] = [x]
   nnub (x:xs) = x : nnub (dropWhile (==x) xs)
+
+-- | /O(n log n)/.
+-- Checks that all elements of the first list are elements of the second.
+isSubsetOf :: Ord a => [a] -> [a] -> Bool
+xs `isSubsetOf` ys  =  nubSort xs `isSubsequenceOf` nubSort ys
+  where
+  -- only exported from Data.List since base 4.8.0.0
+  isSubsequenceOf :: Eq a => [a] -> [a] -> Bool
+  isSubsequenceOf []    _                    =  True
+  isSubsequenceOf (_:_) []                   =  False
+  isSubsequenceOf (x:xs) (y:ys) | x == y     =     xs  `isSubsequenceOf` ys
+                                | otherwise  =  (x:xs) `isSubsequenceOf` ys

@@ -1,5 +1,6 @@
 module Test
   ( module Test.LeanCheck
+  , module Test.LeanCheck.Utils
   , module Data.Haexpress.Fixtures
   , module Test.ListableExpr
   , module Data.Maybe
@@ -13,6 +14,7 @@ import Data.List (elemIndices)
 
 import Data.Maybe
 import Test.LeanCheck
+import Test.LeanCheck.Utils
 import Test.ListableExpr
 import Data.Haexpress.Fixtures
 
