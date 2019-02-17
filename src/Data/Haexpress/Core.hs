@@ -260,18 +260,11 @@ toDynamic (e1 :$ e2)  = do v1 <- toDynamic e1
                            v2 <- toDynamic e2
                            dynApply v1 v2
 
--- TODO: decide whether to always show the type
--- TODO: decide whether to always show holes
 instance Show Expr where
   showsPrec d e = showParen (d > 10)
                 $ showsPrecExpr 0 e
                 . showString " :: "
                 . shows (typ e)
---              . showString (showHoles e)  -- TODO:
---  where
---  showHoles e = case holes e of
---                  [] -> ""
---                  hs -> "  (holes: " ++ intercalate ", " (map show hs) ++ ")"
 
 showsPrecExpr :: Int -> Expr -> String -> String
 showsPrecExpr d (Value "_" _)     = showString "_" -- a hole
