@@ -64,8 +64,9 @@ data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dyna
            |  Expr :$ Expr         -- ^ function application between expressions
   deriving Typeable -- for GHC < 7.10
 
--- | It takes a string representation of a value and a value, returning an
---   'Expr' with that terminal value.  Examples:
+-- | /O(1)./
+-- It takes a string representation of a value and a value, returning an
+-- 'Expr' with that terminal value.  Examples:
 --
 -- > > value "0" (0 :: Integer)
 -- > 0 :: Integer
@@ -87,7 +88,8 @@ data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dyna
 value :: Typeable a => String -> a -> Expr
 value s x = Value s (toDyn x)
 
--- | A shorthand for 'value' for values that are 'Show' instances.
+-- | /O(1)./
+-- A shorthand for 'value' for values that are 'Show' instances.
 -- Examples:
 --
 -- > > val (0 :: Int)
@@ -107,8 +109,9 @@ value s x = Value s (toDyn x)
 val :: (Typeable a, Show a) => a -> Expr
 val x = value (show x) x
 
--- | Creates an 'Expr' representing a function application.
---   'Just' an 'Expr' application if the types match, 'Nothing' otherwise.
+-- | /O(1)/.
+-- Creates an 'Expr' representing a function application.
+-- 'Just' an 'Expr' application if the types match, 'Nothing' otherwise.
 --
 -- > > value "id" (id :: () -> ()) $$ val ()
 -- > Just (id () :: ())
@@ -126,8 +129,9 @@ e1 $$ e2  =  case typ e1 `funResultTy` typ e2 of
              Nothing -> Nothing
              Just _  -> Just $ e1 :$ e2
 
--- | Creates an 'Expr' representing a variable with the given name and argument
---   type.
+-- | /O(1)/.
+-- Creates an 'Expr' representing a variable with the given name and argument
+-- type.
 --
 -- > > var "x" (undefined :: Int)
 -- > x :: Int
@@ -140,7 +144,8 @@ e1 $$ e2  =  case typ e1 `funResultTy` typ e2 of
 var :: Typeable a => String -> a -> Expr
 var s a = value ('_':s) (undefined `asTypeOf` a)
 
--- | Creates an 'Expr' representing a typed hole of the given argument type.
+-- | /O(1)/.
+-- Creates an 'Expr' representing a typed hole of the given argument type.
 --
 -- > > hole (undefined :: Int)
 -- > _ :: Int
@@ -150,8 +155,9 @@ var s a = value ('_':s) (undefined `asTypeOf` a)
 hole :: Typeable a => a -> Expr
 hole a = var "" (undefined `asTypeOf` a)
 
--- | The type of an expression.  This raises errors, but those should not
---   happen if expressions are smart-constructed.
+-- | /O(n)/.
+-- Computes the type of an expression.  This raises errors, but this should
+-- not happen if expressions are smart-constructed.
 --
 -- > > let one = val (1 :: Int)
 -- > > let bee = val 'b'
@@ -182,9 +188,10 @@ typ (e1 :$ e2) =
 -- TODO: also provide a Expr -> Either (TypeRep, TypeRep) TypeRep
 -- TODO: also provide a fastType which ignores type mismatches
 
--- | 'Just' the value of an expression when possible (correct type),
---   'Nothing' otherwise.
---   This does not catch errors from 'undefined' 'Dynamic' 'value's.
+-- |  /O(n)/.
+-- 'Just' the value of an expression when possible (correct type),
+-- 'Nothing' otherwise.
+-- This does not catch errors from 'undefined' 'Dynamic' 'value's.
 --
 -- > > let one = val (1 :: Int)
 -- > > let bee = val 'b'
@@ -210,8 +217,9 @@ typ (e1 :$ e2) =
 evaluate :: Typeable a => Expr -> Maybe a
 evaluate e = toDynamic e >>= fromDynamic
 
--- | Evaluates an expression when possible (correct type).
---   Returns a default value otherwise.
+-- | /O(n)/. 
+-- Evaluates an expression when possible (correct type).
+-- Returns a default value otherwise.
 --
 -- > > let two = val (2 :: Int)
 -- > > let three = val (3 :: Int)
@@ -228,8 +236,9 @@ evaluate e = toDynamic e >>= fromDynamic
 eval :: Typeable a => a -> Expr -> a
 eval x e = fromMaybe x (evaluate e)
 
--- | Evaluates an expression to a terminal 'Dynamic' value when possible.
---   Returns 'Nothing' otherwise.
+-- | /O(n)/.
+-- Evaluates an expression to a terminal 'Dynamic' value when possible.
+-- Returns 'Nothing' otherwise.
 --
 -- > > toDynamic $ val (123 :: Int) :: Maybe Dynamic
 -- > Just <<Int>>
@@ -429,8 +438,9 @@ unfoldTuple = u . unfoldApp
 isTuple :: Expr -> Bool
 isTuple = not . null . unfoldTuple
 
--- | Check if an 'Expr' has a variable.  (By convention, any value whose
---   'String' representation starts with @'_'@.)
+-- | /O(n)/.
+-- Check if an 'Expr' has a variable.  (By convention, any value whose
+-- 'String' representation starts with @'_'@.)
 --
 -- > > hasVar $ value "not" not :$ val True
 -- > False
@@ -442,10 +452,11 @@ hasVar (e1 :$ e2) = hasVar e1 || hasVar e2
 hasVar (Value ('_':_) _) = True
 hasVar _ = False
 
--- | Returns whether a 'Expr' has _no_ variables.
---   This is equivalent to @not . hasVar@.
+-- | /O(n)/.
+-- Returns whether a 'Expr' has /no/ variables.
+-- This is equivalent to "@not . hasVar@".
 --
---   The name "ground" comes from term rewriting.
+-- The name "ground" comes from term rewriting.
 --
 -- > > isGround $ value "not" not :$ val True
 -- > True
@@ -456,12 +467,31 @@ isGround :: Expr -> Bool
 isGround  =  not . hasVar
 
 -- | Returns whether an 'Expr' is a terminal constant.
+--   (cf. 'isGround').
+--
+-- > > isConst $ var "x" (undefined :: Int)
+-- > False
+--
+-- > > isConst $ val False
+-- > True
+--
+-- > > isConst $ value "not" not :$ val False
+-- > False
 isConst :: Expr -> Bool
 isConst  (Value ('_':_) _)  =  False
 isConst  (Value _ _)        =  True
 isConst  _                  =  False
 
--- | Returns whether an 'Expr' is a terminal constant.
+-- | Returns whether an 'Expr' is a terminal variable.
+--
+-- > > isVar $ var "x" (undefined :: Int)
+-- > True
+--
+-- > > isVar $ val False
+-- > False
+--
+-- > > isVar $ value "not" not :$ var "p" (undefined :: Bool)
+-- > False
 isVar :: Expr -> Bool
 isVar (Value ('_':_) _)  =  True
 isVar _                  =  False
