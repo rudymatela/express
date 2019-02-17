@@ -182,13 +182,13 @@ hole a = var "" (undefined `asTypeOf` a)
 -- > Int
 --
 -- > > typ (absE :$ bee)
--- > *** Exception: type mismatch, cannot apply Int -> Int to Char
+-- > *** Exception: type mismatch, cannot apply `Int -> Int' to `Char'
 typ :: Expr -> TypeRep
 typ (Value _ d) = dynTypeRep d
 typ (e1 :$ e2) =
   case typ e1 `funResultTy` typ e2 of
-    Nothing -> error $ "type mismatch, cannot apply "
-                    ++ show (typ e1) ++ " to " ++ show (typ e2)
+    Nothing -> error $ "type mismatch, cannot apply `"
+                    ++ show (typ e1) ++ "' to `" ++ show (typ e2) ++ "'"
     Just t  -> t
 -- TODO: also provide a Expr -> Either String TypeRep
 -- TODO: also provide a Expr -> Either (TypeRep, TypeRep) TypeRep
