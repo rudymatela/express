@@ -412,8 +412,10 @@ lexicompare = lexicompareBy lexicompareConstants
 -- > unfoldApp $ e0 :$ e1 :$ e2        =  [e0,e1,e2]
 -- > unfoldApp $ e0 :$ e1 :$ e2 :$ e3  =  [e0,e1,e2,e3]
 unfoldApp :: Expr -> [Expr]
-unfoldApp (ef :$ ex) = unfoldApp ef ++ [ex]
-unfoldApp  ef        = [ef]
+unfoldApp e  =  u e []
+  where
+  u (ef :$ ex) = u ef . (ex:)
+  u ex         = (ex:)
 
 -- | /O(n)/.
 -- Unfold a tuple 'Expr' into a list of values.
