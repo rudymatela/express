@@ -41,7 +41,7 @@ tests n =
   , values (zero -+- (one -*- two)) == [plusE, zero, timesE, one, two]
   , values (pp -&&- trueE) == [andE, pp, trueE]
 
-  , holds n $ \e -> isGround e ==> repConsts e == values e
+  , holds n $ \e -> isGround e ==> consts e == values e
 
   , holds n $ \xs -> nubSort xs == nub (sort xs :: [Int])
   , holds n $ \xs -> nubSort xs == sort (nub xs :: [Int])

@@ -35,8 +35,8 @@ module Data.Haexpress.Core
   , vars
   , consts
   , nubValues
-  , repVars
-  , repConsts
+  , nubVars
+  , nubConsts
 
   -- * Other utilities
   , unfoldApp
@@ -347,10 +347,10 @@ instance Ord Expr where
 --
 --   >
 compareComplexity :: Expr -> Expr -> Ordering
-compareComplexity  =  (compare `on` lengthE)
+compareComplexity  =  (compare      `on` length . values)
+                   <> (flip compare `on` length . nubVars)
                    <> (flip compare `on` length . vars)
-                   <> (flip compare `on` length . repVars)
-                   <> (compare `on` length . consts)
+                   <> (compare      `on` length . nubConsts)
 
 -- TODO: rename lexicompare family?
 
@@ -442,13 +442,6 @@ hasVar (e1 :$ e2) = hasVar e1 || hasVar e2
 hasVar (Value ('_':_) _) = True
 hasVar _ = False
 
--- | Returns the length of an expression.  In term rewriting terms: |s|
---
--- > lengthE == length . values
-lengthE :: Expr -> Int
-lengthE (e1 :$ e2)  = lengthE e1 + lengthE e2
-lengthE _           = 1
-
 -- | Returns whether a 'Expr' has _no_ variables.
 --   This is equivalent to @not . hasVar@.
 --
@@ -537,35 +530,35 @@ nubValues  =  nubSort . values
 
 -- | List terminal constants in an expression in order and with repetitions.
 --
--- > > repConsts (xx -+- yy)
+-- > > consts (xx -+- yy)
 -- > [ (+) :: Int -> Int -> Int ]
 --
--- > > repConsts (xx -+- (yy -+- zz))
+-- > > consts (xx -+- (yy -+- zz))
 -- > [ (+) :: Int -> Int -> Int
 -- > , (+) :: Int -> Int -> Int ]
 --
--- > > repConsts (zero -+- (one -*- two))
+-- > > consts (zero -+- (one -*- two))
 -- > [ (+) :: Int -> Int -> Int
 -- > , 0 :: Int
 -- > , (*) :: Int -> Int -> Int
 -- > , 1 :: Int
 -- > , 2 :: Int ]
 --
--- > > repConsts (pp -&&- trueE)
+-- > > consts (pp -&&- trueE)
 -- > [ (&&) :: Bool -> Bool -> Bool
 -- > , True :: Bool ]
-repConsts :: Expr -> [Expr]
-repConsts  =  filter isConst . values
+consts :: Expr -> [Expr]
+consts  =  filter isConst . values
 
 -- | List terminal constants in an expression without repetitions.
-consts :: Expr -> [Expr]
-consts  =  nubSort . repConsts
-
-repVars :: Expr -> [Expr]
-repVars  =  filter isVar . values
+nubConsts :: Expr -> [Expr]
+nubConsts  =  nubSort . consts
 
 vars :: Expr -> [Expr]
-vars  =  nubSort . repVars
+vars  =  filter isVar . values
+
+nubVars :: Expr -> [Expr]
+nubVars  =  nubSort . vars
 
 -- | Creates a 'var'iable with the same type as the given 'Expr'.
 --
