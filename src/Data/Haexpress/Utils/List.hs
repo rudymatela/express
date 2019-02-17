@@ -4,13 +4,15 @@
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
--- Assorted functions over lists.
+-- Re-exports the "Data.List" module along with additional functions over
+-- lists.
 module Data.Haexpress.Utils.List
   ( nubSort
+  , module Data.List
   )
 where
 
-import Data.List (sort)
+import Data.List
 
 -- | Sorts and remove repetitions in @O (n * log n)@ time.
 --   Equivalent to @nub . sort@.

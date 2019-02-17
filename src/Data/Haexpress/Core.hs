@@ -10,22 +10,35 @@ module Data.Haexpress.Core
   (
   -- * The Expr datatype
     Expr (..)
+
   -- * Smart constructors
   , value
   , val
   , ($$)
   , var
   , hole
+
   -- * Evaluating Exprs
   , evaluate
   , eval
   , typ
   , toDynamic
-  -- * Utilities
-  , unfoldApp
+
+  -- * Boolean properties
   , hasVar
   , isGround
+  , isVar
+  , isConst
+
+  -- * Listing subexpressions
   , values
+  , vars
+  , consts
+  , repVars
+  , repConsts
+
+  -- * Other utilities
+  , unfoldApp
   , varAsTypeOf
   )
 where
