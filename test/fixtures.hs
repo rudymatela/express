@@ -9,7 +9,11 @@ tests :: Int -> [Bool]
 tests n =
   [ True
   
-  , show i_ == "_ :: Int" -- TODO: fix me
+  , evalInt zero  == 0
+  , evalInt one   == 1
+  , evalInt two   == 2
+  , evalInt three == 3
+  , show i_ == "_ :: Int"
   , show xx == "x :: Int"
   , show yy == "y :: Int"
   ]

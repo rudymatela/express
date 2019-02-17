@@ -10,16 +10,18 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
+  , holds n $ \x -> eval (undefined :: Int -> Int) (value "abs" (abs :: Int -> Int)) x == abs (x :: Int)
   , evalInt (val (10 :: Int)) == 10
-  , evalInt one == 1
   , holds n $ \x y -> evalInt (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == x + y
   , holds n $ \x y -> evalInt (value "+" ((*) :: Int -> Int -> Int) :$ val x :$ val y) == x * y
   , holds n $ \i -> evalInt (val i) == i
-  , holds n $ \e -> isJust (toDynamic e)
   , show (one -+- one) == "1 + 1 :: Int"
   , holds n $ \(IntE xx, IntE yy) -> isJust (toDynamic $ xx -+- yy)
   , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
                                  ==> evalInt (xx -+- yy) == evalInt (yy -+- xx)
+
+  , holds n $ \(FunE_II ff, IntE xx)  -> isJust (ff $$ xx)
+--, holds n $ \(FunE_II ff, BoolE pp) -> isNothing (ff $$ pp) -- TODO
 
   , values (xx -+- yy) == [plusE, xx, yy]
   , values (xx -+- (yy -+- zz)) == [plusE, xx, plusE, yy, zz]

@@ -9,6 +9,7 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
+  , holds n $ \e -> isJust (toDynamic e)
   , holds n $ \(IntE xx) -> isJust $ evaluateInt xx
   , holds n $ \(FunE_II ff) (IntE xx) -> isJust . evaluateInt $ ff :$ xx
   , holds n $ \(FunE_III ff) (IntE xx) (IntE yy) -> isJust . evaluateInt $ ff :$ xx :$ yy
