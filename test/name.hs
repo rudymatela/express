@@ -10,6 +10,8 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
+  -- TODO: test tuples
+  -- TODO: split the following into setions
   , name (undefined :: Int) == "x"
   , name (undefined :: Integer) == "x"
   , name (undefined :: Char) == "c"
