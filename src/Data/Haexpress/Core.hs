@@ -34,6 +34,7 @@ module Data.Haexpress.Core
   , values
   , vars
   , consts
+  , nubValues
   , repVars
   , repConsts
 
@@ -101,7 +102,7 @@ value s x = Value s (toDyn x)
 -- Example equivalences to 'value':
 --
 -- > val 0     =  value "0" 0
--- > val 'a'   =  value "'a'" 'a' 
+-- > val 'a'   =  value "'a'" 'a'
 -- > val True  =  value "True" True
 val :: (Typeable a, Show a) => a -> Expr
 val x = value (show x) x
@@ -344,7 +345,7 @@ instance Ord Expr where
 --
 --   They're otherwise considered of equal complexity.
 --
---   > 
+--   >
 compareComplexity :: Expr -> Expr -> Ordering
 compareComplexity  =  (compare `on` lengthE)
                    <> (flip compare `on` length . vars)
@@ -472,7 +473,8 @@ isVar :: Expr -> Bool
 isVar (Value ('_':_) _)  =  True
 isVar _                  =  False
 
--- | Lists all terminal values in an expression in order and with repetitions.
+-- | /O(n)/.
+-- Lists all terminal values in an expression in order and with repetitions.
 --
 -- > > values (xx -+- yy)
 -- > [ (+) :: Int -> Int -> Int
@@ -505,9 +507,33 @@ values e  =  v e []
   v :: Expr -> [Expr] -> [Expr]
   v (e1 :$ e2)  =  v e1 . v e2
   v e           =  (e:)
--- TODO: rename values to repValues?
--- or maybe blah and nubBlah
--- or maybe blah and uniqueBlah
+
+-- | /O(n log n)/.
+-- Lists all terminal values in an expression without repetitions.
+--
+-- > > nubValues (xx -+- yy)
+-- > [ x :: Int
+-- > , y :: Int
+-- > , (+) :: Int -> Int -> Int ]
+--
+-- > > nubValues (xx -+- (yy -+- zz))
+-- > [ x :: Int
+-- > , y :: Int
+-- > , z :: Int
+-- > , (+) :: Int -> Int -> Int ]
+--
+-- > > nubValues (zero -+- (one -*- two))
+-- > [ 0 :: Int
+-- > , 1 :: Int
+-- > , 2 :: Int
+-- > , (*) :: Int -> Int -> Int
+-- > , (+) :: Int -> Int -> Int ]
+--
+-- > > nubValues (pp -&&- pp)
+-- > [ p :: Bool
+-- > , (&&) :: Bool -> Bool -> Bool ]
+nubValues :: Expr -> [Expr]
+nubValues  =  nubSort . values
 
 -- | List terminal constants in an expression in order and with repetitions.
 --
