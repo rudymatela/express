@@ -5,6 +5,7 @@
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines the 'Expr' type and utilities involving it
+{-# LANGUAGE CPP #-}
 module Data.Haexpress
   ( 
 -- TODO: explicitly export everything instead of the modules
@@ -12,6 +13,7 @@ module Data.Haexpress
   , module Data.Haexpress.Name
   , module Data.Haexpress.Express
   , (\\\)
+  , varAsTypeOf
   )
 where
 
@@ -32,7 +34,8 @@ findSub :: String -> Dynamic -> Substitution -> Maybe Expr
 findSub n d bs = snd <$> find (\(n',e) -> n' == n && typ e == dynTypeRep d) bs
 
 
--- | Substitute all occurrences of a variable in an expression.
+-- | /O(n)/.
+-- Substitute all occurrences of a variable in an expression.
 --
 -- > > ((xx -+- yy) -+- (yy -+- zz)) \\\ [("y", yy -+- zz)] =
 -- > (x + (y + z)) + ((y + z) + z)
@@ -44,4 +47,19 @@ findSub n d bs = snd <$> find (\(n',e) -> n' == n && typ e == dynTypeRep d) bs
 e@(Value ('_':n) d) \\\ as  =  fromMaybe e $ findSub n d as
 e                   \\\ as  =  e
 
--- TODO: sub1
+-- | /O(1)/.
+-- Creates a 'var'iable with the same type as the given 'Expr'.
+--
+-- > > let one = val (1::Int)
+-- > > "x" `varAsTypeOf` one
+-- > x :: Int
+varAsTypeOf :: String -> Expr -> Expr
+varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
+  where
+  err = error "varAsTypeOf: could not compile Dynamic value, type error?"
+  undefine :: Dynamic -> Dynamic
+#if __GLASGOW_HASKELL__ >= 806
+  undefine (Dynamic t v) = (Dynamic t undefined)
+#else
+  undefine = id -- there's no way to do this using the old Data.Dynamic API.
+#endif

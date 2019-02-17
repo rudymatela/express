@@ -9,7 +9,7 @@
 -- The complexity of most functions are given in big O notation
 -- where /n/ is the size of the expression being manipulated or produced.
 -- There may still be a /m/ cost associated with the values being stored in 'Expr's.
-{-# LANGUAGE CPP, DeriveDataTypeable #-} -- for GHC < 7.10
+{-# LANGUAGE DeriveDataTypeable #-} -- for GHC < 7.10
 module Data.Haexpress.Core
   (
   -- * The Expr datatype
@@ -45,7 +45,6 @@ module Data.Haexpress.Core
 
   -- * Other utilities
   , unfoldApp
-  , varAsTypeOf
   )
 where
 
@@ -668,20 +667,3 @@ vars  =  filter isVar . values
 -- > [p :: Bool]
 nubVars :: Expr -> [Expr]
 nubVars  =  nubSort . vars
-
--- | /O(1)/.
--- Creates a 'var'iable with the same type as the given 'Expr'.
---
--- > > let one = val (1::Int)
--- > > "x" `varAsTypeOf` one
--- > x :: Int
-varAsTypeOf :: String -> Expr -> Expr
-varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
-  where
-  err = error "varAsTypeOf: could not compile Dynamic value, type error?"
-  undefine :: Dynamic -> Dynamic
-#if __GLASGOW_HASKELL__ >= 806
-  undefine (Dynamic t v) = (Dynamic t undefined)
-#else
-  undefine = id -- there's no way to do this using the old Data.Dynamic API.
-#endif
