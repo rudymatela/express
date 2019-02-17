@@ -49,8 +49,8 @@ module Data.Haexpress.Core
 where
 
 -- TODO: talk about convention of preceding variables with "_"
--- TODO: document all functions with examples
 -- TODO: more exports
+-- TODO: rename lexicompare family?
 -- TODO: isList
 -- TODO: unfoldList
 
@@ -359,8 +359,6 @@ compareComplexity  =  (compare      `on` length . values)
                    <> (flip compare `on` length . nubVars)
                    <> (flip compare `on` length . vars)
                    <> (compare      `on` length . nubConsts)
-
--- TODO: rename lexicompare family?
 
 lexicompareBy :: (Expr -> Expr -> Ordering) -> Expr -> Expr -> Ordering
 lexicompareBy compareConstants = cmp

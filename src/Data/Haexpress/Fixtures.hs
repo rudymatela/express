@@ -48,7 +48,7 @@ module Data.Haexpress.Fixtures
   , gg, ggE
 
   -- ** Chars
-  , a, bee, cee, dee
+  , bee, cee, dee
 
   -- ** Lists
   , xxss
@@ -290,11 +290,7 @@ abs' e  =  absE :$ e
 absE :: Expr
 absE  =  value "abs" (abs :: Int -> Int)
 
-a :: Expr
-a  =  val 'a'
--- TODO: remove aa
-
--- | The character @'b'@ encoded as an 'Expr'
+-- | The character @\'b\'@ encoded as an 'Expr'
 --
 -- > > bee
 -- > 'b' :: Char
@@ -304,7 +300,7 @@ a  =  val 'a'
 bee :: Expr
 bee  =  val 'b'
 
--- | The character @'c'@ encoded as an 'Expr'
+-- | The character @\'c\'@ encoded as an 'Expr'
 --
 -- > > cee
 -- > 'c' :: Char
@@ -314,7 +310,7 @@ bee  =  val 'b'
 cee :: Expr
 cee  =  val 'c'
 
--- | The character @'d'@ encoded as an 'Expr'
+-- | The character @\'d\'@ encoded as an 'Expr'
 --
 -- > > dee
 -- > 'd' :: Char
