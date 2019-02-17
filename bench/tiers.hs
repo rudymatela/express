@@ -19,6 +19,6 @@ printTiers n = putStrLn . init . unlines . map ("  " ++) . lines . showTiers n
 main :: IO ()
 main  =  do
   putStrLn $ "map length (tiers :: [[ Expr ]])  =  "
-          ++ showDotsLongerThan 6 (map length $ tiers `asTypeOf` [[a]])
+          ++ showDotsLongerThan 6 (map length (tiers :: [[Expr]]))
   putStrLn $ "tiers :: [[ Expr ]]  ="
   printTiers 6 (tiers :: [[Expr]])
