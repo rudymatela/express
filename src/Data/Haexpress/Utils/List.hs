@@ -8,11 +8,13 @@
 -- lists.
 module Data.Haexpress.Utils.List
   ( nubSort
+  , isPermutationOf
   , isSubsetOf
   , module Data.List
   )
 where
 
+import Data.Function (on)
 import Data.List
 
 -- | /O(n log n)/.
@@ -46,3 +48,8 @@ xs `isSubsetOf` ys  =  nubSort xs `isSubsequenceOf` nubSort ys
   isSubsequenceOf (_:_) []                   =  False
   isSubsequenceOf (x:xs) (y:ys) | x == y     =     xs  `isSubsequenceOf` ys
                                 | otherwise  =  (x:xs) `isSubsequenceOf` ys
+
+-- | /O(n log n)/.
+-- Checks that all elements of the first list are elements of the second.
+isPermutationOf :: Ord a => [a] -> [a] -> Bool
+isPermutationOf  =  (==) `on` sort

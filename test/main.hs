@@ -47,4 +47,12 @@ tests n =
   , holds n $ \xs -> nubSort xs == sort (nub xs :: [Int])
 
   , holds n $ isSubsetOf ==== (\xs ys -> all (`elem` ys) (xs :: [Int]))
+
+  , holds n $ \e -> nubValues e `isSubsetOf` values e
+  , holds n $ \e -> nubVars   e `isSubsetOf` vars   e
+  , holds n $ \e -> nubConsts e `isSubsetOf` consts e
+  , holds n $ \e -> vars      e `isSubsetOf` values e
+  , holds n $ \e -> consts    e `isSubsetOf` values e
+  , holds n $ \e -> (vars e ++ consts e) `isPermutationOf` values e
+  , holds n $ \e -> (nubVars e ++ nubConsts e) `isPermutationOf` nubValues e
   ]
