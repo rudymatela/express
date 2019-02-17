@@ -51,6 +51,8 @@ where
 -- TODO: talk about convention of preceding variables with "_"
 -- TODO: document all functions with examples
 -- TODO: more exports
+-- TODO: isList
+-- TODO: unfoldList
 
 import Data.Dynamic
 import Data.Function (on)
@@ -395,11 +397,6 @@ lexicompareConstants = cmp
 -- 4th lexicographic order on names
 lexicompare :: Expr -> Expr -> Ordering
 lexicompare = lexicompareBy lexicompareConstants
-
-
--- TODO: isList
--- TODO: unfoldList
--- TODO: isGround
 
 -- | /O(n)/.
 -- Unfold a function application 'Expr' into a list of function and
