@@ -28,11 +28,12 @@ module Data.Haexpress.Core
   , typ
   , toDynamic
 
-  -- * Boolean properties
+  -- * Boolean and ordering properties
   , hasVar
   , isGround
   , isVar
   , isConst
+  , compareComplexity
 
   -- * Listing subexpressions
   , values
@@ -342,18 +343,43 @@ instance Eq Expr where
 instance Ord Expr where
   compare = compareComplexity <> lexicompare
 
--- | Compares the complexity of two 'Expr's.
---   An expression e1 is _strictly simpler_ than another expression e2
---   if the first of the following conditions to distingish between them is:
+-- | /O(n)/.
+-- Compares the complexity of two 'Expr's.
+-- An expression /e1/ is /strictly simpler/ than another expression /e2/
+-- if the first of the following conditions to distingish between them is:
 --
---   1. e1 is smaller in size/length than e2;
---   2. or, e1 has more distinct variables than e2;
---   3. or, e1 has more variable occurrences than e2;
---   4. or, 21 has fewer distinct constants than e2.
+-- 1. /e1/ is smaller in size\/length than /e2/,
+--    e.g.: @x + y < x + (y + z)@;
 --
---   They're otherwise considered of equal complexity.
+-- 2. or, /e1/ has more distinct variables than /e2/,
+--    e.g.: @x + y < x + x@;
 --
---   >
+-- 3. or, /e1/ has more variable occurrences than /e2/,
+--    e.g.: @x + x < 1 + x@;
+--
+-- 4. or, /e1/ has fewer distinct constants than /e2/,
+--    e.g.: @1 + 1 < 0 + 1@.
+--
+-- They're otherwise considered of equal complexity,
+-- e.g.: @x + y@ and @y + z@.
+--
+-- > > (xx -+- yy) `compareComplexity` (xx -+- (yy -+- zz))
+-- > LT
+--
+-- > > (xx -+- yy) `compareComplexity` (xx -+- xx)
+-- > LT
+--
+-- > > (xx -+- xx) `compareComplexity` (one -+- xx)
+-- > LT
+--
+-- > > (one -+- one) `compareComplexity` (zero -+- one)
+-- > LT
+--
+-- > > (xx -+- yy) `compareComplexity` (yy -+- zz)
+-- > EQ
+--
+-- > > (zero -+- one) `compareComplexity` (one -+- zero)
+-- > EQ
 compareComplexity :: Expr -> Expr -> Ordering
 compareComplexity  =  (compare      `on` length . values)
                    <> (flip compare `on` length . nubVars)
