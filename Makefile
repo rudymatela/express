@@ -5,6 +5,7 @@
 # Maintainer:  Rudy Matela <rudy@matela.com.br>
 TESTS = \
   test/main \
+  test/core \
   test/fixtures \
   test/express \
   test/name \
