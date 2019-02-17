@@ -44,6 +44,8 @@ module Data.Haexpress.Fixtures
   , id', negate', abs'
   , plusE, timesE
   , (-+-), (-*-)
+  , ff, ffE
+  , gg, ggE
 
   -- ** Chars
   , a, bee, cee, dee
@@ -186,6 +188,18 @@ minusOne  =  val (-1 :: Int)
 -- > -2 :: Int
 minusTwo :: Expr
 minusTwo  =  val (-2 :: Int)
+
+ff :: Expr -> Expr
+ff = (ffE :$)
+
+ffE :: Expr
+ffE = var "f" (undefined :: Int -> Int)
+
+gg :: Expr -> Expr
+gg = (ggE :$)
+
+ggE :: Expr
+ggE = var "g" (undefined :: Int -> Int)
 
 -- | The operator '+' for the 'Int' type for use on 'Expr's.  (See also 'plusE'.)
 --
