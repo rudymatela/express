@@ -12,7 +12,7 @@ module Data.Haexpress
     module Data.Haexpress.Core
   , module Data.Haexpress.Name
   , module Data.Haexpress.Express
-  , (\\\)
+  , (//)
   , varAsTypeOf
   )
 where
@@ -34,18 +34,25 @@ findSub :: String -> Dynamic -> Substitution -> Maybe Expr
 findSub n d bs = snd <$> find (\(n',e) -> n' == n && typ e == dynTypeRep d) bs
 
 
--- | /O(n)/.
--- Substitute all occurrences of a variable in an expression.
+-- TODO: rename \\\ to //
+-- TODO: implement /-/ which is like // but works for non-terminal terms
+
+
+-- | /O(n+m*o)/.
+-- Substitute all occurrences of values (terminal terms) in an expression.
 --
--- > > ((xx -+- yy) -+- (yy -+- zz)) \\\ [("y", yy -+- zz)] =
+-- > > ((xx -+- yy) -+- (yy -+- zz)) // [(yy, yy -+- zz)] =
 -- > (x + (y + z)) + ((y + z) + z)
 --
 -- Note this is /not/ equivalent to @foldr sub1@.  Variables inside
 -- expressions being assigned will not be assigned.
-(\\\) :: Expr -> Substitution -> Expr
-(e1 :$ e2)          \\\ as  =  (e1 \\\ as) :$ (e2 \\\ as)
-e@(Value ('_':n) d) \\\ as  =  fromMaybe e $ findSub n d as
-e                   \\\ as  =  e
+(//) :: Expr -> Substitution -> Expr
+(e1 :$ e2)          // as  =  (e1 // as) :$ (e2 // as)
+e@(Value ('_':n) d) // as  =  fromMaybe e $ findSub n d as
+e                   // as  =  e
+
+
+-- implement \\\\ which works for all types of subterms, not only terminal ones
 
 -- | /O(1)/.
 -- Creates a 'var'iable with the same type as the given 'Expr'.
