@@ -34,24 +34,31 @@ findSub e = (snd <$>) . find ((== e) . fst)
 -- TODO: implement //- which is like // but works for non-terminal terms
 
 
--- | /O(n+m*o)/.
--- Substitute all occurrences of values (terminal terms) in an expression.
+-- TODO: implement mapValues
+-- TODO: implement mapVars and use it on //-
+-- TODO: implement mapConsts
+-- TODO: implement mapOuter and use it on //
+-- TODO: implement mapInner
+
+
+-- | /O(n+m*v)/.
+-- Substitute all occurrences of variables in an expression.
 --
 -- > > ((xx -+- yy) -+- (yy -+- zz)) // [(yy, yy -+- zz)] =
 -- > (x + (y + z)) + ((y + z) + z)
---
--- Note this is /not/ equivalent to @foldr sub1@.  Variables inside
--- expressions being assigned will not be assigned.
-(//) :: Expr -> [(Expr,Expr)] -> Expr
-(e1 :$ e2)          // as  =  (e1 // as) :$ (e2 // as)
-e@(Value ('_':_) _) // as  =  fromMaybe e $ findSub e as
-e                   // as  =  e
+(//-) :: Expr -> [(Expr,Expr)] -> Expr
+(e1 :$ e2)          //- s  =  (e1 //- s) :$ (e2 //- s)
+e@(Value ('_':_) _) //- s  =  e // s
+e                   //- s  =  e
 
-(///) :: Expr -> [(Expr,Expr)] -> Expr
-e /// s  =  fromMaybe r $ findSub e s
+-- | /O(n+n*m)/.
+-- Substitute subexpressions in an expression.
+-- Larger expressions take more precedence.  <-- TODO: explain this
+(//) :: Expr -> [(Expr,Expr)] -> Expr
+e // s  =  fromMaybe r $ findSub e s
   where
   r = case e of
-      (e1 :$ e2) -> (e1 /// s) :$ (e2 /// s)
+      (e1 :$ e2) -> (e1 // s) :$ (e2 // s)
       e          -> e
 
 -- implement \\\\ which works for all types of subterms, not only terminal ones
