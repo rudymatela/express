@@ -28,11 +28,8 @@ import Data.Dynamic
 import Data.List (find)
 import Data.Maybe (fromMaybe)
 
-type Substitution = [(Expr,Expr)]
-
-findSub :: Expr -> Substitution -> Maybe Expr
+findSub :: Expr -> [(Expr,Expr)] -> Maybe Expr
 findSub e = (snd <$>) . find ((== e) . fst)
-
 
 -- TODO: implement //- which is like // but works for non-terminal terms
 
@@ -45,11 +42,17 @@ findSub e = (snd <$>) . find ((== e) . fst)
 --
 -- Note this is /not/ equivalent to @foldr sub1@.  Variables inside
 -- expressions being assigned will not be assigned.
-(//) :: Expr -> Substitution -> Expr
+(//) :: Expr -> [(Expr,Expr)] -> Expr
 (e1 :$ e2)          // as  =  (e1 // as) :$ (e2 // as)
 e@(Value ('_':_) _) // as  =  fromMaybe e $ findSub e as
 e                   // as  =  e
 
+(///) :: Expr -> [(Expr,Expr)] -> Expr
+e /// s  =  fromMaybe r $ findSub e s
+  where
+  r = case e of
+      (e1 :$ e2) -> (e1 /// s) :$ (e2 /// s)
+      e          -> e
 
 -- implement \\\\ which works for all types of subterms, not only terminal ones
 
