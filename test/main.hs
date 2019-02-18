@@ -15,9 +15,9 @@ tests n =
   , holds n $ \x y -> evalInt (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == x + y
   , values (xx -+- yy) == [plusE, xx, yy]
 
-  , ((xx -+- yy) -+- (yy -+- zz)) // [("y",yy -+- zz)]
+  , ((xx -+- yy) -+- (yy -+- zz)) // [(yy,yy -+- zz)]
     == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
 
-  , (xx -+- yy) // [("y",yy -+- zz),("x",xx -+- yy)]
+  , (xx -+- yy) // [(yy,yy -+- zz),(xx,xx -+- yy)]
     == (xx -+- yy) -+- (yy -+- zz)
   ]

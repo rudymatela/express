@@ -28,10 +28,10 @@ import Data.Dynamic
 import Data.List (find)
 import Data.Maybe (fromMaybe)
 
-type Substitution = [(String,Expr)]
+type Substitution = [(Expr,Expr)]
 
-findSub :: String -> Dynamic -> Substitution -> Maybe Expr
-findSub n d bs = snd <$> find (\(n',e) -> n' == n && typ e == dynTypeRep d) bs
+findSub :: Expr -> Substitution -> Maybe Expr
+findSub e = (snd <$>) . find ((== e) . fst)
 
 
 -- TODO: implement //- which is like // but works for non-terminal terms
@@ -47,7 +47,7 @@ findSub n d bs = snd <$> find (\(n',e) -> n' == n && typ e == dynTypeRep d) bs
 -- expressions being assigned will not be assigned.
 (//) :: Expr -> Substitution -> Expr
 (e1 :$ e2)          // as  =  (e1 // as) :$ (e2 // as)
-e@(Value ('_':n) d) // as  =  fromMaybe e $ findSub n d as
+e@(Value ('_':_) _) // as  =  fromMaybe e $ findSub e as
 e                   // as  =  e
 
 
