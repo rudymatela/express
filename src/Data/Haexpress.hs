@@ -28,12 +28,6 @@ import Data.Dynamic
 import Data.List (find)
 import Data.Maybe (fromMaybe)
 
-findSub :: Expr -> [(Expr,Expr)] -> Maybe Expr
-findSub e = (snd <$>) . find ((== e) . fst)
-
--- TODO: implement //- which is like // but works for non-terminal terms
-
-
 -- TODO: implement mapValues
 -- TODO: implement mapVars and use it on //-
 -- TODO: implement mapConsts
@@ -55,7 +49,7 @@ e                   //- s  =  e
 -- Substitute subexpressions in an expression.
 -- Larger expressions take more precedence.  <-- TODO: explain this
 (//) :: Expr -> [(Expr,Expr)] -> Expr
-e // s  =  fromMaybe r $ findSub e s
+e // s  =  fromMaybe r $ snd <$> find ((== e) . fst) s
   where
   r = case e of
       (e1 :$ e2) -> (e1 // s) :$ (e2 // s)
