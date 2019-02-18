@@ -34,8 +34,7 @@ findSub :: String -> Dynamic -> Substitution -> Maybe Expr
 findSub n d bs = snd <$> find (\(n',e) -> n' == n && typ e == dynTypeRep d) bs
 
 
--- TODO: rename \\\ to //
--- TODO: implement /-/ which is like // but works for non-terminal terms
+-- TODO: implement //- which is like // but works for non-terminal terms
 
 
 -- | /O(n+m*o)/.

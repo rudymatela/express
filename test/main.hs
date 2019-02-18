@@ -1,4 +1,4 @@
--- Copyright (c) 2017-2018 Rudy Matela.  -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
+-- Copyright (c) 2019 Rudy Matela.  -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 
 import Data.Haexpress.Utils.List
@@ -14,4 +14,10 @@ tests n =
   , evalInt one == 1
   , holds n $ \x y -> evalInt (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == x + y
   , values (xx -+- yy) == [plusE, xx, yy]
+
+  , ((xx -+- yy) -+- (yy -+- zz)) // [("y",yy -+- zz)]
+    == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
+
+  , (xx -+- yy) // [("y",yy -+- zz),("x",xx -+- yy)]
+    == (xx -+- yy) -+- (yy -+- zz)
   ]
