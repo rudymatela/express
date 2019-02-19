@@ -6,7 +6,10 @@
 --
 -- Utilities for mapping or transforming 'Expr's.
 module Data.Haexpress.Map
-  ( (//-)
+  ( mapValues
+  , mapVars
+  , mapConsts
+  , (//-)
   , (//)
   )
 where
@@ -24,15 +27,39 @@ import Data.Maybe (fromMaybe)
 -- TODO: implement mapInner
 
 
+-- | /O(n)/.
+-- Applies a function to all terminal values in an expression.
+mapValues :: (Expr -> Expr) -> Expr -> Expr
+mapValues f  =  m
+  where
+  m (e1 :$ e2)  =  m e1 :$ m e2
+  m e  =  f e
+
+-- | /O(n)/.
+-- Applies a function to all variables in an expression.
+mapVars :: (Expr -> Expr) -> Expr -> Expr
+mapVars f  =  mapValues f'
+  where
+  f' e = if isVar e
+         then f e
+         else e
+
+-- | /O(n)/.
+-- Applies a function to all terminal constants in an expression.
+mapConsts :: (Expr -> Expr) -> Expr -> Expr
+mapConsts f  =  mapValues f'
+  where
+  f' e = if isConst e
+         then f e
+         else e
+
 -- | /O(n+m*v)/.
 -- Substitute all occurrences of variables in an expression.
 --
 -- > > ((xx -+- yy) -+- (yy -+- zz)) // [(yy, yy -+- zz)] =
 -- > (x + (y + z)) + ((y + z) + z)
 (//-) :: Expr -> [(Expr,Expr)] -> Expr
-(e1 :$ e2)          //- s  =  (e1 //- s) :$ (e2 //- s)
-e@(Value ('_':_) _) //- s  =  e // s
-e                   //- s  =  e
+e //- s  =  mapVars (// s) e
 
 -- | /O(n+n*m)/.
 -- Substitute subexpressions in an expression.
