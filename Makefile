@@ -6,6 +6,7 @@
 TESTS = \
   test/main \
   test/core \
+  test/map \
   test/fixtures \
   test/express \
   test/name \

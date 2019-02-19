@@ -20,6 +20,7 @@ test/express
 test/fixtures
 test/listable
 test/main
+test/map
 test/name
 test/utils
 doc/*.html
