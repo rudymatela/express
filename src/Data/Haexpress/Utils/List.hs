@@ -10,6 +10,7 @@ module Data.Haexpress.Utils.List
   ( nubSort
   , isPermutationOf
   , isSubsetOf
+  , isNub
   , module Data.List
   )
 where
@@ -53,3 +54,17 @@ xs `isSubsetOf` ys  =  nubSort xs `isSubsequenceOf` nubSort ys
 -- Checks that all elements of the first list are elements of the second.
 isPermutationOf :: Ord a => [a] -> [a] -> Bool
 isPermutationOf  =  (==) `on` sort
+
+-- | /O(n log n)/.
+-- Checks that all elements are unique.
+-- This function is a faster equivalent to the following:
+--
+-- > isNub xs  =  nub xs == xs
+--
+-- Examples:
+--
+-- > isNub []       =  True
+-- > isNub [1,2,3]  =  True
+-- > isNub [2,1,2]  =  False
+isNub :: Ord a => [a] -> Bool
+isNub xs  =  length (nubSort xs) == length xs
