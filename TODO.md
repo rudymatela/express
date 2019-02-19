@@ -9,7 +9,7 @@ List of things TO DO for haexpress
 
 * 100% haddock coverage
 
-* Add tests of variable replacement
+* Add more tests of variable replacement
 
 * Document `Data.Haexpress.Fixtures` module throughly;
 

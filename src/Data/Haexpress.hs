@@ -31,7 +31,9 @@ import Data.Maybe (fromMaybe)
 -- TODO: implement mapValues
 -- TODO: implement mapVars and use it on //-
 -- TODO: implement mapConsts
--- TODO: implement mapOuter and use it on //
+-- TODO: implement mapOuter
+-- TODO: implement mapMaybeOuter :: (Expr -> Maybe Expr) -> Expr -> Expr
+--                 and use it on //, maybe ...
 -- TODO: implement mapInner
 
 
