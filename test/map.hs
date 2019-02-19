@@ -9,9 +9,13 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
+  -- TODO: tests that differentiate // and //-
+
   , ((xx -+- yy) -+- (yy -+- zz)) // [(yy,yy -+- zz)]
     == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
 
   , (xx -+- yy) // [(yy,yy -+- zz),(xx,xx -+- yy)]
     == (xx -+- yy) -+- (yy -+- zz)
+
+  , holds n $ \e ee1 ee2 -> fst ee1 /= fst ee2 ==> e // [ee1, ee2] == e // [ee2, ee1]
   ]
