@@ -33,25 +33,55 @@ mapValues :: (Expr -> Expr) -> Expr -> Expr
 mapValues f  =  m
   where
   m (e1 :$ e2)  =  m e1 :$ m e2
-  m e  =  f e
+  m e           =  f e
 
 -- | /O(n)/.
 -- Applies a function to all variables in an expression.
 mapVars :: (Expr -> Expr) -> Expr -> Expr
 mapVars f  =  mapValues f'
   where
-  f' e = if isVar e
-         then f e
-         else e
+  f' e  =  if isVar e
+           then f e
+           else e
 
 -- | /O(n)/.
 -- Applies a function to all terminal constants in an expression.
 mapConsts :: (Expr -> Expr) -> Expr -> Expr
 mapConsts f  =  mapValues f'
   where
-  f' e = if isConst e
-         then f e
-         else e
+  f' e  =  if isConst e
+           then f e
+           else e
+
+-- | /O(n)/
+-- Tries to update subexpressions from outer to inner.
+mapMaybeOuter :: (Expr -> Maybe Expr) -> Expr -> Expr
+mapMaybeOuter f  =  m
+  where
+  m e  =  fromMaybe e' (f e)
+    where
+    e'  =  case e of
+           e1 :$ e2 -> m e1 :$ m e2
+           e -> e
+
+-- | /O(n)/
+-- Update subexpressions from outer to inner.
+--
+-- BEWARE: this may never terminate!
+mapOuter :: (Expr -> Expr) -> Expr -> Expr
+mapOuter f  =  mapMaybeOuter (Just . f)
+
+-- | /O(n)/
+-- Update subexpressions from inner to outer.
+mapInner :: (Expr -> Expr) -> Expr -> Expr
+mapInner f  =  m
+  where
+  m e  =  f e'
+    where
+    e' = case e of
+         e1 :$ e2 -> m e1 :$ m e2
+         e -> e
+
 
 -- | /O(n+m*v)/.
 -- Substitute all occurrences of variables in an expression.
