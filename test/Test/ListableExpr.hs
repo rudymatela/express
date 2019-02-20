@@ -31,10 +31,13 @@ instance Listable IntE  where
          \/ toTiers [var v (undefined :: Int) | v <- ["x", "y", "z", "x'"]] `addWeight` 1
          \/ mapT val (tiers :: [[Int]]) `addWeight` 1
          \/ cons2 (\(IntToIntE f) (IntE xx) -> f :$ xx)
-         \/ cons3 (\(IntToIntToIntE f) (IntE xx) (IntE yy) -> f :$ xx :$ yy)
 
 instance Listable IntToIntE where
-  list  =  map IntToIntE [idE, negateE, absE]
+  tiers  =  mapT IntToIntE
+         $  cons0 idE
+         \/ cons0 negateE `addWeight` 1
+         \/ cons0 absE    `addWeight` 1
+         \/ cons2 (\(IntToIntToIntE ef) (IntE ex) -> ef :$ ex)
 
 instance Listable IntToIntToIntE where
   list  =  map IntToIntToIntE [plusE, timesE]
