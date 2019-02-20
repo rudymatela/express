@@ -12,6 +12,10 @@ module Test.ListableExpr
   -- ** Functional values
   , IntToIntE (..)
   , IntToIntToIntE (..)
+
+  -- * Terminal expressions
+  , E0
+  , EV
   )
 where
 
@@ -20,6 +24,8 @@ import Test.LeanCheck.Function.ShowFunction
 import Data.Haexpress.Fixtures
 import Data.Function (on)
 
+newtype E0  =  E0 { unE0 :: Expr }
+newtype EV  =  EV { unEV :: Expr }
 
 newtype IntE  =  IntE { unIntE :: Expr }
 
@@ -32,8 +38,8 @@ newtype IntToIntToIntE  =  IntToIntToIntE { unIntToIntToIntE :: Expr }
 
 instance Show IntE  where  show (IntE e) = show e
 
-instance Show IntE0 where  show (IntE0 e) = show e
-instance Show IntEV where  show (IntEV e) = show e
+instance Show IntE0  where  show (IntE0 e) = show e
+instance Show IntEV  where  show (IntEV e) = show e
 
 instance Show IntToIntE  where  show (IntToIntE e) = show e
 instance Show IntToIntToIntE  where  show (IntToIntToIntE e) = show e
@@ -60,6 +66,15 @@ instance Listable IntToIntE where
 
 instance Listable IntToIntToIntE where
   list  =  map IntToIntToIntE [plusE, timesE]
+
+
+instance Listable E0 where
+  tiers  =  mapT E0
+         $  cons1 unIntE0 `ofWeight` 0
+
+instance Listable EV where
+  tiers  =  mapT EV
+         $  cons1 unIntEV `ofWeight` 0
 
 
 instance Listable Expr where
