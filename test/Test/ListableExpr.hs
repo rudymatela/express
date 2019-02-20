@@ -41,8 +41,8 @@ instance Listable IntToIntToIntE where
 
 instance Listable Expr where
   tiers  =  reset (cons1 unIntE)
-         \/ cons1 unIntToIntE      `addWeight` 2
-         \/ cons1 unIntToIntToIntE `addWeight` 2
+         \/ cons1 unIntToIntE      `addWeight` 1
+         \/ cons1 unIntToIntToIntE `addWeight` 1
 
 instance ShowFunction Expr where
   bindtiers  =  bindtiersShow

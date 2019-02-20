@@ -1,4 +1,4 @@
-map length (tiers :: [[ Expr ]])  =  [1,4,16,81,437,2576,...]
+map length (tiers :: [[ Expr ]])  =  [1,4,18,81,436,2575,...]
 tiers :: [[ Expr ]]  =
   [ [_ :: Int]
   , [ x :: Int
@@ -22,6 +22,8 @@ tiers :: [[ Expr ]]  =
     , id _ + _ :: Int
     , (_ + _) + _ :: Int
     , _ * _ :: Int
+    , id :: Int -> Int
+    , (+) :: Int -> Int -> Int
     ]
   , [ z :: Int
     , -1 :: Int
@@ -102,8 +104,8 @@ tiers :: [[ Expr ]]  =
     , 0 * _ :: Int
     , id _ * _ :: Int
     , (_ + _) * _ :: Int
-    , id :: Int -> Int
-    , (+) :: Int -> Int -> Int
+    , negate :: Int -> Int
+    , (*) :: Int -> Int -> Int
     ]
   , [ x' :: Int
     , 2 :: Int
@@ -540,8 +542,7 @@ tiers :: [[ Expr ]]  =
     , (id _ + _) * _ :: Int
     , ((_ + _) + _) * _ :: Int
     , (_ * _) * _ :: Int
-    , negate :: Int -> Int
-    , (*) :: Int -> Int -> Int
+    , abs :: Int -> Int
     ]
   , [ -2 :: Int
     , id x' :: Int
@@ -3118,7 +3119,6 @@ tiers :: [[ Expr ]]  =
     , (0 * _) * _ :: Int
     , (id _ * _) * _ :: Int
     , ((_ + _) * _) * _ :: Int
-    , abs :: Int -> Int
     ]
   , ...
   ]
