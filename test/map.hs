@@ -1,6 +1,7 @@
 -- Copyright (c) 2019 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
+import Test.LeanCheck.Function
 
 import Data.Haexpress.Utils.List (isNub)
 
@@ -33,4 +34,21 @@ tests n =
 
   -- //- ignores replacements of non-variable values
   , holds n $ \e ees -> e //- filter (not . isVar . fst) ees == e
+
+  -- (in)equivalences between maps
+  , fails n $ \f e -> mapValues f e == (mapVars f . mapConsts f) e
+  -- the above should fail because of the following
+  , let f _ = id' i_ in mapValues f zero == id' i_
+                     && mapVars   f zero == zero
+                     && mapConsts f zero == id' i_
+                     && mapVars f (mapConsts f zero) == id' (id' i_)
+                     && mapConsts f (mapVars f zero) == id' i_
+
+  -- the following do not hold in general:
+  , fails n $ \f e -> (mapValues f . mapValues f) e == mapValues f e
+  , fails n $ \f e -> (mapVars   f . mapVars   f) e == mapVars   f e
+  , fails n $ \f e -> (mapConsts f . mapConsts f) e == mapConsts f e
+  , fails n $ \f e -> values (mapValues f e) == map f (values e)
+  , fails n $ \f e -> vars   (mapVars   f e) == map f (vars   e)
+  , fails n $ \f e -> consts (mapConsts f e) == map f (consts e)
   ]
