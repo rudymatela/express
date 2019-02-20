@@ -5,7 +5,6 @@ module Test.ListableExpr
 
   -- * Expressions of a type
   , IntE (..)
-  , FunE (..)
 
   -- ** Functional values
   , IntToIntE (..)
@@ -21,12 +20,10 @@ import Data.Function (on)
 newtype IntE  =  IntE { unIntE :: Expr }
 newtype IntToIntE  =  IntToIntE { unIntToIntE :: Expr }
 newtype IntToIntToIntE  =  IntToIntToIntE { unIntToIntToIntE :: Expr }
-newtype FunE  =  FunE { unFunE :: Expr }
 
 instance Show IntE  where  show (IntE e) = show e
 instance Show IntToIntE  where  show (IntToIntE e) = show e
 instance Show IntToIntToIntE  where  show (IntToIntToIntE e) = show e
-instance Show FunE  where  show (FunE e) = show e
 
 instance Listable IntE  where
   tiers  =  mapT IntE
@@ -42,14 +39,10 @@ instance Listable IntToIntE where
 instance Listable IntToIntToIntE where
   list  =  map IntToIntToIntE [plusE, timesE]
 
-instance Listable FunE  where
-  tiers  =  mapT FunE
-         $  cons1 unIntToIntE
-         \/ cons1 unIntToIntToIntE
-
 instance Listable Expr where
   tiers  =  reset (cons1 unIntE)
-         \/ cons1 unFunE `addWeight` 1
+         \/ cons1 unIntToIntE      `addWeight` 2
+         \/ cons1 unIntToIntToIntE `addWeight` 2
 
 instance ShowFunction Expr where
   bindtiers  =  bindtiersShow

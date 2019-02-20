@@ -13,7 +13,6 @@ tests n =
   , holds n $ \(IntE xx) -> isJust $ evaluateInt xx
   , holds n $ \(IntToIntE ff) (IntE xx) -> isJust . evaluateInt $ ff :$ xx
   , holds n $ \(IntToIntToIntE ff) (IntE xx) (IntE yy) -> isJust . evaluateInt $ ff :$ xx :$ yy
-  , holds n $ \(FunE ff) -> isNothing $ evaluateInt ff
   , holds n $ \(IntE xx) -> isNothing $ evaluateIntToInt xx
 
   , (counterExample n $ \(IntE xx) -> False) == Just ["_ :: Int"]
