@@ -5,6 +5,7 @@
 import Test
 import Data.List (intercalate, nub)
 import Test.LeanCheck.Tiers (showTiers)
+import Data.Haexpress.Utils.List
 
 showDotsLongerThan :: Show a => Int -> [a] -> String
 showDotsLongerThan n xs = "["
@@ -18,6 +19,8 @@ printTiers n = putStrLn . init . unlines . map ("  " ++) . lines . showTiers n
 
 main :: IO ()
 main  =  do
+  putStrLn $ "isNub (list :: [Expr])  =  "
+          ++ show (isNub (take 5040 list :: [Expr]))
   putStrLn $ "map length (tiers :: [[ Expr ]])  =  "
           ++ showDotsLongerThan 6 (map length (tiers :: [[Expr]]))
   putStrLn $ "tiers :: [[ Expr ]]  ="
