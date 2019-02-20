@@ -14,8 +14,8 @@ module Test.ListableExpr
   , IntToIntToIntE (..)
 
   -- * Terminal expressions
-  , E0
-  , EV
+  , E0 (..)
+  , EV (..)
   )
 where
 
@@ -35,6 +35,9 @@ newtype IntEV  =  IntEV { unIntEV :: Expr }
 newtype IntToIntE  =  IntToIntE { unIntToIntE :: Expr }
 newtype IntToIntToIntE  =  IntToIntToIntE { unIntToIntToIntE :: Expr }
 
+
+instance Show E0  where  show (E0 e) = show e
+instance Show EV  where  show (EV e) = show e
 
 instance Show IntE  where  show (IntE e) = show e
 

@@ -27,6 +27,8 @@ tests n =
   -- the order should not matter for //-
   , holds n $ \e ee1 ee2 -> fst ee1 /= fst ee2 ==> e //- [ee1, ee2] == e //- [ee2, ee1]
   , holds n $ \e ees -> isNub (map fst ees) ==> e //- ees == e //- reverse ees
+  , holds n $ \e ees' -> let ees = map (mapFst unEV) ees' in
+                         isNub (map fst ees) ==> e //- ees == e //- reverse ees
 
   -- equivalences between // and //-
   , holds n $ \e ees -> all (isVar . fst) ees ==> e // ees == e //- ees
@@ -52,3 +54,6 @@ tests n =
   , fails n $ \f e -> vars   (mapVars   f e) == map f (vars   e)
   , fails n $ \f e -> consts (mapConsts f e) == map f (consts e)
   ]
+
+mapFst :: (a -> c) -> (a,b) -> (c,b)
+mapFst f (x,y) = (f x, y)
