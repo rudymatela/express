@@ -7,6 +7,7 @@ TESTS = \
   test/main \
   test/core \
   test/map \
+  test/instances \
   test/fixtures \
   test/express \
   test/name \

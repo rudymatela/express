@@ -18,6 +18,7 @@ bench/tiers
 test/core
 test/express
 test/fixtures
+test/instances
 test/listable
 test/main
 test/map

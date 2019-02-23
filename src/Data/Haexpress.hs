@@ -11,6 +11,7 @@ module Data.Haexpress
 -- TODO: explicitly export everything instead of the modules
     module Data.Haexpress.Core
   , module Data.Haexpress.Map
+  , module Data.Haexpress.Instances
   , module Data.Haexpress.Name
   , module Data.Haexpress.Express
   , varAsTypeOf
@@ -19,6 +20,7 @@ where
 
 import Data.Haexpress.Core
 import Data.Haexpress.Map
+import Data.Haexpress.Instances
 import Data.Haexpress.Name
 import Data.Haexpress.Express
 
