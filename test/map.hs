@@ -39,6 +39,9 @@ tests n =
 
   -- (in)equivalences between maps
   , exists n $ \f e -> mapValues f e /= (mapVars f . mapConsts f) e
+  , exists n $ \f e -> mapValues f e /= (mapConsts f . mapVars f) e
+  , exists n $ \f e -> (mapVars f . mapConsts f) e /= (mapConsts f . mapVars f) e
+  , exists n $ \f e -> (mapConsts f . mapVars f) e /= (mapVars f . mapConsts f) e
   -- the above should fail because of the following
   , let f _ = id' i_ in mapValues f zero == id' i_
                      && mapVars   f zero == zero
