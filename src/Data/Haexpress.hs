@@ -48,3 +48,10 @@ varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
 #else
   undefine = id -- there's no way to do this using the old Data.Dynamic API.
 #endif
+
+-- | /O(n)/?
+isSubExprOf :: Expr -> Expr -> Bool
+e `isSubExprOf` e0 | e == e0  =  True
+e `isSubExprOf` (e1 :$ e2)    =  e `isSubExprOf` e1
+                              || e `isSubExprOf` e2
+e `isSubExprOf` _             =  False
