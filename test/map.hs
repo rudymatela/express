@@ -50,10 +50,18 @@ tests n =
   , exists n $ \f e -> (mapValues f . mapValues f) e /= mapValues f e
   , exists n $ \f e -> (mapVars   f . mapVars   f) e /= mapVars   f e
   , exists n $ \f e -> (mapConsts f . mapConsts f) e /= mapConsts f e
+
+  -- what actually holds is this:
+  , holds n $ \f e -> (mapValues f . mapValues f) e == mapValues (mapValues f . f) e
+  , holds n $ \f e -> (mapVars   f . mapVars   f) e == mapVars   (mapVars   f . f) e
+  , holds n $ \f e -> (mapConsts f . mapConsts f) e == mapConsts (mapConsts f . f) e
+
+  -- the following do not hold in general:
   , exists n $ \f e -> values (mapValues f e) /= map f (values e)
   , exists n $ \f e -> vars   (mapVars   f e) /= map f (vars   e)
   , exists n $ \f e -> consts (mapConsts f e) /= map f (consts e)
 
+  -- what actually holds is this:
   , holds n $ \f e -> values (mapValues f e) == concatMap (values . f) (values e)
   , holds n $ \f e -> vars   (mapVars   f e) == concatMap (vars   . f) (vars   e)
   , holds n $ \f e -> consts (mapConsts f e) == concatMap (consts . f) (consts e)
