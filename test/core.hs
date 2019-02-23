@@ -59,6 +59,8 @@ tests n =
   , values (zero -+- (one -*- two)) == [plusE, zero, timesE, one, two]
   , values (pp -&&- trueE) == [andE, pp, trueE]
 
+  , holds n $ (okEqOrd :: Expr -> Expr -> Expr -> Bool)
+
 
   -- listing subexpressions
 
