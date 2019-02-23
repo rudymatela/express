@@ -53,6 +53,10 @@ tests n =
   , fails n $ \f e -> values (mapValues f e) == map f (values e)
   , fails n $ \f e -> vars   (mapVars   f e) == map f (vars   e)
   , fails n $ \f e -> consts (mapConsts f e) == map f (consts e)
+
+  , holds n $ \f e -> values (mapValues f e) == concatMap (values . f) (values e)
+  , holds n $ \f e -> vars   (mapVars   f e) == concatMap (vars   . f) (vars   e)
+  , holds n $ \f e -> consts (mapConsts f e) == concatMap (consts . f) (consts e)
   ]
 
 mapFst :: (a -> c) -> (a,b) -> (c,b)
