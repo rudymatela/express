@@ -12,12 +12,15 @@ module Data.Haexpress.Instances
   , compareWith
   , nameFor
   , nameWith
+  , exprFor
+  , exprWith
   , validApps
   )
 where
 
 import Data.Haexpress.Core
 import Data.Haexpress.Name
+import Data.Haexpress.Express
 import Data.Typeable
 import Data.Maybe
 
@@ -38,6 +41,12 @@ nameFor a  =  nameWith (name -:> a)
 
 nameWith :: Typeable a => (a -> String) -> Expr
 nameWith name  =  value "name" name
+
+exprFor :: (Typeable a, Express a) => a -> Expr
+exprFor a  =  exprWith (expr -:> a)
+
+exprWith :: Typeable a => (a -> Expr) -> Expr
+exprWith expr  =  value "expr" expr
 
 validApps :: [Expr] -> Expr -> [Expr]
 validApps es e = mapMaybe ($$ e) es
