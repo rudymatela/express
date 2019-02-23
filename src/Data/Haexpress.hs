@@ -55,3 +55,7 @@ e `isSubExprOf` e0 | e == e0  =  True
 e `isSubExprOf` (e1 :$ e2)    =  e `isSubExprOf` e1
                               || e `isSubExprOf` e2
 e `isSubExprOf` _             =  False
+
+-- NOTE: The following two are impossible with GHC <= 8.0, base <= 4.9:
+-- pair :: Expr -> Expr -> Expr
+-- unpair :: Expr -> (Expr,Expr)
