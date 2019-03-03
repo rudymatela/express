@@ -60,6 +60,7 @@ import Data.Dynamic
 import Data.Function (on)
 import Data.List (intercalate, sort)
 import Data.Maybe (fromMaybe)
+import Data.Either (either)
 import Data.Monoid ((<>))
 import Data.Typeable (TypeRep, typeOf, funResultTy, splitTyConApp, TyCon, typeRepTyCon)
 
@@ -187,16 +188,14 @@ hole a = var "" (undefined `asTypeOf` a)
 --
 -- > > typ (absE :$ bee)
 -- > *** Exception: type mismatch, cannot apply `Int -> Int' to `Char'
+--
+-- > > typ ((absE :$ bee) :$ zero)
+-- > *** Exception: type mismatch, cannot apply `Int -> Int' to `Char'
 typ :: Expr -> TypeRep
-typ (Value _ d) = dynTypeRep d
-typ (e1 :$ e2) =
-  case typ e1 `funResultTy` typ e2 of
-    Nothing -> error $ "type mismatch, cannot apply `"
-                    ++ show (typ e1) ++ "' to `" ++ show (typ e2) ++ "'"
-    Just t  -> t
--- TODO: also provide a Expr -> Either String TypeRep
--- TODO: also provide a Expr -> Either (TypeRep, TypeRep) TypeRep
--- TODO: also provide a fastType which ignores type mismatches
+typ  =  either err id . etyp
+  where
+  err (t1, t2)  =  error $ "type mismatch, cannot apply `"
+                ++ show t1 ++ "' to `" ++ show t2 ++ "'"
 
 etyp :: Expr -> Either (TypeRep, TypeRep) TypeRep
 etyp (Value _ d) = Right $ dynTypeRep d
