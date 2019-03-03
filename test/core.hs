@@ -31,6 +31,8 @@ tests n =
   , holds n $ \(BoolE ep) (BoolE eq) -> isNothing (ep $$ eq)
   , holds n $ \(BoolToBoolE ef) (IntE  ex) -> isNothing (ef $$ ex)
   , holds n $ \(IntToIntE   ef) (BoolE ep) -> isNothing (ef $$ ep)
+  , holds n $ \(IntE ex) (IntE ey) (IntE ez) -> isNothing (ex $$ (ey :$ ez))
+  , holds n $ \(IntE ex) (IntE ey) (IntE ez) -> isNothing ((ex :$ ey) $$ ez)
 
 
   -- typing
