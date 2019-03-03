@@ -26,6 +26,7 @@ module Data.Haexpress.Core
   , evaluate
   , eval
   , typ
+  , etyp
   , toDynamic
 
   -- * Boolean and ordering properties
@@ -195,6 +196,15 @@ typ (e1 :$ e2) =
 -- TODO: also provide a Expr -> Either String TypeRep
 -- TODO: also provide a Expr -> Either (TypeRep, TypeRep) TypeRep
 -- TODO: also provide a fastType which ignores type mismatches
+
+etyp :: Expr -> Either (TypeRep, TypeRep) TypeRep
+etyp (Value _ d) = Right $ dynTypeRep d
+etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
+  (Right t1, Right t2) -> case t1 `funResultTy` t2 of
+                          Nothing -> Left (t1,t2)
+                          Just t  -> Right t
+  (Left e, _) -> Left e
+  (_, Left e) -> Left e
 
 -- |  /O(n)/.
 -- 'Just' the value of an expression when possible (correct type),

@@ -4,15 +4,24 @@ module Test
   , module Data.Haexpress.Fixtures
   , module Test.ListableExpr
   , module Data.Maybe
+  , module Data.Either
   , mainTest
+
+  , tyBool
+  , tyInt
+  , tyChar
+  , tyLInt
+  , tyIntToInt
   )
 where
 
 import System.Environment (getArgs)
 import System.Exit (exitFailure)
 import Data.List (elemIndices)
+import Data.Typeable (TypeRep, typeOf)
 
 import Data.Maybe
+import Data.Either
 import Test.LeanCheck
 import Test.LeanCheck.Utils
 import Test.ListableExpr
@@ -36,3 +45,18 @@ mainTest :: (Int -> [Bool]) -> Int -> IO ()
 mainTest tests n' = do
   n <- getMaxTestsFromArgs n'
   reportTests (tests n)
+
+tyBool :: TypeRep
+tyBool  =  typeOf (undefined :: Bool)
+
+tyInt :: TypeRep
+tyInt  =  typeOf (undefined :: Int)
+
+tyChar  :: TypeRep
+tyChar  =  typeOf (undefined :: Char)
+
+tyLInt :: TypeRep
+tyLInt  =  typeOf (undefined :: [Int])
+
+tyIntToInt :: TypeRep
+tyIntToInt  =  typeOf (undefined :: Int -> Int)

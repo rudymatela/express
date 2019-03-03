@@ -26,6 +26,33 @@ tests n =
 --, holds n $ \(IntToIntE ff, BoolE pp) -> isNothing (ff $$ pp) -- TODO
 
 
+  -- typing
+  , typ zero       == tyInt
+  , typ one        == tyInt
+  , typ xx         == tyInt
+  , typ bee        == tyChar
+  , typ xxss       == tyLInt
+  , typ (ff xx)    == tyInt
+  , typ (abs' one) == tyInt
+  , typ trueE      == tyBool
+  , typ pp         == tyBool
+
+  , etyp zero       == Right tyInt
+  , etyp (abs' one) == Right tyInt
+  , etyp (abs' bee) == Left (tyIntToInt, tyChar)
+  , etyp (abs' bee :$ zero) == Left (tyIntToInt, tyChar)
+  , etyp ((zero :$ one) :$ (bee :$ cee)) == Left (tyInt, tyInt)
+
+  -- our Listable Expr enumeration does not produce ill typed Exprs
+  , holds n $ isRight . etyp
+
+  , holds n $ \e -> isRight (etyp e) ==> etyp e == Right (typ e)
+
+  -- we prefer returning errors to the left
+  , holds n $ \(Ill ef) (Ill ex) -> etyp (ef :$ ex) == etyp ef
+  , holds n $ \ef (Ill ex) -> etyp (ef :$ ex) == etyp ex
+
+
   -- boolean properties
 
   , hasVar (zero -+- one) == False
