@@ -333,12 +333,17 @@ instance Show Expr where
   showsPrec d e = showParen (d > 10)
                 $ showsPrecExpr 0 e
                 . showString " :: "
-                . shows (typ e)
+                . showsTypeExpr e
 
--- TODO: make the following work for I'll typed expressions.
--- TODO: actually all functions should work for ill typed expressions, there is
---       no reason we would be not able to compare these.
--- TODO: replace all calls to typ by calls to mtyp?
+showsTypeExpr :: Expr -> String -> String
+showsTypeExpr e = case etyp e of
+  Left (t1,t2) -> showString "ill-typed # "
+                . shows t1
+                . showString " $ "
+                . shows t2
+                . showString " #"
+  Right t -> shows t
+
 showsPrecExpr :: Int -> Expr -> String -> String
 showsPrecExpr d (Value "_" _)     = showString "_" -- a hole
 showsPrecExpr d (Value ('_':s) _) = showParen (isInfix s) $ showString s -- a variable
@@ -347,7 +352,7 @@ showsPrecExpr d (Value s _) | isNegativeLiteral s = showParen (d > 0) $ showStri
 showsPrecExpr d (Value s _) = showParen sp $ showString s
   where sp = if atomic s then isInfix s else maybe True (d >) $ outernmostPrec s
 showsPrecExpr d ((Value ":" _ :$ e1@(Value _ _)) :$ e2)
-  | typ e1 == typeOf (undefined :: Char) =
+  | mtyp e1 == Just (typeOf (undefined :: Char)) =
   case showsTailExpr e2 "" of
     '\"':cs  -> showString ("\"" ++ (init . tail) (showsPrecExpr 0 e1 "") ++ cs)
     cs -> showParen (d > prec ":")
@@ -382,7 +387,7 @@ showsPrecExpr d (e1 :$ e2) = showParen (d > prec " ")
 -- bad smell here, repeated code!
 showsTailExpr :: Expr -> String -> String
 showsTailExpr ((Value ":" _ :$ e1@(Value _ _)) :$ e2)
-  | typ e1 == typeOf (undefined :: Char) =
+  | mtyp e1 == Just (typeOf (undefined :: Char)) =
   case showsPrecExpr 0 e2 "" of
     '\"':cs  -> showString ("\"" ++ (init . tail) (showsPrecExpr 0 e1 "") ++ cs)
     cs -> showsOpExpr ":" e1 . showString ":" . showsTailExpr e2
