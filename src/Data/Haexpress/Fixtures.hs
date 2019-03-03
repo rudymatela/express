@@ -35,6 +35,7 @@ module Data.Haexpress.Fixtures
   , notE
   , orE
   , andE
+  , not'
   , (-||-)
   , (-&&-)
 
@@ -106,6 +107,9 @@ andE  =  value "&&" (&&)
 
 orE :: Expr
 orE  =  value "||" (||)
+
+not' :: Expr -> Expr
+not' pp  =  notE :$ pp
 
 (-&&-) :: Expr -> Expr -> Expr
 pp -&&- qq  =  andE :$ pp :$ qq

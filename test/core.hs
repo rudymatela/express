@@ -21,6 +21,7 @@ tests n =
   , show absE == "abs :: Int -> Int"
   , show notE == "not :: Bool -> Bool"
   , show andE == "(&&) :: Bool -> Bool -> Bool"
+  , show (pp -&&- (not' falseE)) == "p && not False :: Bool"
   , show (one :$ one) == "1 1 :: ill-typed # Int $ Int #"
   , holds n $ \(IntE xx, IntE yy) -> isJust (toDynamic $ xx -+- yy)
   , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
