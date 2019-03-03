@@ -56,6 +56,24 @@ e `isSubExprOf` (e1 :$ e2)    =  e `isSubExprOf` e1
                               || e `isSubExprOf` e2
 e `isSubExprOf` _             =  False
 
+-- Folds an expression with applications into a "value" expression.
+--
+-- > > let compareE = value "compare" (compare :: Bool -> Bool -> Ordering)
+-- > > let lessThanOrEqualE = toValueExpr $ value undefined (\(?) p q -> p ? q == LE) == compareE
+--
+-- This is not gonna work,  I don't have means to produce the above during
+-- speculation: (?), p, and q would have to be polymorphic.
+--
+-- So I don't think adding the following is worth it...
+--
+-- > toValueExpr :: String -> Expr -> Expr
+-- > toValueExpr s  =  Value s . toDynamic
+
+-- An alternative that works on Speculate:
+-- I just need to apply (==LE), (==GT) and (==EQ) when evaluating my
+-- properties and to replace (isLE :$ (compare :$ ...)) by ((<=) :$ ...)
+-- before printing.
+
 -- NOTE: The following two are impossible with GHC <= 8.0, base <= 4.9:
 -- pair :: Expr -> Expr -> Expr
 -- unpair :: Expr -> (Expr,Expr)
