@@ -115,7 +115,7 @@ value s x = Value s (toDyn x)
 val :: (Typeable a, Show a) => a -> Expr
 val x = value (show x) x
 
--- | /O(1)/.
+-- | /O(n)/.
 -- Creates an 'Expr' representing a function application.
 -- 'Just' an 'Expr' application if the types match, 'Nothing' otherwise.
 --
