@@ -189,7 +189,7 @@ hole a = var "" (undefined `asTypeOf` a)
 -- > > typ (absE :$ bee)
 -- > *** Exception: type mismatch, cannot apply `Int -> Int' to `Char'
 --
--- > > typ ((absE :$ bee) :$ zero)
+-- > > typ ((absE :$ bee) :$ one)
 -- > *** Exception: type mismatch, cannot apply `Int -> Int' to `Char'
 typ :: Expr -> TypeRep
 typ  =  either err id . etyp
@@ -197,6 +197,32 @@ typ  =  either err id . etyp
   err (t1, t2)  =  error $ "type mismatch, cannot apply `"
                 ++ show t1 ++ "' to `" ++ show t2 ++ "'"
 
+-- | /O(n)/
+-- Computes the type of an expression returning either the type of the given
+-- expression when possible or when there is a type error, the pair of types
+-- which produced the error.
+--
+-- > > let one = val (1 :: Int)
+-- > > let bee = val 'b'
+-- > > let absE = value "abs" (abs :: Int -> Int)
+--
+-- > > etyp one
+-- > Right Int
+--
+-- > > etyp bee
+-- > Right Char
+--
+-- > > etyp absE
+-- > Right (Int -> Int)
+--
+-- > > etyp (absE :$ one)
+-- > Right Int
+--
+-- > > etyp (absE :$ bee)
+-- > Left (Int -> Int, Char)
+--
+-- > > etyp ((absE :$ bee) :$ one)
+-- > Left (Int -> Int, Char)
 etyp :: Expr -> Either (TypeRep, TypeRep) TypeRep
 etyp (Value _ d) = Right $ dynTypeRep d
 etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
