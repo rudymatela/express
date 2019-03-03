@@ -45,8 +45,16 @@ tests n =
 
   -- our Listable Expr enumeration does not produce ill typed Exprs
   , holds n $ isRight . etyp
+  , holds n $ isJust  . mtyp
 
+  -- our Listable Ill enumeration only produces ill typed Exprs
+  , holds n $ isLeft    . etyp . unIll
+  , holds n $ isNothing . mtyp . unIll
+
+  -- we don't need the precondition here given the above
+  -- but it's added just in case
   , holds n $ \e -> isRight (etyp e) ==> etyp e == Right (typ e)
+  , holds n $ \e -> isJust  (mtyp e) ==> mtyp e == Just  (typ e)
 
   -- we prefer returning errors to the left
   , holds n $ \(Ill ef) (Ill ex) -> etyp (ef :$ ex) == etyp ef

@@ -27,6 +27,7 @@ module Data.Haexpress.Core
   , eval
   , typ
   , etyp
+  , mtyp
   , toDynamic
 
   -- * Boolean and ordering properties
@@ -205,6 +206,9 @@ etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
                           Just t  -> Right t
   (Left e, _) -> Left e
   (_, Left e) -> Left e
+
+mtyp :: Expr -> Maybe TypeRep
+mtyp  =  either (const Nothing) Just . etyp
 
 -- |  /O(n)/.
 -- 'Just' the value of an expression when possible (correct type),
