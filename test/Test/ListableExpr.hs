@@ -24,14 +24,22 @@ import Test.LeanCheck.Function.ShowFunction
 import Data.Haexpress.Fixtures
 import Data.Function (on)
 
+-- | Terminal constants.
 newtype E0  =  E0 { unE0 :: Expr }
+
+-- | Variables.
 newtype EV  =  EV { unEV :: Expr }
 
+-- | Expression of 'Int' type.
 newtype IntE  =  IntE { unIntE :: Expr }
 
+-- | Constant terminal value of 'Int' type.
 newtype IntE0  =  IntE0 { unIntE0 :: Expr }
+
+-- | Varialbe of 'Int' type.
 newtype IntEV  =  IntEV { unIntEV :: Expr }
 
+-- | Functions from Int to Int
 newtype IntToIntE  =  IntToIntE { unIntToIntE :: Expr }
 newtype IntToIntToIntE  =  IntToIntToIntE { unIntToIntToIntE :: Expr }
 
