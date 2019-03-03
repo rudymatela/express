@@ -23,7 +23,7 @@ tests n =
                                  ==> evalInt (xx -+- yy) == evalInt (yy -+- xx)
 
   , holds n $ \(IntToIntE ff, IntE xx)  -> isJust (ff $$ xx)
---, holds n $ \(IntToIntE ff, BoolE pp) -> isNothing (ff $$ pp) -- TODO
+  , holds n $ \(IntToIntE ff, BoolE pp) -> isNothing (ff $$ pp)
 
 
   -- typing
