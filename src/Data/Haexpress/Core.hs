@@ -31,6 +31,7 @@ module Data.Haexpress.Core
   , toDynamic
 
   -- * Boolean and ordering properties
+  , isIll
   , hasVar
   , isGround
   , isVar
@@ -59,7 +60,7 @@ where
 import Data.Dynamic
 import Data.Function (on)
 import Data.List (intercalate, sort)
-import Data.Maybe (fromMaybe)
+import Data.Maybe (fromMaybe, isNothing)
 import Data.Either (either)
 import Data.Monoid ((<>))
 import Data.Typeable (TypeRep, typeOf, funResultTy, splitTyConApp, TyCon, typeRepTyCon)
@@ -236,6 +237,10 @@ etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
 -- Returns 'Just' the type of an expression
 -- or 'Nothing' when there is an error.
 --
+-- > > let one = val (1 :: Int)
+-- > > let bee = val 'b'
+-- > > let absE = value "abs" (abs :: Int -> Int)
+--
 -- > > mtyp one
 -- > Just Int
 --
@@ -243,6 +248,21 @@ etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
 -- > Nothing
 mtyp :: Expr -> Maybe TypeRep
 mtyp  =  either (const Nothing) Just . etyp
+
+-- | /O(n)/
+-- Returns whether the given 'Expr' is ill typed.
+--
+-- > > let one = val (1 :: Int)
+-- > > let bee = val 'b'
+-- > > let absE = value "abs" (abs :: Int -> Int)
+--
+-- > > mtyp (absE :$ one)
+-- > Just Int
+--
+-- > > mtyp (absE :$ bee)
+-- > Nothing
+isIll :: Expr -> Bool
+isIll  =  isNothing . mtyp
 
 -- |  /O(n)/.
 -- 'Just' the value of an expression when possible (correct type),
