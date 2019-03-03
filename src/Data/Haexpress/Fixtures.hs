@@ -32,6 +32,7 @@ module Data.Haexpress.Fixtures
   , b_, pp, qq
   , falseE
   , trueE
+  , notE
   , orE
   , andE
   , (-||-)
