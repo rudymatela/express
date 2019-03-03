@@ -16,6 +16,9 @@ module Test.ListableExpr
   -- * Terminal expressions
   , E0 (..)
   , EV (..)
+
+  -- * Ill typed expressions
+  , Ill (..)
   )
 where
 
@@ -43,6 +46,9 @@ newtype IntEV  =  IntEV { unIntEV :: Expr }
 newtype IntToIntE  =  IntToIntE { unIntToIntE :: Expr }
 newtype IntToIntToIntE  =  IntToIntToIntE { unIntToIntToIntE :: Expr }
 
+-- | Ill typed expressions.
+newtype Ill  =  Ill { unIll :: Expr }
+
 
 instance Show E0  where  show (E0 e) = show e
 instance Show EV  where  show (EV e) = show e
@@ -54,6 +60,8 @@ instance Show IntEV  where  show (IntEV e) = show e
 
 instance Show IntToIntE  where  show (IntToIntE e) = show e
 instance Show IntToIntToIntE  where  show (IntToIntToIntE e) = show e
+
+instance Show Ill where  show (Ill e) = show e
 
 instance Listable IntE  where
   tiers  =  mapT IntE
@@ -92,6 +100,15 @@ instance Listable Expr where
   tiers  =  reset (cons1 unIntE)
          \/ cons1 unIntToIntE      `addWeight` 1
          \/ cons1 unIntToIntToIntE `addWeight` 1
+
+
+-- | This listable instance only produces Ill typed expressions
+instance Listable Ill where
+  tiers  =  mapT Ill
+         $  cons2 (\(IntE ef) (IntE ex) -> ef :$ ex) `ofWeight` 0
+         \/ cons2 (\(IntToIntE ef) (IntToIntE ex) -> ef :$ ex)
+         \/ cons2 (\(Ill ef) ex -> ef :$ ex)
+         \/ cons2 (\ef (Ill ex)-> ef :$ ex)
 
 
 instance ShowFunction Expr where bindtiers  =  bindtiersShow
