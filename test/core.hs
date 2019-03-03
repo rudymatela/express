@@ -22,8 +22,15 @@ tests n =
   , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
                                  ==> evalInt (xx -+- yy) == evalInt (yy -+- xx)
 
-  , holds n $ \(IntToIntE ff, IntE xx)  -> isJust (ff $$ xx)
-  , holds n $ \(IntToIntE ff, BoolE pp) -> isNothing (ff $$ pp)
+  -- valid applications
+  , holds n $ \(IntToIntE   ef, IntE  ex) -> isJust (ef $$ ex)
+  , holds n $ \(BoolToBoolE ef, BoolE ep) -> isJust (ef $$ ep)
+
+  -- invalid applications
+  , holds n $ \(IntE ex,  IntE  ey) -> isNothing (ex $$ ey)
+  , holds n $ \(BoolE ep, BoolE eq) -> isNothing (ep $$ eq)
+  , holds n $ \(BoolToBoolE ef, IntE  ex) -> isNothing (ef $$ ex)
+  , holds n $ \(IntToIntE   ef, BoolE ep) -> isNothing (ef $$ ep)
 
 
   -- typing
