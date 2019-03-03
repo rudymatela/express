@@ -18,6 +18,10 @@ tests n =
   , holds n $ \x y -> evalInt (value "+" ((*) :: Int -> Int -> Int) :$ val x :$ val y) == x * y
   , holds n $ \i -> evalInt (val i) == i
   , show (one -+- one) == "1 + 1 :: Int"
+  , show absE == "abs :: Int -> Int"
+  , show notE == "not :: Bool -> Bool"
+  , show andE == "(&&) :: Bool -> Bool -> Bool"
+  , show (one :$ one) == "1 1 :: ill-typed # Int $ Int #"
   , holds n $ \(IntE xx, IntE yy) -> isJust (toDynamic $ xx -+- yy)
   , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
                                  ==> evalInt (xx -+- yy) == evalInt (yy -+- xx)
