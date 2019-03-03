@@ -232,6 +232,15 @@ etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
   (Left e, _) -> Left e
   (_, Left e) -> Left e
 
+-- | /O(n)/
+-- Returns 'Just' the type of an expression
+-- or 'Nothing' when there is an error.
+--
+-- > > mtyp one
+-- > Just Int
+--
+-- > > mtyp (absE :$ bee)
+-- > Nothing
 mtyp :: Expr -> Maybe TypeRep
 mtyp  =  either (const Nothing) Just . etyp
 
