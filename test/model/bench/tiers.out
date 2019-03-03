@@ -1,10 +1,11 @@
 isNub (list :: [Expr])  =  True
-map length (tiers :: [[ Expr ]])  =  [1,3,10,27,76,249,...]
+map length (tiers :: [[ Expr ]])  =  [1,4,14,35,94,307,...]
 tiers :: [[ Expr ]]  =
   [ [_ :: Int]
   , [ x :: Int
     , 0 :: Int
     , id _ :: Int
+    , _ :: Bool
     ]
   , [ y :: Int
     , 1 :: Int
@@ -14,6 +15,10 @@ tiers :: [[ Expr ]]  =
     , negate _ :: Int
     , abs _ :: Int
     , _ + _ :: Int
+    , p :: Bool
+    , False :: Bool
+    , True :: Bool
+    , not _ :: Bool
     , id :: Int -> Int
     , (+) :: Int -> Int -> Int
     ]
@@ -40,10 +45,18 @@ tiers :: [[ Expr ]]  =
     , 0 + _ :: Int
     , id _ + _ :: Int
     , _ * _ :: Int
+    , q :: Bool
+    , not p :: Bool
+    , not False :: Bool
+    , not True :: Bool
+    , not (not _) :: Bool
+    , _ || _ :: Bool
     , negate :: Int -> Int
     , abs :: Int -> Int
     , (_ +) :: Int -> Int
     , (*) :: Int -> Int -> Int
+    , not :: Bool -> Bool
+    , (||) :: Bool -> Bool -> Bool
     ]
   , [ x' :: Int
     , 2 :: Int
@@ -117,10 +130,28 @@ tiers :: [[ Expr ]]  =
     , x * _ :: Int
     , 0 * _ :: Int
     , id _ * _ :: Int
+    , r :: Bool
+    , not q :: Bool
+    , not (not p) :: Bool
+    , not (not False) :: Bool
+    , not (not True) :: Bool
+    , not (not (not _)) :: Bool
+    , not (_ || _) :: Bool
+    , _ || p :: Bool
+    , _ || False :: Bool
+    , _ || True :: Bool
+    , _ || not _ :: Bool
+    , p || _ :: Bool
+    , False || _ :: Bool
+    , True || _ :: Bool
+    , not _ || _ :: Bool
+    , _ && _ :: Bool
     , (x +) :: Int -> Int
     , (0 +) :: Int -> Int
     , (id _ +) :: Int -> Int
     , (_ *) :: Int -> Int
+    , (_ ||) :: Bool -> Bool
+    , (&&) :: Bool -> Bool -> Bool
     ]
   , [ -2 :: Int
     , id x' :: Int
@@ -360,6 +391,59 @@ tiers :: [[ Expr ]]  =
     , negate _ * _ :: Int
     , abs _ * _ :: Int
     , (_ + _) * _ :: Int
+    , p' :: Bool
+    , not r :: Bool
+    , not (not q) :: Bool
+    , not (not (not p)) :: Bool
+    , not (not (not False)) :: Bool
+    , not (not (not True)) :: Bool
+    , not (not (not (not _))) :: Bool
+    , not (not (_ || _)) :: Bool
+    , not (_ || p) :: Bool
+    , not (_ || False) :: Bool
+    , not (_ || True) :: Bool
+    , not (_ || not _) :: Bool
+    , not (p || _) :: Bool
+    , not (False || _) :: Bool
+    , not (True || _) :: Bool
+    , not (not _ || _) :: Bool
+    , not (_ && _) :: Bool
+    , _ || q :: Bool
+    , _ || not p :: Bool
+    , _ || not False :: Bool
+    , _ || not True :: Bool
+    , _ || not (not _) :: Bool
+    , _ || (_ || _) :: Bool
+    , p || p :: Bool
+    , p || False :: Bool
+    , p || True :: Bool
+    , p || not _ :: Bool
+    , False || p :: Bool
+    , False || False :: Bool
+    , False || True :: Bool
+    , False || not _ :: Bool
+    , True || p :: Bool
+    , True || False :: Bool
+    , True || True :: Bool
+    , True || not _ :: Bool
+    , not _ || p :: Bool
+    , not _ || False :: Bool
+    , not _ || True :: Bool
+    , not _ || not _ :: Bool
+    , _ && p :: Bool
+    , _ && False :: Bool
+    , _ && True :: Bool
+    , _ && not _ :: Bool
+    , q || _ :: Bool
+    , not p || _ :: Bool
+    , not False || _ :: Bool
+    , not True || _ :: Bool
+    , not (not _) || _ :: Bool
+    , (_ || _) || _ :: Bool
+    , p && _ :: Bool
+    , False && _ :: Bool
+    , True && _ :: Bool
+    , not _ && _ :: Bool
     , (y +) :: Int -> Int
     , (1 +) :: Int -> Int
     , (id x +) :: Int -> Int
@@ -371,6 +455,11 @@ tiers :: [[ Expr ]]  =
     , (x *) :: Int -> Int
     , (0 *) :: Int -> Int
     , (id _ *) :: Int -> Int
+    , (p ||) :: Bool -> Bool
+    , (False ||) :: Bool -> Bool
+    , (True ||) :: Bool -> Bool
+    , (not _ ||) :: Bool -> Bool
+    , (_ &&) :: Bool -> Bool
     ]
   , ...
   ]
