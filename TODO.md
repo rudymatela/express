@@ -3,6 +3,8 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
+* add an 'ill' function and use it
+
 * add 'Bool' and '[a]' types to ListableExpr
 
 * more tests in test/listable (including using isGround)

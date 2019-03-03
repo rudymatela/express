@@ -134,6 +134,8 @@ val x = value (show x) x
 e1 $$ e2  =  case typ e1 `funResultTy` typ e2 of
              Nothing -> Nothing
              Just _  -> Just $ e1 :$ e2
+-- TODO: make the above return Nothing instead of raising an error when given
+--       ill typed expressions as arguments.  Also add test to exercise that.
 
 -- | /O(1)/.
 -- Creates an 'Expr' representing a variable with the given name and argument
@@ -266,6 +268,10 @@ instance Show Expr where
                 . showString " :: "
                 . shows (typ e)
 
+-- TODO: make the following work for I'll typed expressions.
+-- TODO: actually all functions should work for ill typed expressions, there is
+--       no reason we would be not able to compare these.
+-- TODO: replace all calls to typ by calls to mtyp?
 showsPrecExpr :: Int -> Expr -> String -> String
 showsPrecExpr d (Value "_" _)     = showString "_" -- a hole
 showsPrecExpr d (Value ('_':s) _) = showParen (isInfix s) $ showString s -- a variable
