@@ -135,11 +135,10 @@ val x = value (show x) x
 -- > > value "abs" (abs :: Int -> Int) $$ val ()
 -- > Nothing
 ($$) :: Expr -> Expr -> Maybe Expr
-e1 $$ e2  =  case typ e1 `funResultTy` typ e2 of
-             Nothing -> Nothing
-             Just _  -> Just $ e1 :$ e2
--- TODO: make the above return Nothing instead of raising an error when given
---       ill typed expressions as arguments.  Also add test to exercise that.
+e1 $$ e2 | isIll e    =  Nothing
+         | otherwise  =  Just e
+  where
+  e = e1 :$ e2
 
 -- | /O(1)/.
 -- Creates an 'Expr' representing a variable with the given name and argument
