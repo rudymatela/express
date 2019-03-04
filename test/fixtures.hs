@@ -41,6 +41,8 @@ tests n =
   , show i_ == "_ :: Int"
   , show xx == "x :: Int"
   , show yy == "y :: Int"
+  , show zz == "z :: Int"
+  , show xx'' == "x' :: Int"
   , show zero == "0 :: Int"
 
   , show xxss == "xs :: [Int]"
