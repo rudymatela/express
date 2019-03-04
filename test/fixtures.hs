@@ -27,7 +27,7 @@ tests n =
   , evaluateChar zero == Nothing
 
   , evalInts (unit one) == [1]
-  , evaluateInts (zero -:- unit one) == [0,1]
+  , evaluateInts (zero -:- unit one) == Just [0,1]
   , evaluateInts (bee -:- cee -:- unit dee) == Nothing
 
   , evalString (bee -:- cee -:- unit dee) == "bcd"
