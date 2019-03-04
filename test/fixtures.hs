@@ -44,6 +44,14 @@ tests n =
   , show zz == "z :: Int"
   , show xx' == "x' :: Int"
   , show zero == "0 :: Int"
+  , show two == "2 :: Int"
+  , show minusOne == "-1 :: Int"
+
+  , evl zero == (0 :: Int)
+  , evl one  == (1 :: Int)
+  , evl two   == (2 :: Int)
+  , evl three == (3 :: Int)
+  , evl minusOne == (-1 :: Int)
 
   , show xxs  == "xs :: [Int]"
   , show yys  == "ys :: [Int]"
@@ -64,11 +72,6 @@ tests n =
   , evaluateBool false == Just False
   , evaluateBool zero   == Nothing
 
-  , evalInt zero == 0
-  , evalInt one  == 1
-  , evalInt two   == 2
-  , evalInt three == 3
-  , evalInt minusOne == -1
   , evaluateInt zero   == Just 0
   , evaluateInt false == Nothing
 
