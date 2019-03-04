@@ -47,7 +47,7 @@ tests n =
   , typ one        == tyInt
   , typ xx         == tyInt
   , typ bee        == tyChar
-  , typ xxss       == tyLInt
+  , typ xxs        == tyLInt
   , typ (ff xx)    == tyInt
   , typ (abs' one) == tyInt
   , typ true       == tyBool

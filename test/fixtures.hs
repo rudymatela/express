@@ -42,11 +42,11 @@ tests n =
   , show xx == "x :: Int"
   , show yy == "y :: Int"
   , show zz == "z :: Int"
-  , show xx'' == "x' :: Int"
+  , show xx' == "x' :: Int"
   , show zero == "0 :: Int"
 
-  , show xxss == "xs :: [Int]"
-  , show yyss == "ys :: [Int]"
+  , show xxs  == "xs :: [Int]"
+  , show yys  == "ys :: [Int]"
   , show nilE == "[] :: [Int]"
   , show (unit one) == "[1] :: [Int]"
 

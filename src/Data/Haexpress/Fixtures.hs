@@ -15,10 +15,10 @@ module Data.Haexpress.Fixtures
   -- | The naming rules are:
   --
   -- * Terminal values are named in words (e.g.: 'zero', 'bee', 'cee', 'dee', 'false').
-  -- * Variables have their characters duplicated (e.g.: 'xx', 'xxss');
-  -- * Functions encoded as expressions are followed by @E@ (e.g.: 'idE', 'plusE');
-  -- * Functions over expressions are primed (e.g.: 'id'', 'negate'');
-  -- * Operators are surrounded by dashes (e.g.: '-+-', '-*-').
+  -- * Variables have the first character duplicated (e.g.: 'xx', 'yy', 'xxs');
+  -- * Encoded functions are followed by @E@ (e.g.: 'idE', 'plusE');
+  -- * Lifted functions are primed (e.g.: 'id'', 'negate'');
+  -- * Lifted operators are surrounded by dashes (e.g.: '-+-', '-*-').
 
   -- ** Booleans
   , b_, pp, qq
@@ -32,7 +32,7 @@ module Data.Haexpress.Fixtures
   , (-&&-)
 
   -- ** Integers
-  , i_, xx, yy, zz, xx''
+  , i_, xx, yy, zz, xx'
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
   , id', negate', abs'
@@ -47,8 +47,8 @@ module Data.Haexpress.Fixtures
 
   -- ** Lists
   , (-:-)
-  , xxss
-  , yyss
+  , xxs
+  , yys
   , nilE
   , emptyStringE
   , unit
@@ -296,10 +296,10 @@ zz  =  var "z" (undefined :: Int)
 
 -- | A variable @x'@ of 'Int' type.
 --
--- > > xx''
+-- > > xx'
 -- > x' :: Int
-xx'' :: Expr
-xx''  =  var "x'" (undefined :: Int)
+xx' :: Expr
+xx'  =  var "x'" (undefined :: Int)
 
 -- | The value @0@ bound to the 'Int' type encoded as an 'Expr'.
 --
@@ -479,17 +479,17 @@ dee  =  val 'd'
 
 -- | A variable named @xs@ of type @[Int]@ encoded as an 'Expr'.
 --
--- > > xxss
+-- > > xxs
 -- > xs :: [Int]
-xxss :: Expr
-xxss  =  var "xs" (undefined :: [Int])
+xxs :: Expr
+xxs  =  var "xs" (undefined :: [Int])
 
 -- | A variable named @ys@ of type @[Int]@ encoded as an 'Expr'.
 --
--- > > yyss
+-- > > yys
 -- > ys :: [Int]
-yyss :: Expr
-yyss  =  var "ys" (undefined :: [Int])
+yys :: Expr
+yys  =  var "ys" (undefined :: [Int])
 
 -- | An empty list of type @[Int]@ encoded as an 'Expr'.
 --
