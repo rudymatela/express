@@ -78,7 +78,7 @@ import Data.Typeable (Typeable, typeOf)
 -- > False
 --
 -- > > evalBool zero
--- > *** Exception: evl: cannot evaluate Expr to Bool type
+-- > *** Exception: evl: cannot evaluate Expr `0 :: Int' at the Bool type
 evalBool :: Expr -> Bool
 evalBool = evl
 
@@ -98,7 +98,7 @@ evaluateBool = evaluate
 -- > 0
 --
 -- > > evalInt falseE
--- > *** Exception: evl: cannot evaluate Expr to Int type
+-- > *** Exception: evl: cannot evaluate Expr `False :: Bool' at the Int type
 evalInt :: Expr -> Int
 evalInt = evl
 
@@ -118,7 +118,7 @@ evaluateInt = evaluate
 -- > 'b'
 --
 -- > > evalChar zero
--- > *** Exception: evl: cannot evaluate Expr to Char type
+-- > *** Exception: evl: cannot evaluate Expr `0 :: Int' at the Char type
 evalChar :: Expr -> Char
 evalChar = evl
 
@@ -137,7 +137,7 @@ evaluateChar = evaluate
 -- > [1]
 --
 -- > > evalInts zero
--- > *** Exception: evl: cannot evaluate Expr to [Int] type
+-- > *** Exception: evl: cannot evaluate Expr `0 :: Int` at the [Int] type
 evalInts :: Expr -> [Int]
 evalInts = evl
 
@@ -157,7 +157,7 @@ evaluateInts = evaluate
 -- > "bcd"
 --
 -- > > evalString bee
--- > "*** Exception: evl: cannot evaluate Expr to [Char] type
+-- > "*** Exception: evl: cannot evaluate Expr `'b' :: Char' at the [Char] type
 evalString :: Expr -> String
 evalString = evl
 
