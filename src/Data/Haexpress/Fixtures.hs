@@ -167,6 +167,7 @@ evalString = eval $ evalError "String"
 --
 -- > > evaluateString (zero -:- unit one)
 -- > Nothing
+--
 -- > > evaluateString (bee -:- cee -:- unit dee)
 -- > Just "bcd"
 evaluateString :: Expr -> Maybe String
