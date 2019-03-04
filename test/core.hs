@@ -23,7 +23,7 @@ tests n =
   , show absE == "abs :: Int -> Int"
   , show notE == "not :: Bool -> Bool"
   , show andE == "(&&) :: Bool -> Bool -> Bool"
-  , show (pp -&&- (not' falseE)) == "p && not False :: Bool"
+  , show (pp -&&- (not' false)) == "p && not False :: Bool"
   , show (one :$ one) == "1 1 :: ill-typed # Int $ Int #"
   , holds n $ \(IntE xx, IntE yy) -> isJust (toDynamic $ xx -+- yy)
   , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
@@ -50,7 +50,7 @@ tests n =
   , typ xxss       == tyLInt
   , typ (ff xx)    == tyInt
   , typ (abs' one) == tyInt
-  , typ trueE      == tyBool
+  , typ true       == tyBool
   , typ pp         == tyBool
 
   , etyp zero       == Right tyInt
@@ -113,7 +113,7 @@ tests n =
   , values (xx -+- (yy -+- zz)) == [plusE, xx, plusE, yy, zz]
   , values ((xx -+- yy) -+- zz) == [plusE, plusE, xx, yy, zz]
   , values (zero -+- (one -*- two)) == [plusE, zero, timesE, one, two]
-  , values (pp -&&- trueE) == [andE, pp, trueE]
+  , values (pp -&&- true) == [andE, pp, true]
 
   , holds n $ (okEqOrd :: Expr -> Expr -> Expr -> Bool)
   , holds n $ \(Ill e0) (Ill e1) (Ill e2) -> okEqOrd e0 e1 e2

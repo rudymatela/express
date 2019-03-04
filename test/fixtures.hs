@@ -14,23 +14,23 @@ tests n =
   , show b_ == "_ :: Bool"
   , show pp == "p :: Bool"
   , show qq == "q :: Bool"
-  , show falseE == "False :: Bool"
-  , show trueE == "True :: Bool"
+  , show false == "False :: Bool"
+  , show true == "True :: Bool"
   , show notE == "not :: Bool -> Bool"
   , show andE == "(&&) :: Bool -> Bool -> Bool"
   , show orE  == "(||) :: Bool -> Bool -> Bool"
-  , show (not' falseE) == "not False :: Bool"
-  , show (falseE -&&- trueE) == "False && True :: Bool"
-  , show (pp -||- falseE) == "p || False :: Bool"
-  , show (qq -&&- trueE) == "q && True :: Bool"
+  , show (not' false) == "not False :: Bool"
+  , show (false -&&- true) == "False && True :: Bool"
+  , show (pp -||- false) == "p || False :: Bool"
+  , show (qq -&&- true) == "q && True :: Bool"
 
-  , evalBool falseE == False
-  , evalBool trueE  == True
+  , evalBool false == False
+  , evalBool true  == True
   , holds n $ evl notE === not
   , holds n $ evl andE ==== (&&)
   , holds n $ evl orE  ==== (||)
-  , evalBool (not' falseE) == True
-  , evalBool (falseE -&&- trueE) == False
+  , evalBool (not' false) == True
+  , evalBool (false -&&- true) == False
   , holds n $ \p -> evl (not' (val p)) == not p
   , holds n $ \p q -> evl (val p -&&- val q) == (p && q)
   , holds n $ \p q -> evl (val p -||- val q) == (p || q)
@@ -58,7 +58,7 @@ tests n =
 
   -- evaluate --
 
-  , evaluateBool falseE == Just False
+  , evaluateBool false == Just False
   , evaluateBool zero   == Nothing
 
   , evalInt zero == 0
@@ -67,7 +67,7 @@ tests n =
   , evalInt three == 3
   , evalInt minusOne == -1
   , evaluateInt zero   == Just 0
-  , evaluateInt falseE == Nothing
+  , evaluateInt false == Nothing
 
   , evalChar bee == 'b'
   , evaluateChar cee  == Just 'c'

@@ -14,7 +14,7 @@ module Data.Haexpress.Fixtures
   -- * Functions and values encoded as Expr or functions of Exprs
   -- | The naming rules are:
   --
-  -- * Terminal values are named in words (e.g.: 'zero', 'bee', 'cee', 'dee').
+  -- * Terminal values are named in words (e.g.: 'zero', 'bee', 'cee', 'dee', 'false').
   -- * Variables have their characters duplicated (e.g.: 'xx', 'xxss');
   -- * Functions encoded as expressions are followed by @E@ (e.g.: 'idE', 'plusE');
   -- * Functions over expressions are primed (e.g.: 'id'', 'negate'');
@@ -22,8 +22,8 @@ module Data.Haexpress.Fixtures
 
   -- ** Booleans
   , b_, pp, qq
-  , falseE
-  , trueE
+  , false
+  , true
   , notE
   , orE
   , andE
@@ -74,7 +74,7 @@ import Data.Typeable (Typeable, typeOf)
 
 -- | 'eval' bound to a 'Bool' result type
 --
--- > > evalBool falseE
+-- > > evalBool false
 -- > False
 --
 -- > > evalBool zero
@@ -84,7 +84,7 @@ evalBool = evl
 
 -- | 'evaluate' bound to a 'Bool' result type
 --
--- > > evaluateBool falseE
+-- > > evaluateBool false
 -- > Just False
 --
 -- > > evaluateBool zero
@@ -97,7 +97,7 @@ evaluateBool = evaluate
 -- > > evalInt zero
 -- > 0
 --
--- > > evalInt falseE
+-- > > evalInt false
 -- > *** Exception: evl: cannot evaluate Expr `False :: Bool' at the Int type
 evalInt :: Expr -> Int
 evalInt = evl
@@ -107,7 +107,7 @@ evalInt = evl
 -- > > evaluateInt zero
 -- > Just 0
 --
--- > > evaluateInt falseE
+-- > > evaluateInt false
 -- > Nothing
 evaluateInt :: Expr -> Maybe Int
 evaluateInt = evaluate
@@ -194,17 +194,17 @@ qq  =  var "q" (undefined :: Bool)
 
 -- | 'False' encoded as an 'Expr'.
 --
--- > > falseE
+-- > > false
 -- > False :: Bool
-falseE :: Expr
-falseE  =  val False
+false :: Expr
+false  =  val False
 
 -- | 'True' encoded as an 'Expr'.
 --
--- > > trueE
+-- > > true
 -- > True :: Bool
-trueE :: Expr
-trueE  =  val True
+true :: Expr
+true  =  val True
 
 -- | The function 'not' encoded as an 'Expr'.
 --
@@ -229,10 +229,10 @@ orE  =  value "||" (||)
 
 -- | The function 'not' lifted over the 'Expr' type.
 --
--- > > not' falseE
+-- > > not' false
 -- > not False :: Bool
 --
--- > > evalBool $ not' falseE
+-- > > evalBool $ not' false
 -- > True
 --
 -- > > not' pp
@@ -245,10 +245,10 @@ not' pp  =  notE :$ pp
 -- > > pp -&&- qq
 -- > p && q :: Bool
 --
--- > > falseE -&&- trueE
+-- > > false -&&- true
 -- > False && True :: Bool
 --
--- > > evalBool $ falseE -&&- trueE
+-- > > evalBool $ false -&&- true
 -- > False
 (-&&-) :: Expr -> Expr -> Expr
 pp -&&- qq  =  andE :$ pp :$ qq
@@ -393,10 +393,10 @@ timesE  =  value "*" ((*) :: Int -> Int -> Int)
 -- > > id' pp
 -- > id p :: Bool
 --
--- > > id' falseE
+-- > > id' false
 -- > id' False :: Bool
 --
--- > > eval False $ id' trueE
+-- > > eval False $ id' true
 -- > True :: Bool
 id' :: Expr -> Expr
 id' e  =  headOr err $ mapMaybe ($$ e) [ idE -- :: Int -> Int
@@ -513,7 +513,7 @@ consE = value ":" ((:) :: Int -> [Int] -> [Int])
 -- > > unit one
 -- > [1]
 --
--- > > unit falseE
+-- > > unit false
 -- > [False]
 unit :: Expr -> Expr
 unit e  =  e -:- nil
