@@ -19,7 +19,9 @@ module Data.Haexpress.Fixtures
   , evalString
   , evaluateBool
   , evaluateInt
+  , evaluateInts
   , evaluateChar
+  , evaluateString
 
   -- * Functions and values encoded as 'Expr' or functions of 'Expr's
   -- | The naming rules are:
@@ -56,6 +58,7 @@ module Data.Haexpress.Fixtures
   , bee, cee, dee
 
   -- ** Lists
+  , (-:-)
   , xxss
   , yyss
   , nilE
@@ -71,33 +74,43 @@ import Data.Maybe
 evalError :: String -> a
 evalError tn = error $ "evalInt: cannot evaluate Expr to " ++ tn ++ " type"
 
+-- | 'eval' bound to a 'Bool' result type
 evalBool :: Expr -> Bool
 evalBool = eval $ evalError "Bool"
 
+-- | 'evaluate' bound to a 'Bool' result type
 evaluateBool :: Expr -> Maybe Bool
 evaluateBool = evaluate
 
+-- | 'eval' bound to a 'Int' result type
 evalInt :: Expr -> Int
 evalInt = eval $ evalError "Int"
 
+-- | 'evaluate' bound to a 'Int' result type
 evaluateInt :: Expr -> Maybe Int
 evaluateInt = evaluate
 
+-- | 'eval' bound to a 'Char' result type
 evalChar :: Expr -> Char
 evalChar = eval $ evalError "Char"
 
+-- | 'evaluate' bound to a 'Char' result type
 evaluateChar :: Expr -> Maybe Char
 evaluateChar = evaluate
 
+-- | 'eval' bound to a '[Int]' result type
 evalInts :: Expr -> [Int]
 evalInts = eval $ evalError "[Int]"
 
+-- | 'evaluate' bound to a '[Int]' result type
 evaluateInts :: Expr -> Maybe [Int]
 evaluateInts = evaluate
 
+-- | 'eval' bound to a 'String' result type
 evalString :: Expr -> String
 evalString = eval $ evalError "[Int]"
 
+-- | 'evaluate' bound to a 'String' result type
 evaluateString :: Expr -> Maybe String
 evaluateString = evaluate
 
@@ -376,7 +389,7 @@ nilE  =  val ([] :: [Int])
 emptyStringE :: Expr
 emptyStringE  =  val ""
 
--- | The ':' operator with 'Int' as element type encoded as an 'Expr'.
+-- | The list constructor with 'Int' as element type encoded as an 'Expr'.
 --
 -- > > consE
 -- > (:) :: Int -> [Int] -> [Int]
@@ -403,7 +416,7 @@ unit e  =  e -:- nil
       | typ e == typ c_  =  emptyStringE
       | typ e == typ b_  =  val ([] :: [Bool])
 
--- | The ':' operator lifted over the 'Expr' type.
+-- | The list constructor lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
 --
 -- > > zero -:- one -:- unit two
