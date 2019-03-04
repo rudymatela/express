@@ -73,9 +73,6 @@ import Data.Haexpress
 import Data.Maybe
 import Data.Typeable (Typeable, typeOf)
 
-evalError :: String -> a
-evalError tn = error $ "evalInt: cannot evaluate Expr to " ++ tn ++ " type"
-
 -- | 'eval' that raises an error when the conversion fails
 --
 -- This can be dangerous!  Use only in tests.
@@ -91,9 +88,9 @@ evl e = r
 -- > False
 --
 -- > > evalBool zero
--- > *** Exception: evalInt: cannot evaluate Expr to Bool type
+-- > *** Exception: evl: cannot evaluate Expr to Bool type
 evalBool :: Expr -> Bool
-evalBool = eval $ evalError "Bool"
+evalBool = evl
 
 -- | 'evaluate' bound to a 'Bool' result type
 --
@@ -111,9 +108,9 @@ evaluateBool = evaluate
 -- > 0
 --
 -- > > evalInt falseE
--- > *** Exception: evalInt: cannot evaluate Expr to Int type
+-- > *** Exception: evl: cannot evaluate Expr to Int type
 evalInt :: Expr -> Int
-evalInt = eval $ evalError "Int"
+evalInt = evl
 
 -- | 'evaluate' bound to a 'Int' result type
 --
@@ -131,9 +128,9 @@ evaluateInt = evaluate
 -- > 'b'
 --
 -- > > evalChar zero
--- > *** Exception: evalInt: cannot evaluate Expr to Char type
+-- > *** Exception: evl: cannot evaluate Expr to Char type
 evalChar :: Expr -> Char
-evalChar = eval $ evalError "Char"
+evalChar = evl
 
 -- | 'evaluate' bound to a 'Char' result type
 --
@@ -150,9 +147,9 @@ evaluateChar = evaluate
 -- > [1]
 --
 -- > > evalInts zero
--- > *** Exception: evalInt: cannot evaluate Expr to [Int] type
+-- > *** Exception: evl: cannot evaluate Expr to [Int] type
 evalInts :: Expr -> [Int]
-evalInts = eval $ evalError "[Int]"
+evalInts = evl
 
 -- | 'evaluate' bound to a '[Int]' result type
 --
@@ -170,9 +167,9 @@ evaluateInts = evaluate
 -- > "bcd"
 --
 -- > > evalString bee
--- > "*** Exception: evalInt: cannot evaluate Expr to String type
+-- > "*** Exception: evl: cannot evaluate Expr to [Char] type
 evalString :: Expr -> String
-evalString = eval $ evalError "String"
+evalString = evl
 
 -- | 'evaluate' bound to a 'String' result type
 --
