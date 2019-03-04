@@ -19,12 +19,21 @@ tests n =
   , show notE == "not :: Bool -> Bool"
   , show andE == "(&&) :: Bool -> Bool -> Bool"
   , show orE  == "(||) :: Bool -> Bool -> Bool"
+  , show (not' falseE) == "not False :: Bool"
+  , show (falseE -&&- trueE) == "False && True :: Bool"
+  , show (pp -||- falseE) == "p || False :: Bool"
+  , show (qq -&&- trueE) == "q && True :: Bool"
 
   , evalBool falseE == False
   , evalBool trueE  == True
   , holds n $ evl notE === not
   , holds n $ evl andE ==== (&&)
   , holds n $ evl orE  ==== (||)
+  , evalBool (not' falseE) == True
+  , evalBool (falseE -&&- trueE) == False
+  , holds n $ \p -> evl (not' (val p)) == not p
+  , holds n $ \p q -> evl (val p -&&- val q) == (p && q)
+  , holds n $ \p q -> evl (val p -||- val q) == (p || q)
 
   -- Int --
 

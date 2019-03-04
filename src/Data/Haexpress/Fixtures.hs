@@ -227,9 +227,29 @@ andE  =  value "&&" (&&)
 orE :: Expr
 orE  =  value "||" (||)
 
+-- | The function 'not' lifted over the 'Expr' type.
+--
+-- > > not' falseE
+-- > not False :: Bool
+--
+-- > > evalBool $ not' falseE
+-- > True
+--
+-- > > not' pp
+-- > not p :: Bool
 not' :: Expr -> Expr
 not' pp  =  notE :$ pp
 
+-- | The function '&&' lifted over the 'Expr' type.
+--
+-- > > pp -&&- qq
+-- > p && q :: Bool
+--
+-- > > falseE -&&- trueE
+-- > False && True :: Bool
+--
+-- > > evalBool $ falseE -&&- trueE
+-- > False
 (-&&-) :: Expr -> Expr -> Expr
 pp -&&- qq  =  andE :$ pp :$ qq
 
