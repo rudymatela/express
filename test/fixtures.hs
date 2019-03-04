@@ -31,6 +31,7 @@ tests n =
   , holds n $ evl orE  ==== (||)
   , evalBool (not' false) == True
   , evalBool (false -&&- true) == False
+  , evalBool (false -||- true) == True
   , holds n $ \p -> evl (not' (val p)) == not p
   , holds n $ \p q -> evl (val p -&&- val q) == (p && q)
   , holds n $ \p q -> evl (val p -||- val q) == (p || q)

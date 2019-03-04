@@ -253,6 +253,16 @@ not' pp  =  notE :$ pp
 (-&&-) :: Expr -> Expr -> Expr
 pp -&&- qq  =  andE :$ pp :$ qq
 
+-- | The function '||' lifted over the 'Expr' type.
+--
+-- > > pp -||- qq
+-- > p || q :: Bool
+--
+-- > > false -||- true
+-- > False || True :: Bool
+--
+-- > > evalBool $ false -||- true
+-- > True
 (-||-) :: Expr -> Expr -> Expr
 pp -||- qq  =  orE :$ pp :$ qq
 
