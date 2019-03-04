@@ -71,7 +71,7 @@ where
 
 import Data.Haexpress
 import Data.Maybe
-import Data.Typeable (Typeable)
+import Data.Typeable (Typeable, typeOf)
 
 evalError :: String -> a
 evalError tn = error $ "evalInt: cannot evaluate Expr to " ++ tn ++ " type"
@@ -80,7 +80,10 @@ evalError tn = error $ "evalInt: cannot evaluate Expr to " ++ tn ++ " type"
 --
 -- This can be dangerous!  Use only in tests.
 evl :: Typeable a => Expr -> a
-evl = eval (error "evl: cannot evaluate expression")
+evl e = r
+  where
+  r = eval err e
+  err = error $ "evl: cannot evaluate Expr to " ++ show (typeOf r) ++ " type"
 
 -- | 'eval' bound to a 'Bool' result type
 --
