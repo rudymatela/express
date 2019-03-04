@@ -23,7 +23,7 @@ module Data.Haexpress.Fixtures
   , evaluateChar
   , evaluateString
 
-  -- * Functions and values encoded as 'Expr' or functions of 'Expr's
+  -- * Functions and values encoded as Expr or functions of Exprs
   -- | The naming rules are:
   --
   -- * Terminal values are named in words (e.g.: 'zero', 'bee', 'cee', 'dee').
@@ -98,6 +98,7 @@ evaluateBool = evaluate
 --
 -- > > evalInt zero
 -- > 0
+--
 -- > > evalInt falseE
 -- > *** Exception: evalInt: cannot evaluate Expr to Int type
 evalInt :: Expr -> Int
@@ -107,6 +108,7 @@ evalInt = eval $ evalError "Int"
 --
 -- > > evaluateInt zero
 -- > Just 0
+--
 -- > > evaluateInt falseE
 -- > Nothing
 evaluateInt :: Expr -> Maybe Int
@@ -155,6 +157,7 @@ evaluateInts = evaluate
 --
 -- > > evalString (bee -:- cee -:- unit dee)
 -- > "bcd"
+--
 -- > > evalString bee
 -- > "*** Exception: evalInt: cannot evaluate Expr to String type
 evalString :: Expr -> String
