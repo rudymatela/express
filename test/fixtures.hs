@@ -9,8 +9,6 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , evalBool falseE == False
-  , evalBool trueE  == True
   , evaluateBool falseE == Just False
   , evaluateBool zero   == Nothing
 
@@ -33,6 +31,23 @@ tests n =
   , evalString (bee -:- cee -:- unit dee) == "bcd"
   , evaluateString (zero -:- unit one) == Nothing
   , evaluateString (bee -:- cee -:- unit dee) == Just "bcd"
+
+
+  -- Bool --
+
+  , show b_ == "_ :: Bool"
+  , show pp == "p :: Bool"
+  , show qq == "q :: Bool"
+  , show falseE == "False :: Bool"
+  , show trueE == "True :: Bool"
+  , show notE == "not :: Bool -> Bool"
+  , show andE == "(&&) :: Bool -> Bool -> Bool"
+  , show orE  == "(||) :: Bool -> Bool -> Bool"
+
+  , evalBool falseE == False
+  , evalBool trueE  == True
+
+  -- Int --
 
   , show i_ == "_ :: Int"
   , show xx == "x :: Int"

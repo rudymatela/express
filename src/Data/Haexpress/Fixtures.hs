@@ -174,29 +174,58 @@ evaluateString :: Expr -> Maybe String
 evaluateString = evaluate
 
 -- | 'Expr' representing a hole of 'Bool' type.
+--
+-- > > b_
+-- > _ :: Bool
 b_ :: Expr
 b_  =  hole (undefined :: Bool)
 
 -- | 'Expr' representing a variable @p :: `Bool`@.
+--
+-- > > pp
+-- > p :: Bool
 pp :: Expr
 pp  =  var "p" (undefined :: Bool)
 
 -- | 'Expr' representing a variable @q :: `Bool`@.
+--
+-- > > qq
+-- > q :: Bool
 qq :: Expr
 qq  =  var "q" (undefined :: Bool)
 
+-- | 'False' encoded as an 'Expr'.
+--
+-- > > falseE
+-- > False :: Bool
 falseE :: Expr
 falseE  =  val False
 
+-- | 'True' encoded as an 'Expr'.
+--
+-- > > trueE
+-- > True :: Bool
 trueE :: Expr
 trueE  =  val True
 
+-- | The function 'not' encoded as an 'Expr'.
+--
+-- > > notE
+-- > not :: Bool -> Bool
 notE :: Expr
 notE  =  value "not" not
 
+-- | The function 'and' encoded as an 'Expr'.
+--
+-- > > andE
+-- > (&&) :: Bool -> Bool -> Bool
 andE :: Expr
 andE  =  value "&&" (&&)
 
+-- | The function 'or' encoded as an 'Expr'.
+--
+-- > > orE
+-- > (||) :: Bool -> Bool -> Bool
 orE :: Expr
 orE  =  value "||" (||)
 
