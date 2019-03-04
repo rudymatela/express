@@ -113,26 +113,59 @@ evaluateInt :: Expr -> Maybe Int
 evaluateInt = evaluate
 
 -- | 'eval' bound to a 'Char' result type
+--
+-- > > evalChar bee
+-- > 'b'
+--
+-- > > evalChar zero
+-- > *** Exception: evalInt: cannot evaluate Expr to Char type
 evalChar :: Expr -> Char
 evalChar = eval $ evalError "Char"
 
 -- | 'evaluate' bound to a 'Char' result type
+--
+-- > > evaluateChar bee
+-- > Just 'b'
+-- > > evaluateChar zero
+-- > Nothing
 evaluateChar :: Expr -> Maybe Char
 evaluateChar = evaluate
 
 -- | 'eval' bound to a '[Int]' result type
+--
+-- > > evalInts (unit one)
+-- > [1]
+--
+-- > > evalInts zero
+-- > *** Exception: evalInt: cannot evaluate Expr to [Int] type
 evalInts :: Expr -> [Int]
 evalInts = eval $ evalError "[Int]"
 
 -- | 'evaluate' bound to a '[Int]' result type
+--
+-- > > evaluateInts (zero -:- unit one)
+-- > Just [0,1]
+--
+-- > > evaluateInts (bee -:- cee -:- unit dee)
+-- > Nothing
 evaluateInts :: Expr -> Maybe [Int]
 evaluateInts = evaluate
 
 -- | 'eval' bound to a 'String' result type
+--
+-- > > evalString (bee -:- cee -:- unit dee)
+-- > "bcd"
+-- > > evalString bee
+-- > "*** Exception: evalInt: cannot evaluate Expr to String type
 evalString :: Expr -> String
 evalString = eval $ evalError "String"
 
 -- | 'evaluate' bound to a 'String' result type
+--
+-- > > evaluateString (zero -:- unit one)
+-- > Nothing
+-- > > evaluateString (bee -:- cee -:- unit dee)
+-- > Just "bcd"
 evaluateString :: Expr -> Maybe String
 evaluateString = evaluate
 

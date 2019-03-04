@@ -22,6 +22,18 @@ tests n =
   , evaluateInt zero   == Just 0
   , evaluateInt falseE == Nothing
 
+  , evalChar bee == 'b'
+  , evaluateChar cee  == Just 'c'
+  , evaluateChar zero == Nothing
+
+  , evalInts (unit one) == [1]
+  , evaluateInts (zero -:- unit one) == [0,1]
+  , evaluateInts (bee -:- cee -:- unit dee) == Nothing
+
+  , evalString (bee -:- cee -:- unit dee) == "bcd"
+  , evaluateString (zero -:- unit one) == Nothing
+  , evaluateString (bee -:- cee -:- unit dee) == Just "bcd"
+
   , show i_ == "_ :: Int"
   , show xx == "x :: Int"
   , show yy == "y :: Int"
