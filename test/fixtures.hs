@@ -24,14 +24,14 @@ tests n =
   , show (pp -||- false) == "p || False :: Bool"
   , show (qq -&&- true) == "q && True :: Bool"
 
-  , evalBool false == False
-  , evalBool true  == True
+  , evl false == False
+  , evl true  == True
   , holds n $ evl notE === not
   , holds n $ evl andE ==== (&&)
   , holds n $ evl orE  ==== (||)
-  , evalBool (not' false) == True
-  , evalBool (false -&&- true) == False
-  , evalBool (false -||- true) == True
+  , evl (not' false) == True
+  , evl (false -&&- true) == False
+  , evl (false -||- true) == True
   , holds n $ \p -> evl (not' (val p)) == not p
   , holds n $ \p q -> evl (val p -&&- val q) == (p && q)
   , holds n $ \p q -> evl (val p -||- val q) == (p || q)
