@@ -130,7 +130,7 @@ evaluateInts = evaluate
 
 -- | 'eval' bound to a 'String' result type
 evalString :: Expr -> String
-evalString = eval $ evalError "[Int]"
+evalString = eval $ evalError "String"
 
 -- | 'evaluate' bound to a 'String' result type
 evaluateString :: Expr -> Maybe String
