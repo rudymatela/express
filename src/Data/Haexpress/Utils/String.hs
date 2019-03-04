@@ -84,7 +84,7 @@ isNegativeLiteral _                  = False
 -- > isInfix "`foo`" == True
 -- > isInfix "+"     == True
 isInfix :: String -> Bool
-isInfix (c:_) = c `notElem` "()'\"[" && not (isAlphaNum c)
+isInfix (c:_) = c `notElem` "()'\"[_" && not (isAlphaNum c)
 
 -- | Returns the precedence of default Haskell operators
 prec :: String -> Int
