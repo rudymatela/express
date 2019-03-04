@@ -55,7 +55,6 @@ module Data.Haexpress.Fixtures
   , consE
 
   -- * Convenience monomorphically typed evaluation function aliases
-  , evl
   , evalBool
   , evalInt
   , evalInts
@@ -72,15 +71,6 @@ where
 import Data.Haexpress
 import Data.Maybe
 import Data.Typeable (Typeable, typeOf)
-
--- | 'eval' that raises an error when the conversion fails
---
--- This can be dangerous!  Use only in tests.
-evl :: Typeable a => Expr -> a
-evl e = r
-  where
-  r = eval err e
-  err = error $ "evl: cannot evaluate Expr to " ++ show (typeOf r) ++ " type"
 
 -- | 'eval' bound to a 'Bool' result type
 --

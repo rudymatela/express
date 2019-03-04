@@ -25,6 +25,7 @@ module Data.Haexpress.Core
   -- * Evaluating Exprs
   , evaluate
   , eval
+  , evl
   , typ
   , etyp
   , mtyp
@@ -310,6 +311,21 @@ evaluate e = toDynamic e >>= fromDynamic
 -- > 0
 eval :: Typeable a => a -> Expr -> a
 eval x e = fromMaybe x (evaluate e)
+
+-- | /O(n)/.
+-- Evaluates an expression when possible (correct type).
+-- Raises an error otherwise.
+--
+-- > > evl $ two -+- three :: Int
+-- > 5
+--
+-- > > evl $ two -+- three :: Bool
+-- > *** Exception: evl: cannot evaluate Expr `2 + 3 :: Int' at the Bool type
+evl :: Typeable a => Expr -> a
+evl e = r
+  where
+  r = eval err e
+  err = error $ "evl: cannot evaluate Expr `" ++ show e ++ "' at the " ++ show (typeOf r) ++ " type"
 
 -- | /O(n)/.
 -- Evaluates an expression to a terminal 'Dynamic' value when possible.
