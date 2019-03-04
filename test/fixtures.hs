@@ -9,6 +9,46 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
+  -- Bool --
+
+  , show b_ == "_ :: Bool"
+  , show pp == "p :: Bool"
+  , show qq == "q :: Bool"
+  , show falseE == "False :: Bool"
+  , show trueE == "True :: Bool"
+  , show notE == "not :: Bool -> Bool"
+  , show andE == "(&&) :: Bool -> Bool -> Bool"
+  , show orE  == "(||) :: Bool -> Bool -> Bool"
+
+  , evalBool falseE == False
+  , evalBool trueE  == True
+  , holds n $ evl notE === not
+  , holds n $ evl andE ==== (&&)
+  , holds n $ evl orE  ==== (||)
+
+  -- Int --
+
+  , show i_ == "_ :: Int"
+  , show xx == "x :: Int"
+  , show yy == "y :: Int"
+  , show zero == "0 :: Int"
+
+  , show xxss == "xs :: [Int]"
+  , show yyss == "ys :: [Int]"
+  , show nilE == "[] :: [Int]"
+  , show (unit one) == "[1] :: [Int]"
+
+  , evalInts nilE == []
+  , evalInts (unit one) == [1]
+
+  -- TODO: show "[Char]" as "String"?
+  , show emptyStringE == "\"\" :: [Char]"
+
+  , evalString emptyStringE == ""
+
+
+  -- evaluate --
+
   , evaluateBool falseE == Just False
   , evaluateBool zero   == Nothing
 
@@ -33,37 +73,4 @@ tests n =
   , evaluateString (bee -:- cee -:- unit dee) == Just "bcd"
 
 
-  -- Bool --
-
-  , show b_ == "_ :: Bool"
-  , show pp == "p :: Bool"
-  , show qq == "q :: Bool"
-  , show falseE == "False :: Bool"
-  , show trueE == "True :: Bool"
-  , show notE == "not :: Bool -> Bool"
-  , show andE == "(&&) :: Bool -> Bool -> Bool"
-  , show orE  == "(||) :: Bool -> Bool -> Bool"
-
-  , evalBool falseE == False
-  , evalBool trueE  == True
-
-  -- Int --
-
-  , show i_ == "_ :: Int"
-  , show xx == "x :: Int"
-  , show yy == "y :: Int"
-  , show zero == "0 :: Int"
-
-  , show xxss == "xs :: [Int]"
-  , show yyss == "ys :: [Int]"
-  , show nilE == "[] :: [Int]"
-  , show (unit one) == "[1] :: [Int]"
-
-  , evalInts nilE == []
-  , evalInts (unit one) == [1]
-
-  -- TODO: show "[Char]" as "String"?
-  , show emptyStringE == "\"\" :: [Char]"
-
-  , evalString emptyStringE == ""
   ]

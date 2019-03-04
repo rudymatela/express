@@ -11,24 +11,12 @@ module Data.Haexpress.Fixtures
   -- * Convenience re-export
     module Data.Haexpress
 
-  -- * Convenience monomorphically typed evaluation function aliases
-  , evalBool
-  , evalInt
-  , evalInts
-  , evalChar
-  , evalString
-  , evaluateBool
-  , evaluateInt
-  , evaluateInts
-  , evaluateChar
-  , evaluateString
-
   -- * Functions and values encoded as Expr or functions of Exprs
   -- | The naming rules are:
   --
   -- * Terminal values are named in words (e.g.: 'zero', 'bee', 'cee', 'dee').
   -- * Variables have their characters duplicated (e.g.: 'xx', 'xxss');
-  -- * Functions encoded as expressions are followed by "E" (e.g.: 'idE', 'plusE');
+  -- * Functions encoded as expressions are followed by @E@ (e.g.: 'idE', 'plusE');
   -- * Functions over expressions are primed (e.g.: 'id'', 'negate'');
   -- * Operators are surrounded by dashes (e.g.: '-+-', '-*-').
 
@@ -65,14 +53,34 @@ module Data.Haexpress.Fixtures
   , emptyStringE
   , unit
   , consE
+
+  -- * Convenience monomorphically typed evaluation function aliases
+  , evl
+  , evalBool
+  , evalInt
+  , evalInts
+  , evalChar
+  , evalString
+  , evaluateBool
+  , evaluateInt
+  , evaluateInts
+  , evaluateChar
+  , evaluateString
   )
 where
 
 import Data.Haexpress
 import Data.Maybe
+import Data.Typeable (Typeable)
 
 evalError :: String -> a
 evalError tn = error $ "evalInt: cannot evaluate Expr to " ++ tn ++ " type"
+
+-- | 'eval' that raises an error when the conversion fails
+--
+-- This can be dangerous!  Use only in tests.
+evl :: Typeable a => Expr -> a
+evl = eval (error "evl: cannot evaluate expression")
 
 -- | 'eval' bound to a 'Bool' result type
 --
