@@ -16,14 +16,12 @@ tests n =
 
   , evalInt zero == 0
   , evalInt one  == 1
-  , evaluateInt zero   == Just 0
-  , evaluateInt falseE == Nothing
-  
-  , evalInt zero  == 0
-  , evalInt one   == 1
   , evalInt two   == 2
   , evalInt three == 3
   , evalInt minusOne == -1
+  , evaluateInt zero   == Just 0
+  , evaluateInt falseE == Nothing
+
   , show i_ == "_ :: Int"
   , show xx == "x :: Int"
   , show yy == "y :: Int"
