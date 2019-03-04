@@ -8,6 +8,16 @@ main = mainTest tests 360
 tests :: Int -> [Bool]
 tests n =
   [ True
+
+  , evalBool falseE == False
+  , evalBool trueE  == True
+  , evaluateBool falseE == Just False
+  , evaluateBool zero   == Nothing
+
+  , evalInt zero == 0
+  , evalInt one  == 1
+  , evaluateInt zero   == Just 0
+  , evaluateInt falseE == Nothing
   
   , evalInt zero  == 0
   , evalInt one   == 1

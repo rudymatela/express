@@ -75,18 +75,40 @@ evalError :: String -> a
 evalError tn = error $ "evalInt: cannot evaluate Expr to " ++ tn ++ " type"
 
 -- | 'eval' bound to a 'Bool' result type
+--
+-- > > evalBool falseE
+-- > False
+--
+-- > > evalBool zero
+-- > *** Exception: evalInt: cannot evaluate Expr to Bool type
 evalBool :: Expr -> Bool
 evalBool = eval $ evalError "Bool"
 
 -- | 'evaluate' bound to a 'Bool' result type
+--
+-- > > evaluateBool falseE
+-- > Just False
+--
+-- > > evaluateBool zero
+-- > Nothing
 evaluateBool :: Expr -> Maybe Bool
 evaluateBool = evaluate
 
 -- | 'eval' bound to a 'Int' result type
+--
+-- > > evalInt zero
+-- > 0
+-- > > evalInt falseE
+-- > *** Exception: evalInt: cannot evaluate Expr to Int type
 evalInt :: Expr -> Int
 evalInt = eval $ evalError "Int"
 
 -- | 'evaluate' bound to a 'Int' result type
+--
+-- > > evaluateInt zero
+-- > Just 0
+-- > > evaluateInt falseE
+-- > Nothing
 evaluateInt :: Expr -> Maybe Int
 evaluateInt = evaluate
 
