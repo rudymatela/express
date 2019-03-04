@@ -343,15 +343,37 @@ minusOne  =  val (-1 :: Int)
 minusTwo :: Expr
 minusTwo  =  val (-2 :: Int)
 
+-- | A variable function @f@ of 'Int -> Int' type lifted over the 'Expr' type.
+--
+-- > > ff xx
+-- > f x :: Int
+--
+-- > > ff one
+-- > f 1 :: Int
 ff :: Expr -> Expr
 ff = (ffE :$)
 
+-- | A variable @f@ of 'Int -> Int' type encoded as an 'Expr'.
+--
+-- > > ffE
+-- > f :: Int -> Int
 ffE :: Expr
 ffE = var "f" (undefined :: Int -> Int)
 
+-- | A variable function @g@ of 'Int -> Int' type lifted over the 'Expr' type.
+--
+-- > > gg yy
+-- > g y :: Int
+--
+-- > > gg minusTwo
+-- > gg (-2) :: Int
 gg :: Expr -> Expr
 gg = (ggE :$)
 
+-- | A variable @g@ of 'Int -> Int' type encoded as an 'Expr'.
+--
+-- > > ggE
+-- > g :: Int -> Int
 ggE :: Expr
 ggE = var "g" (undefined :: Int -> Int)
 

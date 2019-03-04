@@ -58,6 +58,11 @@ tests n =
   , show nilE == "[] :: [Int]"
   , show (unit one) == "[1] :: [Int]"
 
+  -- Int -> Int --
+
+  , show ffE == "f :: Int -> Int"
+  , show ggE == "g :: Int -> Int"
+
   , evalInts nilE == []
   , evalInts (unit one) == [1]
 
