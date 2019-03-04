@@ -14,6 +14,8 @@ tests n =
 
   , holds n $ \x -> eval (undefined :: Int -> Int) (value "abs" (abs :: Int -> Int)) x == abs (x :: Int)
   , evalInt (val (10 :: Int)) == 10
+  , evl (val (1337 :: Int)) == (1337 :: Int)
+  , evl (val False) == False
   , holds n $ \x y -> evalInt (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == x + y
   , holds n $ \x y -> evalInt (value "+" ((*) :: Int -> Int -> Int) :$ val x :$ val y) == x * y
   , holds n $ \i -> evalInt (val i) == i
