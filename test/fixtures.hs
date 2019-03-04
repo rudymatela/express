@@ -18,4 +18,17 @@ tests n =
   , show xx == "x :: Int"
   , show yy == "y :: Int"
   , show zero == "0 :: Int"
+
+  , show xxss == "xs :: [Int]"
+  , show yyss == "ys :: [Int]"
+  , show nilE == "[] :: [Int]"
+  , show (unit one) == "[1] :: [Int]"
+
+  , evalInts nilE == []
+  , evalInts (unit one) == [1]
+
+  -- TODO: show "[Char]" as "String"?
+  , show emptyStringE == "\"\" :: [Char]"
+
+  , evalString emptyStringE == ""
   ]

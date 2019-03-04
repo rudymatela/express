@@ -14,7 +14,9 @@ module Data.Haexpress.Fixtures
   -- * Convenience monomorphically typed evaluation function aliases
   , evalBool
   , evalInt
+  , evalInts
   , evalChar
+  , evalString
   , evaluateBool
   , evaluateInt
   , evaluateChar
@@ -50,10 +52,16 @@ module Data.Haexpress.Fixtures
   , gg, ggE
 
   -- ** Chars
+  , c_
   , bee, cee, dee
 
   -- ** Lists
   , xxss
+  , yyss
+  , nilE
+  , emptyStringE
+  , unit
+  , consE
   )
 where
 
@@ -80,6 +88,18 @@ evalChar = eval $ evalError "Char"
 
 evaluateChar :: Expr -> Maybe Char
 evaluateChar = evaluate
+
+evalInts :: Expr -> [Int]
+evalInts = eval $ evalError "[Int]"
+
+evaluateInts :: Expr -> Maybe [Int]
+evaluateInts = evaluate
+
+evalString :: Expr -> String
+evalString = eval $ evalError "[Int]"
+
+evaluateString :: Expr -> Maybe String
+evaluateString = evaluate
 
 -- | 'Expr' representing a hole of 'Bool' type.
 b_ :: Expr
@@ -295,6 +315,9 @@ abs' e  =  absE :$ e
 absE :: Expr
 absE  =  value "abs" (abs :: Int -> Int)
 
+c_ :: Expr
+c_  =  hole (undefined :: Char)
+
 -- | The character @\'b\'@ encoded as an 'Expr'
 --
 -- > > bee
@@ -331,6 +354,89 @@ dee  =  val 'd'
 -- > xs :: [Int]
 xxss :: Expr
 xxss  =  var "xs" (undefined :: [Int])
+
+-- | A variable named @ys@ of type @[Int]@ encoded as an 'Expr'.
+--
+-- > > yyss
+-- > ys :: [Int]
+yyss :: Expr
+yyss  =  var "ys" (undefined :: [Int])
+
+-- | An empty list of type @[Int]@ encoded as an 'Expr'.
+--
+-- > > nilE
+-- > [] :: [Int]
+nilE :: Expr
+nilE  =  val ([] :: [Int])
+
+-- | An empty 'String' encoded as an 'Expr'.
+--
+-- > > emptyStringE
+-- > "" :: String
+emptyStringE :: Expr
+emptyStringE  =  val ""
+
+-- | The ':' operator with 'Int' as element type encoded as an 'Expr'.
+--
+-- > > consE
+-- > (:) :: Int -> [Int] -> [Int]
+--
+-- > > consE :$ one :$ nilE
+-- > [1] :: [Int]
+--
+-- Please prefer '-:-' and 'unit' when building lists of 'Expr'.
+consE :: Expr
+consE = value ":" ((:) :: Int -> [Int] -> [Int])
+
+-- | 'unit' constructs a list with a single element.
+--   This works for elements of type 'Int', 'Char' and 'Bool'.
+--
+-- > > unit one
+-- > [1]
+--
+-- > > unit falseE
+-- > [False]
+unit :: Expr -> Expr
+unit e  =  e -:- nil
+  where
+  nil | typ e == typ i_  =  nilE
+      | typ e == typ c_  =  emptyStringE
+      | typ e == typ b_  =  val ([] :: [Bool])
+
+-- | The ':' operator lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > zero -:- one -:- unit two
+-- > [0,1,2] :: [Int]
+--
+-- > > zero -:- one -:- two -:- nilE
+-- > [0,1,2] :: [Int]
+--
+-- > > bee -:- unit cee
+-- > "bc" :: [Char]
+(-:-) :: Expr -> Expr -> Expr
+e1 -:- e2  =  cons :$ e1 :$ e2
+  where
+  cons | typ e1 == typ i_ = consE
+       | typ e1 == typ c_ = value ":" ((:) :: Char -> String -> String)
+       | typ e1 == typ b_ = value ":" ((:) :: Bool -> [Bool] -> [Bool])
+infixr 5 -:-
+
+(-++-) :: Expr -> Expr -> Expr
+e1 -++- e2 = append :$ e1 :$ e2
+  where
+  append | typ e1 == typ i_ = value "++" ((++) :: [Int] -> [Int] -> [Int])
+         | typ e1 == typ c_ = value "++" ((++) :: String -> String -> String)
+         | typ e1 == typ b_ = value "++" ((++) :: [Bool] -> [Bool] -> [Bool])
+infixr 5 -++-
+-- TODO: make the above work for different types
+
+head' :: Expr -> Expr
+head' exs = headE :$ exs where headE = value "head" (head :: [Int] -> Int)
+-- TODO: make head and tail work for lists of chars and lists of bools
+
+tail' :: Expr -> Expr
+tail' exs = tailE :$ exs where tailE = value "tail" (tail :: [Int] -> [Int])
 
 headOr :: a -> [a] -> a
 headOr x []     =  x
