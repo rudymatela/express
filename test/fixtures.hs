@@ -62,6 +62,10 @@ tests n =
 
   , show ffE == "f :: Int -> Int"
   , show ggE == "g :: Int -> Int"
+  , show (ff xx) == "f x :: Int"
+  , show (gg yy) == "g y :: Int"
+  , show (ff one) == "f 1 :: Int"
+  , show (gg minusTwo) == "g (-2) :: Int"
 
   , evalInts nilE == []
   , evalInts (unit one) == [1]
