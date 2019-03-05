@@ -321,6 +321,8 @@ eval x e = fromMaybe x (evaluate e)
 --
 -- > > evl $ two -+- three :: Bool
 -- > *** Exception: evl: cannot evaluate Expr `2 + 3 :: Int' at the Bool type
+--
+-- This may raise errors, please consider using 'eval' or 'evaluate'.
 evl :: Typeable a => Expr -> a
 evl e = r
   where
