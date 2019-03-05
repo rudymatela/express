@@ -130,4 +130,17 @@ tests n =
   , holds n $ \e -> consts    e `isSubsetOf` values e
   , holds n $ \e -> (vars e ++ consts e) `isPermutationOf` values e
   , holds n $ \e -> (nubVars e ++ nubConsts e) `isPermutationOf` nubValues e
+
+
+  -- showing expressions
+
+  -- TODO: make the following work
+  -- (It didn't work on Speculate anyway...)
+--, show (var "`f`" (undefined :: Int -> Int -> Int) :$ one) == "(1 `f`) :: Int" -- TODO:
+--, show (var "`f`" (undefined :: Int -> Int -> Int) :$ one :$ two) == "1 `f` 2 :: Int" -- TODO:
+  , show (value "`compare`" (compare :: Int->Int->Ordering) :$ one) == "(1 `compare`) :: Int -> Ordering"
+  , show (value "`compare`" (compare :: Int->Int->Ordering) :$ one :$ two) == "1 `compare` 2 :: Ordering"
+
+  , holds n $ show . mapVars (\(Value ('_':s) d) -> Value (if null s then "_" else s) d) === show
+--, holds n $ show . mapConsts (\(Value s d) -> Value ('_':s) d) === show -- TODO:
   ]
