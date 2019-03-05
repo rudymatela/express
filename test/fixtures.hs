@@ -103,7 +103,9 @@ tests n =
   , evalInts nilE == []
   , evalInts (unit one) == [1]
 
+
   -- Char --
+
   , show c_ == "_ :: Char"
   , show bee == "'b' :: Char"
   , show cee == "'c' :: Char"
@@ -113,10 +115,21 @@ tests n =
   , evl cee == 'c'
   , evl dee == 'd'
 
+
+  -- [a] & [Int] --
+
+  , show xxs == "xs :: [Int]"
+  , show yys == "ys :: [Int]"
+  , show nilE == "[] :: [Int]"
+  , show consE == "(:) :: Int -> [Int] -> [Int]"
+
+  , evl nilE == ([] :: [Int])
+
+
   -- TODO: show "[Char]" as "String"?
   , show emptyStringE == "\"\" :: [Char]"
 
-  , evalString emptyStringE == ""
+  , evl emptyStringE == ""
 
 
   -- evaluate --

@@ -582,7 +582,7 @@ emptyStringE  =  val ""
 -- > > consE :$ one :$ nilE
 -- > [1] :: [Int]
 --
--- Please prefer '-:-' and 'unit' when building lists of 'Expr'.
+-- Consider using '-:-' and 'unit' when building lists of 'Expr'.
 consE :: Expr
 consE = value ":" ((:) :: Int -> [Int] -> [Int])
 
