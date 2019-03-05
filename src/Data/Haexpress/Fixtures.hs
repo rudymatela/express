@@ -502,13 +502,17 @@ negateE  =  value "negate" (negate :: Int -> Int)
 abs' :: Expr -> Expr
 abs' e  =  absE :$ e
 
--- | 'abs' over the 'Int' type encoded as an 'Expr.
+-- | 'abs' over the 'Int' type encoded as an 'Expr'.
 --
 -- > > absE
 -- > abs :: Int -> Int
 absE :: Expr
 absE  =  value "abs" (abs :: Int -> Int)
 
+-- | A hole of 'Char' type encoded as an 'Expr'.
+--
+-- > > c_
+-- > _ :: Char
 c_ :: Expr
 c_  =  hole (undefined :: Char)
 
@@ -517,7 +521,7 @@ c_  =  hole (undefined :: Char)
 -- > > bee
 -- > 'b' :: Char
 --
--- > > eval 'z' bee
+-- > > evl bee :: Char
 -- > 'b'
 bee :: Expr
 bee  =  val 'b'
@@ -527,7 +531,7 @@ bee  =  val 'b'
 -- > > cee
 -- > 'c' :: Char
 --
--- > > eval 'z' cee
+-- > > evl cee :: Char
 -- > 'c'
 cee :: Expr
 cee  =  val 'c'
@@ -537,7 +541,7 @@ cee  =  val 'c'
 -- > > dee
 -- > 'd' :: Char
 --
--- > > eval 'x' dee
+-- > > evl dee :: Char
 -- > 'd'
 dee :: Expr
 dee  =  val 'd'

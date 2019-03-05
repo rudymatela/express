@@ -103,6 +103,16 @@ tests n =
   , evalInts nilE == []
   , evalInts (unit one) == [1]
 
+  -- Char --
+  , show c_ == "_ :: Char"
+  , show bee == "'b' :: Char"
+  , show cee == "'c' :: Char"
+  , show dee == "'d' :: Char"
+
+  , evl bee == 'b'
+  , evl cee == 'c'
+  , evl dee == 'd'
+
   -- TODO: show "[Char]" as "String"?
   , show emptyStringE == "\"\" :: [Char]"
 
