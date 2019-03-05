@@ -10,9 +10,9 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , evalInt (val (10 :: Int)) == 10
-  , evalInt one == 1
-  , holds n $ \x y -> evalInt (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == x + y
+  , evl (val (10 :: Int)) == (10 :: Int)
+  , evl one == (1 :: Int)
+  , holds n $ \x y -> evl (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == (x + y :: Int)
   , values (xx -+- yy) == [plusE, xx, yy]
   , (xx -+- yy) // [(yy,yy -+- zz),(xx,xx -+- yy)] == (xx -+- yy) -+- (yy -+- zz)
   ]

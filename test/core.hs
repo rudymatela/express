@@ -13,12 +13,12 @@ tests n =
   -- smart constructors and evaluation
 
   , holds n $ \x -> eval (undefined :: Int -> Int) (value "abs" (abs :: Int -> Int)) x == abs (x :: Int)
-  , evalInt (val (10 :: Int)) == 10
+  , evl (val (10 :: Int)) == (10 :: Int)
   , evl (val (1337 :: Int)) == (1337 :: Int)
   , evl (val False) == False
-  , holds n $ \x y -> evalInt (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == x + y
-  , holds n $ \x y -> evalInt (value "+" ((*) :: Int -> Int -> Int) :$ val x :$ val y) == x * y
-  , holds n $ \i -> evalInt (val i) == i
+  , holds n $ \x y -> evl (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == (x + y :: Int)
+  , holds n $ \x y -> evl (value "+" ((*) :: Int -> Int -> Int) :$ val x :$ val y) == (x * y :: Int)
+  , holds n $ \i -> evl (val i) == (i :: Int)
   , show (one -+- one) == "1 + 1 :: Int"
   , show absE == "abs :: Int -> Int"
   , show notE == "not :: Bool -> Bool"
@@ -27,7 +27,7 @@ tests n =
   , show (one :$ one) == "1 1 :: ill-typed # Int $ Int #"
   , holds n $ \(IntE xx, IntE yy) -> isJust (toDynamic $ xx -+- yy)
   , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
-                                 ==> evalInt (xx -+- yy) == evalInt (yy -+- xx)
+                                 ==> evl (xx -+- yy) == (evl (yy -+- xx) :: Int)
 
   -- valid applications
   , holds n $ \(IntToIntE   ef) (IntE  ex) -> isJust (ef $$ ex)

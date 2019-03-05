@@ -18,5 +18,8 @@ tests n =
   , (counterExample n $ \(IntE xx) -> False) == Just ["_ :: Int"]
   ]
 
+evaluateInt :: Expr -> Maybe Int
+evaluateInt = evaluate
+
 evaluateIntToInt :: Expr -> Maybe (Int -> Int)
 evaluateIntToInt = evaluate

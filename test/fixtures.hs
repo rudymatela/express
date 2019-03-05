@@ -100,8 +100,8 @@ tests n =
   , evl (negate' one) == (-1 :: Int)
   , evl (abs' minusTwo) == (2 :: Int)
 
-  , evalInts nilE == []
-  , evalInts (unit one) == [1]
+  , evl nilE == ([] :: [Int])
+  , evl (unit one) == [1 :: Int]
 
 
   -- Char --
@@ -145,6 +145,7 @@ tests n =
   , show (head' $ zero -:- unit two) == "head [0,2] :: Int"
   , show (tail' $ zero -:- unit two) == "tail [0,2] :: [Int]"
 
+  , evl (unit one) == [1 :: Int]
   , evl (head' $ unit one) == (1 :: Int)
   , evl (tail' $ zero -:- unit two) == ([2] :: [Int])
 
@@ -160,27 +161,5 @@ tests n =
   , evl emptyStringE == ""
   , evl (unit bee) == "b"
   , evl (bee -:- unit cee) == "bc"
-
-
-  -- evaluate --
-
-  , evaluateBool false == Just False
-  , evaluateBool zero   == Nothing
-
-  , evaluateInt zero   == Just 0
-  , evaluateInt false == Nothing
-
-  , evalChar bee == 'b'
-  , evaluateChar cee  == Just 'c'
-  , evaluateChar zero == Nothing
-
-  , evalInts (unit one) == [1]
-  , evaluateInts (zero -:- unit one) == Just [0,1]
-  , evaluateInts (bee -:- cee -:- unit dee) == Nothing
-
-  , evalString (bee -:- cee -:- unit dee) == "bcd"
-  , evaluateString (zero -:- unit one) == Nothing
-  , evaluateString (bee -:- cee -:- unit dee) == Just "bcd"
-
-
+  , evl (bee -:- cee -:- unit dee) == "bcd"
   ]
