@@ -54,8 +54,8 @@ module Data.Haexpress.Fixtures
   , (-:-)
   , unit
   , (-++-)
-  , head
-  , tail
+  , head'
+  , tail'
 
   -- * Convenience monomorphically typed evaluation function aliases
   , evalBool
