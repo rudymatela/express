@@ -439,7 +439,7 @@ timesE  =  value "*" ((*) :: Int -> Int -> Int)
 -- > > id' one
 -- > id 1 :: Int
 --
--- > > eval 0 (id' one) :: Int
+-- > > evl (id' one) :: Int
 -- > 1
 --
 -- > > id' pp
@@ -448,7 +448,7 @@ timesE  =  value "*" ((*) :: Int -> Int -> Int)
 -- > > id' false
 -- > id' False :: Bool
 --
--- > > eval False $ id' true
+-- > > evl (id' true) :: Bool
 -- > True :: Bool
 id' :: Expr -> Expr
 id' e  =  headOr err $ mapMaybe ($$ e)
