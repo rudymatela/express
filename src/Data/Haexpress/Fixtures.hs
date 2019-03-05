@@ -461,7 +461,7 @@ id' e  =  headOr err $ mapMaybe ($$ e)
   , value "id" (id :: String -> String)
   ]
   where
-  err = error $ "id': unhandled type " ++ show (typ e)
+  err  =  error $ "id': unhandled type " ++ show (typ e)
 
 -- | The function 'id' for the 'Int' type encoded as an 'Expr'.  (See also 'id''.)
 --
@@ -614,11 +614,13 @@ unit e  =  e -:- nil
 -- > > bee -:- unit cee
 -- > "bc" :: [Char]
 (-:-) :: Expr -> Expr -> Expr
-e1 -:- e2  =  cons :$ e1 :$ e2
+e1 -:- e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
+  [ consE
+  , value ":" ((:) :: Char -> String -> String)
+  , value ":" ((:) :: Bool -> [Bool] -> [Bool])
+  ]
   where
-  cons | typ e1 == typ i_ = consE
-       | typ e1 == typ c_ = value ":" ((:) :: Char -> String -> String)
-       | typ e1 == typ b_ = value ":" ((:) :: Bool -> [Bool] -> [Bool])
+  err  =  error $ "(-:-): unhandled type " ++ show (typ e1)
 infixr 5 -:-
 
 -- | List concatenation lifted over the 'Expr' type.
@@ -630,11 +632,13 @@ infixr 5 -:-
 -- > > (bee -:- unit cee) -:- unit dee
 -- > "bc" -++- "c" :: [Char]
 (-++-) :: Expr -> Expr -> Expr
-e1 -++- e2 = append :$ e1 :$ e2
+e1 -++- e2 = (:$ e2) . headOr err $ mapMaybe ($$ e1)
+  [ value "++" ((++) :: [Int] -> [Int] -> [Int])
+  , value "++" ((++) :: String -> String -> String)
+  , value "++" ((++) :: [Bool] -> [Bool] -> [Bool])
+  ]
   where
-  append | typ e1 == typ i_ = value "++" ((++) :: [Int] -> [Int] -> [Int])
-         | typ e1 == typ c_ = value "++" ((++) :: String -> String -> String)
-         | typ e1 == typ b_ = value "++" ((++) :: [Bool] -> [Bool] -> [Bool])
+  err  =  error $ "(-++-): unhandled type " ++ show (typ e1)
 infixr 5 -++-
 
 head' :: Expr -> Expr

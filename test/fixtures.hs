@@ -144,7 +144,7 @@ tests n =
   , show emptyStringE == "\"\" :: [Char]"
   , show (unit bee) == "\"b\" :: [Char]"
   , show (bee -:- unit cee) == "\"bc\" :: [Char]"
-  , show (emptyStringE -++- emptyStringE) == "\"\" ++ \"\" :: [Int]"
+  , show (emptyStringE -++- emptyStringE) == "\"\" ++ \"\" :: [Char]"
   , show ((bee -:- unit cee) -++- unit dee) == "\"bc\" ++ \"d\" :: [Char]"
 
   , evl emptyStringE == ""
