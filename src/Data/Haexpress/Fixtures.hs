@@ -54,6 +54,8 @@ module Data.Haexpress.Fixtures
   , (-:-)
   , unit
   , (-++-)
+  , head
+  , tail
 
   -- * Convenience monomorphically typed evaluation function aliases
   , evalBool
@@ -642,11 +644,22 @@ e1 -++- e2 = (:$ e2) . headOr err $ mapMaybe ($$ e1)
 infixr 5 -++-
 
 head' :: Expr -> Expr
-head' exs = headE :$ exs where headE = value "head" (head :: [Int] -> Int)
--- TODO: make head and tail work for lists of chars and lists of bools
+head' exs = headOr err $ mapMaybe ($$ exs)
+  [ value "head" (head :: [Int] -> Int)
+  , value "head" (head :: [Char] -> Char)
+  , value "head" (head :: [Bool] -> Bool)
+  ]
+  where
+  err  =  error $ "head': unhandled type " ++ show (typ exs)
 
 tail' :: Expr -> Expr
-tail' exs = tailE :$ exs where tailE = value "tail" (tail :: [Int] -> [Int])
+tail' exs = headOr err $ mapMaybe ($$ exs)
+  [ value "tail" (tail :: [Int] -> [Int])
+  , value "tail" (tail :: [Char] -> [Char])
+  , value "tail" (tail :: [Bool] -> [Bool])
+  ]
+  where
+  err  =  error $ "tail': unhandled type " ++ show (typ exs)
 
 headOr :: a -> [a] -> a
 headOr x []     =  x
