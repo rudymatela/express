@@ -138,6 +138,16 @@ tests n =
   , show (nilE -++- nilE) == "[] ++ [] :: [Int]"
   , show ((zero -:- one -:- nilE) -++- (two -:- three -:- nilE)) == "[0,1] ++ [2,3] :: [Int]"
 
+  , show (head' $ unit one) == "head [1] :: Int"
+  , show (tail' $ unit one) == "tail [1] :: [Int]"
+  , show (head' $ unit bee) == "head \"b\" :: Char"
+  , show (tail' $ unit bee) == "tail \"b\" :: [Char]"
+  , show (head' $ zero -:- unit two) == "head [0,2] :: Int"
+  , show (tail' $ zero -:- unit two) == "tail [0,2] :: [Int]"
+
+  , evl (head' $ unit one) == (1 :: Int)
+  , evl (tail' $ zero -:- unit two) == ([2] :: [Int])
+
   -- String --
 
   -- TODO: show `:: [Char]' as `:: String'?

@@ -643,6 +643,20 @@ e1 -++- e2 = (:$ e2) . headOr err $ mapMaybe ($$ e1)
   err  =  error $ "(-++-): unhandled type " ++ show (typ e1)
 infixr 5 -++-
 
+-- | List 'head' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > head' $ unit one
+-- > head [1] :: Int
+--
+-- > > head' $ unit bee
+-- > head "b" :: Char
+--
+-- > > head' $ zero -:- unit two
+-- > head [0,2] :: Int
+--
+-- > > evl $ head' $ unit one :: Int
+-- > 1
 head' :: Expr -> Expr
 head' exs = headOr err $ mapMaybe ($$ exs)
   [ value "head" (head :: [Int] -> Int)
@@ -652,6 +666,20 @@ head' exs = headOr err $ mapMaybe ($$ exs)
   where
   err  =  error $ "head': unhandled type " ++ show (typ exs)
 
+-- | List 'tail' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > tail' $ unit one
+-- > tail [1] :: [Int]
+--
+-- > > tail' $ unit bee
+-- > tail "b" :: [Char]
+--
+-- > > tail' $ zero -:- unit two
+-- > tail [0,2] :: [Int]
+--
+-- > > evl $ tail' $ zero -:- unit two :: [Int]
+-- > [2]
 tail' :: Expr -> Expr
 tail' exs = headOr err $ mapMaybe ($$ exs)
   [ value "tail" (tail :: [Int] -> [Int])
