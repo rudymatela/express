@@ -3,10 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* Document `Data.Haexpress.Fixtures` module throughly;
-
-* more tests in test/fixtures (mirroring all examples in docs)
-
 * add '[a]' type to ListableExpr
 
 * add Char type to ListableExpr
