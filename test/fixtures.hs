@@ -87,15 +87,18 @@ tests n =
   , show (gg minusTwo) == "g (-2) :: Int"
 
   , show idE == "id :: Int -> Int"
+  , show negateE == "negate :: Int -> Int"
+  , show absE == "abs :: Int -> Int"
   , show (id' yy) == "id y :: Int"
   , show (id' one) == "id 1 :: Int"
   , show (id' true) == "id True :: Bool"
-  , show negateE == "negate :: Int -> Int"
   , show (negate' yy) == "negate y :: Int"
+  , show (abs' xx') == "abs x' :: Int"
 
   , evl (id' one) == (1 :: Int)
   , evl (id' true) == (True :: Bool)
   , evl (negate' one) == (-1 :: Int)
+  , evl (abs' minusTwo) == (2 :: Int)
 
   , evalInts nilE == []
   , evalInts (unit one) == [1]

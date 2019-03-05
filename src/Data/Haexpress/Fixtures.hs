@@ -492,9 +492,20 @@ negate' e  =  negateE :$ e
 negateE :: Expr
 negateE  =  value "negate" (negate :: Int -> Int)
 
+-- | 'abs' over the 'Int' type lifted over the 'Expr' type.
+--
+-- > > abs' xx'
+-- > abs x' :: Int
+--
+-- > > evl (abs' minusTwo) :: Int
+-- > 2
 abs' :: Expr -> Expr
 abs' e  =  absE :$ e
 
+-- | 'abs' over the 'Int' type encoded as an 'Expr.
+--
+-- > > absE
+-- > abs :: Int -> Int
 absE :: Expr
 absE  =  value "abs" (abs :: Int -> Int)
 
