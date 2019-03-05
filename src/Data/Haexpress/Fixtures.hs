@@ -475,9 +475,20 @@ id' e  =  headOr err $ mapMaybe ($$ e)
 idE :: Expr
 idE  =  value "id" (id :: Int -> Int)
 
+-- | 'negate' over the 'Int' type lifted over the 'Expr' type.
+--
+-- > > negate' xx
+-- > negate x :: Int
+--
+-- > > evl (negate' one) :: Int
+-- > -1
 negate' :: Expr -> Expr
 negate' e  =  negateE :$ e
 
+-- | 'negate' over the 'Int' type encoded as an 'Expr'
+--
+-- > > negateE
+-- > negate :: Int -> Int
 negateE :: Expr
 negateE  =  value "negate" (negate :: Int -> Int)
 

@@ -90,9 +90,12 @@ tests n =
   , show (id' yy) == "id y :: Int"
   , show (id' one) == "id 1 :: Int"
   , show (id' true) == "id True :: Bool"
+  , show negateE == "negate :: Int -> Int"
+  , show (negate' yy) == "negate y :: Int"
 
   , evl (id' one) == (1 :: Int)
   , evl (id' true) == (True :: Bool)
+  , evl (negate' one) == (-1 :: Int)
 
   , evalInts nilE == []
   , evalInts (unit one) == [1]
