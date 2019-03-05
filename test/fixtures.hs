@@ -124,19 +124,28 @@ tests n =
   , show consE == "(:) :: Int -> [Int] -> [Int]"
   , show (unit zero) == "[0] :: [Int]"
   , show (unit false) == "[False] :: [Bool]"
+  , show (zero -:- one -:- unit two) == "[0,1,2] :: [Int]"
+  , show (zero -:- one -:- two -:- nilE) == "[0,1,2] :: [Int]"
 
   , evl nilE == ([] :: [Int])
   , holds n $ \x -> evl (unit (val x)) == [x :: Int]
   , holds n $ \c -> evl (unit (val c)) == [c :: Char]
   , holds n $ \p -> evl (unit (val p)) == [p :: Bool]
+  , holds n $ \x xs -> evl (val x -:- val xs) == (x:xs :: [Int])
+  , holds n $ \p ps -> evl (val p -:- val ps) == (p:ps :: [Int])
+  , holds n $ \c cs -> evl (val c -:- val cs) == (c:cs :: [Int])
 
 
-  -- TODO: show "[Char]" as "String"?
+  -- String --
+
+  -- TODO: show `:: [Char]' as `:: String' above?
   , show emptyStringE == "\"\" :: [Char]"
   , show (unit bee) == "\"b\" :: [Char]"
+  , show (bee -:- unit cee) == "\"bc\" :: [Char]"
 
   , evl emptyStringE == ""
   , evl (unit bee) == "b"
+  , evl (bee -:- unit cee) == "bc"
 
 
   -- evaluate --
