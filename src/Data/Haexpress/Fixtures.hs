@@ -451,13 +451,14 @@ timesE  =  value "*" ((*) :: Int -> Int -> Int)
 -- > > eval False $ id' true
 -- > True :: Bool
 id' :: Expr -> Expr
-id' e  =  headOr err $ mapMaybe ($$ e) [ idE -- :: Int -> Int
-                                       , value "id" (id :: Bool -> Bool)
-                                       , value "id" (id :: Char -> Char)
-                                       , value "id" (id :: [Int] -> [Int])
-                                       , value "id" (id :: [Bool] -> [Bool])
-                                       , value "id" (id :: String -> String)
-                                       ]
+id' e  =  headOr err $ mapMaybe ($$ e)
+  [ idE -- :: Int -> Int
+  , value "id" (id :: Bool -> Bool)
+  , value "id" (id :: Char -> Char)
+  , value "id" (id :: [Int] -> [Int])
+  , value "id" (id :: [Bool] -> [Bool])
+  , value "id" (id :: String -> String)
+  ]
   where
   err = error $ "id': unhandled type " ++ show (typ e)
 
