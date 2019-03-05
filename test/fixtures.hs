@@ -47,11 +47,30 @@ tests n =
   , show two == "2 :: Int"
   , show minusOne == "-1 :: Int"
 
+  , show plusE == "(+) :: Int -> Int -> Int"
+  , show timesE == "(*) :: Int -> Int -> Int"
+  , show (plusE :$ one) == "(1 +) :: Int -> Int"
+  , show (timesE :$ two) == "(2 *) :: Int -> Int"
+
+  , show (one -+- one)             == "1 + 1 :: Int"
+  , show (minusOne -+- minusOne)   == "(-1) + (-1) :: Int"
+  , show (minusTwo -*- two)        == "(-2) * 2 :: Int"
+  , show (two -*- minusTwo)        == "2 * (-2) :: Int"
+  , show (xx -+- (yy -+- zz))      == "x + (y + z) :: Int"
+
   , evl zero == (0 :: Int)
   , evl one  == (1 :: Int)
   , evl two   == (2 :: Int)
   , evl three == (3 :: Int)
   , evl minusOne == (-1 :: Int)
+  , evl minusTwo == (-2 :: Int)
+
+  , evl (one -+- one) == (2 :: Int)
+  , evl (two -*- three) == (6 :: Int)
+  , holds n $ \x y -> evl (val x -+- val y) == (x + y :: Int)
+  , holds n $ \x y -> evl (val x -*- val y) == (x * y :: Int)
+  , holds n $ \(IntE ex) (IntE ey) -> isGround ex && isGround ey ==> evl (ex -+- ey) == evl ex + (evl ey :: Int)
+  , holds n $ \(IntE ex) (IntE ey) -> isGround ex && isGround ey ==> evl (ex -*- ey) == evl ex * (evl ey :: Int)
 
   , show xxs  == "xs :: [Int]"
   , show yys  == "ys :: [Int]"

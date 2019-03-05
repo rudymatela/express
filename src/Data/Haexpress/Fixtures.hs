@@ -404,9 +404,29 @@ infixl 6 -+-
 plusE :: Expr
 plusE = value "+" ((+) :: Int -> Int -> Int)
 
+-- | The operator '*' for the 'Int' type lifted over the 'Expr' type.  (See also 'timesE'.)
+--
+-- > > three -*- three
+-- > 9 :: Int
+--
+-- > > one -*- two -*- three
+-- > (1 * 2) * 3 :: Int
+--
+-- > > two -*- xx
+-- > 2 * x :: Int
 (-*-) :: Expr -> Expr -> Expr
 e1 -*- e2 = timesE :$ e1 :$ e2
 
+-- | The operator '*' for the 'Int' type.  (See also '-*-'.)
+--
+-- > > timesE
+-- > (*) :: Int -> Int -> Int
+--
+-- > > timesE :$ two
+-- > (2 *) :: Int -> Int
+--
+-- > > timesE :$ xx :$ yy
+-- > x * y :: Int
 timesE :: Expr
 timesE  =  value "*" ((*) :: Int -> Int -> Int)
 

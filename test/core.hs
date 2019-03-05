@@ -134,6 +134,18 @@ tests n =
 
   -- showing expressions
 
+  , show zero == "0 :: Int"
+  , show two == "2 :: Int"
+  , show minusOne == "-1 :: Int"
+  , show (one -+- two -*- three)   == "1 + 2 * 3 :: Int"
+  , show ((one -+- two) -*- three) == "(1 + 2) * 3 :: Int"
+
+  , show plusE == "(+) :: Int -> Int -> Int"
+  , show timesE == "(*) :: Int -> Int -> Int"
+
+  , show (plusE :$ one) == "(1 +) :: Int -> Int"
+  , show (timesE :$ (minusOne -+- two)) == "(((-1) + 2) *) :: Int -> Int"
+
   -- TODO: make the following work
   -- (It didn't work on Speculate anyway...)
 --, show (var "`f`" (undefined :: Int -> Int -> Int) :$ one) == "(1 `f`) :: Int" -- TODO:
