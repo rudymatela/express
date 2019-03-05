@@ -135,13 +135,17 @@ tests n =
   , holds n $ \p ps -> evl (val p -:- val ps) == (p:ps :: [Int])
   , holds n $ \c cs -> evl (val c -:- val cs) == (c:cs :: [Int])
 
+  , show (nilE -++- nilE) == "[] ++ [] :: [Int]"
+  , show ((zero -:- one -:- nilE) -++- (two -:- three -:- nilE)) == "[0,1] ++ [2,3] :: [Int]"
 
   -- String --
 
-  -- TODO: show `:: [Char]' as `:: String' above?
+  -- TODO: show `:: [Char]' as `:: String'?
   , show emptyStringE == "\"\" :: [Char]"
   , show (unit bee) == "\"b\" :: [Char]"
   , show (bee -:- unit cee) == "\"bc\" :: [Char]"
+  , show (emptyStringE -++- emptyStringE) == "\"\" ++ \"\" :: [Int]"
+  , show ((bee -:- unit cee) -++- unit dee) == "\"bc\" ++ \"d\" :: [Char]"
 
   , evl emptyStringE == ""
   , evl (unit bee) == "b"

@@ -46,13 +46,14 @@ module Data.Haexpress.Fixtures
   , bee, cee, dee
 
   -- ** Lists
-  , (-:-)
   , xxs
   , yys
   , nilE
   , emptyStringE
-  , unit
   , consE
+  , (-:-)
+  , unit
+  , (-++-)
 
   -- * Convenience monomorphically typed evaluation function aliases
   , evalBool
@@ -620,6 +621,14 @@ e1 -:- e2  =  cons :$ e1 :$ e2
        | typ e1 == typ b_ = value ":" ((:) :: Bool -> [Bool] -> [Bool])
 infixr 5 -:-
 
+-- | List concatenation lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > (zero -:- one -:- nilE) -:- (two -:- three -:- nilE)
+-- > [0,1] -++- [2,3] :: [Int]
+--
+-- > > (bee -:- unit cee) -:- unit dee
+-- > "bc" -++- "c" :: [Char]
 (-++-) :: Expr -> Expr -> Expr
 e1 -++- e2 = append :$ e1 :$ e2
   where
@@ -627,7 +636,6 @@ e1 -++- e2 = append :$ e1 :$ e2
          | typ e1 == typ c_ = value "++" ((++) :: String -> String -> String)
          | typ e1 == typ b_ = value "++" ((++) :: [Bool] -> [Bool] -> [Bool])
 infixr 5 -++-
--- TODO: make the above work for different types
 
 head' :: Expr -> Expr
 head' exs = headE :$ exs where headE = value "head" (head :: [Int] -> Int)
