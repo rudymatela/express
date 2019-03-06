@@ -18,6 +18,7 @@ BENCHS = bench/tiers
 GHCIMPORTDIRS = src:test
 GHCFLAGS = -O2 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)
 HADDOCKFLAGS = --no-print-missing-docs
+RUNPARAMETERS =
 
 all: mk/toplibs
 
@@ -25,8 +26,11 @@ all-all: mk/All.o
 
 test: $(patsubst %,%.run,$(TESTS)) test-sdist diff-test
 
+slow-test: RUNPARAMETERS=50400
+slow-test: test
+
 %.run: %
-	./$<
+	./$< $(RUNPARAMETERS)
 
 clean: clean-hi-o clean-haddock
 	rm -f $(TESTS) $(BENCHS) $(EGS) mk/toplibs
