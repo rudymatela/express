@@ -17,6 +17,7 @@ module Data.Haexpress
   , varAsTypeOf
   , arity
   , size
+  , pair
   )
 where
 
@@ -65,6 +66,15 @@ arity  =  tyArity . typ
 size :: Expr -> Int
 size  =  length . values
 -- TODO: document & test size
+
+data ExprPair = ExprPair
+
+-- note this will generate an ill-typed pair expression
+-- use with caution
+-- uses: e.g.: unpair . canonicalize . pair
+pair :: Expr -> Expr -> Expr
+pair e1 e2  =  value "," (undefined :: ExprPair) :$ e1 :$ e2
+-- TODO: document & test pair
 
 -- Folds an expression with applications into a "value" expression.
 --
