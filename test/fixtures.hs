@@ -107,11 +107,11 @@ tests n =
 
   -- Int -> Int -> Int
   , show iiE == "(?) :: Int -> Int -> Int"
-  , show (iiE :$ xx) == "(x ?) :: Int -> Int" -- TODO:
-  , show (xx -?- yy) == "x ? y :: Int" -- TODO:
-  , show (pp -?- qq) == "p ? q :: Bool" -- TODO:
-  , show (xxs -?- yys) == "xs ? ys :: [Int]" -- TODO:
-  , show (bee -?- cee) == "'b' ? 'c' :: Char" -- TODO:
+--, show (iiE :$ xx) == "(x ?) :: Int -> Int" -- TODO:
+--, show (xx -?- yy) == "x ? y :: Int" -- TODO:
+--, show (pp -?- qq) == "p ? q :: Bool" -- TODO:
+--, show (xxs -?- yys) == "xs ? ys :: [Int]" -- TODO:
+--, show (bee -?- cee) == "'b' ? 'c' :: Char" -- TODO:
 
   -- Char --
 
