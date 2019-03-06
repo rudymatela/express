@@ -428,7 +428,7 @@ showPrecExpr n e = showsPrecExpr n e ""
 
 showExpr :: Expr -> String
 showExpr = showPrecExpr 0
--- TODO: document showExpr
+-- TODO: document and test showExpr
 
 -- | Does not evaluate values when comparing, but rather uses their
 --   representation as strings and their types.

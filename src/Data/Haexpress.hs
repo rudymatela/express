@@ -16,6 +16,7 @@ module Data.Haexpress
   , module Data.Haexpress.Express
   , varAsTypeOf
   , arity
+  , size
   )
 where
 
@@ -59,7 +60,11 @@ e `isSubExprOf` _             =  False
 
 arity :: Expr -> Int
 arity  =  tyArity . typ
--- TODO: document arity
+-- TODO: document & test arity
+
+size :: Expr -> Int
+size  =  length . values
+-- TODO: document & test size
 
 -- Folds an expression with applications into a "value" expression.
 --
