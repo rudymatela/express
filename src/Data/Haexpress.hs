@@ -18,6 +18,7 @@ module Data.Haexpress
   , arity
   , size
   , pair
+  , unpair
   )
 where
 
@@ -75,6 +76,12 @@ data ExprPair = ExprPair
 pair :: Expr -> Expr -> Expr
 pair e1 e2  =  value "," (undefined :: ExprPair) :$ e1 :$ e2
 -- TODO: document & test pair
+
+-- note this is intended to undo the effect of pair
+unpair :: Expr -> (Expr,Expr)
+unpair (Value "," _ :$ e1 :$ e2) = (e1,e2)
+unpair _  =  error "unpair: not an Expr pair"
+-- TODO: document & test unpair
 
 -- Folds an expression with applications into a "value" expression.
 --
