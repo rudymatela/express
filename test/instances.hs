@@ -3,7 +3,7 @@
 import Test
 
 main :: IO ()
-main = mainTest tests 360
+main = mainTest tests 5040
 
 tests :: Int -> [Bool]
 tests n =
