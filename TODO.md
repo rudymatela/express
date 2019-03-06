@@ -9,8 +9,6 @@ List of things TO DO for haexpress
 	- `>90%` example coverage
 	- good module descriptions
 
-* Add more tests of variable replacement
-
 * Document `test/Test.ListableExpr` module throughly;
 
 * partially replace `Test.Speculate.Expr` with this

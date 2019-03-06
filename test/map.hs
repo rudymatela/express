@@ -12,8 +12,6 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  -- TODO: tests that differentiate // and //-
-
   , ((xx -+- yy) -+- (yy -+- zz)) // [(yy,yy -+- zz)]
     == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
 
@@ -29,6 +27,9 @@ tests n =
   , holds n $ \e ees -> isNub (map fst ees) ==> e //- ees == e //- reverse ees
   , holds n $ \e ees' -> let ees = map (mapFst unEV) ees' in
                          isNub (map fst ees) ==> e //- ees == e //- reverse ees
+
+  -- //- and // are essentially different
+  , exists n $ \e es ->  e // es  /=  e //- es
 
   -- equivalences between // and //-
   , holds n $ \e ees -> all (isVar . fst) ees ==> e // ees == e //- ees
