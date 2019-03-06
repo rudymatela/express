@@ -52,6 +52,7 @@ module Data.Haexpress.Core
   -- * Other utilities
   , unfoldApp
   , showExpr
+  , showOpExpr -- TODO: eventually remove this
   )
 where
 
