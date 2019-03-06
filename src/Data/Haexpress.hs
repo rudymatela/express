@@ -15,6 +15,7 @@ module Data.Haexpress
   , module Data.Haexpress.Name
   , module Data.Haexpress.Express
   , varAsTypeOf
+  , arity
   )
 where
 
@@ -24,11 +25,11 @@ import Data.Haexpress.Instances
 import Data.Haexpress.Name
 import Data.Haexpress.Express
 
-
 -- TODO: move stuff below into submodules of its own:
 
 import Data.Dynamic
 import Data.Maybe (fromMaybe)
+import Data.Haexpress.Utils.Typeable (tyArity)
 
 -- implement \\\\ which works for all types of subterms, not only terminal ones
 
@@ -55,6 +56,10 @@ e `isSubExprOf` e0 | e == e0  =  True
 e `isSubExprOf` (e1 :$ e2)    =  e `isSubExprOf` e1
                               || e `isSubExprOf` e2
 e `isSubExprOf` _             =  False
+
+arity :: Expr -> Int
+arity  =  tyArity . typ
+-- TODO: document arity
 
 -- Folds an expression with applications into a "value" expression.
 --
