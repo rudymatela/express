@@ -6,11 +6,14 @@ module Test.ListableExpr
   -- * Expressions of a type
   , IntE (..)
   , BoolE (..)
+  , IntsE (..)
 
   , IntE0 (..)
   , IntEV (..)
   , BoolE0 (..)
   , BoolEV (..)
+  , IntsE0 (..)
+  , IntsEV (..)
 
   -- ** Functional values
   , IntToIntE (..)
@@ -86,6 +89,11 @@ instance Show BoolEV  where  show (BoolEV e) = show e
 
 instance Show BoolToBoolE  where  show (BoolToBoolE e) = show e
 instance Show BoolToBoolToBoolE  where  show (BoolToBoolToBoolE e) = show e
+
+instance Show IntsE  where  show (IntsE e) = show e
+
+instance Show IntsE0  where  show (IntsE0 e) = show e
+instance Show IntsEV  where  show (IntsEV e) = show e
 
 -- | Expression of 'Ints' type.
 newtype IntsE  =  IntsE { unIntsE :: Expr }
