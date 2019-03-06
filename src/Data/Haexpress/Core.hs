@@ -49,6 +49,7 @@ module Data.Haexpress.Core
 
   -- * Other utilities
   , unfoldApp
+  , showExpr
   )
 where
 
@@ -427,6 +428,7 @@ showPrecExpr n e = showsPrecExpr n e ""
 
 showExpr :: Expr -> String
 showExpr = showPrecExpr 0
+-- TODO: document showExpr
 
 -- | Does not evaluate values when comparing, but rather uses their
 --   representation as strings and their types.
