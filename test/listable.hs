@@ -32,6 +32,19 @@ tests n =
   , holds n $ isNothing . evaluateInts     . unIntE
   , holds n $ isNothing . evaluateIntToInt . unIntE
 
+  -- Listable TypeE0 only returns terminal constants
+  , holds n $ isConst . unE0
+  , holds n $ isConst . unIntE0
+  , holds n $ isConst . unBoolE0
+  , holds n $ isConst . unIntsE0
+
+  -- Listable TypeEV only returns variables
+  , holds n $ isVar . unEV
+  , holds n $ isVar . unIntEV
+  , holds n $ isVar . unBoolEV
+  , holds n $ isVar . unIntsEV
+
+  -- counter-examples are of the right type
   , (counterExample n $ \(IntE xx) -> False) == Just ["_ :: Int"]
   ]
 
