@@ -30,6 +30,9 @@ module Test.ListableExpr
   )
 where
 
+-- TODO: CharE
+-- TODO: StringE
+
 import Test.LeanCheck
 import Test.LeanCheck.Function.ShowFunction
 import Data.Haexpress.Fixtures

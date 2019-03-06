@@ -3,13 +3,13 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* add Char type to ListableExpr
+* sweep occurrences of `TODO:` throughout source files
 
 * 100% haddock coverage, including:
 	- `>90%` example coverage
 	- good module descriptions
 
-* Document `test/Test.ListableExpr` module throughly;
+* Document `test/Test.ListableExpr` module thoroughly;
 
 * partially replace `Test.Speculate.Expr` with this
 
