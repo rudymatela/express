@@ -3,8 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* add '[a]' type to ListableExpr
-
 * add Char type to ListableExpr
 
 * add variable operator `? :: Int -> Int -> Int` to `Data.Haexpress.Fixtures`
