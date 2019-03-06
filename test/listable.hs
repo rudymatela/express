@@ -9,8 +9,15 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
+  -- Listable Expr only produces well-typed expressions
   , holds n $ isJust . toDynamic
+  , holds n $ isJust . mtyp
 
+  -- Listable Ill only produces ill-typed expressions
+  , holds n $ isNothing . toDynamic . unIll
+  , holds n $ isNothing . mtyp      . unIll
+
+  -- Listable TypeE produces expressions of the right type
   , holds n $ isJust . evaluateInt      . unIntE
   , holds n $ isJust . evaluateBool     . unBoolE
   , holds n $ isJust . evaluateInts     . unIntsE
@@ -19,6 +26,7 @@ tests n =
   , holds n $ \(IntToIntE ff) (IntE xx) -> isJust . evaluateInt $ ff :$ xx
   , holds n $ \(IntToIntToIntE ff) (IntE xx) (IntE yy) -> isJust . evaluateInt $ ff :$ xx :$ yy
 
+  -- Listable TypeE does not produce expressions of the wrong type
   , holds n $ isNothing . evaluateInt      . unBoolE
   , holds n $ isNothing . evaluateBool     . unIntE
   , holds n $ isNothing . evaluateInts     . unIntE
