@@ -40,6 +40,8 @@ module Data.Haexpress.Core
   , compareComplexity
 
   -- * Listing subexpressions
+  , subexprs
+  , nubSubexprs
   , values
   , vars
   , consts
@@ -622,6 +624,18 @@ isConst  _                  =  False
 isVar :: Expr -> Bool
 isVar (Value ('_':_) _)  =  True
 isVar _                  =  False
+
+subexprs :: Expr -> [Expr]
+subexprs e  =  s e []
+  where
+  s :: Expr -> [Expr] -> [Expr]
+  s e@(e1 :$ e2)  =  (e:) . s e1 . s e2
+  s e             =  (e:)
+-- TODO: document & test subexprs
+
+nubSubexprs :: Expr -> [Expr]
+nubSubexprs  =  nubSort . subexprs
+-- TODO: document & test nubSubexprs
 
 -- | /O(n)/.
 -- Lists all terminal values in an expression in order and with repetitions.
