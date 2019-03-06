@@ -8,9 +8,9 @@ List of things TO DO for haexpress
 * add variable operator `? :: Int -> Int -> Int` to `Data.Haexpress.Fixtures`
   (of course, as `-?- :: Expr -> Expr -> Expr`)
 
-* more tests in test/listable (including using isGround)
-
-* 100% haddock coverage
+* 100% haddock coverage, including:
+	- `>90%` example coverage
+	- good module descriptions
 
 * Add more tests of variable replacement
 
