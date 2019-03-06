@@ -2,6 +2,7 @@
 import Test
 
 import Data.Haexpress.Utils.List
+import Test.LeanCheck.Error (errorToNothing)
 
 main :: IO ()
 main = mainTest tests 360
@@ -27,7 +28,7 @@ tests n =
   , show (one :$ one) == "1 1 :: ill-typed # Int $ Int #"
   , holds n $ \(IntE xx, IntE yy) -> isJust (toDynamic $ xx -+- yy)
   , holds n $ \(IntE xx, IntE yy) -> isGround xx && isGround yy
-                                 ==> evl (xx -+- yy) == (evl (yy -+- xx) :: Int)
+                                 ==> evl (xx -+- yy) =$ errorToNothing $= (evl (yy -+- xx) :: Int)
 
   -- valid applications
   , holds n $ \(IntToIntE   ef) (IntE  ex) -> isJust (ef $$ ex)

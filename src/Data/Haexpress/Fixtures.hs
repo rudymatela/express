@@ -46,6 +46,7 @@ module Data.Haexpress.Fixtures
   , bee, cee, dee
 
   -- ** Lists
+  , is_
   , xxs
   , yys
   , nilE
@@ -438,6 +439,13 @@ cee  =  val 'c'
 dee :: Expr
 dee  =  val 'd'
 
+-- | A typed hole of @[Int]@ type encoded as an 'Expr'.
+--
+-- > > is_
+-- > _ :: [Int]
+is_ :: Expr
+is_  =  hole (undefined :: [Int])
+
 -- | A variable named @xs@ of type @[Int]@ encoded as an 'Expr'.
 --
 -- > > xxs
@@ -553,7 +561,7 @@ head' exs = headOr err $ mapMaybe ($$ exs)
   , value "head" (head :: [Bool] -> Bool)
   ]
   where
-  err  =  error $ "head': unhandled type " ++ show (typ exs)
+  err  =  error $ "head': cannot apply `head :: [a] -> a` to `" ++ show exs ++ "'."
 
 -- | List 'tail' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.

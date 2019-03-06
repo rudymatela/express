@@ -87,6 +87,15 @@ instance Show BoolEV  where  show (BoolEV e) = show e
 instance Show BoolToBoolE  where  show (BoolToBoolE e) = show e
 instance Show BoolToBoolToBoolE  where  show (BoolToBoolToBoolE e) = show e
 
+-- | Expression of 'Ints' type.
+newtype IntsE  =  IntsE { unIntsE :: Expr }
+
+-- | Constant terminal value of 'Ints' type.
+newtype IntsE0  =  IntsE0 { unIntsE0 :: Expr }
+
+-- | Varialbe of 'Ints' type.
+newtype IntsEV  =  IntsEV { unIntsEV :: Expr }
+
 instance Show Ill where  show (Ill e) = show e
 
 instance Listable IntE  where
@@ -95,6 +104,7 @@ instance Listable IntE  where
          \/ cons1 unIntEV
          \/ cons1 unIntE0
          \/ cons2 (\(IntToIntE f) (IntE xx) -> f :$ xx)
+         \/ cons1 (head' . unIntsE) `ofWeight` 2
 
 instance Listable IntE0 where
   tiers  =  (IntE0 . val) `mapT` (tiers :: [[Int]])
@@ -111,6 +121,20 @@ instance Listable IntToIntE where
 
 instance Listable IntToIntToIntE where
   list  =  map IntToIntToIntE [plusE, timesE]
+
+instance Listable IntsE  where
+  tiers  =  mapT IntsE
+         $  cons0 is_
+         \/ cons1 unIntsEV
+         \/ cons1 unIntsE0
+         \/ cons2 (\(IntE ex) (IntsE exs) -> ex -:- exs)
+         \/ cons1 (tail' . unIntsE) `ofWeight` 2
+
+instance Listable IntsE0 where
+  tiers  =  (IntsE0 . val) `mapT` (tiers :: [[ [Int] ]])
+
+instance Listable IntsEV where
+  list  =  map (IntsEV . (`var` (undefined :: [Int]))) ["xs", "ys", "zs", "xs'"] -- TODO: infinite list
 
 instance Listable BoolE  where
   tiers  =  mapT BoolE
@@ -148,6 +172,7 @@ instance Listable EV where
 instance Listable Expr where
   tiers  =  reset (cons1 unIntE)
          \/ cons1 unBoolE
+         \/ cons1 unIntsE
          \/ cons1 unIntToIntE         `addWeight` 1
          \/ cons1 unIntToIntToIntE    `addWeight` 1
          \/ cons1 unBoolToBoolE       `addWeight` 2

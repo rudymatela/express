@@ -2,6 +2,8 @@
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 
+import Test.LeanCheck.Error (errorToNothing)
+
 main :: IO ()
 main = mainTest tests 360
 
@@ -69,8 +71,8 @@ tests n =
   , evl (two -*- three) == (6 :: Int)
   , holds n $ \x y -> evl (val x -+- val y) == (x + y :: Int)
   , holds n $ \x y -> evl (val x -*- val y) == (x * y :: Int)
-  , holds n $ \(IntE ex) (IntE ey) -> isGround ex && isGround ey ==> evl (ex -+- ey) == evl ex + (evl ey :: Int)
-  , holds n $ \(IntE ex) (IntE ey) -> isGround ex && isGround ey ==> evl (ex -*- ey) == evl ex * (evl ey :: Int)
+  , holds n $ \(IntE ex) (IntE ey) -> isGround ex && isGround ey ==> evl (ex -+- ey) =$ errorToNothing $= evl ex + (evl ey :: Int)
+  , holds n $ \(IntE ex) (IntE ey) -> isGround ex && isGround ey ==> evl (ex -*- ey) =$ errorToNothing $= evl ex * (evl ey :: Int)
 
   , show xxs  == "xs :: [Int]"
   , show yys  == "ys :: [Int]"
