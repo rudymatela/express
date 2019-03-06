@@ -170,11 +170,13 @@ instance Listable E0 where
   tiers  =  mapT E0
          $  cons1 unIntE0  `ofWeight` 0
          \/ cons1 unBoolE0 `ofWeight` 1
+         \/ cons1 unIntsE0 `ofWeight` 1
 
 instance Listable EV where
   tiers  =  mapT EV
          $  cons1 unIntEV  `ofWeight` 0
          \/ cons1 unBoolEV `ofWeight` 1
+         \/ cons1 unIntsEV `ofWeight` 1
 
 
 instance Listable Expr where
