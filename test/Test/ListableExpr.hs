@@ -126,6 +126,7 @@ instance Listable IntToIntE where
          \/ cons0 negateE `addWeight` 1
          \/ cons0 absE    `addWeight` 1
          \/ cons2 (\(IntToIntToIntE ef) (IntE ex) -> ef :$ ex)
+         \/ toTiers (map (`var` (undefined :: Int -> Int)) ["f", "g", "h", "f'"]) `addWeight` 2 -- TODO: infinite list
 
 instance Listable IntToIntToIntE where
   list  =  map IntToIntToIntE [plusE, timesE]

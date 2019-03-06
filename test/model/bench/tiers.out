@@ -1,5 +1,5 @@
 isNub (list :: [Expr])  =  True
-map length (tiers :: [[ Expr ]])  =  [1,5,18,48,144,510,...]
+map length (tiers :: [[ Expr ]])  =  [1,5,18,49,150,534,...]
 tiers :: [[ Expr ]]  =
   [ [_ :: Int]
   , [ x :: Int
@@ -51,6 +51,7 @@ tiers :: [[ Expr ]]  =
     , 0 + _ :: Int
     , id _ + _ :: Int
     , _ * _ :: Int
+    , f _ :: Int
     , head xs :: Int
     , head [] :: Int
     , head (_:_) :: Int
@@ -102,6 +103,7 @@ tiers :: [[ Expr ]]  =
     , id (0 + _) :: Int
     , id (id _ + _) :: Int
     , id (_ * _) :: Int
+    , id (f _) :: Int
     , id (head xs) :: Int
     , id (head []) :: Int
     , id (head (_:_)) :: Int
@@ -144,6 +146,9 @@ tiers :: [[ Expr ]]  =
     , _ * x :: Int
     , _ * 0 :: Int
     , _ * id _ :: Int
+    , f x :: Int
+    , f 0 :: Int
+    , f (id _) :: Int
     , y + _ :: Int
     , 1 + _ :: Int
     , id x + _ :: Int
@@ -156,6 +161,7 @@ tiers :: [[ Expr ]]  =
     , x * _ :: Int
     , 0 * _ :: Int
     , id _ * _ :: Int
+    , g _ :: Int
     , head ys :: Int
     , head [0] :: Int
     , head (_:xs) :: Int
@@ -218,6 +224,7 @@ tiers :: [[ Expr ]]  =
     , (0 +) :: Int -> Int
     , (id _ +) :: Int -> Int
     , (_ *) :: Int -> Int
+    , f :: Int -> Int
     , (_ ||) :: Bool -> Bool
     , (&&) :: Bool -> Bool -> Bool
     ]
@@ -248,6 +255,7 @@ tiers :: [[ Expr ]]  =
     , id (id (0 + _)) :: Int
     , id (id (id _ + _)) :: Int
     , id (id (_ * _)) :: Int
+    , id (id (f _)) :: Int
     , id (id (head xs)) :: Int
     , id (id (head [])) :: Int
     , id (id (head (_:_))) :: Int
@@ -290,6 +298,9 @@ tiers :: [[ Expr ]]  =
     , id (_ * x) :: Int
     , id (_ * 0) :: Int
     , id (_ * id _) :: Int
+    , id (f x) :: Int
+    , id (f 0) :: Int
+    , id (f (id _)) :: Int
     , id (y + _) :: Int
     , id (1 + _) :: Int
     , id (id x + _) :: Int
@@ -302,6 +313,7 @@ tiers :: [[ Expr ]]  =
     , id (x * _) :: Int
     , id (0 * _) :: Int
     , id (id _ * _) :: Int
+    , id (g _) :: Int
     , id (head ys) :: Int
     , id (head [0]) :: Int
     , id (head (_:xs)) :: Int
@@ -335,6 +347,7 @@ tiers :: [[ Expr ]]  =
     , negate (0 + _) :: Int
     , negate (id _ + _) :: Int
     , negate (_ * _) :: Int
+    , negate (f _) :: Int
     , negate (head xs) :: Int
     , negate (head []) :: Int
     , negate (head (_:_)) :: Int
@@ -362,6 +375,7 @@ tiers :: [[ Expr ]]  =
     , abs (0 + _) :: Int
     , abs (id _ + _) :: Int
     , abs (_ * _) :: Int
+    , abs (f _) :: Int
     , abs (head xs) :: Int
     , abs (head []) :: Int
     , abs (head (_:_)) :: Int
@@ -389,6 +403,7 @@ tiers :: [[ Expr ]]  =
     , _ + (0 + _) :: Int
     , _ + (id _ + _) :: Int
     , _ + _ * _ :: Int
+    , _ + f _ :: Int
     , _ + head xs :: Int
     , _ + head [] :: Int
     , _ + head (_:_) :: Int
@@ -428,6 +443,15 @@ tiers :: [[ Expr ]]  =
     , _ * abs _ :: Int
     , _ * (_ + _) :: Int
     , _ * head _ :: Int
+    , f y :: Int
+    , f 1 :: Int
+    , f (id x) :: Int
+    , f (id 0) :: Int
+    , f (id (id _)) :: Int
+    , f (negate _) :: Int
+    , f (abs _) :: Int
+    , f (_ + _) :: Int
+    , f (head _) :: Int
     , y + x :: Int
     , y + 0 :: Int
     , y + id _ :: Int
@@ -464,6 +488,9 @@ tiers :: [[ Expr ]]  =
     , id _ * x :: Int
     , id _ * 0 :: Int
     , id _ * id _ :: Int
+    , g x :: Int
+    , g 0 :: Int
+    , g (id _) :: Int
     , z + _ :: Int
     , (-1) + _ :: Int
     , id y + _ :: Int
@@ -488,6 +515,7 @@ tiers :: [[ Expr ]]  =
     , (0 + _) + _ :: Int
     , (id _ + _) + _ :: Int
     , _ * _ + _ :: Int
+    , f _ + _ :: Int
     , head xs + _ :: Int
     , head [] + _ :: Int
     , head (_:_) + _ :: Int
@@ -500,6 +528,7 @@ tiers :: [[ Expr ]]  =
     , abs _ * _ :: Int
     , (_ + _) * _ :: Int
     , head _ * _ :: Int
+    , h _ :: Int
     , head zs :: Int
     , head [0,0] :: Int
     , head [1] :: Int
@@ -702,6 +731,7 @@ tiers :: [[ Expr ]]  =
     , 0 + _:_ :: [Int]
     , id _ + _:_ :: [Int]
     , _ * _:_ :: [Int]
+    , f _:_ :: [Int]
     , head xs:_ :: [Int]
     , head []:_ :: [Int]
     , head (_:_):_ :: [Int]
@@ -726,6 +756,7 @@ tiers :: [[ Expr ]]  =
     , (x *) :: Int -> Int
     , (0 *) :: Int -> Int
     , (id _ *) :: Int -> Int
+    , g :: Int -> Int
     , (p ||) :: Bool -> Bool
     , (False ||) :: Bool -> Bool
     , (True ||) :: Bool -> Bool
