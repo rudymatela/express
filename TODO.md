@@ -5,9 +5,6 @@ List of things TO DO for haexpress
 
 * add Char type to ListableExpr
 
-* add variable operator `? :: Int -> Int -> Int` to `Data.Haexpress.Fixtures`
-  (of course, as `-?- :: Expr -> Expr -> Expr`)
-
 * 100% haddock coverage, including:
 	- `>90%` example coverage
 	- good module descriptions
