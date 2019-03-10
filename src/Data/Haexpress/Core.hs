@@ -33,9 +33,11 @@ module Data.Haexpress.Core
 
   -- * Boolean and ordering properties
   , isIll
+  , isWellTyped
   , hasVar
   , isGround
   , isVar
+  , isHole
   , isConst
   , compareComplexity
 
@@ -44,9 +46,11 @@ module Data.Haexpress.Core
   , nubSubexprs
   , values
   , vars
+  , holes
   , consts
   , nubValues
   , nubVars
+  , nubHoles
   , nubConsts
 
   -- * Other utilities
@@ -65,7 +69,7 @@ where
 import Data.Dynamic
 import Data.Function (on)
 import Data.List (intercalate, sort)
-import Data.Maybe (fromMaybe, isNothing)
+import Data.Maybe (fromMaybe, isNothing, isJust)
 import Data.Either (either)
 import Data.Monoid ((<>))
 import Data.Typeable (TypeRep, typeOf, funResultTy, splitTyConApp, TyCon, typeRepTyCon)
@@ -267,6 +271,11 @@ mtyp  =  either (const Nothing) Just . etyp
 -- > Nothing
 isIll :: Expr -> Bool
 isIll  =  isNothing . mtyp
+-- TODO: rename to isIllTyped
+
+isWellTyped :: Expr -> Bool
+isWellTyped  =  isJust . mtyp
+-- TODO: document & test isWellTyped
 
 -- |  /O(n)/.
 -- 'Just' the value of an expression when possible (correct type),
@@ -626,6 +635,12 @@ isVar :: Expr -> Bool
 isVar (Value ('_':_) _)  =  True
 isVar _                  =  False
 
+isHole :: Expr -> Bool
+isHole (Value " " _)  = True
+isHole _              = False
+-- TODO: document and test isHole
+-- TODO: document isHole ==> isVar
+
 subexprs :: Expr -> [Expr]
 subexprs e  =  s e []
   where
@@ -760,6 +775,16 @@ nubConsts  =  nubSort . consts
 -- > [p :: Bool]
 vars :: Expr -> [Expr]
 vars  =  filter isVar . values
+
+holes :: Expr -> [Expr]
+holes  =  filter isHole . values
+-- TODO: document and test holes
+-- TODO: property  holes `isSubsequenceOf` vars
+
+nubHoles :: Expr -> [Expr]
+nubHoles  =  nubSort . holes
+-- TODO: document and test nubHoles
+-- TODO: property nubHoles `isSubsetOf` holes
 
 -- | /O(n log n)/.
 -- Lists all variables in an expression without repetitions.

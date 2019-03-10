@@ -17,8 +17,10 @@ module Data.Haexpress
   , varAsTypeOf
   , arity
   , size
+  , depth
   , pair
   , unpair
+  , isSubexpr
   )
 where
 
@@ -68,6 +70,15 @@ size :: Expr -> Int
 size  =  length . values
 -- TODO: document & test size
 
+depth :: Expr -> Int
+depth e@(_:$_)  =  1 + maximum (map depth $ unfoldApp e)
+depth _         =  1
+
+-- TODO: document & test depth
+-- TODO: possibly rename depth
+-- TODO: add alternative depth function which does not use unfoldApp and yield
+--       different results
+
 data ExprPair = ExprPair
 
 -- note this will generate an ill-typed pair expression
@@ -82,6 +93,11 @@ unpair :: Expr -> (Expr,Expr)
 unpair (Value "," _ :$ e1 :$ e2) = (e1,e2)
 unpair _  =  error "unpair: not an Expr pair"
 -- TODO: document & test unpair
+
+isSubexpr :: Expr -> Expr -> Bool
+isSubexpr e = (e `elem`) . subexprs
+-- TODO: document & test isSubexpr
+
 
 -- Folds an expression with applications into a "value" expression.
 --
