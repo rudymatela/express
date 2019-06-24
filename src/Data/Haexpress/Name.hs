@@ -9,6 +9,7 @@ module Data.Haexpress.Name (Name (..)) where
 
 import Data.Maybe (fromJust)
 import Data.Either (fromLeft, fromRight)
+import Data.Ratio (Ratio)
 
 class Name a where
   name :: a -> String
@@ -20,6 +21,10 @@ instance Name Int       where  name _  =  "x"
 instance Name Integer   where  name _  =  "x"
 instance Name Char      where  name _  =  "c"
 instance Name Ordering  where  name _  =  "o"
+
+instance Name (Ratio a) where  name _  =  "q"
+instance Name Float     where  name _  =  "f"
+instance Name Double    where  name _  =  "f"
 
 instance Name a => Name (Maybe a) where
   name mx  =  "m" ++ name (fromJust mx)
