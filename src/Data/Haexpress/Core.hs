@@ -382,8 +382,8 @@ showsPrecExpr d (Value s _) | isInfixedPrefix s = showString $ toPrefix s
 showsPrecExpr d (Value s _) | isNegativeLiteral s = showParen (d > 0) $ showString s
 showsPrecExpr d (Value s _) = showParen sp $ showString s
   where sp = if atomic s then isInfix s else maybe True (d >) $ outernmostPrec s
-showsPrecExpr d ((Value ":" _ :$ e1@(Value _ _)) :$ e2)
-  | mtyp e1 == Just (typeOf (undefined :: Char)) =
+showsPrecExpr d ((Value ":" _ :$ e1) :$ e2)
+  | isConst e1 && mtyp e1 == Just (typeOf (undefined :: Char)) =
   case showsTailExpr e2 "" of
     '\"':cs  -> showString ("\"" ++ (init . tail) (showsPrecExpr 0 e1 "") ++ cs)
     cs -> showParen (d > prec ":")
@@ -417,8 +417,8 @@ showsPrecExpr d (e1 :$ e2) = showParen (d > prec " ")
                            . showsPrecExpr (prec " " + 1) e2
 -- bad smell here, repeated code!
 showsTailExpr :: Expr -> String -> String
-showsTailExpr ((Value ":" _ :$ e1@(Value _ _)) :$ e2)
-  | mtyp e1 == Just (typeOf (undefined :: Char)) =
+showsTailExpr ((Value ":" _ :$ e1) :$ e2)
+  | isConst e1 && mtyp e1 == Just (typeOf (undefined :: Char)) =
   case showsPrecExpr 0 e2 "" of
     '\"':cs  -> showString ("\"" ++ (init . tail) (showsPrecExpr 0 e1 "") ++ cs)
     cs -> showsOpExpr ":" e1 . showString ":" . showsTailExpr e2
