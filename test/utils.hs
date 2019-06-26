@@ -2,6 +2,7 @@
 import Test
 
 import Data.Haexpress.Utils.List
+import Data.Haexpress.Utils.Typeable
 
 main :: IO ()
 main = mainTest tests 5040
@@ -14,4 +15,7 @@ tests n =
   , holds n $ \xs -> nubSort xs == sort (nub xs :: [Int])
 
   , holds n $ isSubsetOf ==== (\xs ys -> all (`elem` ys) (xs :: [Int]))
+
+  , elementTy (typeOf [True]) == boolTy
+  , elementTy (elementTy (typeOf [[False]])) == boolTy
   ]

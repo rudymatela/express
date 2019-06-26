@@ -18,6 +18,7 @@ module Data.Haexpress.Utils.Typeable
   , mkEqnTy
   , funTyCon
   , compareTy
+  , elementTy
   , module Data.Typeable
   )
 where
@@ -62,17 +63,41 @@ argumentTy = fst . unFunTy
 resultTy :: TypeRep -> TypeRep
 resultTy = snd . unFunTy
 
+-- | This function returns the type of the element of a list.
+--   It will throw an error when not given the list type.
+--
+--   > > > elementTy $ typeOf (undefined :: [Int])
+--   > Int
+--   > > > elementTy $ typeOf (undefined :: [[Int]])
+--   > [Int]
+--   > > > elementTy $ typeOf (undefined :: [Bool])
+--   > Bool
+--   > > > elementTy $ typeOf (undefined :: Bool)
+--   > *** Exception: error (elementTy): `Bool' is not a list type
+elementTy :: TypeRep -> TypeRep
+elementTy t
+  | isListTy t = let (_,[a]) = splitTyConApp t in a
+  | otherwise = error $ "error (elementTy): `" ++ show t ++ "' is not a list type"
+
 boolTy :: TypeRep
 boolTy = typeOf (undefined :: Bool)
 
 funTyCon :: TyCon
 funTyCon = typeRepTyCon $ typeOf (undefined :: () -> ())
 
+listTyCon :: TyCon
+listTyCon = typeRepTyCon $ typeOf (undefined :: [()])
+
 isFunTy :: TypeRep -> Bool
 isFunTy t =
   case splitTyConApp t of
     (con,[_,_]) | con == funTyCon -> True
     _ -> False
+
+isListTy :: TypeRep -> Bool
+isListTy t  =  case splitTyConApp t of
+  (con,[_]) | con == listTyCon -> True
+  _ -> False
 
 mkEqnTy :: TypeRep -> TypeRep
 mkEqnTy a = a `mkFunTy` (a `mkFunTy` boolTy)
