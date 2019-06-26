@@ -636,7 +636,7 @@ isVar (Value ('_':_) _)  =  True
 isVar _                  =  False
 
 isHole :: Expr -> Bool
-isHole (Value " " _)  = True
+isHole (Value "_" _)  = True
 isHole _              = False
 -- TODO: document and test isHole
 -- TODO: document isHole ==> isVar
