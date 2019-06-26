@@ -101,6 +101,10 @@ tests n =
   , isVar one == False
   , isVar (one -+- two) == False
 
+  , isHole i_ == True
+  , isHole b_ == True
+  , isHole xx == False
+
   , isConst xx == False
   , isConst yy == False
   , isConst (xx -+- yy) == False
@@ -121,6 +125,8 @@ tests n =
 
 
   -- listing subexpressions
+
+  , holds n $ \e -> isHole e ==> isVar e
 
   , holds n $ \e -> isGround e ==> consts e == values e
 
