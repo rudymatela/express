@@ -16,7 +16,9 @@ module Data.Haexpress.Utils.Typeable
   , finalResultTy
   , boolTy
   , intTy
+  , orderingTy
   , mkEqnTy
+  , mkCompareTy
   , funTyCon
   , compareTy
   , elementTy
@@ -87,6 +89,9 @@ boolTy = typeOf (undefined :: Bool)
 intTy :: TypeRep
 intTy = typeOf (undefined :: Int)
 
+orderingTy :: TypeRep
+orderingTy = typeOf (undefined :: Ordering)
+
 funTyCon :: TyCon
 funTyCon = typeRepTyCon $ typeOf (undefined :: () -> ())
 
@@ -106,6 +111,9 @@ isListTy t  =  case splitTyConApp t of
 
 mkEqnTy :: TypeRep -> TypeRep
 mkEqnTy a = a ->:: a ->:: boolTy
+
+mkCompareTy :: TypeRep -> TypeRep
+mkCompareTy a = a ->:: a ->:: orderingTy
 
 -- | An infix alias for 'mkFunTy'.  It is right associative.
 (->::) :: TypeRep -> TypeRep -> TypeRep
