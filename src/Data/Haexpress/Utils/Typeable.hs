@@ -20,6 +20,7 @@ module Data.Haexpress.Utils.Typeable
   , funTyCon
   , compareTy
   , elementTy
+  , (->::)
   , module Data.Typeable
   )
 where
@@ -104,4 +105,9 @@ isListTy t  =  case splitTyConApp t of
   _ -> False
 
 mkEqnTy :: TypeRep -> TypeRep
-mkEqnTy a = a `mkFunTy` (a `mkFunTy` boolTy)
+mkEqnTy a = a ->:: a ->:: boolTy
+
+-- | An infix alias for 'mkFunTy'.  It is right associative.
+(->::) :: TypeRep -> TypeRep -> TypeRep
+(->::) = mkFunTy
+infixr 9 ->::
