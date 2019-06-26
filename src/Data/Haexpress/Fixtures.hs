@@ -41,10 +41,13 @@ module Data.Haexpress.Fixtures
   , ff, ffE
   , gg, ggE
   , (-?-), iiE
+  , (-$-)
 
   -- ** Chars
   , c_
-  , bee, cee, dee
+  , cc, dd, ccs
+  , ae, bee, cee, dee
+  , spaceE, lineBreakE
 
   -- ** Lists
   , is_
@@ -58,6 +61,12 @@ module Data.Haexpress.Fixtures
   , (-++-)
   , head'
   , tail'
+
+  , (-|-)
+  , triple
+  , quadruple
+  , quintuple
+  , sixtuple
   )
 where
 
@@ -449,6 +458,19 @@ absE  =  value "abs" (abs :: Int -> Int)
 c_ :: Expr
 c_  =  hole (undefined :: Char)
 
+cc :: Expr
+cc  =  var "c" (undefined :: Char)
+
+dd :: Expr
+dd  =  var "d" (undefined :: Char)
+
+ccs :: Expr
+ccs  =  var "cs" (undefined :: [Char])
+
+-- The English name for letter 'a' is not really 'ae', but simply 'a'.
+ae :: Expr
+ae  =  val 'a'
+
 -- | The character @\'b\'@ encoded as an 'Expr'
 --
 -- > > bee
@@ -478,6 +500,12 @@ cee  =  val 'c'
 -- > 'd'
 dee :: Expr
 dee  =  val 'd'
+
+spaceE :: Expr
+spaceE = val ' '
+
+lineBreakE :: Expr
+lineBreakE = val '\n'
 
 -- | A typed hole of @[Int]@ type encoded as an 'Expr'.
 --
@@ -625,6 +653,46 @@ tail' exs = headOr err $ mapMaybe ($$ exs)
   ]
   where
   err  =  error $ "tail': unhandled type " ++ show (typ exs)
+
+(-$-) :: Expr -> Expr -> Expr
+ef -$- ex = (:$ ex) . headOr err $ mapMaybe ($$ ef)
+  [ value "$" (($) :: Apply Int)
+  , value "$" (($) :: Apply Bool)
+  , value "$" (($) :: Apply Char)
+  , value "$" (($) :: Apply [Int])
+  , value "$" (($) :: Apply [Bool])
+  , value "$" (($) :: Apply [Char])
+  ]
+  where
+  err  =  error $ "(-$-): unhandled type " ++ show (typ ef)
+infixl 6 -$-
+type Apply a = (a -> a) -> a -> a
+
+(-|-) :: Expr -> Expr -> Expr
+e1 -|- e2 = commaE :$ e1 :$ e2
+
+commaE :: Expr
+commaE = value "," ((,) :: Int -> Int -> (Int,Int))
+
+triple :: Expr -> Expr -> Expr -> Expr
+triple e1 e2 e3 = ccE :$ e1 :$ e2 :$ e3
+  where
+  ccE = value ",," ((,,) :: Int -> Int -> Int -> (Int,Int,Int))
+
+quadruple :: Expr -> Expr -> Expr -> Expr -> Expr
+quadruple e1 e2 e3 e4 = cccE :$ e1 :$ e2 :$ e3 :$ e4
+  where
+  cccE = value ",,," ((,,,) :: Int -> Int -> Int -> Int -> (Int,Int,Int,Int))
+
+quintuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr
+quintuple e1 e2 e3 e4 e5 = ccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5
+  where
+  ccccE = value ",,,," ((,,,,) :: Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int))
+
+sixtuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr -> Expr
+sixtuple e1 e2 e3 e4 e5 e6 = cccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5 :$ e6
+  where
+  cccccE = value ",,,,," ((,,,,,) :: Int -> Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int,Int))
 
 headOr :: a -> [a] -> a
 headOr x []     =  x
