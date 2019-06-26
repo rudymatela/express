@@ -18,4 +18,6 @@ tests n =
 
   , elementTy (typeOf [True]) == boolTy
   , elementTy (elementTy (typeOf [[False]])) == boolTy
+  , show (mkEqnTy boolTy) == "Bool -> Bool -> Bool"
+  , show (mkEqnTy intTy)  == "Int -> Int -> Bool"
   ]

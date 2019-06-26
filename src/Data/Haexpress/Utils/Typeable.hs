@@ -15,6 +15,7 @@ module Data.Haexpress.Utils.Typeable
   , resultTy
   , finalResultTy
   , boolTy
+  , intTy
   , mkEqnTy
   , funTyCon
   , compareTy
@@ -81,6 +82,9 @@ elementTy t
 
 boolTy :: TypeRep
 boolTy = typeOf (undefined :: Bool)
+
+intTy :: TypeRep
+intTy = typeOf (undefined :: Int)
 
 funTyCon :: TyCon
 funTyCon = typeRepTyCon $ typeOf (undefined :: () -> ())
