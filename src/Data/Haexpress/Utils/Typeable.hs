@@ -17,7 +17,7 @@ module Data.Haexpress.Utils.Typeable
   , boolTy
   , intTy
   , orderingTy
-  , mkEqnTy
+  , mkComparisonTy
   , mkCompareTy
   , funTyCon
   , compareTy
@@ -109,8 +109,8 @@ isListTy t  =  case splitTyConApp t of
   (con,[_]) | con == listTyCon -> True
   _ -> False
 
-mkEqnTy :: TypeRep -> TypeRep
-mkEqnTy a = a ->:: a ->:: boolTy
+mkComparisonTy :: TypeRep -> TypeRep
+mkComparisonTy a = a ->:: a ->:: boolTy
 
 mkCompareTy :: TypeRep -> TypeRep
 mkCompareTy a = a ->:: a ->:: orderingTy
