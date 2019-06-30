@@ -202,4 +202,8 @@ tests n =
   , arity absE == 1
   , arity plusE == 2
   , arity timesE == 2
+
+  , size zero == 1
+  , size (one -+- two) == 3
+  , size (abs' one) == 2
   ]

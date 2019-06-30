@@ -794,9 +794,18 @@ nubVars  =  nubSort . vars
 arity :: Expr -> Int
 arity  =  tyArity . typ
 
+-- | /O(n)/.
+--
+-- > > size zero
+-- > 1
+--
+-- > > size (one -+- two)
+-- > 3
+--
+-- > > size (abs' one)
+-- > 2
 size :: Expr -> Int
 size  =  length . values
--- TODO: document & test size
 
 depth :: Expr -> Int
 depth e@(_:$_)  =  1 + maximum (map depth $ unfoldApp e)
