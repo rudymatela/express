@@ -75,26 +75,38 @@ import Data.Haexpress
 import Data.Maybe
 import Data.Typeable (Typeable, typeOf)
 
+int :: Int
+int  =  undefined
+
+bool :: Bool
+bool  =  undefined
+
+char :: Char
+char  =  undefined
+
+string :: String
+string  =  undefined
+
 -- | 'Expr' representing a hole of 'Bool' type.
 --
 -- > > b_
 -- > _ :: Bool
 b_ :: Expr
-b_  =  hole (undefined :: Bool)
+b_  =  hole bool
 
 -- | 'Expr' representing a variable @p :: `Bool`@.
 --
 -- > > pp
 -- > p :: Bool
 pp :: Expr
-pp  =  var "p" (undefined :: Bool)
+pp  =  var "p" bool
 
 -- | 'Expr' representing a variable @q :: `Bool`@.
 --
 -- > > qq
 -- > q :: Bool
 qq :: Expr
-qq  =  var "q" (undefined :: Bool)
+qq  =  var "q" bool
 
 -- | 'False' encoded as an 'Expr'.
 --
@@ -175,44 +187,44 @@ pp -||- qq  =  orE :$ pp :$ qq
 -- > > i_
 -- > _ :: Int
 i_ :: Expr
-i_  =  hole (undefined :: Int)
+i_  =  hole int
 
 -- | A variable @x@ of 'Int' type.
 --
 -- > > xx
 -- > x :: Int
 xx :: Expr
-xx  =  var "x" (undefined :: Int)
+xx  =  var "x" int
 
 -- | A variable @y@ of 'Int' type.
 --
 -- > > yy
 -- > y :: Int
 yy :: Expr
-yy  =  var "y" (undefined :: Int)
+yy  =  var "y" int
 
 -- | A variable @z@ of 'Int' type.
 --
 -- > > zz
 -- > z :: Int
 zz :: Expr
-zz  =  var "z" (undefined :: Int)
+zz  =  var "z" int
 
 -- | A variable @x'@ of 'Int' type.
 --
 -- > > xx'
 -- > x' :: Int
 xx' :: Expr
-xx'  =  var "x'" (undefined :: Int)
+xx'  =  var "x'" int
 
 ii :: Expr
-ii  =  var "i" (undefined :: Int)
+ii  =  var "i" int
 
 jj :: Expr
-jj  =  var "j" (undefined :: Int)
+jj  =  var "j" int
 
 kk :: Expr
-kk  =  var "k" (undefined :: Int)
+kk  =  var "k" int
 
 -- | The value @0@ bound to the 'Int' type encoded as an 'Expr'.
 --
@@ -466,16 +478,16 @@ absE  =  value "abs" (abs :: Int -> Int)
 -- > > c_
 -- > _ :: Char
 c_ :: Expr
-c_  =  hole (undefined :: Char)
+c_  =  hole char
 
 cc :: Expr
-cc  =  var "c" (undefined :: Char)
+cc  =  var "c" char
 
 dd :: Expr
-dd  =  var "d" (undefined :: Char)
+dd  =  var "d" char
 
 ccs :: Expr
-ccs  =  var "cs" (undefined :: [Char])
+ccs  =  var "cs" [char]
 
 -- The English name for letter 'a' is not really 'ae', but simply 'a'.
 ae :: Expr
@@ -522,21 +534,21 @@ lineBreakE = val '\n'
 -- > > is_
 -- > _ :: [Int]
 is_ :: Expr
-is_  =  hole (undefined :: [Int])
+is_  =  hole [int]
 
 -- | A variable named @xs@ of type @[Int]@ encoded as an 'Expr'.
 --
 -- > > xxs
 -- > xs :: [Int]
 xxs :: Expr
-xxs  =  var "xs" (undefined :: [Int])
+xxs  =  var "xs" [int]
 
 -- | A variable named @ys@ of type @[Int]@ encoded as an 'Expr'.
 --
 -- > > yys
 -- > ys :: [Int]
 yys :: Expr
-yys  =  var "ys" (undefined :: [Int])
+yys  =  var "ys" [int]
 
 -- | An empty list of type @[Int]@ encoded as an 'Expr'.
 --
