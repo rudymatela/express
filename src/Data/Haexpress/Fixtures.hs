@@ -49,6 +49,8 @@ module Data.Haexpress.Fixtures
   , cc, dd, ccs
   , ae, bee, cee, dee
   , spaceE, lineBreakE
+  , ord'
+  , ordE
 
   -- ** Lists
   , is_
@@ -74,6 +76,7 @@ where
 import Data.Haexpress
 import Data.Maybe
 import Data.Typeable (Typeable, typeOf)
+import Data.Char
 
 int :: Int
 int  =  undefined
@@ -528,6 +531,12 @@ spaceE = val ' '
 
 lineBreakE :: Expr
 lineBreakE = val '\n'
+
+ord' :: Expr -> Expr
+ord' = (ordE :$)
+
+ordE :: Expr
+ordE = value "ord" ord
 
 -- | A typed hole of @[Int]@ type encoded as an 'Expr'.
 --
