@@ -31,8 +31,8 @@ instance Name Char      where  name _  =  "c"
 instance Name Ordering  where  name _  =  "o"
 
 instance Name (Ratio a) where  name _  =  "q"
-instance Name Float     where  name _  =  "f"
-instance Name Double    where  name _  =  "f"
+instance Name Float     where  name _  =  "x"
+instance Name Double    where  name _  =  "x"
 
 instance Name a => Name (Maybe a) where
   name mx  =  "m" ++ name (fromJust mx)
