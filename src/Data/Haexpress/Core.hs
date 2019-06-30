@@ -20,7 +20,6 @@ module Data.Haexpress.Core
   , val
   , ($$)
   , var
-  , hole
 
   -- * Evaluating Exprs
   , evaluate
@@ -37,7 +36,6 @@ module Data.Haexpress.Core
   , hasVar
   , isGround
   , isVar
-  , isHole
   , isConst
 
   -- * Comparison
@@ -53,11 +51,9 @@ module Data.Haexpress.Core
   , nubSubexprs
   , values
   , vars
-  , holes
   , consts
   , nubValues
   , nubVars
-  , nubHoles
   , nubConsts
 
   -- * Other utilities
@@ -170,17 +166,6 @@ e1 $$ e2 | isIll e    =  Nothing
 -- > xs :: [Int]
 var :: Typeable a => String -> a -> Expr
 var s a = value ('_':s) (undefined `asTypeOf` a)
-
--- | /O(1)/.
--- Creates an 'Expr' representing a typed hole of the given argument type.
---
--- > > hole (undefined :: Int)
--- > _ :: Int
---
--- > > hole (undefined :: Maybe String)
--- > _ :: Maybe [Char]
-hole :: Typeable a => a -> Expr
-hole a = var "" (undefined `asTypeOf` a)
 
 -- | /O(n)/.
 -- Computes the type of an expression.  This raises errors, but this should
@@ -636,12 +621,6 @@ isVar :: Expr -> Bool
 isVar (Value ('_':_) _)  =  True
 isVar _                  =  False
 
-isHole :: Expr -> Bool
-isHole (Value "_" _)  = True
-isHole _              = False
--- TODO: document and test isHole
--- TODO: document isHole ==> isVar
-
 subexprs :: Expr -> [Expr]
 subexprs e  =  s e []
   where
@@ -776,16 +755,6 @@ nubConsts  =  nubSort . consts
 -- > [p :: Bool]
 vars :: Expr -> [Expr]
 vars  =  filter isVar . values
-
-holes :: Expr -> [Expr]
-holes  =  filter isHole . values
--- TODO: document and test holes
--- TODO: property  holes `isSubsequenceOf` vars
-
-nubHoles :: Expr -> [Expr]
-nubHoles  =  nubSort . holes
--- TODO: document and test nubHoles
--- TODO: property nubHoles `isSubsetOf` holes
 
 -- | /O(n log n)/.
 -- Lists all variables in an expression without repetitions.

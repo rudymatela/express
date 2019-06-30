@@ -25,7 +25,10 @@ module Data.Haexpress.Basic
   , varAsTypeOf
 
   -- * Typed holes
-  -- TODO: TBA
+  , hole
+  , isHole
+  , holes
+  , nubHoles
   )
 where
 
@@ -36,6 +39,7 @@ import Data.Haexpress.Fold
 import Data.Dynamic
 import Data.Maybe (fromMaybe)
 import Data.Haexpress.Utils.Typeable (tyArity)
+import Data.Haexpress.Utils.List (nubSort)
 
 -- | /O(1)/.
 -- Creates a 'var'iable with the same type as the given 'Expr'.
@@ -53,3 +57,31 @@ varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
 #else
   undefine = id -- there's no way to do this using the old Data.Dynamic API.
 #endif
+
+-- | /O(1)/.
+-- Creates an 'Expr' representing a typed hole of the given argument type.
+--
+-- > > hole (undefined :: Int)
+-- > _ :: Int
+--
+-- > > hole (undefined :: Maybe String)
+-- > _ :: Maybe [Char]
+hole :: Typeable a => a -> Expr
+hole a = var "" (undefined `asTypeOf` a)
+
+-- /O(1)/.
+isHole :: Expr -> Bool
+isHole (Value "_" _)  = True
+isHole _              = False
+-- TODO: document and test isHole
+-- TODO: document isHole ==> isVar
+
+holes :: Expr -> [Expr]
+holes  =  filter isHole . values
+-- TODO: document and test holes
+-- TODO: property  holes `isSubsequenceOf` vars
+
+nubHoles :: Expr -> [Expr]
+nubHoles  =  nubSort . holes
+-- TODO: document and test nubHoles
+-- TODO: property nubHoles `isSubsetOf` holes
