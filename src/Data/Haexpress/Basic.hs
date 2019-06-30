@@ -29,6 +29,7 @@ module Data.Haexpress.Basic
   , isHole
   , holes
   , nubHoles
+  , holeAsTypeOf
   )
 where
 
@@ -57,6 +58,9 @@ varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
 #else
   undefine = id -- there's no way to do this using the old Data.Dynamic API.
 #endif
+
+holeAsTypeOf :: Expr -> Expr
+holeAsTypeOf = ("" `varAsTypeOf`)
 
 -- | /O(1)/.
 -- Creates an 'Expr' representing a typed hole of the given argument type.
