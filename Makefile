@@ -12,6 +12,7 @@ TESTS = \
   test/express \
   test/name \
   test/utils \
+  test/canon \
   test/listable
 EGS =
 BENCHS = bench/tiers

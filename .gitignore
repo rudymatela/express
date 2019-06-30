@@ -15,6 +15,7 @@ log/
 TAGS
 tags
 bench/tiers
+test/canon
 test/core
 test/express
 test/fixtures

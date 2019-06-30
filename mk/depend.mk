@@ -71,8 +71,12 @@ src/Data/Haexpress/Canon.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress/Name.hs \
   src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Express.hs \
   src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs
 src/Data/Haexpress/Core.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
   src/Data/Haexpress/Utils/String.hs \
@@ -139,6 +143,28 @@ src/Data/Haexpress/Utils/String.o: \
   src/Data/Haexpress/Utils/String.hs
 src/Data/Haexpress/Utils/Typeable.o: \
   src/Data/Haexpress/Utils/Typeable.hs
+test/canon.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/canon.hs \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs
+test/canon: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/canon.hs \
+  mk/toplibs
 test/core.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \

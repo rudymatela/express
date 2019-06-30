@@ -33,6 +33,7 @@ module Data.Haexpress.Fixtures
 
   -- ** Integers
   , i_, xx, yy, zz, xx'
+  , ii, jj, kk
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
   , id', negate', abs'
@@ -203,6 +204,15 @@ zz  =  var "z" (undefined :: Int)
 -- > x' :: Int
 xx' :: Expr
 xx'  =  var "x'" (undefined :: Int)
+
+ii :: Expr
+ii  =  var "i" (undefined :: Int)
+
+jj :: Expr
+jj  =  var "j" (undefined :: Int)
+
+kk :: Expr
+kk  =  var "k" (undefined :: Int)
 
 -- | The value @0@ bound to the 'Int' type encoded as an 'Expr'.
 --
