@@ -24,6 +24,17 @@ tests n =
   , canonicalizeWith (const ["i","j","k","l"]) ((jj -+- ii) -+- (xx -+- xx))
                                             == ((ii -+- jj) -+- (kk -+- kk))
 
+  , canonicalize (xx -+- ord' cc) == (xx -+- ord' cc)
+
+  , canonicalize (hole (undefined :: Int       )) == xx
+  , canonicalize (hole (undefined :: Bool      )) == pp
+  , canonicalize (hole (undefined :: Char      )) == cc
+  , canonicalize (hole (undefined :: [Int]     )) == xxs
+  , canonicalize (hole (undefined :: [Char]    )) == ccs
+  , canonicalize (hole (undefined :: ()        )) == var "u" ()
+  , canonicalize (hole (undefined :: Integer   )) == var "x" (undefined :: Integer)
+  , canonicalize (hole (undefined :: [Integer] )) == var "xs" (undefined :: [Integer])
+  , canonicalize (hole (undefined :: Maybe Int )) == var "mx" (undefined :: Maybe Int)
 -- TODO: make me pass
---, canonicalize (xx -+- ord' cc) == (xx -+- ord' cc)
+--, canonicalize (hole (undefined :: (Int,Int) )) == var "xy" (undefined :: (Int,Int))
   ]
