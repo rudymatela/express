@@ -15,6 +15,7 @@ module Data.Haexpress.Instances
   , exprFor
   , exprWith
   , validApps
+  , preludeNameInstances
   )
 where
 
@@ -54,4 +55,50 @@ validApps es e = mapMaybe ($$ e) es
 (-:>) :: (a -> b) -> a -> (a -> b)
 (-:>)  =  const
 infixl 1 -:>
+
+preludeNameInstances :: [Expr]
+preludeNameInstances =
+  [ nameFor (u :: ())
+  , nameFor (u :: Bool)
+  , nameFor (u :: Int)
+  , nameFor (u :: Integer)
+  , nameFor (u :: Char)
+  , nameFor (u :: Ordering)
+  , nameFor (u :: Rational)
+  , nameFor (u :: Float)
+  , nameFor (u :: Double)
+
+  , nameFor (u :: [()])
+  , nameFor (u :: [Bool])
+  , nameFor (u :: [Int])
+  , nameFor (u :: [Integer])
+  , nameFor (u :: [Char])
+  , nameFor (u :: [Ordering])
+  , nameFor (u :: [Rational])
+  , nameFor (u :: [Float])
+  , nameFor (u :: [Double])
+
+  , nameFor (u :: Maybe ())
+  , nameFor (u :: Maybe Bool)
+  , nameFor (u :: Maybe Int)
+  , nameFor (u :: Maybe Integer)
+  , nameFor (u :: Maybe Char)
+  , nameFor (u :: Maybe Ordering)
+  , nameFor (u :: Maybe Rational)
+  , nameFor (u :: Maybe Float)
+  , nameFor (u :: Maybe Double)
+
+  , nameFor (u :: ((),()))
+  , nameFor (u :: (Bool,Bool))
+  , nameFor (u :: (Int,Int))
+  , nameFor (u :: (Integer,Integer))
+  , nameFor (u :: (Char,Char))
+  , nameFor (u :: (Ordering,Ordering))
+  , nameFor (u :: (Rational,Rational))
+  , nameFor (u :: (Float,Float))
+  , nameFor (u :: (Double,Double))
+  ]
+
+u :: a
+u  =  undefined
 

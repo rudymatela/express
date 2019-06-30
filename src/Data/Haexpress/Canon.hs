@@ -17,6 +17,7 @@ where
 
 import Data.Haexpress.Basic
 import Data.Haexpress.Name
+import Data.Haexpress.Instances
 import Data.List ((\\))
 
 canonicalizeWith :: (Expr -> [String]) -> Expr -> Expr
@@ -38,10 +39,16 @@ isCanonicalWith ti e = canonicalizeWith ti e == e
 -- TODO: use default name instances below instead of defNames
 
 canonicalize :: Expr -> Expr
-canonicalize = canonicalizeWith (const $ defNames)
+canonicalize = canonicalizeWith names'
 
 canonicalization :: Expr -> [(Expr,Expr)]
-canonicalization = canonicalizationWith (const $ defNames)
+canonicalization = canonicalizationWith names'
 
 isCanonical :: Expr -> Bool
-isCanonical = isCanonicalWith (const $ defNames)
+isCanonical = isCanonicalWith names'
+
+-- 'names' lifted over the 'Expr' type for a handful of prelude Name instances.
+names' :: Expr -> [String]
+names' e = namesFromTemplate $ case validApps preludeNameInstances e of
+  (e':_) -> eval "x" e
+  _      -> "x"
