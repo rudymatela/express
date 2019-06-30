@@ -515,12 +515,6 @@ lexicompareConstants = cmp
   Value s1 _ `cmp` Value s2 _ = s1 `compare` s2
   _ `cmp` _ = error "lexicompareConstants can only compare constants"
 
--- | Compare two expressiosn lexicographically
---
--- 1st their type arity;
--- 2nd their type;
--- 3rd var < constants < apps
--- 4th lexicographic order on names
 lexicompare :: Expr -> Expr -> Ordering
 lexicompare = lexicompareBy lexicompareConstants
 
