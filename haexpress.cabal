@@ -43,6 +43,7 @@ source-repository this
 library
   exposed-modules:     Data.Haexpress
                      , Data.Haexpress.Core
+                     , Data.Haexpress.Basic
                      , Data.Haexpress.Map
                      , Data.Haexpress.Express
                      , Data.Haexpress.Fixtures
