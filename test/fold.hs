@@ -16,4 +16,6 @@ tests n =
   -- even though pair returns an ill-typed expression
   , holds n $ \e1 e2 -> pair e1 e2 == pair e1 e2
   , fails n $ \e1 e2 -> pair e1 e2 == pair e2 e1
+
+  , show (pair xx yy) == "(x,y) :: ill-typed # ExprPair $ Int #"
   ]
