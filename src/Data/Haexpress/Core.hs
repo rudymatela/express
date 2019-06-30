@@ -31,7 +31,7 @@ module Data.Haexpress.Core
   , mtyp
   , toDynamic
 
-  -- * Boolean and ordering properties
+  -- * Boolean properties
   , isIll
   , isWellTyped
   , hasVar
@@ -39,7 +39,14 @@ module Data.Haexpress.Core
   , isVar
   , isHole
   , isConst
+
+  -- * Comparison
   , compareComplexity
+
+  -- * Properties
+  , arity
+  , size
+  , depth
 
   -- * Listing subexpressions
   , subexprs
@@ -799,3 +806,19 @@ nubHoles  =  nubSort . holes
 -- > [p :: Bool]
 nubVars :: Expr -> [Expr]
 nubVars  =  nubSort . vars
+
+arity :: Expr -> Int
+arity  =  tyArity . typ
+-- TODO: document & test arity
+
+size :: Expr -> Int
+size  =  length . values
+-- TODO: document & test size
+
+depth :: Expr -> Int
+depth e@(_:$_)  =  1 + maximum (map depth $ unfoldApp e)
+depth _         =  1
+-- TODO: document & test depth
+-- TODO: possibly rename depth
+-- TODO: add alternative depth function which does not use unfoldApp and yield
+--       different results

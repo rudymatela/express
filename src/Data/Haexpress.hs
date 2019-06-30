@@ -15,9 +15,6 @@ module Data.Haexpress
   , module Data.Haexpress.Name
   , module Data.Haexpress.Express
   , varAsTypeOf
-  , arity
-  , size
-  , depth
   , pair
   , unpair
   , isSubexpr
@@ -61,23 +58,6 @@ e `isSubExprOf` e0 | e == e0  =  True
 e `isSubExprOf` (e1 :$ e2)    =  e `isSubExprOf` e1
                               || e `isSubExprOf` e2
 e `isSubExprOf` _             =  False
-
-arity :: Expr -> Int
-arity  =  tyArity . typ
--- TODO: document & test arity
-
-size :: Expr -> Int
-size  =  length . values
--- TODO: document & test size
-
-depth :: Expr -> Int
-depth e@(_:$_)  =  1 + maximum (map depth $ unfoldApp e)
-depth _         =  1
-
--- TODO: document & test depth
--- TODO: possibly rename depth
--- TODO: add alternative depth function which does not use unfoldApp and yield
---       different results
 
 data ExprPair = ExprPair
 
