@@ -34,6 +34,8 @@ instance Name (Ratio a) where  name _  =  "q"
 instance Name Float     where  name _  =  "x"
 instance Name Double    where  name _  =  "x"
 
+instance Name (a -> b)  where  name _  =  "f"
+
 instance Name a => Name (Maybe a) where
   name mx  =  "m" ++ name (fromJust mx)
 

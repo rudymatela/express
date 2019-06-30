@@ -15,6 +15,8 @@ tests n =
   , name (undefined :: Integer) == "x"
   , name (undefined :: Char) == "c"
   , name (undefined :: Bool) == "p"
+  , name (undefined :: Int -> Int) == "f"
+  , name (undefined :: Double) == "x"
 
   -- lists
   , name (undefined :: [Int]) == "xs"
