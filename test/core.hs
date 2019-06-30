@@ -206,4 +206,8 @@ tests n =
   , size zero == 1
   , size (one -+- two) == 3
   , size (abs' one) == 2
+
+  , depth zero == 1
+  , depth (one -+- two) == 2
+  , depth (abs' one -+- two) == 3
   ]

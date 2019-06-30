@@ -775,7 +775,8 @@ nubVars :: Expr -> [Expr]
 nubVars  =  nubSort . vars
 
 -- | /O(n)/.
--- Return the arity of the given expression.
+-- Return the arity of the given expression,
+-- i.e. the number of arguments that its type takes.
 --
 -- > > arity (val 0)
 -- > 0
@@ -795,6 +796,8 @@ arity :: Expr -> Int
 arity  =  tyArity . typ
 
 -- | /O(n)/.
+-- Returns the size of the given expression,
+-- i.e. the number of terminal values in it.
 --
 -- > > size zero
 -- > 1
@@ -807,10 +810,20 @@ arity  =  tyArity . typ
 size :: Expr -> Int
 size  =  length . values
 
+-- | /O(n)/.
+-- Returns the maximum depth of a given expression.
+--
+-- > > depth zero
+-- > 1
+--
+-- > > depth (one -+- two)
+-- > 2
+--
+-- > > depth (abs' one -+- two)
+-- > 3
 depth :: Expr -> Int
 depth e@(_:$_)  =  1 + maximum (map depth $ unfoldApp e)
 depth _         =  1
--- TODO: document & test depth
 -- TODO: possibly rename depth
 -- TODO: add alternative depth function which does not use unfoldApp and yield
 --       different results
