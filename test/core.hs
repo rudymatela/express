@@ -196,4 +196,10 @@ tests n =
   , show (ffE -$- zero)     == "f $ 0 :: Int"
   , show (ggE -$- xx)       == "g $ x :: Int"
   , show (ffE -$- minusOne) == "f $ (-1) :: Int"
+
+  , arity zero == 0
+  , arity xx == 0
+  , arity absE == 1
+  , arity plusE == 2
+  , arity timesE == 2
   ]

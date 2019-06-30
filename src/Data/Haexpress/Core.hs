@@ -774,9 +774,25 @@ vars  =  filter isVar . values
 nubVars :: Expr -> [Expr]
 nubVars  =  nubSort . vars
 
+-- | /O(n)/.
+-- Return the arity of the given expression.
+--
+-- > > arity (val 0)
+-- > 0
+--
+-- > > arity (val False)
+-- > 0
+--
+-- > > arity (value "id" (id :: Int -> Int))
+-- > 1
+--
+-- > > arity (value "const" (const :: Int -> Int -> Int))
+-- > 2
+--
+-- > > arity (one -+- two)
+-- > 0
 arity :: Expr -> Int
 arity  =  tyArity . typ
--- TODO: document & test arity
 
 size :: Expr -> Int
 size  =  length . values
