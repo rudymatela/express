@@ -11,7 +11,7 @@ tests n =
   , holds n $ \e1 e2 -> (e1,e2) == unpair (pair e1 e2)
 
   -- the result of pair always ill-typed
-  , holds n $ \e1 e2 -> isIll $ pair e1 e2
+  , holds n $ \e1 e2 -> isIllTyped $ pair e1 e2
 
   -- even though pair returns an ill-typed expression
   , holds n $ \e1 e2 -> pair e1 e2 == pair e1 e2

@@ -60,18 +60,18 @@ tests n =
   , etyp (abs' bee :$ zero) == Left (tyIntToInt, tyChar)
   , etyp ((zero :$ one) :$ (bee :$ cee)) == Left (tyInt, tyInt)
 
-  , isIll (abs' zero) == False
-  , isIll (zero :$ one) == True
+  , isIllTyped (abs' zero) == False
+  , isIllTyped (zero :$ one) == True
 
   -- our Listable Expr enumeration does not produce ill typed Exprs
   , holds n $ isRight . etyp
   , holds n $ isJust  . mtyp
-  , holds n $ not . isIll
+  , holds n $ not . isIllTyped
 
   -- our Listable Ill enumeration only produces ill typed Exprs
   , holds n $ isLeft    . etyp . unIll
   , holds n $ isNothing . mtyp . unIll
-  , holds n $ isIll . unIll
+  , holds n $ isIllTyped . unIll
 
   -- we don't need the precondition here given the above
   -- but it's added just in case

@@ -31,7 +31,7 @@ module Data.Haexpress.Core
   , toDynamic
 
   -- * Boolean properties
-  , isIll
+  , isIllTyped
   , isWellTyped
   , hasVar
   , isGround
@@ -147,8 +147,8 @@ val x = value (show x) x
 -- > > value "abs" (abs :: Int -> Int) $$ val ()
 -- > Nothing
 ($$) :: Expr -> Expr -> Maybe Expr
-e1 $$ e2 | isIll e    =  Nothing
-         | otherwise  =  Just e
+e1 $$ e2 | isIllTyped e  =  Nothing
+         | otherwise     =  Just e
   where
   e = e1 :$ e2
 
@@ -261,13 +261,11 @@ mtyp  =  either (const Nothing) Just . etyp
 --
 -- > > mtyp (absE :$ bee)
 -- > Nothing
-isIll :: Expr -> Bool
-isIll  =  isNothing . mtyp
--- TODO: rename to isIllTyped
+isIllTyped :: Expr -> Bool
+isIllTyped  =  isNothing . mtyp
 
 isWellTyped :: Expr -> Bool
 isWellTyped  =  isJust . mtyp
--- TODO: document & test isWellTyped
 
 -- |  /O(n)/.
 -- 'Just' the value of an expression when possible (correct type),
