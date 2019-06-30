@@ -50,6 +50,7 @@ library
                      , Data.Haexpress.Fold
                      , Data.Haexpress.Instances
                      , Data.Haexpress.Name
+                     , Data.Haexpress.Canon
                      , Data.Haexpress.Utils.List
                      , Data.Haexpress.Utils.String
                      , Data.Haexpress.Utils.Typeable

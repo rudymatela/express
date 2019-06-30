@@ -5,8 +5,15 @@
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines the 'Name' type class.
-module Data.Haexpress.Name (Name (..)) where
+module Data.Haexpress.Name
+  ( Name (..)
+  , names
+  , defNames
+  , namesFromTemplate
+  )
+where
 
+import Data.Char
 import Data.Maybe (fromJust)
 import Data.Either (fromLeft, fromRight)
 import Data.Ratio (Ratio)
@@ -44,3 +51,24 @@ instance (Name a, Name b, Name c, Name d) => Name (a,b,c,d) where
 
 instance Name a => Name [a] where
   name xs  =  name (head xs) ++ "s"
+
+primeCycle :: [String] -> [String]
+primeCycle []  =  []
+primeCycle ss  =  ss ++ map (++ "'") (primeCycle ss)
+
+namesFromTemplate :: String -> [String]
+namesFromTemplate  =  primeCycle . f
+  where
+  f ""                          =  f "x"
+  f cs    | isDigit (last cs)   =  map (\n -> init cs ++ show n) [digitToInt (last cs)..]
+  f [c]                         =  map ((:[]) . chr) [x,x+1,x+2] where x = ord c
+  f cs    | last cs == 's'      =  (++ "s") <$> f (init cs)
+  f "xy"                        =  ["xy","zw"]
+  f [c,d] | ord d - ord c == 1  =  [[c,d], [chr $ ord c + 2, chr $ ord d + 2]]
+  f cs                          =  [cs]
+
+names :: Name a => a -> [String]
+names  =  namesFromTemplate . name
+
+defNames :: [String]
+defNames  =  namesFromTemplate "x"
