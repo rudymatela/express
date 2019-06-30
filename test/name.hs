@@ -10,20 +10,40 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  -- TODO: test tuples
-  -- TODO: split the following into setions
+  -- simple types
   , name (undefined :: Int) == "x"
   , name (undefined :: Integer) == "x"
   , name (undefined :: Char) == "c"
   , name (undefined :: Bool) == "p"
+
+  -- lists
   , name (undefined :: [Int]) == "xs"
   , name (undefined :: [[Int]]) == "xss"
   , name (undefined :: [Bool]) == "ps"
   , name (undefined :: [[Bool]]) == "pss"
+
+  -- eithers
+  , name (undefined :: Either Bool Bool) == "epq"
+  , name (undefined :: Either Int Int) == "exy"
   , name (undefined :: Either Bool Char) == "epc"
+
+  -- maybes
   , name (undefined :: Maybe Int) == "mx"
   , name (undefined :: Maybe [Int]) == "mxs"
   , name (undefined :: Maybe [[Int]]) == "mxss"
+
+  -- pairs
+  , name (undefined :: (Int,Int)) == "xy"
+  , name (undefined :: (Bool,Bool)) == "pq"
+  , name (undefined :: (Char,Char)) == "cd"
+  , name (undefined :: (Bool,Int)) == "px"
+  , name (undefined :: (Int,Bool)) == "xp"
+
+  -- triples
+  , name (undefined :: (Int,Int,Int)) == "xyz"
+  , name (undefined :: (Bool,Bool,Bool)) == "pqr"
+  , name (undefined :: (Char,Char,Char)) == "cde"
+  , name (undefined :: (Int,Bool,Char)) == "xpc"
 
   , ["x","y","z","x'","y'"]    `isPrefixOf` namesFromTemplate "x"
   , ["xs","ys","zs","xs'"]     `isPrefixOf` namesFromTemplate "xs"

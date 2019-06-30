@@ -14,6 +14,7 @@ module Data.Haexpress.Name
 where
 
 import Data.Char
+import Data.List
 import Data.Maybe (fromJust)
 import Data.Either (fromLeft, fromRight)
 import Data.Ratio (Ratio)
@@ -37,14 +38,27 @@ instance Name a => Name (Maybe a) where
   name mx  =  "m" ++ name (fromJust mx)
 
 instance (Name a, Name b) => Name (Either a b) where
-  name exy  =  "e" ++ name (fromLeft undefined exy)
-                   ++ name (fromRight undefined exy)
+  name exy  =  "e" ++ n ++ m
+    where
+    x = fromLeft undefined exy
+    y = fromRight undefined exy
+    n = name x
+    m = head $ names y \\ [n]
 
 instance (Name a, Name b) => Name (a,b) where
-  name xy  =  name (fst xy) ++ name (snd xy)
+  name xy  =  n ++ m
+    where
+    (x,y)  =  xy
+    n  =  name x
+    m  =  head $ names y \\ [n]
 
 instance (Name a, Name b, Name c) => Name (a,b,c) where
-  name xyz  =  name x ++ name y ++ name z  where  (x,y,z)  =  xyz
+  name xyz  =  n ++ m ++ o
+    where
+    (x,y,z)  =  xyz
+    n  =  name x
+    m  =  head $ names y \\ [n]
+    o  =  head $ names z \\ [n,m]
 
 instance (Name a, Name b, Name c, Name d) => Name (a,b,c,d) where
   name xyzw  =  name x ++ name y ++ name z ++ name w  where  (x,y,z,w)  =  xyzw

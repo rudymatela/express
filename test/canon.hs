@@ -26,6 +26,8 @@ tests n =
 
   , canonicalize (xx -+- ord' cc) == (xx -+- ord' cc)
 
+
+  -- canonicalizing holes --
   , canonicalize (hole (undefined :: Int       )) == xx
   , canonicalize (hole (undefined :: Bool      )) == pp
   , canonicalize (hole (undefined :: Char      )) == cc
@@ -35,6 +37,5 @@ tests n =
   , canonicalize (hole (undefined :: Integer   )) == var "x" (undefined :: Integer)
   , canonicalize (hole (undefined :: [Integer] )) == var "xs" (undefined :: [Integer])
   , canonicalize (hole (undefined :: Maybe Int )) == var "mx" (undefined :: Maybe Int)
--- TODO: make me pass
---, canonicalize (hole (undefined :: (Int,Int) )) == var "xy" (undefined :: (Int,Int))
+  , canonicalize (hole (undefined :: (Int,Int) )) == var "xy" (undefined :: (Int,Int))
   ]
