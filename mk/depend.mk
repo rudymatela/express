@@ -231,6 +231,28 @@ test/fixtures: \
   test/Test/ListableExpr.hs \
   test/fixtures.hs \
   mk/toplibs
+test/fold.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/fold.hs \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs
+test/fold: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/fold.hs \
+  mk/toplibs
 test/instances.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
