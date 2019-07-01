@@ -49,10 +49,10 @@ module Data.Haexpress.Core
 
   -- * Listing subexpressions
   , subexprs
-  , nubSubexprs
   , values
   , vars
   , consts
+  , nubSubexprs
   , nubValues
   , nubVars
   , nubConsts
@@ -620,17 +620,60 @@ isVar :: Expr -> Bool
 isVar (Value ('_':_) _)  =  True
 isVar _                  =  False
 
+-- | /O(n)/ for the spine, /O(n^2)/ for full evaluation.
+-- Lists subexpressions of a given expression in order and with repetitions.
+-- This includes the expression itself and partial function applications.
+-- (cf. 'nubSubexprs')
+--
+-- > > subexprs (xx -+- yy)
+-- > [ x + y :: Int
+-- > , (x +) :: Int -> Int
+-- > , (+) :: Int -> Int -> Int
+-- > , x :: Int
+-- > , y :: Int
+-- > ]
+--
+-- > > subexprs (pp -&&- (pp -&&- true))
+-- > [ p && (p && True) :: Bool
+-- > , (p &&) :: Bool -> Bool
+-- > , (&&) :: Bool -> Bool -> Bool
+-- > , p :: Bool
+-- > , p && True :: Bool
+-- > , (p &&) :: Bool -> Bool
+-- > , (&&) :: Bool -> Bool -> Bool
+-- > , p :: Bool
+-- > , True :: Bool
+-- > ]
 subexprs :: Expr -> [Expr]
 subexprs e  =  s e []
   where
   s :: Expr -> [Expr] -> [Expr]
   s e@(e1 :$ e2)  =  (e:) . s e1 . s e2
   s e             =  (e:)
--- TODO: document & test subexprs
 
+-- | /O(n log n)/ for the spine, /O(n^2)/ for full evaluation.
+-- Lists all subexpressions of a given expression without repetitions.
+-- This includes the expression itself and partial function applications.
+-- (cf. 'subexprs')
+--
+-- > > nubSubexprs (xx -+- yy)
+-- > [ x :: Int
+-- > , y :: Int
+-- > , (+) :: Int -> Int -> Int
+-- > , (x +) :: Int -> Int
+-- > , x + y :: Int
+-- > ]
+--
+-- > > nubSubexprs (pp -&&- (pp -&&- true))
+-- > [ p :: Bool
+-- > , True :: Bool
+-- > , (&&) :: Bool -> Bool -> Bool
+-- > , (p &&) :: Bool -> Bool
+-- > , p && True :: Bool
+-- > , p && (p && True) :: Bool
+-- > ]
 nubSubexprs :: Expr -> [Expr]
 nubSubexprs  =  nubSort . subexprs
--- TODO: document & test nubSubexprs
 
 -- | /O(n)/.
 -- Lists all terminal values in an expression in order and with repetitions.

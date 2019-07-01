@@ -120,19 +120,55 @@ tests n =
   , values (zero -+- (one -*- two)) == [plusE, zero, timesE, one, two]
   , values (pp -&&- true) == [andE, pp, true]
 
+  , subexprs (xx -+- yy) ==
+      [ xx -+- yy
+      , plusE :$ xx
+      , plusE
+      , xx
+      , yy
+      ]
+  , subexprs (pp -&&- (pp -&&- true)) ==
+      [ pp -&&- (pp -&&- true)
+      , andE :$ pp
+      , andE
+      , pp
+      , pp -&&- true
+      , andE :$ pp
+      , andE
+      , pp
+      , true
+      ]
+  , nubSubexprs (xx -+- yy) ==
+      [ xx
+      , yy
+      , plusE
+      , plusE :$ xx
+      , xx -+- yy
+      ]
+  , nubSubexprs (pp -&&- (pp -&&- true)) ==
+      [ pp
+      , true
+      , andE
+      , andE :$ pp
+      , pp -&&- true
+      , pp -&&- (pp -&&- true)
+      ]
+
   , holds n $ (okEqOrd :: Expr -> Expr -> Expr -> Bool)
   , holds n $ \(Ill e0) (Ill e1) (Ill e2) -> okEqOrd e0 e1 e2
 
 
-  -- listing subexpressions
-
+  -- boolean properties
   , holds n $ \e -> isHole e ==> isVar e
 
+  -- listing subexpressions
   , holds n $ \e -> isGround e ==> consts e == values e
 
+  , holds n $ \e -> nubSubexprs e `isSubsetOf` subexprs e
   , holds n $ \e -> nubValues e `isSubsetOf` values e
   , holds n $ \e -> nubVars   e `isSubsetOf` vars   e
   , holds n $ \e -> nubConsts e `isSubsetOf` consts e
+  , holds n $ \e -> values e    `isSubsetOf` subexprs e
   , holds n $ \e -> vars      e `isSubsetOf` values e
   , holds n $ \e -> consts    e `isSubsetOf` values e
   , holds n $ \e -> (vars e ++ consts e) `isPermutationOf` values e
