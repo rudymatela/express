@@ -855,7 +855,12 @@ size :: Expr -> Int
 size  =  length . values
 
 -- | /O(n)/.
--- Returns the maximum depth of a given expression.
+-- Returns the maximum depth of a given expression
+-- given by the maximum number of nested function applications.
+-- Curried function application is counted /only once/,
+-- i.e. the application of a two argument function
+-- increases the depth of both its arguments by one.
+-- (cf. 'height')
 --
 -- > > depth zero
 -- > 1
@@ -865,12 +870,21 @@ size  =  length . values
 --
 -- > > depth (abs' one -+- two)
 -- > 3
+--
+-- Flipping arguments of applications in any of the subterms
+-- does not affect the result.
 depth :: Expr -> Int
 depth e@(_:$_)  =  1 + maximum (map depth $ unfoldApp e)
 depth _         =  1
 
 -- | /O(n)/.
--- Returns the maximum height of a given expression.
+-- Returns the maximum height of a given expression
+-- given by the maximum number of nested function applications.
+-- Curried function application is counted /each time/,
+-- i.e. the application of a two argument function
+-- increases the depth of its first argument by one
+-- and of its second argument by two.
+-- (cf. 'depth')
 --
 -- > > height zero
 -- > 1
@@ -886,8 +900,9 @@ depth _         =  1
 --
 -- > > height ((const' one) (abs' two))
 -- > 3
+--
+-- Flipping arguments of applications in subterms
+-- may change the result of the function.
 height :: Expr -> Int
 height (e1 :$ e2)  =  1 + height e1 `max` height e2
 height _           =  1
-
--- TODO: clearly distinguish in the docs 'height' and 'depth'

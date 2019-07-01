@@ -252,4 +252,8 @@ tests n =
   , height ((const' one) two) == 3
   , height ((const' (abs' one)) two) == 4
   , height ((const' one) (abs' two)) == 3
+
+  , holds n $ \e -> depth e  <= height e
+  , holds n $ \e -> depth e  <= size e
+  , holds n $ \e -> height e <= size e
   ]
