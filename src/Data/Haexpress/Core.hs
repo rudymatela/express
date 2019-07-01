@@ -655,7 +655,7 @@ nubSubexprs  =  nubSort . subexprs
 -- > , 1 :: Int
 -- > , 2 :: Int ]
 --
--- > > values (pp -&&- trueE)
+-- > > values (pp -&&- true)
 -- > [ (&&) :: Bool -> Bool -> Bool
 -- > , p :: Bool
 -- > , True :: Bool ]
@@ -712,7 +712,7 @@ nubValues  =  nubSort . values
 -- > , 1 :: Int
 -- > , 2 :: Int ]
 --
--- > > consts (pp -&&- trueE)
+-- > > consts (pp -&&- true)
 -- > [ (&&) :: Bool -> Bool -> Bool
 -- > , True :: Bool ]
 consts :: Expr -> [Expr]
@@ -728,7 +728,7 @@ consts  =  filter isConst . values
 -- > > nubConsts (xx -+- (yy -+- zz))
 -- > [ (+) :: Int -> Int -> Int ]
 --
--- > > nubConsts (pp -&&- trueE)
+-- > > nubConsts (pp -&&- true)
 -- > [ True :: Bool
 -- > , (&&) :: Bool -> Bool -> Bool ]
 nubConsts :: Expr -> [Expr]
@@ -750,7 +750,7 @@ nubConsts  =  nubSort . consts
 -- > > vars (zero -+- (one -*- two))
 -- > []
 --
--- > > vars (pp -&&- trueE)
+-- > > vars (pp -&&- true)
 -- > [p :: Bool]
 vars :: Expr -> [Expr]
 vars  =  filter isVar . values
@@ -770,7 +770,7 @@ vars  =  filter isVar . values
 -- > > nubVars (zero -+- (one -*- two))
 -- > []
 --
--- > > nubVars (pp -&&- trueE)
+-- > > nubVars (pp -&&- true)
 -- > [p :: Bool]
 nubVars :: Expr -> [Expr]
 nubVars  =  nubSort . vars
