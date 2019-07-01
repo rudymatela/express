@@ -64,11 +64,9 @@ module Data.Haexpress.Core
   )
 where
 
--- TODO: talk about convention of preceding variables with "_"
--- TODO: more exports
+-- TODO: talk more about convention of preceding variables with "_"
+--       mentioning whenever it is used
 -- TODO: rename lexicompare family?
--- TODO: isList
--- TODO: unfoldList
 
 import Data.Dynamic
 import Data.Function (on)
@@ -89,7 +87,8 @@ data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dyna
 
 -- | /O(1)/.
 -- It takes a string representation of a value and a value, returning an
--- 'Expr' with that terminal value.  Examples:
+-- 'Expr' with that terminal value.
+-- For instances of 'Show', it is preferable to use 'val'.
 --
 -- > > value "0" (0 :: Integer)
 -- > 0 :: Integer
@@ -113,7 +112,6 @@ value s x = Value s (toDyn x)
 
 -- | /O(1)/.
 -- A shorthand for 'value' for values that are 'Show' instances.
--- Examples:
 --
 -- > > val (0 :: Int)
 -- > 0 :: Int
@@ -135,6 +133,7 @@ val x = value (show x) x
 -- | /O(n)/.
 -- Creates an 'Expr' representing a function application.
 -- 'Just' an 'Expr' application if the types match, 'Nothing' otherwise.
+-- (cf. ':$')
 --
 -- > > value "id" (id :: () -> ()) $$ val ()
 -- > Just (id () :: ())
@@ -366,6 +365,7 @@ instance Show Expr where
                 $ showsPrecExpr 0 e
                 . showString " :: "
                 . showsTypeExpr e
+-- TODO: document Show Expr
 
 showsTypeExpr :: Expr -> String -> String
 showsTypeExpr e = case etyp e of
@@ -452,8 +452,11 @@ showPrecExpr n e = showsPrecExpr n e ""
 showExpr :: Expr -> String
 showExpr = showPrecExpr 0
 
--- | Does not evaluate values when comparing, but rather uses their
+-- | /O(n)/.
+--   Does not evaluate values when comparing, but rather uses their
 --   representation as strings and their types.
+--
+--   This instance works for ill-typed expressions.
 instance Eq Expr where
   Value s1 d1 == Value s2 d2  =  dynTypeRep d1 == dynTypeRep d2 && s1 == s2
   ef1 :$ ex1  == ef2 :$ ex2   =  ef1 == ef2 && ex1 == ex2
@@ -461,6 +464,7 @@ instance Eq Expr where
 
 instance Ord Expr where
   compare = compareComplexity <> lexicompare
+-- TODO: document Ord Expr
 
 -- | /O(n)/.
 -- Compares the complexity of two 'Expr's.
@@ -565,15 +569,16 @@ unfoldApp e  =  u e []
 --
 -- > > unfoldTuple $ trio' (val False) (val 'b') (val (9 :: Int))
 -- > [False :: Bool,'b' :: Char,9 :: Int]
+--
+-- NOTE: this function returns an empty list when the representation of the
+--       tupling function is @(,)@, @(,,)@, @(,,,)@ or @(,,,...)@.
+--       This is intentional, allowing the 'Show' 'Expr' instance
+--       to present @(,) 1 2@ differently than @(1,2)@.
 unfoldTuple :: Expr -> [Expr]
 unfoldTuple = u . unfoldApp
   where
   u (Value cs _:es) | not (null es) && cs == replicate (length es - 1) ',' = es
-  u _   = [] -- TODO: only return an empty list for units
--- NOTE: the above function does not work when the representation of the
---       tupling function is (,) or (,,) or (,,,) or ...
---       This is intentional to allow the 'Show' 'Expr' instance
---       to present (,,) 1 2 differently than (1,2).
+  u _   = []
 
 isTuple :: Expr -> Bool
 isTuple = not . null . unfoldTuple
