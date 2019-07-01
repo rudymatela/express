@@ -846,3 +846,5 @@ depth _         =  1
 height :: Expr -> Int
 height (e1 :$ e2)  =  1 + height e1 `max` height e2
 height _           =  1
+
+-- TODO: clearly distinguish in the docs 'height' and 'depth'
