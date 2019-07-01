@@ -439,9 +439,18 @@ showOpExpr op = showPrecExpr (prec op + 1)
 showPrecExpr :: Int -> Expr -> String
 showPrecExpr n e = showsPrecExpr n e ""
 
+-- | /O(n)/.
+-- Returns a string representation of an expression.
+-- Differently from 'show' (@:: Expr -> String@)
+-- this function does not include the type in the output.
+--
+-- > > putStrLn $ showExpr (one -+- two)
+-- > 1 + 2
+--
+-- > > putStrLn $ showExpr $ (pp -||- true) -&&- (qq -||- false)
+-- > (p || True) && (q || False)
 showExpr :: Expr -> String
 showExpr = showPrecExpr 0
--- TODO: document and test showExpr
 
 -- | Does not evaluate values when comparing, but rather uses their
 --   representation as strings and their types.

@@ -237,6 +237,8 @@ tests n =
   , show (ggE -$- xx)       == "g $ x :: Int"
   , show (ffE -$- minusOne) == "f $ (-1) :: Int"
 
+  , holds n $ \e -> showExpr e `isPrefixOf` show e
+
   , arity zero == 0
   , arity xx == 0
   , arity absE == 1
