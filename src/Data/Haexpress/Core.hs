@@ -250,21 +250,31 @@ etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
 mtyp :: Expr -> Maybe TypeRep
 mtyp  =  either (const Nothing) Just . etyp
 
--- | /O(n)/
+-- | /O(n)/.
 -- Returns whether the given 'Expr' is ill typed.
+-- (cf. 'isWellTyped')
 --
 -- > > let one = val (1 :: Int)
 -- > > let bee = val 'b'
 -- > > let absE = value "abs" (abs :: Int -> Int)
 --
--- > > mtyp (absE :$ one)
--- > Just Int
+-- > > isIllTyped (absE :$ val (1 :: Int))
+-- > False
 --
--- > > mtyp (absE :$ bee)
--- > Nothing
+-- > > isIllTyped (absE :$ val 'b')
+-- > True
 isIllTyped :: Expr -> Bool
 isIllTyped  =  isNothing . mtyp
 
+-- | /O(n)/.
+-- Returns whether the given 'Expr' is well typed.
+-- (cf. 'isIllTyped')
+--
+-- > > isWellTyped (absE :$ val (1 :: Int))
+-- > True
+--
+-- > > isWellTyped (absE :$ val 'b')
+-- > False
 isWellTyped :: Expr -> Bool
 isWellTyped  =  isJust . mtyp
 

@@ -62,16 +62,20 @@ tests n =
 
   , isIllTyped (abs' zero) == False
   , isIllTyped (zero :$ one) == True
+  , isWellTyped (abs' zero) == True
+  , isWellTyped (zero :$ one) == False
 
   -- our Listable Expr enumeration does not produce ill typed Exprs
   , holds n $ isRight . etyp
   , holds n $ isJust  . mtyp
+  , holds n $ isWellTyped
   , holds n $ not . isIllTyped
 
   -- our Listable Ill enumeration only produces ill typed Exprs
   , holds n $ isLeft    . etyp . unIll
   , holds n $ isNothing . mtyp . unIll
   , holds n $ isIllTyped . unIll
+  , holds n $ not . isWellTyped . unIll
 
   -- we don't need the precondition here given the above
   -- but it's added just in case
