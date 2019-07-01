@@ -36,7 +36,7 @@ module Data.Haexpress.Fixtures
   , ii, jj, kk
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
-  , id', negate', abs'
+  , id', const', negate', abs'
   , plusE, timesE
   , (-+-), (-*-)
   , ff, ffE
@@ -441,6 +441,18 @@ id' e  =  headOr err $ mapMaybe ($$ e)
 -- > Just 0
 idE :: Expr
 idE  =  value "id" (id :: Int -> Int)
+
+const' :: Expr -> Expr -> Expr
+const' e1 e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
+  [ value "const" (const :: Int -> Int -> Int)
+  , value "const" (const :: Bool -> Bool -> Bool)
+  , value "const" (const :: Char -> Char -> Char)
+  , value "const" (const :: [Int] -> [Int] -> [Int])
+  , value "const" (const :: [Bool] -> [Bool] -> [Bool])
+  , value "const" (const :: String -> String -> String)
+  ]
+  where
+  err  =  error $ "const': unhandled type " ++ show (typ e1)
 
 -- | 'negate' over the 'Int' type lifted over the 'Expr' type.
 --

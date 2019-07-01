@@ -210,4 +210,10 @@ tests n =
   , depth zero == 1
   , depth (one -+- two) == 2
   , depth (abs' one -+- two) == 3
+
+  , height zero == 1
+  , height (abs' one) == 2
+  , height ((const' one) two) == 3
+  , height ((const' (abs' one)) two) == 4
+  , height ((const' one) (abs' two)) == 3
   ]

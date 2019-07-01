@@ -45,6 +45,7 @@ module Data.Haexpress.Core
   , arity
   , size
   , depth
+  , height
 
   -- * Listing subexpressions
   , subexprs
@@ -824,6 +825,24 @@ size  =  length . values
 depth :: Expr -> Int
 depth e@(_:$_)  =  1 + maximum (map depth $ unfoldApp e)
 depth _         =  1
--- TODO: possibly rename depth
--- TODO: add alternative depth function which does not use unfoldApp and yield
---       different results
+
+-- | /O(n)/.
+-- Returns the maximum height of a given expression.
+--
+-- > > height zero
+-- > 1
+--
+-- > > height (abs' one)
+-- > 2
+--
+-- > > height ((const' one) two)
+-- > 3
+--
+-- > > height ((const' (abs' one)) two)
+-- > 4
+--
+-- > > height ((const' one) (abs' two))
+-- > 3
+height :: Expr -> Int
+height (e1 :$ e2)  =  1 + height e1 `max` height e2
+height _           =  1
