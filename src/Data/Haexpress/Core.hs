@@ -87,7 +87,7 @@ data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dyna
            |  Expr :$ Expr         -- ^ function application between expressions
   deriving Typeable -- for GHC < 7.10
 
--- | /O(1)./
+-- | /O(1)/.
 -- It takes a string representation of a value and a value, returning an
 -- 'Expr' with that terminal value.  Examples:
 --
@@ -111,7 +111,7 @@ data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dyna
 value :: Typeable a => String -> a -> Expr
 value s x = Value s (toDyn x)
 
--- | /O(1)./
+-- | /O(1)/.
 -- A shorthand for 'value' for values that are 'Show' instances.
 -- Examples:
 --
@@ -199,7 +199,7 @@ typ  =  either err id . etyp
   err (t1, t2)  =  error $ "type mismatch, cannot apply `"
                 ++ show t1 ++ "' to `" ++ show t2 ++ "'"
 
--- | /O(n)/
+-- | /O(n)/.
 -- Computes the type of an expression returning either the type of the given
 -- expression when possible or when there is a type error, the pair of types
 -- which produced the error.
@@ -234,7 +234,7 @@ etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
   (Left e, _) -> Left e
   (_, Left e) -> Left e
 
--- | /O(n)/
+-- | /O(n)/.
 -- Returns 'Just' the type of an expression
 -- or 'Nothing' when there is an error.
 --
