@@ -18,6 +18,7 @@ TESTS = \
   test/listable
 EGS =
 BENCHS = \
+  bench/ord \
   bench/pairs \
   bench/tiers \
   $(EGS)

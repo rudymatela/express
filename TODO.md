@@ -3,8 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* create bench/ord which prints order results
-
 * document and test map module
 
 * document and test recently added stuff
