@@ -178,6 +178,12 @@ tests n =
   , holds n $ \e -> (vars e ++ consts e) `isPermutationOf` values e
   , holds n $ \e -> (nubVars e ++ nubConsts e) `isPermutationOf` nubValues e
 
+  -- in case implementation changes
+  , holds n $ \e -> nubSubexprs e == nubSort (subexprs e)
+  , holds n $ \e -> nubValues   e == nubSort (values e)
+  , holds n $ \e -> nubVars     e == nubSort (vars e)
+  , holds n $ \e -> nubConsts   e == nubSort (consts e)
+
   , arity zero == 0
   , arity xx == 0
   , arity absE == 1
