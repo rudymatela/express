@@ -701,6 +701,11 @@ nubSubexprs  =  s
   where
   s e@(e1 :$ e2)  =  [e] +++ s e1 +++ s e2
   s e             =  [e]
+-- TODO: After deciding if I'll stick to this implementation or the old one,
+-- add note about complexity:
+--
+-- While this is /O(n log n)/ on average it is /O(n^2)/ in the worst-case.
+-- Worst case = f (g (h (i (j (k (l (m (n x))))))))
 
 -- | /O(n)/.
 -- Lists all terminal values in an expression in order and with repetitions.
