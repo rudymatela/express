@@ -17,7 +17,10 @@ TESTS = \
   test/show \
   test/listable
 EGS =
-BENCHS = bench/tiers
+BENCHS = \
+  bench/pairs \
+  bench/tiers \
+  $(EGS)
 GHCIMPORTDIRS = src:test
 GHCFLAGS = -O2 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)
 HADDOCKFLAGS = --no-print-missing-docs
