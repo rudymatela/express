@@ -12,6 +12,7 @@ module Data.Haexpress.Utils.List
   , isSubsetOf
   , isNub
   , module Data.List
+  , (+++)
   )
 where
 
@@ -68,3 +69,17 @@ isPermutationOf  =  (==) `on` sort
 -- > isNub [2,1,2]  =  False
 isNub :: Ord a => [a] -> Bool
 isNub xs  =  length (nubSort xs) == length xs
+
+(+++) :: Ord a => [a] -> [a] -> [a]
+(+++)  =  nubMerge
+infixr 5 +++
+
+nubMergeBy :: (a -> a -> Ordering) -> [a] -> [a] -> [a]
+nubMergeBy cmp (x:xs) (y:ys)  =  case x `cmp` y of
+                                 LT -> x:nubMergeBy cmp xs (y:ys)
+                                 GT -> y:nubMergeBy cmp (x:xs) ys
+                                 EQ -> x:nubMergeBy cmp xs ys
+nubMergeBy _ xs ys  =  xs ++ ys
+
+nubMerge :: Ord a => [a] -> [a] -> [a]
+nubMerge  =  nubMergeBy compare

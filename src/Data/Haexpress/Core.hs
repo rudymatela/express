@@ -697,7 +697,10 @@ subexprs e  =  s e []
 -- > , p && (p && True) :: Bool
 -- > ]
 nubSubexprs :: Expr -> [Expr]
-nubSubexprs  =  nubSort . subexprs
+nubSubexprs  =  s
+  where
+  s e@(e1 :$ e2)  =  [e] +++ s e1 +++ s e2
+  s e             =  [e]
 
 -- | /O(n)/.
 -- Lists all terminal values in an expression in order and with repetitions.
@@ -759,7 +762,10 @@ values e  =  v e []
 -- > [ p :: Bool
 -- > , (&&) :: Bool -> Bool -> Bool ]
 nubValues :: Expr -> [Expr]
-nubValues  =  nubSort . values
+nubValues  =  v
+  where
+  v (e1 :$ e2)  =  v e1 +++ v e2
+  v e           =  [e]
 
 -- | /O(n)/.
 -- List terminal constants in an expression in order and with repetitions.
@@ -799,7 +805,10 @@ consts  =  filter isConst . values
 -- > [ True :: Bool
 -- > , (&&) :: Bool -> Bool -> Bool ]
 nubConsts :: Expr -> [Expr]
-nubConsts  =  nubSort . consts
+nubConsts  =  c
+  where
+  c (e1 :$ e2)  =  c e1 +++ c e2
+  c e           =  [e | isConst e]
 
 -- | /O(n)/.
 -- Lists all variables in an expression in order and with repetitions.
@@ -840,7 +849,10 @@ vars  =  filter isVar . values
 -- > > nubVars (pp -&&- true)
 -- > [p :: Bool]
 nubVars :: Expr -> [Expr]
-nubVars  =  nubSort . vars
+nubVars  =  v
+  where
+  v (e1 :$ e2)  =  v e1 +++ v e2
+  v e           =  [e | isVar e]
 
 -- | /O(n)/.
 -- Return the arity of the given expression,
