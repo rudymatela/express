@@ -3,6 +3,14 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
+* make sure I can bench / save-bench like in Extrapolate
+
+* create bench/ord which prints order results
+
+* create bench/pairs which just prints pairs (so that I can compare performance with ord and subtract the time to generate and print)
+
+* document and test map module
+
 * document and test recently added stuff
 
 * sweep occurrences of `TODO:` throughout source files
