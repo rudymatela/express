@@ -3,8 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* move `show` tests from core to a separate file
-
 * document and test recently added stuff
 
 * sweep occurrences of `TODO:` throughout source files
