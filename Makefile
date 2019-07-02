@@ -36,7 +36,7 @@ slow-test: test
 	./$< $(RUNPARAMETERS)
 
 .PHONY: bench
-bench: $(patsubst %,%.bench,$(EG))
+bench: $(patsubst %,%.bench,$(BENCHS))
 	@mkdir -p bench/runtime/$$HOSTNAME
 	./bench/versions | tee bench/runtime/$$HOSTNAME/versions
 
