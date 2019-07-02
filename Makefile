@@ -35,6 +35,17 @@ slow-test: test
 %.run: %
 	./$< $(RUNPARAMETERS)
 
+.PHONY: bench
+bench: $(patsubst %,%.bench,$(EG))
+	@mkdir -p bench/runtime/$$HOSTNAME
+	./bench/versions | tee bench/runtime/$$HOSTNAME/versions
+
+.PHONY: %.bench
+%.bench: %
+	@mkdir -p bench/runtime/$$HOSTNAME/$<
+	@printf "%-18s " $<
+	@/usr/bin/time -f%e ./$< 2>&1 >/dev/null | tee bench/runtime/$$HOSTNAME/$<.runtime
+
 clean: clean-hi-o clean-haddock
 	rm -f $(TESTS) $(BENCHS) $(EGS) mk/toplibs
 

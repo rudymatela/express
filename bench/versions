@@ -1,0 +1,5 @@
+#!/bin/bash
+get-ghc-v() {
+    ghc --version | sed -e "s/.* version/GHC/"
+}
+get-ghc-v
