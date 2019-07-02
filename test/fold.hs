@@ -8,14 +8,14 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , holds n $ \e1 e2 -> (e1,e2) == unpair (pair e1 e2)
+  , holds n $ \e1 e2 -> (e1,e2) == unfoldPair (foldPair (e1,e2))
 
   -- the result of pair always ill-typed
-  , holds n $ \e1 e2 -> isIllTyped $ pair e1 e2
+  , holds n $ \e1 e2 -> isIllTyped $ foldPair (e1,e2)
 
   -- even though pair returns an ill-typed expression
-  , holds n $ \e1 e2 -> pair e1 e2 == pair e1 e2
-  , fails n $ \e1 e2 -> pair e1 e2 == pair e2 e1
+  , holds n $ \e1 e2 -> foldPair (e1,e2) == foldPair (e1,e2)
+  , fails n $ \e1 e2 -> foldPair (e1,e2) == foldPair (e2,e1)
 
-  , show (pair xx yy) == "(x,y) :: ill-typed # ExprPair $ Int #"
+  , show (foldPair (xx,yy)) == "(x,y) :: ill-typed # ExprPair $ Int #"
   ]

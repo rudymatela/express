@@ -6,12 +6,13 @@
 --
 -- Defines utilities for folding and unfolding 'Expr's.
 module Data.Haexpress.Fold
-  ( pair
-  , unpair
+  ( foldPair
+  , unfoldPair
   , unfoldApp
   )
 where
 
+-- TODO: foldApp
 -- TODO: isList
 -- TODO: unfoldList
 
@@ -21,18 +22,16 @@ data ExprPair = ExprPair
 
 -- note this will generate an ill-typed pair expression
 -- use with caution
--- uses: e.g.: unpair . canonicalize . pair
-pair :: Expr -> Expr -> Expr
-pair e1 e2  =  value "," (undefined :: ExprPair) :$ e1 :$ e2
--- TODO: document & test pair
--- TODO: rename the function above to foldPair?
+-- uses: e.g.: unfoldPair . canonicalize . foldPair
+foldPair :: (Expr,Expr) -> Expr
+foldPair (e1,e2)  =  value "," (undefined :: ExprPair) :$ e1 :$ e2
+-- TODO: document foldPair
 
--- note this is intended to undo the effect of pair
-unpair :: Expr -> (Expr,Expr)
-unpair (Value "," _ :$ e1 :$ e2) = (e1,e2)
-unpair _  =  error "unpair: not an Expr pair"
--- TODO: rename the function above to unfoldPair?
--- TODO: document & test unpair
+-- note this is intended to undo the effect of foldPair
+unfoldPair :: Expr -> (Expr,Expr)
+unfoldPair (Value "," _ :$ e1 :$ e2) = (e1,e2)
+unfoldPair _  =  error "unpair: not an Expr pair"
+-- TODO: document unfoldPair
 
 -- TODO: remove the following comment section eventually
 --
