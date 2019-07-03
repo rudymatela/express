@@ -6,7 +6,18 @@
 --
 -- Defines utilities do deal with instances of typeclasses
 module Data.Haexpress.Instances
-  ( eqFor
+  ( reifyEq
+  , reifyOrd
+  , reifyName
+
+  , mkEq
+  , mkOrd
+  , mkOrdLessEqual
+  , mkName
+  , mkNameWith
+
+-- old stuff that may go away: --
+  , eqFor
   , eqWith
   , compareFor
   , compareWith
@@ -24,6 +35,52 @@ import Data.Haexpress.Name
 import Data.Haexpress.Express
 import Data.Typeable
 import Data.Maybe
+
+reifyEq :: (Typeable a, Eq a) => a -> [Expr]
+reifyEq a  =  mkEq  ((==) -:> a)
+
+reifyOrd :: (Typeable a, Ord a) => a -> [Expr]
+reifyOrd a  =  mkOrd (compare -:> a)
+
+reifyName :: (Typeable a, Name a) => a -> [Expr]
+reifyName a  =  mkName (name -:> a)
+
+mkEq :: Typeable a => (a -> a -> Bool) -> [Expr]
+mkEq (==)  =
+  [ value "==" (==)
+  , value "/=" (/=)
+  ]
+  where
+  x /= y = not (x == y)
+
+mkOrd :: Typeable a => (a -> a -> Ordering) -> [Expr]
+mkOrd compare  =
+  [ value "compare" compare
+  , value "<=" (<=)
+  , value "<" (<)
+-- we don't include other Ord functions, at least for now
+  ]
+  where
+  x <  y  =  x `compare` y == LT
+  x <= y  =  x `compare` y /= GT
+
+mkOrdLessEqual :: Typeable a => (a -> a -> Bool) -> [Expr]
+mkOrdLessEqual (<=)  =
+  [ value "<=" (<=)
+  , value "<" (<)
+-- TODO: include compare here for consistency with mkOrd
+  ]
+  where
+  x < y  =  not (y <= x)
+
+mkName :: Typeable a => (a -> String) -> [Expr]
+mkName name  =  [value "name" name]
+
+mkNameWith :: Typeable a => String -> a -> [Expr]
+mkNameWith n a  =  [value "name" (const n -:> a)]
+
+
+-- old stuff that may go away follows --
 
 eqFor :: (Typeable a, Eq a) => a -> Expr
 eqFor a  =  eqWith ((==) -:> a)
