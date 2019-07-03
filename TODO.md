@@ -3,8 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* document and test the `Map` module
-
 * document and test recently added stuff
 
 * sweep occurrences of `TODO:` throughout source files
