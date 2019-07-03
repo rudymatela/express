@@ -19,34 +19,35 @@ import Data.Haexpress.Core
 import Data.Haexpress.Utils.List
 import Data.Maybe (fromMaybe)
 
--- TODO: implement mapOuter
--- TODO: implement mapMaybeOuter :: (Expr -> Maybe Expr) -> Expr -> Expr
---                 and use it on //, maybe ...
--- TODO: implement mapInner
-
-
--- | /O(n)/.
+-- | /O(n*m)/.
 -- Applies a function to all terminal values in an expression.
+-- (cf. '//-')
 --
 -- Given that:
 --
--- > > let plus = value "+" (+)
--- > > let intToZero e = if typ e == typ (val 0) then val 0 else e
+-- > > let zero  = val (0 :: Int)
+-- > > let one   = val (1 :: Int)
+-- > > let two   = val (2 :: Int)
+-- > > let three = val (3 :: Int)
+-- > > let xx -+- yy = value "+" ((+) :: Int->Int->Int) :$ xx :$ yy
+-- > > let intToZero e = if typ e == typ zero then zero else e
 --
 -- Then:
 --
--- > > plus :$ val 1 :$ (plus :$ val 2 :$ val 3)
--- > 1 + (2 + 3) :: Integer
+-- > > one -+- (two -+- three)
+-- > 1 + (2 + 3) :: Int
 --
--- > > mapValues intToZero (plus :$ val 1 :$ (plus :$ val 2 :$ val 3))
+-- > > mapValues intToZero $ one -+- (two -+- three)
 -- > 0 + (0 + 0) :: Integer
+--
+-- Given that the argument function is /O(m)/, this function is /O(n*m)/.
 mapValues :: (Expr -> Expr) -> Expr -> Expr
 mapValues f  =  m
   where
   m (e1 :$ e2)  =  m e1 :$ m e2
   m e           =  f e
 
--- | /O(n)/.
+-- | /O(n*m)/.
 -- Applies a function to all variables in an expression.
 --
 -- Given that:
@@ -56,18 +57,23 @@ mapValues f  =  m
 -- > |                  else e
 -- > > let xx = var "x" (undefined :: Int)
 -- > > let yy = var "y" (undefined :: Int)
--- > > let plus = value "+" ((+) :: Int->Int->Int)
+-- > > let xx -+- yy = value "+" ((+) :: Int->Int->Int) :$ xx :$ yy
 --
 -- Then:
 --
--- > > plus :$ xx :$ yy
+-- > > xx -+- yy
 -- > x + y :: Int
 --
--- > > mapVars primeify $ plus :$ xx :$ yy
+-- > > primeify xx
+-- > x' :: Int
+--
+-- > > mapVars primeify $ xx -+- yy
 -- > x' + y' :: Int
 --
--- > > mapVars (primeify . primeify) $ plus :$ xx :$ yy
+-- > > mapVars (primeify . primeify) $ xx -+- yy
 -- > x'' + y'' :: Int
+--
+-- Given that the argument function is /O(m)/, this function is /O(n*m)/.
 mapVars :: (Expr -> Expr) -> Expr -> Expr
 mapVars f  =  mapValues f'
   where
@@ -75,21 +81,25 @@ mapVars f  =  mapValues f'
            then f e
            else e
 
--- | /O(n)/.
+-- | /O(n*m)/.
 -- Applies a function to all terminal constants in an expression.
 --
 -- Given that:
 --
--- > > let plus = value "+" (+)
--- > > let intToZero e = if typ e == typ (val 0) then val 0 else e
+-- > > let one   = val (1 :: Int)
+-- > > let two   = val (2 :: Int)
+-- > > let xx -+- yy = value "+" ((+) :: Int->Int->Int) :$ xx :$ yy
+-- > > let intToZero e = if typ e == typ zero then zero else e
 --
 -- Then:
 --
--- > > plus :$ val 1 :$ (plus :$ val 2 :$ var "x" (undefined :: Int))
--- > 1 + (2 + x) :: Integer
+-- > > one -+- (two -+- xx)
+-- > 1 + (2 + x) :: Int
 --
--- > > mapValues intToZero (plus :$ val 1 :$ (plus :$ val 2 :$ val 3))
+-- > > mapConsts intToZero (one -+- (two -+- xx))
 -- > 0 + (0 + x) :: Integer
+--
+-- Given that the argument function is /O(m)/, this function is /O(n*m)/.
 mapConsts :: (Expr -> Expr) -> Expr -> Expr
 mapConsts f  =  mapValues f'
   where
@@ -97,9 +107,39 @@ mapConsts f  =  mapValues f'
            then f e
            else e
 
--- | /O(n)/.
--- Substitute subexpressions of an expression.
--- Substitutions do not stack.
+-- | /O(n*m)/.
+-- Substitute subexpressions of an expression using the given function.
+-- Outer expressions have more precedence than inner expressions.
+-- (cf. '//')
+--
+-- With:
+--
+-- > > let xx = var "x" (undefined :: Int)
+-- > > let yy = var "y" (undefined :: Int)
+-- > > let zz = var "z" (undefined :: Int)
+-- > > let plus = value "+" ((+) :: Int->Int->Int)
+-- > > let times = value "*" ((*) :: Int->Int->Int)
+-- > > let xx -+- yy = plus :$ xx :$ yy
+-- > > let xx -*- yy = times :$ xx :$ yy
+--
+-- > > let pluswap (o :$ xx :$ yy) | o == plus = Just $ o :$ yy :$ xx
+-- > |     pluswap _                           = Nothing
+--
+-- Then:
+--
+-- > > mapSubexprs pluswap $ (xx -*- yy) -+- (yy -*- zz)
+-- > y * z + x * y :: Int
+--
+-- > > mapSubexprs pluswap $ (xx -+- yy) -*- (yy -+- zz)
+-- > (y + x) * (z + y) :: Int
+--
+-- Substitutions do not stack, in other words
+-- a replaced expression or its subexpressions are not further replaced:
+--
+-- > > mapSubexprs pluswap $ (xx -+- yy) -+- (yy -+- zz)
+-- > (y + z) + (x + y) :: Int
+--
+-- Given that the argument function is /O(m)/, this function is /O(n*m)/.
 mapSubexprs :: (Expr -> Maybe Expr) -> Expr -> Expr
 mapSubexprs f  =  m
   where
@@ -108,19 +148,76 @@ mapSubexprs f  =  m
     e'  =  case e of
            e1 :$ e2 -> m e1 :$ m e2
            e -> e
--- TODO: explain non-stacking substitutions
 
--- | /O(n+m*v)/.
--- Substitute all occurrences of variables in an expression.
+-- | /O(n*m)/.
+-- Substitute occurrences of values in an expression
+-- from the given list of substitutions.
+-- (cf. 'mapValues')
 --
--- > > ((xx -+- yy) -+- (yy -+- zz)) // [(yy, yy -+- zz)] =
--- > (x + (y + z)) + ((y + z) + z)
+-- Given that:
+--
+-- > > let xx = var "x" (undefined :: Int)
+-- > > let yy = var "y" (undefined :: Int)
+-- > > let zz = var "z" (undefined :: Int)
+-- > > let xx -+- yy = value "+" ((+) :: Int->Int->Int) :$ xx :$ yy
+--
+-- Then:
+--
+-- > > ((xx -+- yy) -+- (yy -+- zz)) //- [(xx, yy), (zz, yy)]
+-- > (y + y) + (y + y) :: Int
+--
+-- > > ((xx -+- yy) -+- (yy -+- zz)) //- [(yy, yy -+- zz)]
+-- > (x + (y + z)) + ((y + z) + z) :: Int
+--
+-- This function does not work for substituting non-terminal subexpressions:
+--
+-- > > (xx -+- yy) //- [(xx -+- yy, zz)]
+-- > x + y :: Int
+--
+-- Please use the slower '//' if you want the above replacement to work.
+--
+-- Replacement happens only once:
+--
+-- > > xx //- [(xx,yy), (yy,zz)]
+-- > y :: Int
+--
+-- Given that the argument list has length /m/,
+-- this function is /O(n*m)/.
 (//-) :: Expr -> [(Expr,Expr)] -> Expr
 e //- s  =  mapValues (flip lookupId s) e
--- TODO: explain complexity above
 
--- | /O(n+n*m)/.
--- Substitute subexpressions in an expression.
--- Larger expressions take more precedence.  <-- TODO: explain this
+-- | /O(n*n*m)/.
+-- Substitute subexpressions in an expression
+-- from the given list of substitutions.
+-- (cf. 'mapSubexprs').
+--
+-- Please consider using '//-' if you are replacing just terminal values
+-- as it is faster.
+--
+-- Given that:
+--
+-- > > let xx = var "x" (undefined :: Int)
+-- > > let yy = var "y" (undefined :: Int)
+-- > > let zz = var "z" (undefined :: Int)
+-- > > let xx -+- yy = value "+" ((+) :: Int->Int->Int) :$ xx :$ yy
+--
+-- Then:
+--
+-- > > ((xx -+- yy) -+- (yy -+- zz)) // [(xx -+- yy, yy), (yy -+- zz, yy)]
+-- > y + y :: Int
+--
+-- > > ((xx -+- yy) -+- zz) // [(xx -+- yy, zz), (zz, xx -+- yy)]
+-- > z + (x + y) :: Int
+--
+-- Replacement happens only once with outer expressions
+-- having more precedence than inner expressions.
+--
+-- > > (xx -+- yy) // [(yy,xx), (xx -+- yy,zz), (zz,xx)]
+-- > z :: Int
+--
+-- Given that the argument list has length /m/, this function is /O(n*n*m)/.
+-- Remember that since /n/ is the size of an expression,
+-- comparing two expressions is /O(n)/ in the worst case,
+-- and we may need to compare with /n/ subexpressions in the worst case.
 (//) :: Expr -> [(Expr,Expr)] -> Expr
 e // s  =  mapSubexprs (flip lookup s) e
