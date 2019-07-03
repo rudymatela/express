@@ -28,10 +28,16 @@ import Data.Maybe (fromMaybe)
 -- | /O(n)/.
 -- Applies a function to all terminal values in an expression.
 --
+-- Given that:
+--
 -- > > let plus = value "+" (+)
 -- > > let intToZero e = if typ e == typ (val 0) then val 0 else e
+--
+-- Then:
+--
 -- > > plus :$ val 1 :$ (plus :$ val 2 :$ val 3)
 -- > 1 + (2 + 3) :: Integer
+--
 -- > > mapValues intToZero (plus :$ val 1 :$ (plus :$ val 2 :$ val 3))
 -- > 0 + (0 + 0) :: Integer
 mapValues :: (Expr -> Expr) -> Expr -> Expr
@@ -43,16 +49,23 @@ mapValues f  =  m
 -- | /O(n)/.
 -- Applies a function to all variables in an expression.
 --
+-- Given that:
+--
 -- > > let primeify e = if isVar e
 -- > |                  then case e of (Value n d) -> Value (n ++ "'") d
 -- > |                  else e
 -- > > let xx = var "x" (undefined :: Int)
 -- > > let yy = var "y" (undefined :: Int)
 -- > > let plus = value "+" ((+) :: Int->Int->Int)
+--
+-- Then:
+--
 -- > > plus :$ xx :$ yy
 -- > x + y :: Int
+--
 -- > > mapVars primeify $ plus :$ xx :$ yy
 -- > x' + y' :: Int
+--
 -- > > mapVars (primeify . primeify) $ plus :$ xx :$ yy
 -- > x'' + y'' :: Int
 mapVars :: (Expr -> Expr) -> Expr -> Expr
@@ -65,10 +78,16 @@ mapVars f  =  mapValues f'
 -- | /O(n)/.
 -- Applies a function to all terminal constants in an expression.
 --
+-- Given that:
+--
 -- > > let plus = value "+" (+)
 -- > > let intToZero e = if typ e == typ (val 0) then val 0 else e
+--
+-- Then:
+--
 -- > > plus :$ val 1 :$ (plus :$ val 2 :$ var "x" (undefined :: Int))
 -- > 1 + (2 + x) :: Integer
+--
 -- > > mapValues intToZero (plus :$ val 1 :$ (plus :$ val 2 :$ val 3))
 -- > 0 + (0 + x) :: Integer
 mapConsts :: (Expr -> Expr) -> Expr -> Expr
