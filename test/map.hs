@@ -26,7 +26,7 @@ tests n =
   , exists n $ \e es ->  e // es  /=  e //- es
 
   -- equivalences between // and //-
-  , holds n $ \e ees -> all (isVar . fst) ees ==> e // ees == e //- ees
+  , holds n $ \e ees -> all (isValue . fst) ees ==> e // ees == e //- ees
   , holds n $ \e ees -> e // filter (isValue . fst) ees == e //- ees
 
   -- //- ignores replacements of non-variable values
