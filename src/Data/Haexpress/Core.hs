@@ -31,12 +31,14 @@ module Data.Haexpress.Core
   , toDynamic
 
   -- * Boolean properties
+  , isValue
+  , isApp
+  , isVar
+  , isConst
   , isIllTyped
   , isWellTyped
   , hasVar
   , isGround
-  , isVar
-  , isConst
 
   -- * Comparison
   , compareComplexity
@@ -629,7 +631,7 @@ isConst  (Value _ _)        =  True
 isConst  _                  =  False
 
 -- | /O(1)/.
--- Returns whether an 'Expr' is a terminal variable.
+-- Returns whether an 'Expr' is a terminal variable ('var').
 -- (cf. 'hasVar').
 --
 -- > > isVar $ var "x" (undefined :: Int)
@@ -643,6 +645,60 @@ isConst  _                  =  False
 isVar :: Expr -> Bool
 isVar (Value ('_':_) _)  =  True
 isVar _                  =  False
+
+-- | /O(1)/.
+-- Returns whether an 'Expr' is a terminal value ('Value').
+--
+-- > > isValue $ var "x" (undefined :: Int)
+-- > True
+--
+-- > > isValue $ val False
+-- > True
+--
+-- > > isValue $ value "not" not :$ var "p" (undefined :: Bool)
+-- > False
+--
+-- This is equivalent to pattern matching the 'Value' constructor.
+--
+-- /Properties:/
+--
+-- * @ isValue (Value e)  =  True @
+--
+-- * @ isValue (e1 :$ e2)  =  False @
+--
+-- * @ isValue  =  not . isApp @
+--
+-- * @ isValue e  =  isVar e || isConst e @
+isValue :: Expr -> Bool
+isValue (Value _ _)  =  True
+isValue _            =  False
+
+-- | /O(1)/.
+-- Returns whether an 'Expr' is an application (':$').
+--
+-- > > isApp $ var "x" (undefined :: Int)
+-- > False
+--
+-- > > isApp $ val False
+-- > False
+--
+-- > > isApp $ value "not" not :$ var "p" (undefined :: Bool)
+-- > True 
+--
+-- This is equivalent to pattern matching the ':$' constructor.
+--
+-- /Properties:/
+--
+-- * @ isApp (e1 :$ e2)  =  True @
+--
+-- * @ isApp (Value e)  =  False @
+--
+-- * @ isApp  =  not . isValue @
+--
+-- * @ isApp e  =  not (isVar e) && not (isConst e) @
+isApp :: Expr -> Bool
+isApp (_ :$ _)  =  True
+isApp _         =  False
 
 -- | /O(n)/ for the spine, /O(n^2)/ for full evaluation.
 -- Lists subexpressions of a given expression in order and with repetitions.

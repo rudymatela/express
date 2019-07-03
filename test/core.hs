@@ -97,6 +97,14 @@ tests n =
 
   , holds n $ isGround === not . hasVar
 
+  -- isValue and isApp
+  , holds n $ \e1 e2  ->  isValue (e1 :$ e2)  ==  False
+  , holds n $ \e1 e2  ->  isApp   (e1 :$ e2)  ==  True
+  , holds n $ isValue === not . isApp
+  , holds n $ isApp   === not . isValue
+  , holds n $ \e  ->  isValue e  ==  (isVar e || isConst e)
+  , holds n $ \e  ->  isApp e    ==  (not (isVar e) && not (isConst e))
+
   , isVar xx == True
   , isVar yy == True
   , isVar ffE == True
