@@ -29,6 +29,7 @@ module Data.Haexpress.Instances
   , mkComparisonLT
   , mkComparison
 
+  , lookupName
   , lookupComparison
 
 -- old stuff that may go away: --
@@ -141,6 +142,11 @@ mkComparisonLT  =  mkComparison "<"
 
 mkComparisonLE :: [Expr] -> Expr -> Expr -> Maybe Expr
 mkComparisonLE  =  mkComparison "<="
+
+lookupName :: [Expr] -> Expr -> String
+lookupName is e  =  fromMaybe "x" $ eval "x" <$> findValidApp es e
+  where
+  es = [e | e@(Value "name" _) <- is]
 
 -- old stuff that may go away follows --
 
