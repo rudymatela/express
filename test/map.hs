@@ -18,6 +18,12 @@ tests n =
   , (xx -+- yy) // [(yy,yy -+- zz),(xx,xx -+- yy)]
     == (xx -+- yy) -+- (yy -+- zz)
 
+  , ((xx -+- yy) -+- (yy -+- zz)) //- [(yy,yy -+- zz)]
+    == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
+
+  , (xx -+- yy) //- [(yy,yy -+- zz),(xx,xx -+- yy)]
+    == (xx -+- yy) -+- (yy -+- zz)
+
   -- the order should not matter for //
   , holds n $ \e ee1 ee2 -> fst ee1 /= fst ee2 ==> e // [ee1, ee2] == e // [ee2, ee1]
   , holds n $ \e ees -> isNub (map fst ees) ==> e // ees == e // reverse ees
