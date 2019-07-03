@@ -226,7 +226,7 @@ preludeNameInstances =
   , nameFor (u :: (Float,Float))
   , nameFor (u :: (Double,Double))
   ]
-
-u :: a
-u  =  undefined
+  where
+  u :: a
+  u  =  undefined
 
