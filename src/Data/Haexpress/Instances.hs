@@ -8,6 +8,7 @@
 module Data.Haexpress.Instances
   ( reifyEq
   , reifyOrd
+  , reifyEqOrd
   , reifyName
 
   , mkEq
@@ -41,6 +42,9 @@ reifyEq a  =  mkEq  ((==) -:> a)
 
 reifyOrd :: (Typeable a, Ord a) => a -> [Expr]
 reifyOrd a  =  mkOrd (compare -:> a)
+
+reifyEqOrd :: (Typeable a, Ord a) => a -> [Expr]
+reifyEqOrd a  =  reifyEq a ++ reifyOrd a
 
 reifyName :: (Typeable a, Name a) => a -> [Expr]
 reifyName a  =  mkName (name -:> a)
