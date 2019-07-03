@@ -118,7 +118,7 @@ e //- s  =  mapVars (replaceBy s) e
 -- Substitute subexpressions in an expression.
 -- Larger expressions take more precedence.  <-- TODO: explain this
 (//) :: Expr -> [(Expr,Expr)] -> Expr
-e // s  =  fromMaybe r $ snd <$> find ((== e) . fst) s
+e // s  =  fromMaybe r $ lookup e s
   where
   r = case e of
       (e1 :$ e2) -> (e1 // s) :$ (e2 // s)
