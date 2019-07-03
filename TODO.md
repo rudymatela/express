@@ -3,7 +3,7 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* document and test map module
+* document and test the `Map` module
 
 * document and test recently added stuff
 
