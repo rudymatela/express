@@ -12,6 +12,12 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
+  , ((xx -*- yy) -+- (yy -*- zz)) // [(xx,ii),(yy,jj),(zz,kk)] ==
+    ((ii -*- jj) -+- (jj -*- kk))
+
+  , ((xx -*- yy) -+- (yy -*- zz)) //- [(xx,ii),(yy,jj),(zz,kk)] ==
+    ((ii -*- jj) -+- (jj -*- kk))
+
   , ((xx -+- yy) -+- (yy -+- zz)) // [(yy,yy -+- zz)]
     == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
 
