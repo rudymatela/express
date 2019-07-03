@@ -15,6 +15,7 @@ module Data.Haexpress.Map
 where
 
 import Data.Haexpress.Core
+import Data.Haexpress.Utils.List
 import Data.Maybe (fromMaybe)
 
 -- TODO: implement mapOuter
@@ -111,7 +112,7 @@ mapInner f  =  m
 -- > > ((xx -+- yy) -+- (yy -+- zz)) // [(yy, yy -+- zz)] =
 -- > (x + (y + z)) + ((y + z) + z)
 (//-) :: Expr -> [(Expr,Expr)] -> Expr
-e //- s  =  mapVars (replaceBy s) e
+e //- s  =  mapVars (flip lookupId s) e
 
 -- | /O(n+n*m)/.
 -- Substitute subexpressions in an expression.
@@ -122,7 +123,3 @@ e // s  =  fromMaybe r $ lookup e s
   r = case e of
       (e1 :$ e2) -> (e1 // s) :$ (e2 // s)
       e          -> e
-
-replaceBy :: [(Expr,Expr)] -> Expr -> Expr
-replaceBy s e = fromMaybe e $ lookup e s
--- TODO: document and test replaceBy

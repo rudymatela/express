@@ -11,13 +11,15 @@ module Data.Haexpress.Utils.List
   , isPermutationOf
   , isSubsetOf
   , isNub
-  , module Data.List
+  , lookupId
   , (+++)
+  , module Data.List
   )
 where
 
 import Data.Function (on)
 import Data.List
+import Data.Maybe (fromMaybe)
 
 -- | /O(n log n)/.
 -- Sorts and remove repetitions.
@@ -69,6 +71,17 @@ isPermutationOf  =  (==) `on` sort
 -- > isNub [2,1,2]  =  False
 isNub :: Ord a => [a] -> Bool
 isNub xs  =  length (nubSort xs) == length xs
+
+-- | /O(n)/.
+-- Like 'lookup' but returns the key itself if nothing is found.
+--
+-- > > lookupId 5 [(1,2),(3,4)]
+-- > 5
+--
+-- > > lookupId 5 [(1,2),(3,4),(5,6)]
+-- > 6
+lookupId :: Eq a => a -> [(a,a)] -> a
+lookupId x = fromMaybe x . lookup x
 
 (+++) :: Ord a => [a] -> [a] -> [a]
 (+++)  =  nubMerge
