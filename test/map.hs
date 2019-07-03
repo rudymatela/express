@@ -27,10 +27,10 @@ tests n =
 
   -- equivalences between // and //-
   , holds n $ \e ees -> all (isVar . fst) ees ==> e // ees == e //- ees
-  , holds n $ \e ees -> e // filter (isVar . fst) ees == e //- ees
+  , holds n $ \e ees -> e // filter (isValue . fst) ees == e //- ees
 
   -- //- ignores replacements of non-variable values
-  , holds n $ \e ees -> e //- filter (not . isVar . fst) ees == e
+  , holds n $ \e ees -> e //- filter (not . isValue . fst) ees == e
 
   -- (in)equivalences between maps
   , exists n $ \f e -> mapValues f e /= (mapVars f . mapConsts f) e

@@ -97,7 +97,7 @@ mapSubexprs f  =  m
 -- > > ((xx -+- yy) -+- (yy -+- zz)) // [(yy, yy -+- zz)] =
 -- > (x + (y + z)) + ((y + z) + z)
 (//-) :: Expr -> [(Expr,Expr)] -> Expr
-e //- s  =  mapVars (flip lookupId s) e
+e //- s  =  mapValues (flip lookupId s) e
 -- TODO: explain complexity above
 
 -- | /O(n+n*m)/.
