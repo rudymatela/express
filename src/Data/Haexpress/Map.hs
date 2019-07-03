@@ -106,14 +106,13 @@ mapInner f  =  m
          e1 :$ e2 -> m e1 :$ m e2
          e -> e
 
-
 -- | /O(n+m*v)/.
 -- Substitute all occurrences of variables in an expression.
 --
 -- > > ((xx -+- yy) -+- (yy -+- zz)) // [(yy, yy -+- zz)] =
 -- > (x + (y + z)) + ((y + z) + z)
 (//-) :: Expr -> [(Expr,Expr)] -> Expr
-e //- s  =  mapVars (// s) e
+e //- s  =  mapVars (replaceBy s) e
 
 -- | /O(n+n*m)/.
 -- Substitute subexpressions in an expression.
@@ -124,3 +123,7 @@ e // s  =  fromMaybe r $ snd <$> find ((== e) . fst) s
   r = case e of
       (e1 :$ e2) -> (e1 // s) :$ (e2 // s)
       e          -> e
+
+replaceBy :: [(Expr,Expr)] -> Expr -> Expr
+replaceBy s e = fromMaybe e $ snd <$> find ((e ==) . fst) s
+-- TODO: document and test replaceBy
