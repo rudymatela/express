@@ -9,6 +9,7 @@ module Data.Haexpress.Map
   ( mapValues
   , mapVars
   , mapConsts
+  , mapSubexprs
   , (//-)
   , (//)
   )
@@ -77,6 +78,19 @@ mapConsts f  =  mapValues f'
            then f e
            else e
 
+-- | /O(n)/.
+-- Substitute subexpressions of an expression.
+-- Substitutions do not stack.
+mapSubexprs :: (Expr -> Maybe Expr) -> Expr -> Expr
+mapSubexprs f  =  m
+  where
+  m e  =  fromMaybe e' (f e)
+    where
+    e'  =  case e of
+           e1 :$ e2 -> m e1 :$ m e2
+           e -> e
+-- TODO: explain non-stacking substitutions
+
 -- | /O(n+m*v)/.
 -- Substitute all occurrences of variables in an expression.
 --
@@ -84,13 +98,10 @@ mapConsts f  =  mapValues f'
 -- > (x + (y + z)) + ((y + z) + z)
 (//-) :: Expr -> [(Expr,Expr)] -> Expr
 e //- s  =  mapVars (flip lookupId s) e
+-- TODO: explain complexity above
 
 -- | /O(n+n*m)/.
 -- Substitute subexpressions in an expression.
 -- Larger expressions take more precedence.  <-- TODO: explain this
 (//) :: Expr -> [(Expr,Expr)] -> Expr
-e // s  =  fromMaybe r $ lookup e s
-  where
-  r = case e of
-      (e1 :$ e2) -> (e1 // s) :$ (e2 // s)
-      e          -> e
+e // s  =  mapSubexprs (flip lookup s) e
