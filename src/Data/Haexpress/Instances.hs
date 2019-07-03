@@ -17,6 +17,20 @@ module Data.Haexpress.Instances
   , mkName
   , mkNameWith
 
+  , isEq
+  , isOrd
+  , isEqOrd
+  , isEqT
+  , isOrdT
+  , isEqOrdT
+
+  , mkEquation
+  , mkComparisonLE
+  , mkComparisonLT
+  , mkComparison
+
+  , lookupComparison
+
 -- old stuff that may go away: --
   , eqFor
   , eqWith
@@ -27,6 +41,7 @@ module Data.Haexpress.Instances
   , exprFor
   , exprWith
   , validApps
+  , findValidApp
   , preludeNameInstances
   )
 where
@@ -93,14 +108,39 @@ mkNameWith n a  =  [value "name" (const n -:> a)]
 lookupComparison :: String -> TypeRep -> [Expr] -> Maybe Expr
 lookupComparison n' t  =  find (\i@(Value n _) -> n == n' && typ i == mkComparisonTy t)
 
-isEq :: [Expr] -> TypeRep -> Bool
-isEq is t  =  isJust $ lookupComparison "==" t is
+isEqT :: [Expr] -> TypeRep -> Bool
+isEqT is t  =  isJust $ lookupComparison "==" t is
 
-isOrd :: [Expr] -> TypeRep -> Bool
-isOrd is t  =  isJust $ lookupComparison "<=" t is
+isOrdT :: [Expr] -> TypeRep -> Bool
+isOrdT is t  =  isJust $ lookupComparison "<=" t is
 
-isEqOrd :: [Expr] -> TypeRep -> Bool
-isEqOrd is t  =  isEq is t && isOrd is t
+isEqOrdT :: [Expr] -> TypeRep -> Bool
+isEqOrdT is t  =  isEqT is t && isOrdT is t
+
+isEq :: [Expr] -> Expr -> Bool
+isEq is  =  isEqT is . typ
+
+isOrd :: [Expr] -> Expr -> Bool
+isOrd is  =  isOrdT is . typ
+
+isEqOrd :: [Expr] -> Expr -> Bool
+isEqOrd is e  =  isEq is e && isOrd is e
+
+mkComparison :: String -> [Expr] -> Expr -> Expr -> Maybe Expr
+mkComparison n' is e1 e2  =  do
+  e1e <- findValidApp os e1
+  e1e $$ e2
+  where
+  os = [eq | eq@(Value n _) <- is, n == n']
+
+mkEquation :: [Expr] -> Expr -> Expr -> Maybe Expr
+mkEquation  =  mkComparison "=="
+
+mkComparisonLT :: [Expr] -> Expr -> Expr -> Maybe Expr
+mkComparisonLT  =  mkComparison "<"
+
+mkComparisonLE :: [Expr] -> Expr -> Expr -> Maybe Expr
+mkComparisonLE  =  mkComparison "<="
 
 -- old stuff that may go away follows --
 
@@ -129,7 +169,10 @@ exprWith :: Typeable a => (a -> Expr) -> Expr
 exprWith expr  =  value "expr" expr
 
 validApps :: [Expr] -> Expr -> [Expr]
-validApps es e = mapMaybe ($$ e) es
+validApps es e  =  mapMaybe ($$ e) es
+
+findValidApp :: [Expr] -> Expr -> Maybe Expr
+findValidApp es  =  listToMaybe . validApps es
 
 (-:>) :: (a -> b) -> a -> (a -> b)
 (-:>)  =  const
