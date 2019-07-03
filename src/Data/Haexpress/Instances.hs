@@ -34,8 +34,12 @@ where
 import Data.Haexpress.Core
 import Data.Haexpress.Name
 import Data.Haexpress.Express
-import Data.Typeable
+import Data.Haexpress.Utils.Typeable
+import Data.Haexpress.Utils.List
 import Data.Maybe
+
+
+-- reifying instances --
 
 reifyEq :: (Typeable a, Eq a) => a -> [Expr]
 reifyEq a  =  mkEq  ((==) -:> a)
@@ -83,6 +87,20 @@ mkName name  =  [value "name" name]
 mkNameWith :: Typeable a => String -> a -> [Expr]
 mkNameWith n a  =  [value "name" (const n -:> a)]
 
+
+-- searching for functions --
+
+lookupComparison :: String -> TypeRep -> [Expr] -> Maybe Expr
+lookupComparison n' t  =  find (\i@(Value n _) -> n == n' && typ i == mkComparisonTy t)
+
+isEq :: [Expr] -> TypeRep -> Bool
+isEq is t  =  isJust $ lookupComparison "==" t is
+
+isOrd :: [Expr] -> TypeRep -> Bool
+isOrd is t  =  isJust $ lookupComparison "<=" t is
+
+isEqOrd :: [Expr] -> TypeRep -> Bool
+isEqOrd is t  =  isEq is t && isOrd is t
 
 -- old stuff that may go away follows --
 
