@@ -19,11 +19,11 @@ tests n =
   , show (one -+- two -*- three)   == "1 + 2 * 3 :: Int"
   , show ((one -+- two) -*- three) == "(1 + 2) * 3 :: Int"
 
-  , show plusE == "(+) :: Int -> Int -> Int"
-  , show timesE == "(*) :: Int -> Int -> Int"
+  , show plus == "(+) :: Int -> Int -> Int"
+  , show times == "(*) :: Int -> Int -> Int"
 
-  , show (plusE :$ one) == "(1 +) :: Int -> Int"
-  , show (timesE :$ (minusOne -+- two)) == "(((-1) + 2) *) :: Int -> Int"
+  , show (plus :$ one) == "(1 +) :: Int -> Int"
+  , show (times :$ (minusOne -+- two)) == "(((-1) + 2) *) :: Int -> Int"
 
   -- TODO: make the following work
   -- (It didn't work on Speculate anyway...)

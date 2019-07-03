@@ -13,6 +13,6 @@ tests n =
   , evl (val (10 :: Int)) == (10 :: Int)
   , evl one == (1 :: Int)
   , holds n $ \x y -> evl (value "+" ((+) :: Int -> Int -> Int) :$ val x :$ val y) == (x + y :: Int)
-  , values (xx -+- yy) == [plusE, xx, yy]
+  , values (xx -+- yy) == [plus, xx, yy]
   , (xx -+- yy) // [(yy,yy -+- zz),(xx,xx -+- yy)] == (xx -+- yy) -+- (yy -+- zz)
   ]

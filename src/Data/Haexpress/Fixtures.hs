@@ -16,7 +16,7 @@ module Data.Haexpress.Fixtures
   --
   -- * Terminal values are named in words (e.g.: 'zero', 'bee', 'cee', 'dee', 'false').
   -- * Variables have the first character duplicated (e.g.: 'xx', 'yy', 'xxs');
-  -- * Encoded functions are followed by @E@ (e.g.: 'idE', 'plusE');
+  -- * Encoded functions are followed by @E@ (e.g.: 'idE', 'plus');
   -- * Lifted functions are primed (e.g.: 'id'', 'negate'');
   -- * Lifted operators are surrounded by dashes (e.g.: '-+-', '-*-').
 
@@ -37,7 +37,7 @@ module Data.Haexpress.Fixtures
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
   , id', const', negate', abs'
-  , plusE, timesE
+  , plus, times
   , (-+-), (-*-)
   , ff, ffE
   , gg, ggE
@@ -344,7 +344,7 @@ ex -?- ey  =  fromMaybe err $ ($$ ey) $ headOr err $ mapMaybe ($$ ex)
 ggE :: Expr
 ggE = var "g" (undefined :: Int -> Int)
 
--- | The operator '+' for the 'Int' type for use on 'Expr's.  (See also 'plusE'.)
+-- | The operator '+' for the 'Int' type for use on 'Expr's.  (See also 'plus'.)
 --
 -- > > two -+- three
 -- > 2 + 3 :: Int
@@ -355,23 +355,23 @@ ggE = var "g" (undefined :: Int -> Int)
 -- > > xx -+- (yy -+- zz)
 -- > x + (y + z) :: Int
 (-+-) :: Expr -> Expr -> Expr
-e1 -+- e2 = plusE :$ e1 :$ e2
+e1 -+- e2 = plus :$ e1 :$ e2
 infixl 6 -+-
 
 -- | The operator '+' for the 'Int' type.  (See also '-+-'.)
 --
--- > > plusE
+-- > > plus
 -- > (+) :: Int -> Int -> Int
 --
--- > > plusE :$ one
+-- > > plus :$ one
 -- > (1 +) :: Int -> Int
 --
--- > > plusE :$ xx :$ yy
+-- > > plus :$ xx :$ yy
 -- > x + y :: Int
-plusE :: Expr
-plusE = value "+" ((+) :: Int -> Int -> Int)
+plus :: Expr
+plus = value "+" ((+) :: Int -> Int -> Int)
 
--- | The operator '*' for the 'Int' type lifted over the 'Expr' type.  (See also 'timesE'.)
+-- | The operator '*' for the 'Int' type lifted over the 'Expr' type.  (See also 'times'.)
 --
 -- > > three -*- three
 -- > 9 :: Int
@@ -382,20 +382,20 @@ plusE = value "+" ((+) :: Int -> Int -> Int)
 -- > > two -*- xx
 -- > 2 * x :: Int
 (-*-) :: Expr -> Expr -> Expr
-e1 -*- e2 = timesE :$ e1 :$ e2
+e1 -*- e2 = times :$ e1 :$ e2
 
 -- | The operator '*' for the 'Int' type.  (See also '-*-'.)
 --
--- > > timesE
+-- > > times
 -- > (*) :: Int -> Int -> Int
 --
--- > > timesE :$ two
+-- > > times :$ two
 -- > (2 *) :: Int -> Int
 --
--- > > timesE :$ xx :$ yy
+-- > > times :$ xx :$ yy
 -- > x * y :: Int
-timesE :: Expr
-timesE  =  value "*" ((*) :: Int -> Int -> Int)
+times :: Expr
+times  =  value "*" ((*) :: Int -> Int -> Int)
 
 -- | Constructs an application of 'id' as an 'Expr'.
 --   Only works for 'Int', 'Bool', 'Char', 'String', @[Int]@, @[Bool]@.

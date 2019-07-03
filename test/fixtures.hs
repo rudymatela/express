@@ -49,10 +49,10 @@ tests n =
   , show two == "2 :: Int"
   , show minusOne == "-1 :: Int"
 
-  , show plusE == "(+) :: Int -> Int -> Int"
-  , show timesE == "(*) :: Int -> Int -> Int"
-  , show (plusE :$ one) == "(1 +) :: Int -> Int"
-  , show (timesE :$ two) == "(2 *) :: Int -> Int"
+  , show plus == "(+) :: Int -> Int -> Int"
+  , show times == "(*) :: Int -> Int -> Int"
+  , show (plus :$ one) == "(1 +) :: Int -> Int"
+  , show (times :$ two) == "(2 *) :: Int -> Int"
 
   , show (one -+- one)             == "1 + 1 :: Int"
   , show (minusOne -+- minusOne)   == "(-1) + (-1) :: Int"

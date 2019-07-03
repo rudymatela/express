@@ -126,16 +126,16 @@ tests n =
   , isConst absE == True
   , isConst (one -+- two) == False
 
-  , values (xx -+- yy) == [plusE, xx, yy]
-  , values (xx -+- (yy -+- zz)) == [plusE, xx, plusE, yy, zz]
-  , values ((xx -+- yy) -+- zz) == [plusE, plusE, xx, yy, zz]
-  , values (zero -+- (one -*- two)) == [plusE, zero, timesE, one, two]
+  , values (xx -+- yy) == [plus, xx, yy]
+  , values (xx -+- (yy -+- zz)) == [plus, xx, plus, yy, zz]
+  , values ((xx -+- yy) -+- zz) == [plus, plus, xx, yy, zz]
+  , values (zero -+- (one -*- two)) == [plus, zero, times, one, two]
   , values (pp -&&- true) == [andE, pp, true]
 
   , subexprs (xx -+- yy) ==
       [ xx -+- yy
-      , plusE :$ xx
-      , plusE
+      , plus :$ xx
+      , plus
       , xx
       , yy
       ]
@@ -153,8 +153,8 @@ tests n =
   , nubSubexprs (xx -+- yy) ==
       [ xx
       , yy
-      , plusE
-      , plusE :$ xx
+      , plus
+      , plus :$ xx
       , xx -+- yy
       ]
   , nubSubexprs (pp -&&- (pp -&&- true)) ==
@@ -195,8 +195,8 @@ tests n =
   , arity zero == 0
   , arity xx == 0
   , arity absE == 1
-  , arity plusE == 2
-  , arity timesE == 2
+  , arity plus == 2
+  , arity times == 2
 
   , size zero == 1
   , size (one -+- two) == 3

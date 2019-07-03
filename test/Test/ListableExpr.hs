@@ -132,7 +132,7 @@ instance Listable IntToIntE where
          \/ toTiers (map (`var` (undefined :: Int -> Int)) ["f", "g", "h", "f'"]) `addWeight` 2 -- TODO: infinite list
 
 instance Listable IntToIntToIntE where
-  list  =  map IntToIntToIntE [plusE, timesE]
+  list  =  map IntToIntToIntE [plus, times]
 
 instance Listable IntsE  where
   tiers  =  mapT IntsE
