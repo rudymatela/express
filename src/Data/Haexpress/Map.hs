@@ -15,7 +15,6 @@ module Data.Haexpress.Map
 where
 
 import Data.Haexpress.Core
-import Data.List (find)
 import Data.Maybe (fromMaybe)
 
 -- TODO: implement mapOuter
@@ -125,5 +124,5 @@ e // s  =  fromMaybe r $ lookup e s
       e          -> e
 
 replaceBy :: [(Expr,Expr)] -> Expr -> Expr
-replaceBy s e = fromMaybe e $ snd <$> find ((e ==) . fst) s
+replaceBy s e = fromMaybe e $ lookup e s
 -- TODO: document and test replaceBy
