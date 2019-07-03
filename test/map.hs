@@ -66,10 +66,17 @@ tests n =
 
   -- tests of // and //-
   , ((xx -*- yy) -+- (yy -*- zz)) // [(xx,ii),(yy,jj),(zz,kk)] ==
-    ((ii -*- jj) -+- (jj -*- kk))
+    (ii -*- jj) -+- (jj -*- kk)
 
   , ((xx -*- yy) -+- (yy -*- zz)) //- [(xx,ii),(yy,jj),(zz,kk)] ==
-    ((ii -*- jj) -+- (jj -*- kk))
+    (ii -*- jj) -+- (jj -*- kk)
+
+  , ((xx -*- yy) -+- (yy -*- zz)) // [(xx -*- yy,ii),(yy -*- zz,jj)] ==
+    ii -+- jj
+
+  , ((xx -*- yy) -+- (yy -*- zz)) //- [(xx -*- yy,ii),(yy -*- zz,jj)] ==
+    (xx -*- yy) -+- (yy -*- zz)
+
 
   , ((xx -+- yy) -+- (yy -+- zz)) // [(yy,yy -+- zz)]
     == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
