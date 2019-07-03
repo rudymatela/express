@@ -12,24 +12,6 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , ((xx -*- yy) -+- (yy -*- zz)) // [(xx,ii),(yy,jj),(zz,kk)] ==
-    ((ii -*- jj) -+- (jj -*- kk))
-
-  , ((xx -*- yy) -+- (yy -*- zz)) //- [(xx,ii),(yy,jj),(zz,kk)] ==
-    ((ii -*- jj) -+- (jj -*- kk))
-
-  , ((xx -+- yy) -+- (yy -+- zz)) // [(yy,yy -+- zz)]
-    == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
-
-  , (xx -+- yy) // [(yy,yy -+- zz),(xx,xx -+- yy)]
-    == (xx -+- yy) -+- (yy -+- zz)
-
-  , ((xx -+- yy) -+- (yy -+- zz)) //- [(yy,yy -+- zz)]
-    == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
-
-  , (xx -+- yy) //- [(yy,yy -+- zz),(xx,xx -+- yy)]
-    == (xx -+- yy) -+- (yy -+- zz)
-
   -- the order should not matter for //
   , holds n $ \e ee1 ee2 -> fst ee1 /= fst ee2 ==> e // [ee1, ee2] == e // [ee2, ee1]
   , holds n $ \e ees -> isNub (map fst ees) ==> e // ees == e // reverse ees
@@ -81,6 +63,25 @@ tests n =
   , holds n $ \f e -> values (mapValues f e) == concatMap (values . f) (values e)
   , holds n $ \f e -> vars   (mapVars   f e) == concatMap (vars   . f) (vars   e)
   , holds n $ \f e -> consts (mapConsts f e) == concatMap (consts . f) (consts e)
+
+  -- tests of // and //-
+  , ((xx -*- yy) -+- (yy -*- zz)) // [(xx,ii),(yy,jj),(zz,kk)] ==
+    ((ii -*- jj) -+- (jj -*- kk))
+
+  , ((xx -*- yy) -+- (yy -*- zz)) //- [(xx,ii),(yy,jj),(zz,kk)] ==
+    ((ii -*- jj) -+- (jj -*- kk))
+
+  , ((xx -+- yy) -+- (yy -+- zz)) // [(yy,yy -+- zz)]
+    == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
+
+  , ((xx -+- yy) -+- (yy -+- zz)) //- [(yy,yy -+- zz)]
+    == (xx -+- (yy -+- zz)) -+- ((yy -+- zz) -+- zz)
+
+  , (xx -+- yy) // [(yy,yy -+- zz),(xx,xx -+- yy)]
+    == (xx -+- yy) -+- (yy -+- zz)
+
+  , (xx -+- yy) //- [(yy,yy -+- zz),(xx,xx -+- yy)]
+    == (xx -+- yy) -+- (yy -+- zz)
   ]
 
 mapFst :: (a -> c) -> (a,b) -> (c,b)
