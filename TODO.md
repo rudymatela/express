@@ -3,8 +3,6 @@ TO DO list for haexpress
 
 List of things TO DO for haexpress
 
-* use new `Instances` on Speculate
-
 * document and test the `Instances` module
 
 * document and test recently added stuff
