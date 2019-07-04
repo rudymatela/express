@@ -1,5 +1,6 @@
 -- Copyright (c) 2017-2018 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
+{-# LANGUAGE NoMonomorphismRestriction #-} -- ACK!
 import Test
 
 main :: IO ()
@@ -21,14 +22,19 @@ tests n =
   , eval undefined (nameFor (undefined :: Bool) :$ pp) == "p"
   , eval undefined (nameFor (undefined :: Bool) :$ qq) == "p"
 
-  , length (validApps functions one) == 3
+  , length (validApps functions one) == 6
   ]
+  where
+  eqFor = head . reifyEq
+  compareFor = head . reifyOrd
+  nameFor = head . reifyName
 
 functions :: [Expr]
-functions  =  [ eqFor (undefined :: Int)
-              , eqFor (undefined :: Bool)
-              , compareFor (undefined :: Int)
-              , compareFor (undefined :: Bool)
-              , nameFor (undefined :: Int)
-              , nameFor (undefined :: Bool)
-              ]
+functions  =  concat
+  [ reifyEq (undefined :: Int)
+  , reifyEq (undefined :: Bool)
+  , reifyOrd (undefined :: Int)
+  , reifyOrd (undefined :: Bool)
+  , reifyName (undefined :: Int)
+  , reifyName (undefined :: Bool)
+  ]

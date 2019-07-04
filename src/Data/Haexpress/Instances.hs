@@ -34,17 +34,9 @@ module Data.Haexpress.Instances
   , lookupName
   , lookupNames
 
--- old stuff that may go away: --
-  , eqFor
-  , eqWith
-  , compareFor
-  , compareWith
-  , nameFor
-  , nameWith
-  , exprFor
-  , exprWith
   , validApps
   , findValidApp
+
   , preludeNameInstances
   )
 where
@@ -72,6 +64,8 @@ reifyEqOrd a  =  reifyEq a ++ reifyOrd a
 
 reifyName :: (Typeable a, Name a) => a -> [Expr]
 reifyName a  =  mkName (name -:> a)
+
+-- todo: reifyExpr and related functions
 
 mkEq :: Typeable a => (a -> a -> Bool) -> [Expr]
 mkEq (==)  =
@@ -158,31 +152,8 @@ lookupNames is  =  variableNamesFromTemplate . lookupName is
 listVarsWith :: [Expr] -> Expr -> [Expr]
 listVarsWith is e  =  lookupName is e `listVarsAsTypeOf` e
 
--- old stuff that may go away follows --
 
-eqFor :: (Typeable a, Eq a) => a -> Expr
-eqFor a  =  eqWith ((==) -:> a)
-
-eqWith :: Typeable a => (a -> a -> Bool) -> Expr
-eqWith (==)  =  value "==" (==)
-
-compareFor :: (Typeable a, Ord a) => a -> Expr
-compareFor a  =  compareWith (compare -:> a)
-
-compareWith :: Typeable a => (a -> a -> Ordering) -> Expr
-compareWith compare  =  value "compare" compare
-
-nameFor :: (Typeable a, Name a) => a -> Expr
-nameFor a  =  nameWith (name -:> a)
-
-nameWith :: Typeable a => (a -> String) -> Expr
-nameWith name  =  value "name" name
-
-exprFor :: (Typeable a, Express a) => a -> Expr
-exprFor a  =  exprWith (expr -:> a)
-
-exprWith :: Typeable a => (a -> Expr) -> Expr
-exprWith expr  =  value "expr" expr
+-- helpers --
 
 validApps :: [Expr] -> Expr -> [Expr]
 validApps es e  =  mapMaybe ($$ e) es
@@ -194,47 +165,50 @@ findValidApp es  =  listToMaybe . validApps es
 (-:>)  =  const
 infixl 1 -:>
 
+
+-- reified instances --
+
 preludeNameInstances :: [Expr]
-preludeNameInstances =
-  [ nameFor (u :: ())
-  , nameFor (u :: Bool)
-  , nameFor (u :: Int)
-  , nameFor (u :: Integer)
-  , nameFor (u :: Char)
-  , nameFor (u :: Ordering)
-  , nameFor (u :: Rational)
-  , nameFor (u :: Float)
-  , nameFor (u :: Double)
+preludeNameInstances = concat
+  [ reifyName (u :: ())
+  , reifyName (u :: Bool)
+  , reifyName (u :: Int)
+  , reifyName (u :: Integer)
+  , reifyName (u :: Char)
+  , reifyName (u :: Ordering)
+  , reifyName (u :: Rational)
+  , reifyName (u :: Float)
+  , reifyName (u :: Double)
 
-  , nameFor (u :: [()])
-  , nameFor (u :: [Bool])
-  , nameFor (u :: [Int])
-  , nameFor (u :: [Integer])
-  , nameFor (u :: [Char])
-  , nameFor (u :: [Ordering])
-  , nameFor (u :: [Rational])
-  , nameFor (u :: [Float])
-  , nameFor (u :: [Double])
+  , reifyName (u :: [()])
+  , reifyName (u :: [Bool])
+  , reifyName (u :: [Int])
+  , reifyName (u :: [Integer])
+  , reifyName (u :: [Char])
+  , reifyName (u :: [Ordering])
+  , reifyName (u :: [Rational])
+  , reifyName (u :: [Float])
+  , reifyName (u :: [Double])
 
-  , nameFor (u :: Maybe ())
-  , nameFor (u :: Maybe Bool)
-  , nameFor (u :: Maybe Int)
-  , nameFor (u :: Maybe Integer)
-  , nameFor (u :: Maybe Char)
-  , nameFor (u :: Maybe Ordering)
-  , nameFor (u :: Maybe Rational)
-  , nameFor (u :: Maybe Float)
-  , nameFor (u :: Maybe Double)
+  , reifyName (u :: Maybe ())
+  , reifyName (u :: Maybe Bool)
+  , reifyName (u :: Maybe Int)
+  , reifyName (u :: Maybe Integer)
+  , reifyName (u :: Maybe Char)
+  , reifyName (u :: Maybe Ordering)
+  , reifyName (u :: Maybe Rational)
+  , reifyName (u :: Maybe Float)
+  , reifyName (u :: Maybe Double)
 
-  , nameFor (u :: ((),()))
-  , nameFor (u :: (Bool,Bool))
-  , nameFor (u :: (Int,Int))
-  , nameFor (u :: (Integer,Integer))
-  , nameFor (u :: (Char,Char))
-  , nameFor (u :: (Ordering,Ordering))
-  , nameFor (u :: (Rational,Rational))
-  , nameFor (u :: (Float,Float))
-  , nameFor (u :: (Double,Double))
+  , reifyName (u :: ((),()))
+  , reifyName (u :: (Bool,Bool))
+  , reifyName (u :: (Int,Int))
+  , reifyName (u :: (Integer,Integer))
+  , reifyName (u :: (Char,Char))
+  , reifyName (u :: (Ordering,Ordering))
+  , reifyName (u :: (Rational,Rational))
+  , reifyName (u :: (Float,Float))
+  , reifyName (u :: (Double,Double))
   ]
   where
   u :: a
