@@ -48,6 +48,8 @@ module Data.Haexpress.Instances
   )
 where
 
+-- TODO: document and test functions of the Instances module
+
 import Data.Haexpress.Basic
 import Data.Haexpress.Name
 import Data.Haexpress.Express

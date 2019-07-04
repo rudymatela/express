@@ -80,6 +80,8 @@ nubHoles  =  nubSort . holes
 
 listVars :: Typeable a => String -> a -> [Expr]
 listVars s a  =  map (`var` a) (variableNamesFromTemplate s)
+-- TODO: document and test listVars
 
 listVarsAsTypeOf :: String -> Expr -> [Expr]
 listVarsAsTypeOf s e  =  map (`varAsTypeOf` e) (variableNamesFromTemplate s)
+-- TODO: document and test listVarsAsTypeOf
