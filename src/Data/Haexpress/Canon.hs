@@ -36,8 +36,6 @@ canonicalizationWith namesFor e = cr (vars e) []
 isCanonicalWith :: (Expr -> [String]) -> Expr -> Bool
 isCanonicalWith ti e = canonicalizeWith ti e == e
 
--- TODO: use default name instances below instead of defNames
-
 canonicalize :: Expr -> Expr
 canonicalize = canonicalizeWith names'
 
@@ -49,6 +47,6 @@ isCanonical = isCanonicalWith names'
 
 -- 'names' lifted over the 'Expr' type for a handful of prelude Name instances.
 names' :: Expr -> [String]
-names' e = namesFromTemplate $ case validApps preludeNameInstances e of
+names' e = variableNamesFromTemplate $ case validApps preludeNameInstances e of
   (e':_) -> eval "i" e'
   _      -> "i"

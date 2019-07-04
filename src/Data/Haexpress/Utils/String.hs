@@ -17,6 +17,8 @@ module Data.Haexpress.Utils.String
   , isInfix, isPrefix, isInfixedPrefix
   , toPrefix
   , prec
+  , variableNamesFromTemplate
+  , primeCycle
   )
 where
 
@@ -137,3 +139,18 @@ isInfixedPrefix _                  = False
 toPrefix :: String -> String
 toPrefix ('`':cs) = init cs
 toPrefix cs = '(':cs ++ ")"
+
+primeCycle :: [String] -> [String]
+primeCycle []  =  []
+primeCycle ss  =  ss ++ map (++ "'") (primeCycle ss)
+
+variableNamesFromTemplate :: String -> [String]
+variableNamesFromTemplate  =  primeCycle . f
+  where
+  f ""                          =  f "x"
+  f cs    | isDigit (last cs)   =  map (\n -> init cs ++ show n) [digitToInt (last cs)..]
+  f [c]                         =  map ((:[]) . chr) [x,x+1,x+2] where x = ord c
+  f cs    | last cs == 's'      =  (++ "s") <$> f (init cs)
+  f "xy"                        =  ["xy","zw"]
+  f [c,d] | ord d - ord c == 1  =  [[c,d], [chr $ ord c + 2, chr $ ord d + 2]]
+  f cs                          =  [cs]
