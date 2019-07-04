@@ -51,6 +51,7 @@ library
                      , Data.Haexpress.Express
                      , Data.Haexpress.Fixtures
                      , Data.Haexpress.Fold
+                     , Data.Haexpress.Hole
                      , Data.Haexpress.Instances
                      , Data.Haexpress.Name
                      , Data.Haexpress.Canon
