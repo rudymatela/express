@@ -6,7 +6,9 @@
 --
 -- Defines utilities for folding and unfolding 'Expr's.
 module Data.Haexpress.Fold
-  ( foldPair
+  ( fold
+  , unfold
+  , foldPair
   , unfoldPair
   , unfoldApp
   )
@@ -28,10 +30,29 @@ foldPair (e1,e2)  =  value "," (undefined :: ExprPair) :$ e1 :$ e2
 -- TODO: document foldPair
 
 -- note this is intended to undo the effect of foldPair
+-- also works on welltyped pairs
+--
+-- does not work when the function being applied is explicitly prefixed @(,)@
+-- ... maybe I should change that?
 unfoldPair :: Expr -> (Expr,Expr)
 unfoldPair (Value "," _ :$ e1 :$ e2) = (e1,e2)
 unfoldPair _  =  error "unpair: not an Expr pair"
 -- TODO: document unfoldPair
+
+data ExprList = ExprList
+
+-- note this will generate an ill-typed list expression
+-- also works on welltyped lists
+fold :: [Expr] -> Expr
+fold []      =  value "[]" ExprList
+fold (e:es)  =  value ":"  ExprList :$ e :$ fold es
+-- TODO: document fold
+
+unfold :: Expr -> [Expr]
+unfold   (Value "[]" _)               =  []
+unfold (((Value ":"  _) :$ e) :$ es)  =  e : unfold es
+unfold e  =  error $ "unfold: cannot unfold expression: " ++ show e
+-- TODO: document unfold
 
 -- TODO: remove the following comment section eventually
 --
