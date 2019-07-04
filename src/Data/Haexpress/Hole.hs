@@ -10,6 +10,8 @@ module Data.Haexpress.Hole
   (
   -- * Creating variables
     varAsTypeOf
+  , listVars
+  , listVarsAsTypeOf
 
   -- * Typed holes
   , hole
@@ -26,6 +28,7 @@ import Data.Dynamic
 import Data.Maybe (fromMaybe)
 import Data.Haexpress.Utils.Typeable (tyArity)
 import Data.Haexpress.Utils.List (nubSort)
+import Data.Haexpress.Utils.String (variableNamesFromTemplate)
 
 -- | /O(1)/.
 -- Creates a 'var'iable with the same type as the given 'Expr'.
@@ -74,3 +77,9 @@ nubHoles :: Expr -> [Expr]
 nubHoles  =  nubSort . holes
 -- TODO: document and test nubHoles
 -- TODO: property nubHoles `isSubsetOf` holes
+
+listVars :: Typeable a => String -> a -> [Expr]
+listVars s a  =  map (`var` a) (variableNamesFromTemplate s)
+
+listVarsAsTypeOf :: String -> Expr -> [Expr]
+listVarsAsTypeOf s e  =  map (`varAsTypeOf` e) (variableNamesFromTemplate s)
