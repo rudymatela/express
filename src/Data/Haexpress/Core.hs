@@ -460,7 +460,7 @@ showExpr = showPrecExpr 0
 --
 --   This instance works for ill-typed expressions.
 instance Eq Expr where
-  Value s1 d1 == Value s2 d2  =  dynTypeRep d1 == dynTypeRep d2 && s1 == s2
+  Value s1 d1 == Value s2 d2  =  s1 == s2 && dynTypeRep d1 == dynTypeRep d2
   ef1 :$ ex1  == ef2 :$ ex2   =  ef1 == ef2 && ex1 == ex2
   _           == _            =  False
 
