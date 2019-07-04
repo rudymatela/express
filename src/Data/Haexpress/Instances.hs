@@ -28,9 +28,10 @@ module Data.Haexpress.Instances
   , mkComparisonLE
   , mkComparisonLT
   , mkComparison
-
-  , lookupName
   , lookupComparison
+
+  , listVarsWith
+  , lookupName
 
 -- old stuff that may go away: --
   , eqFor
@@ -47,7 +48,7 @@ module Data.Haexpress.Instances
   )
 where
 
-import Data.Haexpress.Core
+import Data.Haexpress.Basic
 import Data.Haexpress.Name
 import Data.Haexpress.Express
 import Data.Haexpress.Utils.Typeable
@@ -147,6 +148,9 @@ lookupName :: [Expr] -> Expr -> String
 lookupName is e  =  fromMaybe "x" $ eval "x" <$> findValidApp es e
   where
   es = [e | e@(Value "name" _) <- is]
+
+listVarsWith :: [Expr] -> Expr -> [Expr]
+listVarsWith is e  =  lookupName is e `listVarsAsTypeOf` e
 
 -- old stuff that may go away follows --
 
