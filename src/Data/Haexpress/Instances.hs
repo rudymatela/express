@@ -32,6 +32,7 @@ module Data.Haexpress.Instances
 
   , listVarsWith
   , lookupName
+  , lookupNames
 
 -- old stuff that may go away: --
   , eqFor
@@ -150,6 +151,9 @@ lookupName :: [Expr] -> Expr -> String
 lookupName is e  =  fromMaybe "x" $ eval "x" <$> findValidApp es e
   where
   es = [e | e@(Value "name" _) <- is]
+
+lookupNames :: [Expr] -> Expr -> [String]
+lookupNames is  =  variableNamesFromTemplate . lookupName is
 
 listVarsWith :: [Expr] -> Expr -> [Expr]
 listVarsWith is e  =  lookupName is e `listVarsAsTypeOf` e
