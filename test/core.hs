@@ -246,4 +246,9 @@ tests n =
   , nubConsts ((zero -+- abs' zero) -+- (ord' ae -+- ord' cc))
       =$ sort $= [zero, ae, absE, plus, ordE]
   , holds n $ \e1 e2 -> times `elem` consts (e1 -*- e2)
+
+  , vars (xx -+- yy) == [xx, yy]
+  , nubVars (xx -+- xx) == [xx]
+  , nubVars (xx -+- xx -+- yy) == [xx, yy]
+  , nubVars (yy -+- xx -+- yy) == [xx, yy]
   ]
