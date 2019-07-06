@@ -64,6 +64,8 @@ module Data.Haexpress.Fixtures
   , (-++-)
   , head'
   , tail'
+  , sort'
+  , insert'
 
   , (-|-)
   , triple
@@ -77,6 +79,7 @@ import Data.Haexpress
 import Data.Maybe
 import Data.Typeable (Typeable, typeOf)
 import Data.Char
+import Data.List
 
 int :: Int
 int  =  undefined
@@ -696,6 +699,24 @@ tail' exs = headOr err $ mapMaybe ($$ exs)
   ]
   where
   err  =  error $ "tail': unhandled type " ++ show (typ exs)
+
+sort' :: Expr -> Expr
+sort' exs = headOr err $ mapMaybe ($$ exs)
+  [ value "sort" (sort :: [Int] -> [Int])
+  , value "sort" (sort :: [Char] -> [Char])
+  , value "sort" (sort :: [Bool] -> [Bool])
+  ]
+  where
+  err  =  error $ "sort': unhandled type " ++ show (typ exs)
+
+insert' :: Expr -> Expr -> Expr
+insert' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
+  [ value "insert" (insert :: Int -> [Int] -> [Int])
+  , value "insert" (insert :: Bool -> [Bool] -> [Bool])
+  , value "insert" (insert :: Char -> String -> String)
+  ]
+  where
+  err  =  error $ "insert': unhandled type " ++ show (typ ex)
 
 (-$-) :: Expr -> Expr -> Expr
 ef -$- ex = (:$ ex) . headOr err $ mapMaybe ($$ ef)

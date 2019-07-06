@@ -1,5 +1,5 @@
 isNub (list :: [Expr])  =  True
-map length (tiers :: [[ Expr ]])  =  [1,6,20,51,152,536,...]
+map length (tiers :: [[ Expr ]])  =  [1,6,20,52,162,597,...]
 tiers :: [[ Expr ]]  =
   [ [_ :: Int]
   , [ x :: Int
@@ -75,6 +75,7 @@ tiers :: [[ Expr ]]  =
     , 0:_ :: [Int]
     , id _:_ :: [Int]
     , tail _ :: [Int]
+    , _ ++ _ :: [Int]
     , negate :: Int -> Int
     , abs :: Int -> Int
     , (_ +) :: Int -> Int
@@ -176,6 +177,7 @@ tiers :: [[ Expr ]]  =
     , head (0:_) :: Int
     , head (id _:_) :: Int
     , head (tail _) :: Int
+    , head (_ ++ _) :: Int
     , r :: Bool
     , not q :: Bool
     , not (not p) :: Bool
@@ -206,6 +208,7 @@ tiers :: [[ Expr ]]  =
     , _:0:_ :: [Int]
     , _:id _:_ :: [Int]
     , _:tail _ :: [Int]
+    , _:(_ ++ _) :: [Int]
     , x:xs :: [Int]
     , [x] :: [Int]
     , x:_:_ :: [Int]
@@ -227,6 +230,14 @@ tiers :: [[ Expr ]]  =
     , tail xs :: [Int]
     , tail [] :: [Int]
     , tail (_:_) :: [Int]
+    , _ ++ xs :: [Int]
+    , _ ++ [] :: [Int]
+    , _ ++ (_:_) :: [Int]
+    , xs ++ _ :: [Int]
+    , [] ++ _ :: [Int]
+    , (_:_) ++ _ :: [Int]
+    , sort _ :: [Int]
+    , insert _ _ :: [Int]
     , (x +) :: Int -> Int
     , (0 +) :: Int -> Int
     , (id _ +) :: Int -> Int
@@ -330,6 +341,7 @@ tiers :: [[ Expr ]]  =
     , id (head (0:_)) :: Int
     , id (head (id _:_)) :: Int
     , id (head (tail _)) :: Int
+    , id (head (_ ++ _)) :: Int
     , negate z :: Int
     , negate (-1) :: Int
     , negate (id y) :: Int
@@ -548,6 +560,7 @@ tiers :: [[ Expr ]]  =
     , head (_:0:_) :: Int
     , head (_:id _:_) :: Int
     , head (_:tail _) :: Int
+    , head (_:(_ ++ _)) :: Int
     , head (x:xs) :: Int
     , head [x] :: Int
     , head (x:_:_) :: Int
@@ -569,6 +582,14 @@ tiers :: [[ Expr ]]  =
     , head (tail xs) :: Int
     , head (tail []) :: Int
     , head (tail (_:_)) :: Int
+    , head (_ ++ xs) :: Int
+    , head (_ ++ []) :: Int
+    , head (_ ++ (_:_)) :: Int
+    , head (xs ++ _) :: Int
+    , head ([] ++ _) :: Int
+    , head ((_:_) ++ _) :: Int
+    , head (sort _) :: Int
+    , head (insert _ _) :: Int
     , p' :: Bool
     , not r :: Bool
     , not (not q) :: Bool
@@ -641,6 +662,7 @@ tiers :: [[ Expr ]]  =
     , _:_:0:_ :: [Int]
     , _:_:id _:_ :: [Int]
     , _:_:tail _ :: [Int]
+    , _:_:(_ ++ _) :: [Int]
     , _:x:xs :: [Int]
     , [_,x] :: [Int]
     , _:x:_:_ :: [Int]
@@ -662,6 +684,14 @@ tiers :: [[ Expr ]]  =
     , _:tail xs :: [Int]
     , _:tail [] :: [Int]
     , _:tail (_:_) :: [Int]
+    , _:(_ ++ xs) :: [Int]
+    , _:(_ ++ []) :: [Int]
+    , _:(_ ++ (_:_)) :: [Int]
+    , _:(xs ++ _) :: [Int]
+    , _:([] ++ _) :: [Int]
+    , _:((_:_) ++ _) :: [Int]
+    , _:sort _ :: [Int]
+    , _:insert _ _ :: [Int]
     , x:ys :: [Int]
     , [x,0] :: [Int]
     , x:_:xs :: [Int]
@@ -671,6 +701,7 @@ tiers :: [[ Expr ]]  =
     , x:0:_ :: [Int]
     , x:id _:_ :: [Int]
     , x:tail _ :: [Int]
+    , x:(_ ++ _) :: [Int]
     , 0:ys :: [Int]
     , [0,0] :: [Int]
     , 0:_:xs :: [Int]
@@ -680,6 +711,7 @@ tiers :: [[ Expr ]]  =
     , 0:0:_ :: [Int]
     , 0:id _:_ :: [Int]
     , 0:tail _ :: [Int]
+    , 0:(_ ++ _) :: [Int]
     , id _:ys :: [Int]
     , [id _,0] :: [Int]
     , id _:_:xs :: [Int]
@@ -689,6 +721,7 @@ tiers :: [[ Expr ]]  =
     , id _:0:_ :: [Int]
     , id _:id _:_ :: [Int]
     , id _:tail _ :: [Int]
+    , id _:(_ ++ _) :: [Int]
     , y:xs :: [Int]
     , [y] :: [Int]
     , y:_:_ :: [Int]
@@ -753,6 +786,45 @@ tiers :: [[ Expr ]]  =
     , tail (0:_) :: [Int]
     , tail (id _:_) :: [Int]
     , tail (tail _) :: [Int]
+    , tail (_ ++ _) :: [Int]
+    , _ ++ ys :: [Int]
+    , _ ++ [0] :: [Int]
+    , _ ++ (_:xs) :: [Int]
+    , _ ++ [_] :: [Int]
+    , _ ++ (_:_:_) :: [Int]
+    , _ ++ (x:_) :: [Int]
+    , _ ++ (0:_) :: [Int]
+    , _ ++ (id _:_) :: [Int]
+    , _ ++ tail _ :: [Int]
+    , _ ++ (_ ++ _) :: [Int]
+    , xs ++ xs :: [Int]
+    , xs ++ [] :: [Int]
+    , xs ++ (_:_) :: [Int]
+    , [] ++ xs :: [Int]
+    , [] ++ [] :: [Int]
+    , [] ++ (_:_) :: [Int]
+    , (_:_) ++ xs :: [Int]
+    , (_:_) ++ [] :: [Int]
+    , (_:_) ++ (_:_) :: [Int]
+    , ys ++ _ :: [Int]
+    , [0] ++ _ :: [Int]
+    , (_:xs) ++ _ :: [Int]
+    , [_] ++ _ :: [Int]
+    , (_:_:_) ++ _ :: [Int]
+    , (x:_) ++ _ :: [Int]
+    , (0:_) ++ _ :: [Int]
+    , (id _:_) ++ _ :: [Int]
+    , tail _ ++ _ :: [Int]
+    , (_ ++ _) ++ _ :: [Int]
+    , sort xs :: [Int]
+    , sort [] :: [Int]
+    , sort (_:_) :: [Int]
+    , insert _ xs :: [Int]
+    , insert _ [] :: [Int]
+    , insert _ (_:_) :: [Int]
+    , insert x _ :: [Int]
+    , insert 0 _ :: [Int]
+    , insert (id _) _ :: [Int]
     , (y +) :: Int -> Int
     , (1 +) :: Int -> Int
     , (id x +) :: Int -> Int

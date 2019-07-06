@@ -147,6 +147,9 @@ instance Listable IntsE  where
          \/ cons1 unIntsE0
          \/ cons2 (\(IntE ex) (IntsE exs) -> ex -:- exs)
          \/ cons1 (tail' . unIntsE) `ofWeight` 2
+         \/ cons2 (\(IntsE exs) (IntsE eys) -> exs -++- eys) `ofWeight` 2
+         \/ cons1 (\(IntsE exs) -> sort' exs) `ofWeight` 3
+         \/ cons2 (\(IntE ex) (IntsE exs) -> insert' ex exs) `ofWeight` 3
 
 instance Listable IntsE0 where
   tiers  =  (IntsE0 . val) `mapT` (tiers :: [[ [Int] ]])
