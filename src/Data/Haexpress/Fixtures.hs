@@ -27,6 +27,7 @@ module Data.Haexpress.Fixtures
   , notE
   , orE
   , andE
+  , impliesE
   , not'
   , (-||-)
   , (-&&-)
@@ -148,6 +149,12 @@ andE  =  value "&&" (&&)
 -- > (||) :: Bool -> Bool -> Bool
 orE :: Expr
 orE  =  value "||" (||)
+
+impliesE :: Expr
+impliesE  =  value "==>" (==>)
+  where
+  False ==> _  =  True
+  True  ==> p  =  p
 
 -- | The function 'not' lifted over the 'Expr' type.
 --
