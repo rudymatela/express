@@ -70,6 +70,12 @@ newtype BoolEV  =  BoolEV { unBoolEV :: Expr }
 newtype BoolToBoolE  =  BoolToBoolE { unBoolToBoolE :: Expr }
 newtype BoolToBoolToBoolE  =  BoolToBoolToBoolE { unBoolToBoolToBoolE :: Expr }
 
+newtype CharE  =  CharE { unCharE :: Expr }
+
+newtype CharE0  =  CharE0 { unCharE0 :: Expr }
+
+newtype CharEV  =  CharEV { unCharEV :: Expr }
+
 -- | Ill typed expressions.
 newtype Ill  =  Ill { unIll :: Expr }
 
@@ -169,6 +175,16 @@ instance Listable BoolToBoolE where
 instance Listable BoolToBoolToBoolE where
   list  =  map BoolToBoolToBoolE [orE, andE]
 
+instance Listable CharE where
+  tiers  =  mapT CharE $ cons0 c_
+                      \/ cons1 unCharEV
+                      \/ cons1 unCharE0
+
+instance Listable CharEV where
+  list  =  map (CharEV . (`var` (undefined :: Char))) ["c", "d", "e", "c'"] -- TODO: infinite list
+
+instance Listable CharE0 where
+  tiers  =  (CharE0 . val) `mapT` (tiers :: [[Char]])
 
 instance Listable E0 where
   tiers  =  mapT E0
@@ -186,6 +202,7 @@ instance Listable EV where
 instance Listable Expr where
   tiers  =  reset (cons1 unIntE)
          \/ cons1 unBoolE
+         \/ cons1 unCharE
          \/ cons1 unIntsE
          \/ cons1 unIntToIntE         `addWeight` 1
          \/ cons1 unIntToIntToIntE    `addWeight` 1

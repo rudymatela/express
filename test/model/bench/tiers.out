@@ -1,11 +1,12 @@
 isNub (list :: [Expr])  =  True
-map length (tiers :: [[ Expr ]])  =  [1,5,18,49,150,534,...]
+map length (tiers :: [[ Expr ]])  =  [1,6,20,51,152,536,...]
 tiers :: [[ Expr ]]  =
   [ [_ :: Int]
   , [ x :: Int
     , 0 :: Int
     , id _ :: Int
     , _ :: Bool
+    , _ :: Char
     , _ :: [Int]
     ]
   , [ y :: Int
@@ -21,6 +22,8 @@ tiers :: [[ Expr ]]  =
     , False :: Bool
     , True :: Bool
     , not _ :: Bool
+    , c :: Char
+    , 'a' :: Char
     , xs :: [Int]
     , [] :: [Int]
     , _:_ :: [Int]
@@ -61,6 +64,8 @@ tiers :: [[ Expr ]]  =
     , not True :: Bool
     , not (not _) :: Bool
     , _ || _ :: Bool
+    , d :: Char
+    , ' ' :: Char
     , ys :: [Int]
     , [0] :: [Int]
     , _:xs :: [Int]
@@ -187,6 +192,8 @@ tiers :: [[ Expr ]]  =
     , True || _ :: Bool
     , not _ || _ :: Bool
     , _ && _ :: Bool
+    , e :: Char
+    , 'b' :: Char
     , zs :: [Int]
     , [0,0] :: [Int]
     , [1] :: [Int]
@@ -615,6 +622,8 @@ tiers :: [[ Expr ]]  =
     , False && _ :: Bool
     , True && _ :: Bool
     , not _ && _ :: Bool
+    , c' :: Char
+    , 'A' :: Char
     , xs' :: [Int]
     , [0,0,0] :: [Int]
     , [0,1] :: [Int]
