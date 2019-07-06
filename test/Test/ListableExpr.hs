@@ -122,6 +122,7 @@ instance Listable IntE  where
          \/ cons1 unIntE0
          \/ cons2 (\(IntToIntE f) (IntE xx) -> f :$ xx)
          \/ cons1 (head' . unIntsE) `ofWeight` 2
+         \/ cons1 (ord' . unCharE) `ofWeight` 2
 
 instance Listable IntE0 where
   tiers  =  (IntE0 . val) `mapT` (tiers :: [[Int]])
