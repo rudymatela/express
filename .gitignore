@@ -28,6 +28,7 @@ test/map
 test/name
 test/utils
 test/fold
+test/ord
 test/show
 doc/*.html
 doc/*.css

@@ -437,6 +437,29 @@ test/name: \
   test/Test/ListableExpr.hs \
   test/name.hs \
   mk/toplibs
+test/ord.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/ord.hs \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Hole.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs
+test/ord: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/ord.hs \
+  mk/toplibs
 test/show.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \

@@ -15,6 +15,7 @@ TESTS = \
   test/canon \
   test/fold \
   test/show \
+  test/ord \
   test/listable
 EGS =
 BENCHS = \
