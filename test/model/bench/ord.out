@@ -573,6 +573,9 @@ _ :: Int `compare` not _ || _ :: Bool  =  LT
 _ :: Int `compare` _ && _ :: Bool  =  LT
 _ :: Int `compare` _ == _ :: Bool  =  LT
 _ :: Int `compare` _ == _ :: Bool  =  LT
+_ :: Int `compare` odd _ :: Bool  =  LT
+_ :: Int `compare` even _ :: Bool  =  LT
+_ :: Int `compare` elem _ _ :: Bool  =  LT
 _ :: Int `compare` e :: Char  =  GT
 _ :: Int `compare` 'b' :: Char  =  LT
 _ :: Int `compare` zs :: [Int]  =  LT
@@ -995,7 +998,4 @@ y :: Int `compare` (+) :: Int -> Int -> Int  =  LT
 1 :: Int `compare` xs :: [Int]  =  GT
 1 :: Int `compare` [] :: [Int]  =  LT
 1 :: Int `compare` _:_ :: [Int]  =  LT
-1 :: Int `compare` id :: Int -> Int  =  LT
-1 :: Int `compare` (+) :: Int -> Int -> Int  =  LT
-id x :: Int `compare` y :: Int  =  GT
 

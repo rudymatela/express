@@ -179,6 +179,9 @@ instance Listable BoolE  where
          \/ cons2 ((-<-)  `on` unBoolE) `addWeight` 4
          \/ cons2 ((-/=-) `on` unIntE)  `addWeight` 5
          \/ cons2 ((-/=-) `on` unBoolE) `addWeight` 5
+         \/ cons1 (odd'  . unIntE) `addWeight` 2
+         \/ cons1 (even' . unIntE) `addWeight` 2
+         \/ cons2 (\(IntE ex) (IntsE exs) -> elem' ex exs) `addWeight` 2
 
 instance Listable BoolE0 where
   tiers  =  (BoolE0 . val) `mapT` (tiers :: [[Bool]])

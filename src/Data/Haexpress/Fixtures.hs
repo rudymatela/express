@@ -49,6 +49,8 @@ module Data.Haexpress.Fixtures
   , gg, ggE
   , (-?-), iiE
   , (-$-)
+  , odd'
+  , even'
 
   -- ** Chars
   , c_
@@ -70,6 +72,7 @@ module Data.Haexpress.Fixtures
   , (-++-)
   , head'
   , tail'
+  , elem'
   , sort'
   , insert'
 
@@ -506,6 +509,12 @@ abs' e  =  absE :$ e
 absE :: Expr
 absE  =  value "abs" (abs :: Int -> Int)
 
+odd' :: Expr -> Expr
+odd' = (oddE :$) where oddE = value "odd" (odd :: Int -> Bool)
+
+even' :: Expr -> Expr
+even' = (evenE :$) where evenE = value "even" (even :: Int -> Bool)
+
 -- | A hole of 'Char' type encoded as an 'Expr'.
 --
 -- > > c_
@@ -732,6 +741,15 @@ insert' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
   ]
   where
   err  =  error $ "insert': unhandled type " ++ show (typ ex)
+
+elem' :: Expr -> Expr -> Expr
+elem' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
+  [ value "elem" (elem :: Int -> [Int] -> Bool)
+  , value "elem" (elem :: Bool -> [Bool] -> Bool)
+  , value "elem" (elem :: Char -> String -> Bool)
+  ]
+  where
+  err  =  error $ "elem': unhandled type " ++ show (typ ex)
 
 (-$-) :: Expr -> Expr -> Expr
 ef -$- ex = (:$ ex) . headOr err $ mapMaybe ($$ ef)
