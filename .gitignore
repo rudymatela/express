@@ -14,7 +14,7 @@ log/
 *.dyn_o
 TAGS
 tags
-bench/ord
+bench/compare
 bench/pairs
 bench/tiers
 test/canon

@@ -158,9 +158,9 @@ test-suite utils
   build-depends:       base >= 4 && < 5, haexpress, leancheck
   default-language:    Haskell2010
 
-benchmark ord
+benchmark compare
   type:                exitcode-stdio-1.0
-  main-is:             ord.hs
+  main-is:             compare.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
   build-depends:       base >= 4 && < 5, haexpress, leancheck

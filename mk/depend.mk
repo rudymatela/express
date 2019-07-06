@@ -1,4 +1,4 @@
-bench/ord.o: \
+bench/compare.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
@@ -15,11 +15,11 @@ bench/ord.o: \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs \
-  bench/ord.hs
-bench/ord: \
+  bench/compare.hs
+bench/compare: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  bench/ord.hs \
+  bench/compare.hs \
   mk/toplibs
 bench/pairs.o: \
   test/Test.hs \
@@ -171,9 +171,13 @@ src/Data/Haexpress/Instances.o: \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Hole.hs \
+  src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Core.hs
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Basic.hs
 src/Data/Haexpress/Map.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
   src/Data/Haexpress/Utils/String.hs \
