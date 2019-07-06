@@ -17,17 +17,22 @@ tests n =
   , holds n $ isNothing . toDynamic . unIll
   , holds n $ isNothing . mtyp      . unIll
 
-  -- Listable TypeE produces expressions of the right type
+  -- Listable TypeE produces expressions of the right type (evaluation)
   , holds n $ isJust . evaluateInt      . unIntE
   , holds n $ isJust . evaluateBool     . unBoolE
   , holds n $ isJust . evaluateInts     . unIntsE
   , holds n $ isJust . evaluateIntToInt . unIntToIntE
   , holds n $ isJust . evaluateChar     . unCharE
-
   , holds n $ \(IntToIntE ff) (IntE xx) -> isJust . evaluateInt $ ff :$ xx
   , holds n $ \(IntToIntToIntE ff) (IntE xx) (IntE yy) -> isJust . evaluateInt $ ff :$ xx :$ yy
+
+  -- Listable TypeE produces expressions of the right type (typ)
   , holds n $ \(SameTypeE e1 e2) -> typ e1 == typ e2
   , holds n $ \(SameTypedPairsE ees) -> all (\(e1,e2) -> typ e1 == typ e2) ees
+  , holds n $ \(IntE  e) -> typ e == typ i_
+  , holds n $ \(BoolE e) -> typ e == typ b_
+  , holds n $ \(CharE e) -> typ e == typ c_
+  , holds n $ \(IntsE e) -> typ e == typ is_
 
   -- Listable TypeE does not produce expressions of the wrong type
   , holds n $ isNothing . evaluateInt      . unBoolE
@@ -52,6 +57,10 @@ tests n =
 
   -- counter-examples are of the right type
   , (counterExample n $ \(IntE xx) -> False) == Just ["_ :: Int"]
+
+  , isNub (take (n`div`10) list :: [Expr])
+  , isNub (take (n`div`10) $ map unSameTypeE list)
+  , isNub (take (n`div`10) $ map unIntE list)
   ]
 
 evaluateInt :: Expr -> Maybe Int

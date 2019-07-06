@@ -18,4 +18,8 @@ tests n =
   , fails n $ \e1 e2 -> foldPair (e1,e2) == foldPair (e2,e1)
 
   , show (foldPair (xx,yy)) == "(x,y) :: ill-typed # ExprPair $ Int #"
+
+  , unfoldApp (abs' xx)          == [absE, xx]
+  , unfoldApp (abs' (xx -+- yy)) == [absE, xx -+- yy]
+  , unfoldApp (xx -+- abs' xx)   == [plus, xx, abs' xx]
   ]

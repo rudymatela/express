@@ -60,10 +60,22 @@ tests n =
   , etyp (abs' bee :$ zero) == Left (tyIntToInt, tyChar)
   , etyp ((zero :$ one) :$ (bee :$ cee)) == Left (tyInt, tyInt)
 
+  , etyp (xx :$ yy) == Left (typ i_, typ i_)
+  , etyp (xx :$ (cc :$ yy)) == Left (typ c_, typ i_)
+  , etyp (abs' xx :$ (ord' cc :$ negate' yy)) == Left (typ i_, typ i_)
+  , holds n $ \(SameTypeE ef eg) (SameTypeE ex ey) -> (etyp (ef :$ ex) == etyp (eg :$ ey))
+  , holds n $ \ef eg ex ey -> (etyp ef == etyp eg && etyp ex == etyp ey)
+                           == (etyp (ef :$ ex) == etyp (eg :$ ey))
+
   , isIllTyped (abs' zero) == False
   , isIllTyped (zero :$ one) == True
   , isWellTyped (abs' zero) == True
   , isWellTyped (zero :$ one) == False
+
+  -- eq instance
+  , xx -+- yy == xx -+- yy
+  , xx -+- yy /= yy -+- xx
+
 
   -- our Listable Expr enumeration does not produce ill typed Exprs
   , holds n $ isRight . etyp
@@ -212,4 +224,26 @@ tests n =
   , holds n $ \e -> depth e  <= height e
   , holds n $ \e -> depth e  <= size e
   , holds n $ \e -> height e <= size e
+
+  , nubConsts (xx -+- yy) == [plus]
+  , nubConsts (xx -+- (yy -+- zz)) == [plus]
+  , nubConsts (zero -+- one) =$ sort $= [zero, one, plus]
+  , nubConsts ((zero -+- abs' zero) -+- (ord' ae -+- ord' cc))
+      =$ sort $= [zero, ae, absE, plus, ordE]
+  , holds n $ \e1 e2 -> times `elem` consts (e1 -*- e2)
+
+  , size  zero == 1
+  , depth zero == 1
+  , size  one  == 1
+  , depth one  == 1
+  , size  (zero -+- one) == 3
+  , depth (zero -+- one) == 2
+  , size  (zero -+- (xx -+- yy)) == 5
+  , depth (zero -+- (xx -+- yy)) == 3
+  , size  (((xx -+- yy) -*- zz) -==- ((xx -*- zz) -+- (yy -*- zz))) == 13
+  , depth (((xx -+- yy) -*- zz) -==- ((xx -*- zz) -+- (yy -*- zz))) ==  4
+  , depth (xx -*- yy -+- xx -*- zz -==- xx -*- (yy -+- zz)) == 4
+  , size  (xx -*- yy -+- xx -*- zz -==- xx -*- (yy -+- zz)) == 13
+  , depth (xx -*- yy -+- xx -*- zz) == 3
+  , depth (xx -*- (yy -+- zz)) == 3
   ]
