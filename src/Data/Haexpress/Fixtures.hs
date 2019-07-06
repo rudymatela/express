@@ -767,7 +767,8 @@ type Apply a = (a -> a) -> a -> a
 
 (-==-) :: Expr -> Expr -> Expr
 ex -==- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
-  [ value "==" ((==) :: Comparison Int)
+  [ value "==" ((==) :: Comparison ())
+  , value "==" ((==) :: Comparison Int)
   , value "==" ((==) :: Comparison Bool)
   , value "==" ((==) :: Comparison Char)
   , value "==" ((==) :: Comparison [Int])
@@ -781,7 +782,8 @@ type Comparison a = a -> a -> Bool
 
 (-/=-) :: Expr -> Expr -> Expr
 ex -/=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
-  [ value "/=" ((/=) :: Comparison Int)
+  [ value "/=" ((/=) :: Comparison ())
+  , value "/=" ((/=) :: Comparison Int)
   , value "/=" ((/=) :: Comparison Bool)
   , value "/=" ((/=) :: Comparison Char)
   , value "/=" ((/=) :: Comparison [Int])
@@ -794,7 +796,8 @@ infix 4 -/=-
 
 (-<=-) :: Expr -> Expr -> Expr
 ex -<=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
-  [ value "<=" ((<=) :: Comparison Int)
+  [ value "<=" ((<=) :: Comparison ())
+  , value "<=" ((<=) :: Comparison Int)
   , value "<=" ((<=) :: Comparison Bool)
   , value "<=" ((<=) :: Comparison Char)
   , value "<=" ((<=) :: Comparison [Int])
@@ -807,7 +810,8 @@ infix 4 -<=-
 
 (-<-) :: Expr -> Expr -> Expr
 ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
-  [ value "<" ((<) :: Comparison Int)
+  [ value "<" ((<) :: Comparison ())
+  , value "<" ((<) :: Comparison Int)
   , value "<" ((<) :: Comparison Bool)
   , value "<" ((<) :: Comparison Char)
   , value "<" ((<) :: Comparison [Int])
