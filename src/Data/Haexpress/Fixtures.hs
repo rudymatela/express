@@ -31,6 +31,7 @@ module Data.Haexpress.Fixtures
   , not'
   , (-||-)
   , (-&&-)
+  , (-==>-)
 
   -- ** Integers
   , i_, xx, yy, zz, xx'
@@ -149,6 +150,9 @@ andE  =  value "&&" (&&)
 -- > (||) :: Bool -> Bool -> Bool
 orE :: Expr
 orE  =  value "||" (||)
+
+(-==>-) :: Expr -> Expr -> Expr
+e1 -==>- e2  =  impliesE :$ e1 :$ e2
 
 impliesE :: Expr
 impliesE  =  value "==>" (==>)
