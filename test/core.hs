@@ -48,7 +48,7 @@ tests n =
   , typ one        == tyInt
   , typ xx         == tyInt
   , typ bee        == tyChar
-  , typ xxs        == tyLInt
+  , typ xxs        == tyInts
   , typ (ff xx)    == tyInt
   , typ (abs' one) == tyInt
   , typ true       == tyBool
@@ -60,9 +60,9 @@ tests n =
   , etyp (abs' bee :$ zero) == Left (tyIntToInt, tyChar)
   , etyp ((zero :$ one) :$ (bee :$ cee)) == Left (tyInt, tyInt)
 
-  , etyp (xx :$ yy) == Left (typ i_, typ i_)
-  , etyp (xx :$ (cc :$ yy)) == Left (typ c_, typ i_)
-  , etyp (abs' xx :$ (ord' cc :$ negate' yy)) == Left (typ i_, typ i_)
+  , etyp (xx :$ yy) == Left (tyInt, tyInt)
+  , etyp (xx :$ (cc :$ yy)) == Left (tyChar, tyInt)
+  , etyp (abs' xx :$ (ord' cc :$ negate' yy)) == Left (tyInt, tyInt)
   , holds n $ \(SameTypeE ef eg) (SameTypeE ex ey) -> (etyp (ef :$ ex) == etyp (eg :$ ey))
   , holds n $ \ef eg ex ey -> (etyp ef == etyp eg && etyp ex == etyp ey)
                            == (etyp (ef :$ ex) == etyp (eg :$ ey))

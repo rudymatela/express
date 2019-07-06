@@ -11,7 +11,7 @@ module Test
   , tyBool
   , tyInt
   , tyChar
-  , tyLInt
+  , tyInts
   , tyIntToInt
   )
 where
@@ -57,8 +57,8 @@ tyInt  =  typeOf (undefined :: Int)
 tyChar  :: TypeRep
 tyChar  =  typeOf (undefined :: Char)
 
-tyLInt :: TypeRep
-tyLInt  =  typeOf (undefined :: [Int])
+tyInts :: TypeRep
+tyInts =  typeOf (undefined :: [Int])
 
 tyIntToInt :: TypeRep
 tyIntToInt  =  typeOf (undefined :: Int -> Int)
