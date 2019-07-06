@@ -22,6 +22,6 @@ main  =  do
   putStrLn $ "isNub (list :: [Expr])  =  "
           ++ show (isNub (take 5040 list :: [Expr]))
   putStrLn $ "map length (tiers :: [[ Expr ]])  =  "
-          ++ showDotsLongerThan 6 (map length (tiers :: [[Expr]]))
+          ++ showDotsLongerThan 9 (map length (tiers :: [[Expr]]))
   putStrLn $ "tiers :: [[ Expr ]]  ="
-  printTiers 6 (tiers :: [[Expr]])
+  printTiers 7 (tiers :: [[Expr]])
