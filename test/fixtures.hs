@@ -76,7 +76,7 @@ tests n =
 
   , show xxs  == "xs :: [Int]"
   , show yys  == "ys :: [Int]"
-  , show nilE == "[] :: [Int]"
+  , show nil == "[] :: [Int]"
   , show (unit one) == "[1] :: [Int]"
 
   -- Int -> Int --
@@ -102,7 +102,7 @@ tests n =
   , evl (negate' one) == (-1 :: Int)
   , evl (abs' minusTwo) == (2 :: Int)
 
-  , evl nilE == ([] :: [Int])
+  , evl nil == ([] :: [Int])
   , evl (unit one) == [1 :: Int]
 
   -- Int -> Int -> Int
@@ -129,14 +129,14 @@ tests n =
 
   , show xxs == "xs :: [Int]"
   , show yys == "ys :: [Int]"
-  , show nilE == "[] :: [Int]"
-  , show consE == "(:) :: Int -> [Int] -> [Int]"
+  , show nil == "[] :: [Int]"
+  , show cons == "(:) :: Int -> [Int] -> [Int]"
   , show (unit zero) == "[0] :: [Int]"
   , show (unit false) == "[False] :: [Bool]"
   , show (zero -:- one -:- unit two) == "[0,1,2] :: [Int]"
-  , show (zero -:- one -:- two -:- nilE) == "[0,1,2] :: [Int]"
+  , show (zero -:- one -:- two -:- nil) == "[0,1,2] :: [Int]"
 
-  , evl nilE == ([] :: [Int])
+  , evl nil == ([] :: [Int])
   , holds n $ \x -> evl (unit (val x)) == [x :: Int]
   , holds n $ \c -> evl (unit (val c)) == [c :: Char]
   , holds n $ \p -> evl (unit (val p)) == [p :: Bool]
@@ -144,8 +144,8 @@ tests n =
   , holds n $ \p ps -> evl (val p -:- val ps) == (p:ps :: [Int])
   , holds n $ \c cs -> evl (val c -:- val cs) == (c:cs :: [Int])
 
-  , show (nilE -++- nilE) == "[] ++ [] :: [Int]"
-  , show ((zero -:- one -:- nilE) -++- (two -:- three -:- nilE)) == "[0,1] ++ [2,3] :: [Int]"
+  , show (nil -++- nil) == "[] ++ [] :: [Int]"
+  , show ((zero -:- one -:- nil) -++- (two -:- three -:- nil)) == "[0,1] ++ [2,3] :: [Int]"
 
   , show (head' $ unit one) == "head [1] :: Int"
   , show (tail' $ unit one) == "tail [1] :: [Int]"
@@ -161,13 +161,13 @@ tests n =
   -- String --
 
   -- TODO: show `:: [Char]' as `:: String'?
-  , show emptyStringE == "\"\" :: [Char]"
+  , show emptyString == "\"\" :: [Char]"
   , show (unit bee) == "\"b\" :: [Char]"
   , show (bee -:- unit cee) == "\"bc\" :: [Char]"
-  , show (emptyStringE -++- emptyStringE) == "\"\" ++ \"\" :: [Char]"
+  , show (emptyString -++- emptyString) == "\"\" ++ \"\" :: [Char]"
   , show ((bee -:- unit cee) -++- unit dee) == "\"bc\" ++ \"d\" :: [Char]"
 
-  , evl emptyStringE == ""
+  , evl emptyString == ""
   , evl (unit bee) == "b"
   , evl (bee -:- unit cee) == "bc"
   , evl (bee -:- cee -:- unit dee) == "bcd"

@@ -39,7 +39,7 @@ module Data.Haexpress.Fixtures
 
   -- ** Integers
   , i_, xx, yy, zz, xx'
-  , ii, jj, kk
+  , ii, jj, kk, ii'
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
   , id', const', negate', abs'
@@ -56,7 +56,7 @@ module Data.Haexpress.Fixtures
   , c_
   , cc, dd, ccs
   , ae, bee, cee, dee
-  , spaceE, lineBreakE
+  , space, lineBreak
   , ord'
   , ordE
 
@@ -64,9 +64,9 @@ module Data.Haexpress.Fixtures
   , is_
   , xxs
   , yys
-  , nilE
-  , emptyStringE
-  , consE
+  , nil
+  , emptyString
+  , cons
   , (-:-)
   , unit
   , (-++-)
@@ -76,6 +76,7 @@ module Data.Haexpress.Fixtures
   , sort'
   , insert'
 
+  , comma
   , (-|-)
   , triple
   , quadruple
@@ -122,6 +123,10 @@ pp  =  var "p" bool
 -- > q :: Bool
 qq :: Expr
 qq  =  var "q" bool
+
+rr :: Expr -- ar, I'm a pirate
+rr  =  var "r" bool
+
 
 -- | 'False' encoded as an 'Expr'.
 --
@@ -249,6 +254,9 @@ jj  =  var "j" int
 
 kk :: Expr
 kk  =  var "k" int
+
+ii' :: Expr
+ii'  =  var "i'" int
 
 -- | The value @0@ bound to the 'Int' type encoded as an 'Expr'.
 --
@@ -418,6 +426,9 @@ e1 -*- e2 = times :$ e1 :$ e2
 times :: Expr
 times  =  value "*" ((*) :: Int -> Int -> Int)
 
+minus :: Expr
+minus  =  value "-" ((-) :: Int -> Int -> Int)
+
 -- | Constructs an application of 'id' as an 'Expr'.
 --   Only works for 'Int', 'Bool', 'Char', 'String', @[Int]@, @[Bool]@.
 --
@@ -565,11 +576,11 @@ cee  =  val 'c'
 dee :: Expr
 dee  =  val 'd'
 
-spaceE :: Expr
-spaceE = val ' '
+space :: Expr
+space = val ' '
 
-lineBreakE :: Expr
-lineBreakE = val '\n'
+lineBreak :: Expr
+lineBreak = val '\n'
 
 ord' :: Expr -> Expr
 ord' = (ordE :$)
@@ -600,29 +611,29 @@ yys  =  var "ys" [int]
 
 -- | An empty list of type @[Int]@ encoded as an 'Expr'.
 --
--- > > nilE
+-- > > nil
 -- > [] :: [Int]
-nilE :: Expr
-nilE  =  val ([] :: [Int])
+nil :: Expr
+nil  =  val ([] :: [Int])
 
 -- | An empty 'String' encoded as an 'Expr'.
 --
--- > > emptyStringE
+-- > > emptyString
 -- > "" :: String
-emptyStringE :: Expr
-emptyStringE  =  val ""
+emptyString :: Expr
+emptyString  =  val ""
 
 -- | The list constructor with 'Int' as element type encoded as an 'Expr'.
 --
--- > > consE
+-- > > cons
 -- > (:) :: Int -> [Int] -> [Int]
 --
--- > > consE :$ one :$ nilE
+-- > > cons :$ one :$ nil
 -- > [1] :: [Int]
 --
 -- Consider using '-:-' and 'unit' when building lists of 'Expr'.
-consE :: Expr
-consE = value ":" ((:) :: Int -> [Int] -> [Int])
+cons :: Expr
+cons = value ":" ((:) :: Int -> [Int] -> [Int])
 
 -- | 'unit' constructs a list with a single element.
 --   This works for elements of type 'Int', 'Char' and 'Bool'.
@@ -633,11 +644,11 @@ consE = value ":" ((:) :: Int -> [Int] -> [Int])
 -- > > unit false
 -- > [False]
 unit :: Expr -> Expr
-unit e  =  e -:- nil
+unit e  =  e -:- nil'
   where
-  nil | typ e == typ i_  =  nilE
-      | typ e == typ c_  =  emptyStringE
-      | typ e == typ b_  =  val ([] :: [Bool])
+  nil' | typ e == typ i_  =  nil
+       | typ e == typ c_  =  emptyString
+       | typ e == typ b_  =  val ([] :: [Bool])
 
 -- | The list constructor lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -645,14 +656,14 @@ unit e  =  e -:- nil
 -- > > zero -:- one -:- unit two
 -- > [0,1,2] :: [Int]
 --
--- > > zero -:- one -:- two -:- nilE
+-- > > zero -:- one -:- two -:- nil
 -- > [0,1,2] :: [Int]
 --
 -- > > bee -:- unit cee
 -- > "bc" :: [Char]
 (-:-) :: Expr -> Expr -> Expr
 e1 -:- e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
-  [ consE
+  [ cons
   , value ":" ((:) :: Char -> String -> String)
   , value ":" ((:) :: Bool -> [Bool] -> [Bool])
   ]
@@ -663,7 +674,7 @@ infixr 5 -:-
 -- | List concatenation lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
 --
--- > > (zero -:- one -:- nilE) -:- (two -:- three -:- nilE)
+-- > > (zero -:- one -:- nil) -:- (two -:- three -:- nil)
 -- > [0,1] -++- [2,3] :: [Int]
 --
 -- > > (bee -:- unit cee) -:- unit dee
@@ -823,10 +834,10 @@ ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
 infix 4 -<-
 
 (-|-) :: Expr -> Expr -> Expr
-e1 -|- e2 = commaE :$ e1 :$ e2
+e1 -|- e2 = comma :$ e1 :$ e2
 
-commaE :: Expr
-commaE = value "," ((,) :: Int -> Int -> (Int,Int))
+comma :: Expr
+comma = value "," ((,) :: Int -> Int -> (Int,Int))
 
 triple :: Expr -> Expr -> Expr -> Expr
 triple e1 e2 e3 = ccE :$ e1 :$ e2 :$ e3
