@@ -32,6 +32,10 @@ module Data.Haexpress.Fixtures
   , (-||-)
   , (-&&-)
   , (-==>-)
+  , (-==-)
+  , (-/=-)
+  , (-<=-)
+  , (-<-)
 
   -- ** Integers
   , i_, xx, yy, zz, xx'
@@ -742,6 +746,59 @@ ef -$- ex = (:$ ex) . headOr err $ mapMaybe ($$ ef)
   err  =  error $ "(-$-): unhandled type " ++ show (typ ef)
 infixl 6 -$-
 type Apply a = (a -> a) -> a -> a
+
+(-==-) :: Expr -> Expr -> Expr
+ex -==- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "==" ((==) :: Comparison Int)
+  , value "==" ((==) :: Comparison Bool)
+  , value "==" ((==) :: Comparison Char)
+  , value "==" ((==) :: Comparison [Int])
+  , value "==" ((==) :: Comparison [Bool])
+  , value "==" ((==) :: Comparison [Char])
+  ]
+  where
+  err  =  error $ "(-==-): unhandled type " ++ show (typ ex)
+infix 4 -==-
+type Comparison a = a -> a -> Bool
+
+(-/=-) :: Expr -> Expr -> Expr
+ex -/=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "/=" ((/=) :: Comparison Int)
+  , value "/=" ((/=) :: Comparison Bool)
+  , value "/=" ((/=) :: Comparison Char)
+  , value "/=" ((/=) :: Comparison [Int])
+  , value "/=" ((/=) :: Comparison [Bool])
+  , value "/=" ((/=) :: Comparison [Char])
+  ]
+  where
+  err  =  error $ "(-/=-): unhandled type " ++ show (typ ex)
+infix 4 -/=-
+
+(-<=-) :: Expr -> Expr -> Expr
+ex -<=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "<=" ((<=) :: Comparison Int)
+  , value "<=" ((<=) :: Comparison Bool)
+  , value "<=" ((<=) :: Comparison Char)
+  , value "<=" ((<=) :: Comparison [Int])
+  , value "<=" ((<=) :: Comparison [Bool])
+  , value "<=" ((<=) :: Comparison [Char])
+  ]
+  where
+  err  =  error $ "(-<=-): unhandled type " ++ show (typ ex)
+infix 4 -<=-
+
+(-<-) :: Expr -> Expr -> Expr
+ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "<" ((<) :: Comparison Int)
+  , value "<" ((<) :: Comparison Bool)
+  , value "<" ((<) :: Comparison Char)
+  , value "<" ((<) :: Comparison [Int])
+  , value "<" ((<) :: Comparison [Bool])
+  , value "<" ((<) :: Comparison [Char])
+  ]
+  where
+  err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
+infix 4 -<-
 
 (-|-) :: Expr -> Expr -> Expr
 e1 -|- e2 = commaE :$ e1 :$ e2
