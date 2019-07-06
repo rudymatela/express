@@ -24,6 +24,9 @@ module Test.ListableExpr
   , BoolToBoolE (..)
   , BoolToBoolToBoolE (..)
 
+  , SameTypeE (..)
+  , unSameTypeE
+
   -- * Terminal expressions
   , E0 (..)
   , EV (..)
@@ -78,6 +81,11 @@ newtype CharE0  =  CharE0 { unCharE0 :: Expr }
 
 newtype CharEV  =  CharEV { unCharEV :: Expr }
 
+data SameTypeE  =  SameTypeE Expr Expr
+
+unSameTypeE :: SameTypeE -> (Expr,Expr)
+unSameTypeE (SameTypeE e1 e2)  =  (e1,e2)
+
 -- | Ill typed expressions.
 newtype Ill  =  Ill { unIll :: Expr }
 
@@ -110,6 +118,8 @@ instance Show CharE  where  show (CharE e) = show e
 
 instance Show CharE0  where  show (CharE0 e) = show e
 instance Show CharEV  where  show (CharEV e) = show e
+
+instance Show SameTypeE  where  show (SameTypeE e1 e2) = show (e1,e2)
 
 -- | Expression of 'Ints' type.
 newtype IntsE  =  IntsE { unIntsE :: Expr }
@@ -207,6 +217,16 @@ instance Listable CharEV where
 
 instance Listable CharE0 where
   tiers  =  (CharE0 . val) `mapT` (tiers :: [[Char]])
+
+instance Listable SameTypeE where
+  tiers = cons1 (\(IntE  e1, IntE  e2) -> SameTypeE e1 e2) `ofWeight` 0
+       \/ cons1 (\(BoolE e1, BoolE e2) -> SameTypeE e1 e2) `ofWeight` 1
+       \/ cons1 (\(IntsE e1, IntsE e2) -> SameTypeE e1 e2) `ofWeight` 1
+       \/ cons1 (\(CharE e1, CharE e2) -> SameTypeE e1 e2) `ofWeight` 2
+       \/ cons1 (\(IntToIntE e1, IntToIntE e2)     -> SameTypeE e1 e2) `ofWeight` 2
+       \/ cons1 (\(BoolToBoolE e1, BoolToBoolE e2) -> SameTypeE e1 e2) `ofWeight` 2
+       \/ cons1 (\(BoolToBoolToBoolE e1, BoolToBoolToBoolE e2) -> SameTypeE e1 e2) `ofWeight` 2
+       \/ cons1 (\(IntToIntToIntE e1, IntToIntToIntE e2)       -> SameTypeE e1 e2) `ofWeight` 2
 
 instance Listable E0 where
   tiers  =  mapT E0

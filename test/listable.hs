@@ -26,6 +26,7 @@ tests n =
 
   , holds n $ \(IntToIntE ff) (IntE xx) -> isJust . evaluateInt $ ff :$ xx
   , holds n $ \(IntToIntToIntE ff) (IntE xx) (IntE yy) -> isJust . evaluateInt $ ff :$ xx :$ yy
+  , holds n $ \(SameTypeE e1 e2) -> typ e1 == typ e2
 
   -- Listable TypeE does not produce expressions of the wrong type
   , holds n $ isNothing . evaluateInt      . unBoolE
