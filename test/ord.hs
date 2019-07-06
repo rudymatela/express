@@ -36,4 +36,11 @@ tests n =
   , true < zero
   , true < ae
   , zero < nil
+
+  -- other precedence rules
+  ,  (xx -+- xx)         < (xx -+- (xx -+- xx))
+  , ((xx -+- xx) -+- xx) > (xx -+- (xx -+- xx))
+  , xx < yy
+  , zero < one
+  , xx < zero
   ]
