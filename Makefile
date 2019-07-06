@@ -13,6 +13,7 @@ TESTS = \
   test/name \
   test/utils \
   test/canon \
+  test/match \
   test/fold \
   test/show \
   test/ord \

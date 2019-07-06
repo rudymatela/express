@@ -25,6 +25,7 @@ test/instances
 test/listable
 test/main
 test/map
+test/match
 test/name
 test/utils
 test/fold

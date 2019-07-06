@@ -6,6 +6,7 @@ bench/compare.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -29,6 +30,7 @@ bench/pairs.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -52,6 +54,7 @@ bench/tiers.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -73,6 +76,7 @@ mk/All.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -91,6 +95,7 @@ mk/Toplibs.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -145,6 +150,7 @@ src/Data/Haexpress/Fixtures.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -184,6 +190,16 @@ src/Data/Haexpress/Map.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Core.hs
+src/Data/Haexpress/Match.o: \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress/Match.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Hole.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Basic.hs
 src/Data/Haexpress/Name.o: \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Name.hs
@@ -193,6 +209,7 @@ src/Data/Haexpress.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -216,6 +233,7 @@ test/canon.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -239,6 +257,7 @@ test/core.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -262,6 +281,7 @@ test/express.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -285,6 +305,7 @@ test/fixtures.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -308,6 +329,7 @@ test/fold.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -331,6 +353,7 @@ test/instances.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -354,6 +377,7 @@ test/listable.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -377,6 +401,7 @@ test/main.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -400,6 +425,7 @@ test/map.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -414,6 +440,30 @@ test/map: \
   test/Test/ListableExpr.hs \
   test/map.hs \
   mk/toplibs
+test/match.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/match.hs \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Hole.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs
+test/match: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/match.hs \
+  mk/toplibs
 test/name.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -423,6 +473,7 @@ test/name.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -446,6 +497,7 @@ test/ord.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -469,6 +521,7 @@ test/show.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -490,6 +543,7 @@ test/Test/ListableExpr.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -507,6 +561,7 @@ test/Test.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
@@ -529,6 +584,7 @@ test/utils.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
   src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Match.hs \
   src/Data/Haexpress/Map.hs \
   src/Data/Haexpress/Instances.hs \
   src/Data/Haexpress/Hole.hs \
