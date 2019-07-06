@@ -595,9 +595,8 @@ isTuple = not . null . unfoldTuple
 -- > > hasVar $ value "&&" (&&) :$ var "p" (undefined :: Bool) :$ val True
 -- > True
 hasVar :: Expr -> Bool
-hasVar (e1 :$ e2) = hasVar e1 || hasVar e2
-hasVar (Value ('_':_) _) = True
-hasVar _ = False
+hasVar (e1 :$ e2)  =  hasVar e1 || hasVar e2
+hasVar e           =  isVar e
 
 -- | /O(n)/.
 -- Returns whether a 'Expr' has /no/ variables.
