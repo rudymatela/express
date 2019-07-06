@@ -22,6 +22,7 @@ tests n =
   , holds n $ isJust . evaluateBool     . unBoolE
   , holds n $ isJust . evaluateInts     . unIntsE
   , holds n $ isJust . evaluateIntToInt . unIntToIntE
+  , holds n $ isJust . evaluateChar     . unCharE
 
   , holds n $ \(IntToIntE ff) (IntE xx) -> isJust . evaluateInt $ ff :$ xx
   , holds n $ \(IntToIntToIntE ff) (IntE xx) (IntE yy) -> isJust . evaluateInt $ ff :$ xx :$ yy
@@ -31,6 +32,7 @@ tests n =
   , holds n $ isNothing . evaluateBool     . unIntE
   , holds n $ isNothing . evaluateInts     . unIntE
   , holds n $ isNothing . evaluateIntToInt . unIntE
+  , holds n $ isNothing . evaluateChar     . unIntE
 
   -- Listable TypeE0 only returns terminal constants
   , holds n $ isConst . unE0
@@ -59,3 +61,6 @@ evaluateInts = evaluate
 
 evaluateIntToInt :: Expr -> Maybe (Int -> Int)
 evaluateIntToInt = evaluate
+
+evaluateChar :: Expr -> Maybe Char
+evaluateChar = evaluate

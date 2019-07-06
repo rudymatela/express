@@ -7,6 +7,7 @@ module Test.ListableExpr
   , IntE (..)
   , BoolE (..)
   , IntsE (..)
+  , CharE (..)
 
   , IntE0 (..)
   , IntEV (..)
@@ -14,6 +15,8 @@ module Test.ListableExpr
   , BoolEV (..)
   , IntsE0 (..)
   , IntsEV (..)
+  , CharE0 (..)
+  , CharEV (..)
 
   -- ** Functional values
   , IntToIntE (..)
@@ -30,7 +33,6 @@ module Test.ListableExpr
   )
 where
 
--- TODO: CharE
 -- TODO: StringE
 
 import Test.LeanCheck
@@ -103,6 +105,11 @@ instance Show IntsE  where  show (IntsE e) = show e
 
 instance Show IntsE0  where  show (IntsE0 e) = show e
 instance Show IntsEV  where  show (IntsEV e) = show e
+
+instance Show CharE  where  show (CharE e) = show e
+
+instance Show CharE0  where  show (CharE0 e) = show e
+instance Show CharEV  where  show (CharEV e) = show e
 
 -- | Expression of 'Ints' type.
 newtype IntsE  =  IntsE { unIntsE :: Expr }
