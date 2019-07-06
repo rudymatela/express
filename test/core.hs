@@ -225,13 +225,6 @@ tests n =
   , holds n $ \e -> depth e  <= size e
   , holds n $ \e -> height e <= size e
 
-  , nubConsts (xx -+- yy) == [plus]
-  , nubConsts (xx -+- (yy -+- zz)) == [plus]
-  , nubConsts (zero -+- one) =$ sort $= [zero, one, plus]
-  , nubConsts ((zero -+- abs' zero) -+- (ord' ae -+- ord' cc))
-      =$ sort $= [zero, ae, absE, plus, ordE]
-  , holds n $ \e1 e2 -> times `elem` consts (e1 -*- e2)
-
   , size  zero == 1
   , depth zero == 1
   , size  one  == 1
@@ -246,4 +239,11 @@ tests n =
   , size  (xx -*- yy -+- xx -*- zz -==- xx -*- (yy -+- zz)) == 13
   , depth (xx -*- yy -+- xx -*- zz) == 3
   , depth (xx -*- (yy -+- zz)) == 3
+
+  , nubConsts (xx -+- yy) == [plus]
+  , nubConsts (xx -+- (yy -+- zz)) == [plus]
+  , nubConsts (zero -+- one) =$ sort $= [zero, one, plus]
+  , nubConsts ((zero -+- abs' zero) -+- (ord' ae -+- ord' cc))
+      =$ sort $= [zero, ae, absE, plus, ordE]
+  , holds n $ \e1 e2 -> times `elem` consts (e1 -*- e2)
   ]
