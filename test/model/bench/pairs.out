@@ -571,6 +571,8 @@
 (_ :: Int,True || _ :: Bool)
 (_ :: Int,not _ || _ :: Bool)
 (_ :: Int,_ && _ :: Bool)
+(_ :: Int,_ == _ :: Bool)
+(_ :: Int,_ == _ :: Bool)
 (_ :: Int,e :: Char)
 (_ :: Int,'b' :: Char)
 (_ :: Int,zs :: [Int])
@@ -996,6 +998,4 @@
 (1 :: Int,id :: Int -> Int)
 (1 :: Int,(+) :: Int -> Int -> Int)
 (id x :: Int,y :: Int)
-(id x :: Int,1 :: Int)
-(id x :: Int,id x :: Int)
 

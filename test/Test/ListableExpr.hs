@@ -171,6 +171,14 @@ instance Listable BoolE  where
          \/ cons1 unBoolEV
          \/ cons1 unBoolE0
          \/ cons2 (\(BoolToBoolE ef) (BoolE ep) -> ef :$ ep)
+         \/ cons2 ((-==-) `on` unIntE)  `addWeight` 2
+         \/ cons2 ((-==-) `on` unBoolE) `addWeight` 2
+         \/ cons2 ((-<=-) `on` unIntE)  `addWeight` 3
+         \/ cons2 ((-<=-) `on` unBoolE) `addWeight` 3
+         \/ cons2 ((-<-)  `on` unIntE)  `addWeight` 4
+         \/ cons2 ((-<-)  `on` unBoolE) `addWeight` 4
+         \/ cons2 ((-/=-) `on` unIntE)  `addWeight` 5
+         \/ cons2 ((-/=-) `on` unBoolE) `addWeight` 5
 
 instance Listable BoolE0 where
   tiers  =  (BoolE0 . val) `mapT` (tiers :: [[Bool]])
