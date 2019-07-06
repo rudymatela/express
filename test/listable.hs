@@ -39,12 +39,14 @@ tests n =
   , holds n $ isConst . unIntE0
   , holds n $ isConst . unBoolE0
   , holds n $ isConst . unIntsE0
+  , holds n $ isConst . unCharE0
 
   -- Listable TypeEV only returns variables
   , holds n $ isVar . unEV
   , holds n $ isVar . unIntEV
   , holds n $ isVar . unBoolEV
   , holds n $ isVar . unIntsEV
+  , holds n $ isVar . unCharEV
 
   -- counter-examples are of the right type
   , (counterExample n $ \(IntE xx) -> False) == Just ["_ :: Int"]
