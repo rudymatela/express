@@ -26,6 +26,7 @@ module Test.ListableExpr
 
   , SameTypeE (..)
   , unSameTypeE
+  , SameTypedPairsE (..)
 
   -- * Terminal expressions
   , E0 (..)
@@ -86,6 +87,8 @@ data SameTypeE  =  SameTypeE Expr Expr
 unSameTypeE :: SameTypeE -> (Expr,Expr)
 unSameTypeE (SameTypeE e1 e2)  =  (e1,e2)
 
+data SameTypedPairsE  =  SameTypedPairsE { unSameTypedPairsE :: [(Expr,Expr)] }
+
 -- | Ill typed expressions.
 newtype Ill  =  Ill { unIll :: Expr }
 
@@ -120,6 +123,8 @@ instance Show CharE0  where  show (CharE0 e) = show e
 instance Show CharEV  where  show (CharEV e) = show e
 
 instance Show SameTypeE  where  show (SameTypeE e1 e2) = show (e1,e2)
+
+instance Show SameTypedPairsE  where  show (SameTypedPairsE ees)  =  show ees
 
 -- | Expression of 'Ints' type.
 newtype IntsE  =  IntsE { unIntsE :: Expr }
@@ -227,6 +232,9 @@ instance Listable SameTypeE where
        \/ cons1 (\(BoolToBoolE e1, BoolToBoolE e2) -> SameTypeE e1 e2) `ofWeight` 2
        \/ cons1 (\(BoolToBoolToBoolE e1, BoolToBoolToBoolE e2) -> SameTypeE e1 e2) `ofWeight` 2
        \/ cons1 (\(IntToIntToIntE e1, IntToIntToIntE e2)       -> SameTypeE e1 e2) `ofWeight` 2
+
+instance Listable SameTypedPairsE where
+  tiers = cons1 (SameTypedPairsE . map unSameTypeE) `ofWeight` 0
 
 instance Listable E0 where
   tiers  =  mapT E0
