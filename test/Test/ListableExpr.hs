@@ -127,7 +127,7 @@ instance Listable IntE0 where
   tiers  =  (IntE0 . val) `mapT` (tiers :: [[Int]])
 
 instance Listable IntEV where
-  list  =  map (IntEV . (`var` (undefined :: Int))) ["x", "y", "z", "x'"] -- TODO: infinite list
+  list  =  map IntEV $ listVars "x" (undefined :: Int)
 
 instance Listable IntToIntE where
   tiers  =  mapT IntToIntE
@@ -135,7 +135,7 @@ instance Listable IntToIntE where
          \/ cons0 negateE `addWeight` 1
          \/ cons0 absE    `addWeight` 1
          \/ cons2 (\(IntToIntToIntE ef) (IntE ex) -> ef :$ ex)
-         \/ toTiers (map (`var` (undefined :: Int -> Int)) ["f", "g", "h", "f'"]) `addWeight` 2 -- TODO: infinite list
+         \/ toTiers (listVars "f" (undefined :: Int -> Int)) `addWeight` 2
 
 instance Listable IntToIntToIntE where
   list  =  map IntToIntToIntE [plus, times]
@@ -155,7 +155,7 @@ instance Listable IntsE0 where
   tiers  =  (IntsE0 . val) `mapT` (tiers :: [[ [Int] ]])
 
 instance Listable IntsEV where
-  list  =  map (IntsEV . (`var` (undefined :: [Int]))) ["xs", "ys", "zs", "xs'"] -- TODO: infinite list
+  list  =  map IntsEV $ listVars "xs" (undefined :: [Int])
 
 instance Listable BoolE  where
   tiers  =  mapT BoolE
@@ -168,7 +168,7 @@ instance Listable BoolE0 where
   tiers  =  (BoolE0 . val) `mapT` (tiers :: [[Bool]])
 
 instance Listable BoolEV where
-  list  =  map (BoolEV . (`var` (undefined :: Bool))) ["p", "q", "r", "p'"] -- TODO: infinite list
+  list  =  map BoolEV $ listVars "p" (undefined :: Bool)
 
 instance Listable BoolToBoolE where
   tiers  =  mapT BoolToBoolE
@@ -184,7 +184,7 @@ instance Listable CharE where
                       \/ cons1 unCharE0
 
 instance Listable CharEV where
-  list  =  map (CharEV . (`var` (undefined :: Char))) ["c", "d", "e", "c'"] -- TODO: infinite list
+  list  =  map CharEV $ listVars "c" (undefined :: Char)
 
 instance Listable CharE0 where
   tiers  =  (CharE0 . val) `mapT` (tiers :: [[Char]])
