@@ -58,23 +58,39 @@ canonicalVariations = cvars
   cvars e
     | null hs'   =  [e]
     | otherwise  =  concatMap canonicalVariations
-                 .  map (fill e) . reverse . fillings names
+                 .  map (fill e) . fillings names
                  $  [h | h <- hs', typ h == typ h']
     where
     hs' = holes e
     h' = head hs'
+
   names  =  variableNamesFromTemplate "x"
+
+  -- TODO: rename iss
+  -- > iss 0 0 = [ [] ]
+  -- > iss 0 1 = [ [0] ]
+  -- > iss 0 2 = [ [0,1], [0,0] ]
+  -- > iss 0 3 = [ [0,1,2], [0,1,0], [0,1,1], [0,0,1], [0,0,0] ]
+  iss :: Int -> Int -> [[Int]]
+  iss _ 0 = [[]]
+  iss i n = concat [map (j:) (iss (i + j-=-i) (n-1)) | j <- i:[0..(i-1)]]
+    where x -=- y | x == y    = 1
+                  | otherwise = 0
+
   fillings :: [String] -> [Expr] -> [[Expr]]
-  fillings (n:ns) []      =  [[]]
-  fillings (n:ns) [h]     =  [[n `varAsTypeOf` h]]
-  fillings (n:ns) (h:hs)  =  map (n `varAsTypeOf` h:)
-                          $  fillings (n:ns) hs
-                          ++ fillings ns hs
+  fillings ns hs  =  [ [ns !! f `varAsTypeOf` head hs | f <- fs]
+                     | fs <- iss 0 (length hs)]
 -- TODO: document canonicalVariations
 -- TODO: copy tests from Speculate for canonicalVariations
--- TODO: avoid use of ++ on canonicalVariations
--- TODO: the above function is quite inneficient, reimplement it
+-- TODO: refactor the above code for clarity
 -- TODO: reduce time complexity of canonicalVariations
+-- the above is wrong, see:
+--
+-- > > canonicalVariations (i_ -+- (i_ -+- i_))
+-- > [x + (y + z) :: Int,x + (y + y) :: Int,x + (x + y) :: Int,x + (x + x) :: Int]
+-- > > vassignments (i_ -+- (i_ -+- i_))
+-- > [x + (y + z) :: Int,x + (y + x) :: Int,x + (y + y) :: Int,x + (x + y) :: Int,x + (x + x) :: Int]
+
 
 -- | Fill holes in an expression.
 --   Silently skips holes that are not of the right type.
