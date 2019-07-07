@@ -53,15 +53,62 @@ import Data.Maybe
 
 -- reifying instances --
 
+-- | /O(1)./
+-- Reifies an 'Eq' instance into a list of 'Expr's.
+-- The list will contain '==' and '/=' for the given type.
+-- (cf. 'mkEquation')
+--
+-- > > reifyEq (undefined :: Int)
+-- > [ (==) :: Int -> Int -> Bool
+-- > , (/=) :: Int -> Int -> Bool ]
+--
+-- > > reifyEq (undefined :: Bool)
+-- > [ (==) :: Bool -> Bool -> Bool
+-- > , (/=) :: Bool -> Bool -> Bool ]
+--
+-- > > reifyEq (undefined :: String)
+-- > [ (==) :: [Char] -> [Char] -> Bool
+-- > , (/=) :: [Char] -> [Char] -> Bool ]
 reifyEq :: (Typeable a, Eq a) => a -> [Expr]
 reifyEq a  =  mkEq  ((==) -:> a)
 
+-- | /O(1)./
+-- Reifies an 'Ord' instance into a list of 'Expr's.
+-- The list will contain 'compare', '<=' and '<' for the given type.
+-- (cf. 'mkComparisonLE', 'mkComparisonLT')
+--
+-- > > reifyOrd (undefined :: Int)
+-- > [ compare :: Int -> Int -> Ordering
+-- > , (<=) :: Int -> Int -> Bool
+-- > , (<) :: Int -> Int -> Bool ]
+--
+-- > > reifyOrd (undefined :: Bool)
+-- > [ compare :: Bool -> Bool -> Ordering
+-- > , (<=) :: Bool -> Bool -> Bool
+-- > , (<) :: Bool -> Bool -> Bool ]
+--
+-- > > reifyOrd (undefined :: [Bool])
+-- > [ compare :: [Bool] -> [Bool] -> Ordering
+-- > , (<=) :: [Bool] -> [Bool] -> Bool
+-- > , (<) :: [Bool] -> [Bool] -> Bool ]
 reifyOrd :: (Typeable a, Ord a) => a -> [Expr]
 reifyOrd a  =  mkOrd (compare -:> a)
 
+-- | /O(1)./
+-- Reifies 'Eq' and 'Ord' instances into a list of 'Expr'.
 reifyEqOrd :: (Typeable a, Ord a) => a -> [Expr]
 reifyEqOrd a  =  reifyEq a ++ reifyOrd a
 
+-- | /O(1)./
+-- Reifies a 'Name' instance into a list of 'Expr's.
+-- The list will contain 'name' for the given type.
+-- (cf. 'lookupName', 'lookupNames')
+--
+-- > > reifyName (undefined :: Int)
+-- > [name :: Int -> [Char]]
+--
+-- > > reifyName (undefined :: Bool)
+-- > [name :: Bool -> [Char]]
 reifyName :: (Typeable a, Name a) => a -> [Expr]
 reifyName a  =  mkName (name -:> a)
 
