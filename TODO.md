@@ -16,6 +16,3 @@ List of things TO DO for haexpress
 * Document `test/Test.ListableExpr` module thoroughly;
 
 * partially replace `Test.Extrapolate.Core` with this
-
-* after using `haexpress` as a dependency of Speculate and Extrapolate
-  remove any unused symbols from `Data.Haexpress.Fixtures`
