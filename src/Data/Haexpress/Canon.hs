@@ -12,6 +12,7 @@ module Data.Haexpress.Canon
   , canonicalizationWith
   , isCanonical
   , isCanonicalWith
+  , canonicalVariations
   )
 where
 
@@ -50,3 +51,41 @@ names' :: Expr -> [String]
 names' e = variableNamesFromTemplate $ case validApps preludeNameInstances e of
   (e':_) -> eval "i" e'
   _      -> "i"
+
+canonicalVariations :: Expr -> [Expr]
+canonicalVariations e
+  | null hs'   =  [e]
+  | otherwise  =  concatMap canonicalVariations
+               .  map (fill e) . reverse . fillings names
+               $  [h | h <- hs', typ h == typ h']
+  where
+  hs' = holes e
+  h' = head hs'
+  names  =  variableNamesFromTemplate "x"
+  fillings :: [String] -> [Expr] -> [[Expr]]
+  fillings (n:ns) []      =  [[]]
+  fillings (n:ns) [h]     =  [[n `varAsTypeOf` h]]
+  fillings (n:ns) (h:hs)  =  map (n `varAsTypeOf` h:)
+                          $  fillings (n:ns) hs
+                          ++ fillings ns hs
+-- TODO: document canonicalVariations
+-- TODO: copy tests from Speculate for canonicalVariations
+-- TODO: avoid use of ++ on canonicalVariations
+-- TODO: the above function is quite inneficient, reimplement it
+-- TODO: reduce time complexity of canonicalVariations
+
+-- | Fill holes in an expression.
+--   Silently skips holes that are not of the right type.
+--   Silently discard remaining expressions.
+fill :: Expr -> [Expr] -> Expr
+fill e = fst . fill' e
+  where
+  fill' :: Expr -> [Expr] -> (Expr,[Expr])
+  fill' (e1 :$ e2) es = let (e1',es')  = fill' e1 es
+                            (e2',es'') = fill' e2 es'
+                        in (e1' :$ e2', es'')
+  fill' eh (e:es) | isHole eh && typ eh == typ e = (e,es)
+  fill' e es = (e,es)
+-- TODO: copy tests from Speculate
+-- TODO: add examples on Haddock
+-- TODO: export? consider exporting 'fill' from the Hole module
