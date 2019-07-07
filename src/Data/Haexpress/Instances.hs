@@ -154,12 +154,39 @@ mkNameWith n a  =  [value "name" (const n -:> a)]
 lookupComparison :: String -> TypeRep -> [Expr] -> Maybe Expr
 lookupComparison n' t  =  find (\i@(Value n _) -> n == n' && typ i == mkComparisonTy t)
 
+-- | /O(n)./
+-- Returns whether an 'Eq' instance exists in the given instances list
+-- for the given 'TypeRep'.
+--
+-- > > isEqT (reifyEqOrd (undefined :: Int)) (typeOf (undefined :: Int))
+-- > True
+--
+-- > > isEqT (reifyEqOrd (undefined :: Int)) (typeOf (undefined :: [[[Int]]]))
+-- > False
+--
+-- Given that the instances list has length /n/, this function is /O(n)./
 isEqT :: [Expr] -> TypeRep -> Bool
 isEqT is t  =  isJust $ lookupComparison "==" t is
 
+-- | /O(n)./
+-- Returns whether an 'Ord' instance exists in the given instances list
+-- for the given 'TypeRep'.
+--
+-- > > isOrdT (reifyEqOrd (undefined :: Int)) (typeOf (undefined :: Int))
+-- > True
+--
+-- > > isOrdT (reifyEqOrd (undefined :: Int)) (typeOf (undefined :: [[[Int]]]))
+-- > False
+--
+-- Given that the instances list has length /n/, this function is /O(n)./
 isOrdT :: [Expr] -> TypeRep -> Bool
 isOrdT is t  =  isJust $ lookupComparison "<=" t is
 
+-- | /O(n)./
+-- Returns whether both 'Eq' and 'Ord' instance exist in the given list
+-- for the given 'TypeRep'.
+--
+-- Given that the instances list has length /n/, this function is /O(n)./
 isEqOrdT :: [Expr] -> TypeRep -> Bool
 isEqOrdT is t  =  isEqT is t && isOrdT is t
 
