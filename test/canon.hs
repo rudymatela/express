@@ -52,4 +52,33 @@ tests n =
        , (xx -+- yy) -+- (ord' cc -+- ord' cc)
        , (xx -+- xx) -+- (ord' cc -+- ord' dd)
        , (xx -+- xx) -+- (ord' cc -+- ord' cc) ]
+
+  , holds n $ \e -> all isHole (vars e)
+                ==> let xs = map (length . nubVars) $ canonicalVariations e
+                    in (head xs >) `all` tail xs
+                    && (last xs <) `all` init xs
+  , holds n $ \e -> all isHole (vars e)
+                ==> isNub (vars (head (canonicalVariations e)))
+  , holds n $ \e -> all isHole (vars e)
+                ==> let es = canonicalVariations e
+                    in (`isInstanceOf` head es) `all` tail es
+                    && (last es `isInstanceOf`) `all` init es
+  , holds n $ \e -> let es = canonicalVariations e
+                    in length (nub (sort es)) == length es
+  , holds n $ \e -> length (canonicalVariations e)
+                 == product (map (bell . snd) . counts $ holes e)
   ]
+
+-- O(1) bell number implementation (I'm lazy)
+-- TODO: actually implement bell
+bell :: Int -> Int
+bell 0 = 1
+bell 1 = 1
+bell 2 = 2
+bell 3 = 5
+bell 4 = 15
+bell 5 = 52
+bell 6 = 203
+bell 7 = 877
+bell 8 = 4140
+bell _ = error "bell: argument > 8, implement me!"
