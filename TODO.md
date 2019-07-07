@@ -1,7 +1,7 @@
 TO DO list for haexpress
 ========================
 
-List of things TO DO for haexpress
+Here is a list of things TO DO for haexpress:
 
 * document and test the `Instances` module
 
@@ -16,3 +16,14 @@ List of things TO DO for haexpress
 * Document `test/Test.ListableExpr` module thoroughly;
 
 * partially replace `Test.Extrapolate.Core` with this
+
+
+only then
+---------
+
+* write the README
+
+* release on GitHub
+
+* release on Hackage -- this should coincide with a new release for both
+  Speculate and Extrapolate.
