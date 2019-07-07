@@ -53,14 +53,16 @@ names' e = variableNamesFromTemplate $ case validApps preludeNameInstances e of
   _      -> "i"
 
 canonicalVariations :: Expr -> [Expr]
-canonicalVariations e
-  | null hs'   =  [e]
-  | otherwise  =  concatMap canonicalVariations
-               .  map (fill e) . reverse . fillings names
-               $  [h | h <- hs', typ h == typ h']
+canonicalVariations = cvars
   where
-  hs' = holes e
-  h' = head hs'
+  cvars e
+    | null hs'   =  [e]
+    | otherwise  =  concatMap canonicalVariations
+                 .  map (fill e) . reverse . fillings names
+                 $  [h | h <- hs', typ h == typ h']
+    where
+    hs' = holes e
+    h' = head hs'
   names  =  variableNamesFromTemplate "x"
   fillings :: [String] -> [Expr] -> [[Expr]]
   fillings (n:ns) []      =  [[]]
