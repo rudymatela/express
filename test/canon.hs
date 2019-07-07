@@ -38,4 +38,18 @@ tests n =
   , canonicalize (hole (undefined :: [Integer] )) == var "xs" (undefined :: [Integer])
   , canonicalize (hole (undefined :: Maybe Int )) == var "mx" (undefined :: Maybe Int)
   , canonicalize (hole (undefined :: (Int,Int) )) == var "xy" (undefined :: (Int,Int))
+
+  , canonicalVariations (zero -+- xx) == [zero -+- xx]
+  , canonicalVariations (zero -+- i_) == [zero -+- xx]
+  , canonicalVariations (i_ -+- i_) == [xx -+- yy, xx -+- xx]
+  , map canonicalize (canonicalVariations (i_ -+- (i_ -+- ord' c_)))
+    == [ xx -+- (yy -+- ord' cc)
+       , xx -+- (xx -+- ord' cc) ]
+
+  , canonicalVariations (ii -+- i_) == [ii -+- xx]
+  , map canonicalize (canonicalVariations ((i_ -+- i_) -+- (ord' c_ -+- ord' c_)))
+    == [ (xx -+- yy) -+- (ord' cc -+- ord' dd)
+       , (xx -+- yy) -+- (ord' cc -+- ord' cc)
+       , (xx -+- xx) -+- (ord' cc -+- ord' dd)
+       , (xx -+- xx) -+- (ord' cc -+- ord' cc) ]
   ]
