@@ -164,7 +164,7 @@ lookupComparison n' t  =  find (\i@(Value n _) -> n == n' && typ i == mkComparis
 -- > > isEqT (reifyEqOrd (undefined :: Int)) (typeOf (undefined :: [[[Int]]]))
 -- > False
 --
--- Given that the instances list has length /n/, this function is /O(n)./
+-- Given that the instances list has length /n/, this function is /O(n)/.
 isEqT :: [Expr] -> TypeRep -> Bool
 isEqT is t  =  isJust $ lookupComparison "==" t is
 
@@ -178,7 +178,7 @@ isEqT is t  =  isJust $ lookupComparison "==" t is
 -- > > isOrdT (reifyEqOrd (undefined :: Int)) (typeOf (undefined :: [[[Int]]]))
 -- > False
 --
--- Given that the instances list has length /n/, this function is /O(n)./
+-- Given that the instances list has length /n/, this function is /O(n)/.
 isOrdT :: [Expr] -> TypeRep -> Bool
 isOrdT is t  =  isJust $ lookupComparison "<=" t is
 
@@ -186,16 +186,49 @@ isOrdT is t  =  isJust $ lookupComparison "<=" t is
 -- Returns whether both 'Eq' and 'Ord' instance exist in the given list
 -- for the given 'TypeRep'.
 --
--- Given that the instances list has length /n/, this function is /O(n)./
+-- Given that the instances list has length /n/, this function is /O(n)/.
 isEqOrdT :: [Expr] -> TypeRep -> Bool
 isEqOrdT is t  =  isEqT is t && isOrdT is t
 
+-- | /O(n+m)./
+-- Returns whether an 'Eq' instance exists in the given instances list
+-- for the given 'Expr'.
+--
+-- > > isEq (reifyEqOrd (undefined :: Int)) (val (0::Int))
+-- > True
+--
+-- > > isEq (reifyEqOrd (undefined :: Int)) (val ([[[0::Int]]]))
+-- > False
+--
+-- Given that the instances list has length /m/
+-- and that the given 'Expr' has size /n/,
+-- this function is /O(n+m)/.
 isEq :: [Expr] -> Expr -> Bool
 isEq is  =  isEqT is . typ
 
+-- | /O(n+m)./
+-- Returns whether an 'Ord' instance exists in the given instances list
+-- for the given 'Expr'.
+--
+-- > > isOrd (reifyEqOrd (undefined :: Int)) (val (0::Int))
+-- > True
+--
+-- > > isOrd (reifyEqOrd (undefined :: Int)) (val ([[[0::Int]]]))
+-- > False
+--
+-- Given that the instances list has length /m/
+-- and that the given 'Expr' has size /n/,
+-- this function is /O(n+m)/.
 isOrd :: [Expr] -> Expr -> Bool
 isOrd is  =  isOrdT is . typ
 
+-- | /O(n+m)./
+-- Returns whether both 'Eq' and 'Ord' instance exist in the given list
+-- for the given 'Expr'.
+--
+-- Given that the instances list has length /m/
+-- and that the given 'Expr' has size /n/,
+-- this function is /O(n+m)/.
 isEqOrd :: [Expr] -> Expr -> Bool
 isEqOrd is e  =  isEq is e && isOrd is e
 
