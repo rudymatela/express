@@ -89,6 +89,12 @@ tests n =
 
   , (xx -+- yy) //- [(yy,yy -+- zz),(xx,xx -+- yy)]
     == (xx -+- yy) -+- (yy -+- zz)
+
+  , holds n $ \e -> renameVarsBy id e == e
+  , holds n $ \c e -> (renameVarsBy tail . renameVarsBy (c:)) e == e
+  , renameVarsBy (++ "1") (xx -+- yy) == (var "x1" int -+- var "y1" int)
+  , renameVarsBy (\(c:cs) -> succ c:cs) ((xx -+- yy) -+- ord' cc)
+                                 == ((yy -+- zz) -+- ord' dd)
   ]
 
 mapFst :: (a -> c) -> (a,b) -> (c,b)

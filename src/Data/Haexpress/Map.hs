@@ -12,6 +12,7 @@ module Data.Haexpress.Map
   , mapSubexprs
   , (//-)
   , (//)
+  , renameVarsBy
   )
 where
 
@@ -221,3 +222,24 @@ e //- s  =  mapValues (flip lookupId s) e
 -- and we may need to compare with /n/ subexpressions in the worst case.
 (//) :: Expr -> [(Expr,Expr)] -> Expr
 e // s  =  mapSubexprs (flip lookup s) e
+
+-- | Rename variables in an 'Expr'.
+--
+-- > > renameVarsBy (++ "'") (xx -+- yy)
+-- > x' + y' :: Int
+--
+-- > > renameVarsBy (++ "'") (yy -+- (zz -+- xx))
+-- > (y' + (z' + x')) :: Int
+--
+-- > > renameVarsBy (++ "1") (abs' xx)
+-- > abs x1 :: Int
+--
+-- > > renameVarsBy (++ "2") $ abs' (xx -+- yy)
+-- > abs (x2 + y2) :: Int
+--
+-- NOTE: this will affect holes!
+renameVarsBy :: (String -> String) -> Expr -> Expr
+renameVarsBy f = mapValues f'
+  where
+  f' (Value ('_':n) t) = Value ('_':f n) t
+  f' e = e
