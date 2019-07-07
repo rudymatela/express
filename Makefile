@@ -14,6 +14,7 @@ TESTS = \
   test/utils \
   test/canon \
   test/match \
+  test/hole \
   test/fold \
   test/show \
   test/ord \

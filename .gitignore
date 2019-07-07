@@ -21,6 +21,7 @@ test/canon
 test/core
 test/express
 test/fixtures
+test/hole
 test/instances
 test/listable
 test/main
