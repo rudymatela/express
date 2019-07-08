@@ -46,12 +46,12 @@ tests n =
   , canonicalVariations (zero -+- xx) == [zero -+- xx]
   , canonicalVariations (zero -+- i_) == [zero -+- xx]
   , canonicalVariations (i_ -+- i_) == [xx -+- yy, xx -+- xx]
-  , map canonicalize (canonicalVariations (i_ -+- (i_ -+- ord' c_)))
+  , canonicalVariations (i_ -+- (i_ -+- ord' c_))
     == [ xx -+- (yy -+- ord' cc)
        , xx -+- (xx -+- ord' cc) ]
 
-  , canonicalVariations (ii -+- i_) == [ii -+- xx]
-  , map canonicalize (canonicalVariations ((i_ -+- i_) -+- (ord' c_ -+- ord' c_)))
+  , fastCanonicalVariations (ii -+- i_) == [ii -+- xx]
+  , canonicalVariations ((i_ -+- i_) -+- (ord' c_ -+- ord' c_))
     == [ (xx -+- yy) -+- (ord' cc -+- ord' dd)
        , (xx -+- yy) -+- (ord' cc -+- ord' cc)
        , (xx -+- xx) -+- (ord' cc -+- ord' dd)

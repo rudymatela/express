@@ -13,6 +13,7 @@ module Data.Haexpress.Canon
   , isCanonical
   , isCanonicalWith
   , canonicalVariations
+  , fastCanonicalVariations
   )
 where
 
@@ -64,29 +65,28 @@ names' = lookupNames preludeNameInstances
 -- > [x :: Int]
 --
 -- > > canonicalVariations $ i_ -+- i_
--- > [x + y :: Int,x + x :: Int]
+-- > [ x + y :: Int
+-- > , x + x :: Int ]
 --
 -- > > canonicalVariations $ i_ -+- i_ -+- i_
--- > [(x + y) + z :: Int,(x + y) + x :: Int,(x + y) + y :: Int,(x + x) + y :: Int,(x + x) + x :: Int]
+-- > [ (x + y) + z :: Int
+-- > , (x + y) + x :: Int
+-- > , (x + y) + y :: Int
+-- > , (x + x) + y :: Int
+-- > , (x + x) + x :: Int ]
 --
--- When presenting resulting 'Expr's to the user,
--- it is recommented to 'canonicalize' first.
--- This function leverages that 'Haexpress' differentiates
--- between variables with the same name but different types.
--- Without applying 'canonicalize', the following 'Expr'
--- may seem to have only one variable:
+-- > > canonicalVariations $ i_ -+- ord' c_
+-- > [x + ord c :: Int]
 --
--- > canonicalVariations $ i_ -+- ord' c_
--- [x + ord x :: Int]
+-- > > canonicalVariations $ i_ -+- i_ -+- ord' c_
+-- > [ (x + y) + ord c :: Int
+-- > , (x + x) + ord c :: Int ]
 --
--- Where in fact it has two:
---
--- > map canonicalize . canonicalVariations $ i_ -+- ord' c_
--- [x + ord c :: Int]
---
--- We could always 'canonicalize' after running this function
--- but when not presenting resulting 'Expr's to the user
--- it is simply more efficient to not do it.
+-- > > canonicalVariations $ i_ -+- i_ -+- length' (c_ -:- unit c_)
+-- > [ (x + y) + length (c:d:"") :: Int
+-- > , (x + y) + length (c:c:"") :: Int
+-- > , (x + x) + length (c:d:"") :: Int
+-- > , (x + x) + length (c:c:"") :: Int ]
 --
 -- In an expression without holes this functions just returns a singleton list
 -- with the expression itself:
@@ -99,10 +99,39 @@ names' = lookupNames preludeNameInstances
 --
 -- > > canonicalVariations $ ii -+- jj
 -- > [i + j :: Int]
+--
+-- Behaviour is undefined when applying this function to expressions already
+-- containing variables.
 canonicalVariations :: Expr -> [Expr]
-canonicalVariations e
+canonicalVariations = map canonicalize . fastCanonicalVariations
+
+-- |
+-- A faster version of 'canonicalVariations' that
+-- disregards name clashes across different types.
+-- Results are confusing to the user
+-- but fine for 'Haexpress' which differentiates
+-- between variables with the same name but different types.
+--
+-- Without applying 'canonicalize', the following 'Expr'
+-- may seem to have only one variable:
+--
+-- > > fastCanonicalVariations $ i_ -+- ord' c_
+-- > [x + ord x :: Int]
+--
+-- Where in fact it has two, as the second @ x @ has a different type.
+-- Applying 'canonicalize' disambiguates:
+--
+-- > > map canonicalize . fastCanonicalVariations $ i_ -+- ord' c_
+-- > [x + ord c :: Int]
+--
+-- This function is useful when resulting 'Expr's are
+-- not intended to be presented to the user
+-- but instead to be used by another function.
+-- It is simply faster to skip the step where clashes are resolved.
+fastCanonicalVariations :: Expr -> [Expr]
+fastCanonicalVariations e
   | null hs'   =  [e]
-  | otherwise  =  concatMap canonicalVariations
+  | otherwise  =  concatMap fastCanonicalVariations
                .  map (fill e) . fillings 0
                $  [h | h <- hs', typ h == typ h']
   where
