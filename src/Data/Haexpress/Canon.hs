@@ -48,9 +48,7 @@ isCanonical = isCanonicalWith names'
 
 -- 'names' lifted over the 'Expr' type for a handful of prelude Name instances.
 names' :: Expr -> [String]
-names' e = variableNamesFromTemplate $ case validApps preludeNameInstances e of
-  (e':_) -> eval "i" e'
-  _      -> "i"
+names' = lookupNames preludeNameInstances
 
 canonicalVariations :: Expr -> [Expr]
 canonicalVariations = cvars
