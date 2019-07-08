@@ -2,7 +2,6 @@
 import Test
 
 import Data.Haexpress.Utils.List
-import Test.LeanCheck.Error (errorToNothing)
 
 main :: IO ()
 main = mainTest tests 5040
