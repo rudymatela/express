@@ -53,6 +53,36 @@ tests n =
        , (xx -+- xx) -+- (ord' cc -+- ord' dd)
        , (xx -+- xx) -+- (ord' cc -+- ord' cc) ]
 
+  , canonicalVariations (i_)
+    == [ xx ]
+  , canonicalVariations (i_ -+- i_)
+    == [ xx -+- yy
+       , xx -+- xx ]
+  , canonicalVariations (i_ -+- i_ -+- i_)
+    == [ xx -+- yy -+- zz
+       , xx -+- yy -+- xx
+       , xx -+- yy -+- yy
+       , xx -+- xx -+- yy
+       , xx -+- xx -+- xx
+       ]
+  , canonicalVariations (i_ -+- i_ -+- i_ -+- i_)
+    == [ xx -+- yy -+- zz -+- xx'
+       , xx -+- yy -+- zz -+- xx
+       , xx -+- yy -+- zz -+- yy
+       , xx -+- yy -+- zz -+- zz
+       , xx -+- yy -+- xx -+- zz
+       , xx -+- yy -+- xx -+- xx
+       , xx -+- yy -+- xx -+- yy
+       , xx -+- yy -+- yy -+- zz
+       , xx -+- yy -+- yy -+- xx
+       , xx -+- yy -+- yy -+- yy
+       , xx -+- xx -+- yy -+- zz
+       , xx -+- xx -+- yy -+- xx
+       , xx -+- xx -+- yy -+- yy
+       , xx -+- xx -+- xx -+- yy
+       , xx -+- xx -+- xx -+- xx
+       ]
+
   , holds n $ \e -> all isHole (vars e)
                 ==> let xs = map (length . nubVars) $ canonicalVariations e
                     in (head xs >) `all` tail xs
