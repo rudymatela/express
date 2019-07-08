@@ -100,16 +100,14 @@ names' = lookupNames preludeNameInstances
 -- > > canonicalVariations $ ii -+- jj
 -- > [i + j :: Int]
 canonicalVariations :: Expr -> [Expr]
-canonicalVariations = cvars
+canonicalVariations e
+  | null hs'   =  [e]
+  | otherwise  =  concatMap canonicalVariations
+               .  map (fill e) . fillings 0
+               $  [h | h <- hs', typ h == typ h']
   where
-  cvars e
-    | null hs'   =  [e]
-    | otherwise  =  concatMap canonicalVariations
-                 .  map (fill e) . fillings 0
-                 $  [h | h <- hs', typ h == typ h']
-    where
-    hs' = holes e
-    h' = head hs'
+  hs' = holes e
+  h' = head hs'
 
   names  =  variableNamesFromTemplate "x"
 
@@ -119,7 +117,6 @@ canonicalVariations = cvars
     concat $ map (names !! i `varAsTypeOf` h:) (fillings (i+1) hs) -- new var
            : [ map (n `varAsTypeOf` h:) (fillings i hs) -- no new variable
              | n <- take i names ]
--- TODO: document canonicalVariations
 -- TODO: copy tests from Speculate for canonicalVariations
 
 
