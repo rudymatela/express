@@ -54,6 +54,51 @@ isCanonical = isCanonicalWith names'
 names' :: Expr -> [String]
 names' = lookupNames preludeNameInstances
 
+-- |
+-- Returns all canonical variations of an 'Expr'
+-- by filling holes with variables.
+-- Where possible, variations are listed
+-- from most general to least general.
+--
+-- > > canonicalVariations $ i_
+-- > [x :: Int]
+--
+-- > > canonicalVariations $ i_ -+- i_
+-- > [x + y :: Int,x + x :: Int]
+--
+-- > > canonicalVariations $ i_ -+- i_ -+- i_
+-- > [(x + y) + z :: Int,(x + y) + x :: Int,(x + y) + y :: Int,(x + x) + y :: Int,(x + x) + x :: Int]
+--
+-- When presenting resulting 'Expr's to the user,
+-- it is recommented to 'canonicalize' first.
+-- This function leverages that 'Haexpress' differentiates
+-- between variables with the same name but different types.
+-- Without applying 'canonicalize', the following 'Expr'
+-- may seem to have only one variable:
+--
+-- > canonicalVariations $ i_ -+- ord' c_
+-- [x + ord x :: Int]
+--
+-- Where in fact it has two:
+--
+-- > map canonicalize . canonicalVariations $ i_ -+- ord' c_
+-- [x + ord c :: Int]
+--
+-- We could always 'canonicalize' after running this function
+-- but when not presenting resulting 'Expr's to the user
+-- it is simply more efficient to not do it.
+--
+-- In an expression without holes this functions just returns a singleton list
+-- with the expression itself:
+--
+-- > > canonicalVariations $ val (0 :: Int)
+-- > [0 :: Int]
+--
+-- > > canonicalVariations $ ord' bee
+-- > [ord 'b' :: Int]
+--
+-- > > canonicalVariations $ ii -+- jj
+-- > [i + j :: Int]
 canonicalVariations :: Expr -> [Expr]
 canonicalVariations = cvars
   where
