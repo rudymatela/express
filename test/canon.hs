@@ -25,7 +25,11 @@ tests n =
                                             == ((ii -+- jj) -+- (kk -+- kk))
 
   , canonicalize (xx -+- ord' cc) == (xx -+- ord' cc)
-
+  , canonicalize (yy -+- ord' dd) == (xx -+- ord' cc)
+  , canonicalize (ff xx -+- gg yy -+- ff yy) == (ff xx -+- gg yy -+- ff yy)
+  , canonicalize (gg yy -+- ff xx -+- gg xx) == (ff xx -+- gg yy -+- ff yy)
+  , canonicalizeWith (lookupNames $ reifyName (undefined :: Int -> Int -> Int) ++ preludeNameInstances)
+      (zz -?- kk) == (var "f" (undefined :: Int -> Int -> Int) :$ xx :$ yy)
 
   -- canonicalizing holes --
   , canonicalize (hole (undefined :: Int       )) == xx
