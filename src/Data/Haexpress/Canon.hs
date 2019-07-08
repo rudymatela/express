@@ -32,7 +32,11 @@ canonicalizationWith namesFor e = cr (vars e) []
   cr (e:es) bs  =  cr es
                 $  if e `elem` map fst bs
                    then bs
-                   else (e, (`varAsTypeOf` e) . head $ namesFor e \\ [n | (_,Value ('_':n) _) <- bs]):bs
+                   else (e, n `varAsTypeOf` e):bs
+    where
+    existingNames = [n | (_,Value ('_':n) _) <- bs]
+    freshNames = namesFor e \\ existingNames
+    n = head freshNames
 
 isCanonicalWith :: (Expr -> [String]) -> Expr -> Bool
 isCanonicalWith ti e = canonicalizeWith ti e == e
