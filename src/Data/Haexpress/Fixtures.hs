@@ -72,6 +72,7 @@ module Data.Haexpress.Fixtures
   , (-++-)
   , head'
   , tail'
+  , length'
   , elem'
   , sort'
   , insert'
@@ -734,6 +735,29 @@ tail' exs = headOr err $ mapMaybe ($$ exs)
   ]
   where
   err  =  error $ "tail': unhandled type " ++ show (typ exs)
+
+-- | List 'length' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > length' $ unit one
+-- > length [1] :: Int
+--
+-- > > length' $ unit bee
+-- > length "b" :: Int
+--
+-- > > length' $ zero -:- unit two
+-- > length [0,2] :: Int
+--
+-- > > evl $ length' $ unit one :: Int
+-- > 1
+length' :: Expr -> Expr
+length' exs = headOr err $ mapMaybe ($$ exs)
+  [ value "length" (length :: [Int] -> Int)
+  , value "length" (length :: [Char] -> Int)
+  , value "length" (length :: [Bool] -> Int)
+  ]
+  where
+  err  =  error $ "length': cannot apply `length :: [a] -> a` to `" ++ show exs ++ "'."
 
 sort' :: Expr -> Expr
 sort' exs = headOr err $ mapMaybe ($$ exs)
