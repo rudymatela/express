@@ -117,7 +117,6 @@ canonicalVariations e
     concat $ map (names !! i `varAsTypeOf` h:) (fillings (i+1) hs) -- new var
            : [ map (n `varAsTypeOf` h:) (fillings i hs) -- no new variable
              | n <- take i names ]
--- TODO: copy tests from Speculate for canonicalVariations
 
 
 -- | Fill holes in an expression.
