@@ -15,7 +15,6 @@ module Data.Haexpress
   , module Data.Haexpress.Instances
   , module Data.Haexpress.Name
   , module Data.Haexpress.Express
-  , isSubexprOf
   )
 where
 
@@ -25,18 +24,3 @@ import Data.Haexpress.Match
 import Data.Haexpress.Instances
 import Data.Haexpress.Name
 import Data.Haexpress.Express
-
--- | /O(n^2)/.
--- Checks if an 'Expr' is a subexpression of another.
---
--- > > (xx -+- yy) `isSubexpr` (zz -+- (xx -+- yy))
--- > True
---
--- > > (xx -+- yy) `isSubexpr` abs' (yy -+- xx)
--- > False
---
--- > > xx `isSubexpr` yy
--- > False
-isSubexprOf :: Expr -> Expr -> Bool
-isSubexprOf e = (e `elem`) . subexprs
--- TODO: test isSubexprOf

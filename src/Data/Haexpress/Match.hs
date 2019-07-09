@@ -10,6 +10,7 @@ module Data.Haexpress.Match
   , matchWith
   , isInstanceOf
   , hasInstanceOf
+  , isSubexprOf
   )
 where
 
@@ -68,3 +69,18 @@ e1           `hasInstanceOf` e2 | e1   `isInstanceOf` e2 = True
 (e1f :$ e1x) `hasInstanceOf` e2 | e1f `hasInstanceOf` e2 ||
                                   e1x `hasInstanceOf` e2 = True
 _            `hasInstanceOf` _                           = False
+
+-- | /O(n^2)/.
+-- Checks if an 'Expr' is a subexpression of another.
+--
+-- > > (xx -+- yy) `isSubexpr` (zz -+- (xx -+- yy))
+-- > True
+--
+-- > > (xx -+- yy) `isSubexpr` abs' (yy -+- xx)
+-- > False
+--
+-- > > xx `isSubexpr` yy
+-- > False
+isSubexprOf :: Expr -> Expr -> Bool
+isSubexprOf e = (e `elem`) . subexprs
+-- TODO: test isSubexprOf
