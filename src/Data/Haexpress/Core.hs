@@ -402,7 +402,7 @@ showsPrecExpr d ee | isTuple ee = id
   . foldr1 (\s1 s2 -> s1 . showString "," . s2)
            (showsPrecExpr 0 `map` unfoldTuple ee)
   . showString ")"
-showsPrecExpr d ((Value f _ :$ e1) :$ e2)
+showsPrecExpr d ((Value f' _ :$ e1) :$ e2)
   | isInfix f = showParen (d > prec f)
               $ showsOpExpr f e1
               . showString " " . showString f . showString " "
@@ -411,13 +411,20 @@ showsPrecExpr d ((Value f _ :$ e1) :$ e2)
               $ showString f
               . showString " " . showsOpExpr " " e1
               . showString " " . showsOpExpr " " e2
-showsPrecExpr d (Value f _ :$ e1)
+  where
+  f = case f' of ('_':f) -> f
+                 f -> f
+showsPrecExpr d (Value f' _ :$ e1)
   | isInfix f = showParen True
               $ showsOpExpr f e1 . showString " " . showString f
+  where
+  f = case f' of ('_':f) -> f
+                 f -> f
 showsPrecExpr d (e1 :$ e2) = showParen (d > prec " ")
                            $ showsPrecExpr (prec " ") e1
                            . showString " "
                            . showsPrecExpr (prec " " + 1) e2
+
 -- bad smell here, repeated code!
 showsTailExpr :: Expr -> String -> String
 showsTailExpr ((Value ":" _ :$ e1) :$ e2)

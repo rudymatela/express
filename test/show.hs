@@ -28,12 +28,10 @@ tests n =
   , show (ff xx) == "f x :: Int"
   , show (var "f" (undefined :: Int -> Int -> Int)) == "f :: Int -> Int -> Int"
   , show (var "f" (undefined :: Int -> Int -> Int) :$ one) == "f 1 :: Int -> Int"
-  -- TODO: make the following work
-  -- (It didn't work on Speculate anyway...)
---, show (var "f" (undefined :: Int -> Int -> Int) :$ one :$ two) == "f 1 2 :: Int" -- TODO:
---, show (var "`f`" (undefined :: Int -> Int -> Int) :$ one) == "(1 `f`) :: Int" -- TODO:
---, show (var "`f`" (undefined :: Int -> Int -> Int) :$ one :$ two) == "1 `f` 2 :: Int" -- TODO:
---, show (one -?- two) == "1 ? 2 :: Int" -- TODO:
+  , show (var "f" (undefined :: Int -> Int -> Int) :$ one :$ two) == "f 1 2 :: Int"
+  , show (var "`f`" (undefined :: Int -> Int -> Int) :$ one) == "(1 `f`) :: Int -> Int"
+  , show (var "`f`" (undefined :: Int -> Int -> Int) :$ one :$ two) == "1 `f` 2 :: Int"
+  , show (one -?- two) == "1 ? 2 :: Int"
   , show (value "`compare`" (compare :: Int->Int->Ordering) :$ one) == "(1 `compare`) :: Int -> Ordering"
   , show (value "`compare`" (compare :: Int->Int->Ordering) :$ one :$ two) == "1 `compare` 2 :: Ordering"
 
