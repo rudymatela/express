@@ -39,4 +39,12 @@ tests n =
                 not (isFunTy $ typ e1) && not (isFunTy $ typ e3)
                   ==>
                 (e1 -==- e2) `match` (e3 -==- e4) == foldPair (e1,e2) `match` foldPair (e3,e4)
+
+  -- tests for isSubexprOf --
+  , holds n $ \e1 e2 -> e1 `isSubexprOf` e2 == (e1 `elem` subexprs e2)
+  , holds n $ \e -> e `isSubexprOf` e
+  , (xx -+- yy) `isSubexprOf` (zz -+- (xx -+- yy)) == True
+  , (xx -+- yy) `isSubexprOf` abs' (yy -+- xx) == False
+  , xx `isSubexprOf` yy == False
+  , xx `isSubexprOf` xx == True
   ]
