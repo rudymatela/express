@@ -37,7 +37,8 @@ tests n =
   , ["s","t","u","s'","t'"]    `isPrefixOf` variableNamesFromTemplate "s"
   , ["0","1","2","3","4"]      `isPrefixOf` variableNamesFromTemplate "0"
   , ["1","2","3","4","5"]      `isPrefixOf` variableNamesFromTemplate "1"
---, ["z","a","b","z'","a'"]    `isPrefixOf` variableNamesFromTemplate "z" -- TODO: make this pass
+  , ["z","z1","z2","z3","z4"]  `isPrefixOf` variableNamesFromTemplate "z"
+  , ["y","y1","y2","y3","y4"]  `isPrefixOf` variableNamesFromTemplate "y"
   , ["x1","x2","x3","x4"]      `isPrefixOf` variableNamesFromTemplate "x1"
   , ["a0","a1","a2","a3"]      `isPrefixOf` variableNamesFromTemplate "a0"
   , ["e1","e2","e3","e4"]      `isPrefixOf` variableNamesFromTemplate "e1"

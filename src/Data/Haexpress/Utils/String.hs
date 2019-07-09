@@ -149,6 +149,8 @@ variableNamesFromTemplate  =  primeCycle . f
   where
   f ""                          =  f "x"
   f cs    | isDigit (last cs)   =  map (\n -> init cs ++ show n) [digitToInt (last cs)..]
+  f "z"                         =  "z" : map (\n -> "z" ++ show n) [1..]
+  f "y"                         =  "y" : map (\n -> "y" ++ show n) [1..]
   f [c]                         =  map ((:[]) . chr) [x,x+1,x+2] where x = ord c
   f cs    | last cs == 's'      =  (++ "s") <$> f (init cs)
   f "xy"                        =  ["xy","zw"]
