@@ -103,8 +103,9 @@ tests n =
                  == product (map (bell . snd) . counts $ holes e)
   ]
 
--- O(1) bell number implementation (I'm lazy)
--- TODO: actually implement bell
+-- O(1) bell number implementation
+-- only works up to 8
+-- but this is enough for testing.
 bell :: Int -> Int
 bell 0 = 1
 bell 1 = 1
