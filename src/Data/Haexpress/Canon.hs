@@ -22,9 +22,31 @@ import Data.Haexpress.Name
 import Data.Haexpress.Instances
 import Data.List ((\\))
 
+-- |
+-- Like 'canonicalize' but allows customization
+-- of the list of variable names.
+-- (cf. 'lookupNames', 'variableNamesFromTemplate')
+--
+-- > > canonicalizeWith (const ["i","j","k","l",...]) (xx -+- yy)
+-- > i + j :: Int
+--
+-- The argument 'Expr' of the argument function allows
+-- to provide a different list of names for different types:
+--
+-- > > let namesFor e
+-- > >   | typ e == typeOf (undefined::Char) = variableNamesFromTemplate "c1"
+-- > >   | typ e == typeOf (undefined::Int)  = variableNamesFromTemplate "i"
+-- > >   | otherwise                         = variableNamesFromTemplate "x"
+--
+-- > > canonicalizeWith namesFor ((xx -+- ord' dd) -+- (ord' cc -+- yy))
+-- > (i + ord c1) + (ord c2 + j) :: Int
 canonicalizeWith :: (Expr -> [String]) -> Expr -> Expr
 canonicalizeWith namesFor e = e //- canonicalizationWith namesFor e
 
+-- |
+-- Like 'canonicalization' but allows customization
+-- of the list of variable names.
+-- (cf. 'lookupNames', 'variableNamesFromTemplate')
 canonicalizationWith :: (Expr -> [String]) -> Expr -> [(Expr,Expr)]
 canonicalizationWith namesFor e = cr (vars e) []
   where
@@ -39,15 +61,62 @@ canonicalizationWith namesFor e = cr (vars e) []
     freshNames = namesFor e \\ existingNames
     n = head freshNames
 
+-- |
+-- Like 'isCanonical' but allows specifying
+-- the list of variable names.
 isCanonicalWith :: (Expr -> [String]) -> Expr -> Bool
 isCanonicalWith ti e = canonicalizeWith ti e == e
 
+-- |
+-- Canonicalizes an 'Expr' so that variable names appear in order.
+-- Variable names are taken from the 'preludeNameInstances'.
+--
+-- > > canonicalize (xx -+- yy)
+-- > x + y :: Int
+--
+-- > > canonicalize (yy -+- xx)
+-- > x + y :: Int
+--
+-- > > canonicalize (xx -+- xx)
+-- > x + x :: Int
+--
+-- > > canonicalize (yy -+- yy)
+-- > x + x :: Int
+--
+-- Constants are untouched:
+--
+-- > > canonicalize (jj -+- (zero -+- abs' ii))
+-- > x + (y + abs y) :: Int
+--
+-- This also works for variable functions:
+--
+-- > > canonicalize (gg yy -+- ff xx -+- gg xx)
+-- > (f x + g y) + f y :: Int
 canonicalize :: Expr -> Expr
 canonicalize = canonicalizeWith names'
 
+-- |
+-- Return a canonicalization of an 'Expr'
+-- that makes variable names appear in order
+-- using 'names' as provided by 'preludeNameInstances'.
+-- By using '//-' it can 'canonicalize' 'Expr's.
+--
+-- > > canonicalization (gg yy -+- ff xx -+- gg xx)
+-- > [ (x :: Int,        y :: Int)
+-- > , (f :: Int -> Int, g :: Int -> Int)
+-- > , (y :: Int,        x :: Int)
+-- > , (g :: Int -> Int, f :: Int -> Int) ]
+--
+-- > > canonicalization (yy -+- xx -+- yy)
+-- > [ (x :: Int, y :: Int)
+-- > , (y :: Int, x :: Int) ]
 canonicalization :: Expr -> [(Expr,Expr)]
 canonicalization = canonicalizationWith names'
 
+-- |
+-- Returns whether an 'Expr' is canonical:
+-- if applying 'canonicalize' is an identity
+-- using 'names' as provided by 'preludeNameInstances'.
 isCanonical :: Expr -> Bool
 isCanonical = isCanonicalWith names'
 
