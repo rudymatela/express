@@ -160,7 +160,6 @@ tests n =
 
   -- String --
 
-  -- TODO: show `:: [Char]' as `:: String'?
   , show emptyString == "\"\" :: [Char]"
   , show (unit bee) == "\"b\" :: [Char]"
   , show (bee -:- unit cee) == "\"bc\" :: [Char]"
