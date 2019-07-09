@@ -46,6 +46,6 @@ tests n =
   , ["xy","zw","xy'","zw'"]    `isPrefixOf` variableNamesFromTemplate "xy"
   , ["ab","cd","ab'","cd'"]    `isPrefixOf` variableNamesFromTemplate "ab"
   , ["xys","zws","xys'"]       `isPrefixOf` variableNamesFromTemplate "xys"
-  , ["xyz","xyz'","xyz''"]     `isPrefixOf` variableNamesFromTemplate "xyz"
+  , ["xyz","uvw","xyz'","uvw'"]    `isPrefixOf` variableNamesFromTemplate "xyz"
   , ["thing1", "thing2", "thing3"] `isPrefixOf` variableNamesFromTemplate "thing1"
   ]
