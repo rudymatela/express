@@ -178,7 +178,7 @@ canonicalVariations = map canonicalize . fastCanonicalVariations
 -- A faster version of 'canonicalVariations' that
 -- disregards name clashes across different types.
 -- Results are confusing to the user
--- but fine for 'Haexpress' which differentiates
+-- but fine for Haexpress which differentiates
 -- between variables with the same name but different types.
 --
 -- Without applying 'canonicalize', the following 'Expr'
