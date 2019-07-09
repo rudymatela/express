@@ -73,13 +73,13 @@ _            `hasInstanceOf` _                           = False
 -- | /O(n^2)/.
 -- Checks if an 'Expr' is a subexpression of another.
 --
--- > > (xx -+- yy) `isSubexpr` (zz -+- (xx -+- yy))
+-- > > (xx -+- yy) `isSubexprOf` (zz -+- (xx -+- yy))
 -- > True
 --
--- > > (xx -+- yy) `isSubexpr` abs' (yy -+- xx)
+-- > > (xx -+- yy) `isSubexprOf` abs' (yy -+- xx)
 -- > False
 --
--- > > xx `isSubexpr` yy
+-- > > xx `isSubexprOf` yy
 -- > False
 isSubexprOf :: Expr -> Expr -> Bool
 isSubexprOf e = (e `elem`) . subexprs
