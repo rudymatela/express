@@ -3,6 +3,12 @@ TO DO list for haexpress
 
 Here is a list of things TO DO for haexpress:
 
+* derive `Name` using TH
+
+* derive `Express` using TH
+
+* export `showPrecExpr` from Core
+
 * document and test the `Instances` module
 
 * document and test recently added stuff
