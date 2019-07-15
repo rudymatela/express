@@ -2,6 +2,7 @@ bench/compare.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -27,6 +28,7 @@ bench/pairs.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -52,6 +54,7 @@ bench/tiers.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -75,6 +78,7 @@ bench/tiers: \
   mk/toplibs
 mk/All.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -95,6 +99,7 @@ mk/Toplibs.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -153,6 +158,7 @@ src/Data/Haexpress/Express.o: \
   src/Data/Haexpress/Core.hs
 src/Data/Haexpress/Fixtures.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -209,6 +215,7 @@ src/Data/Haexpress/Match.o: \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Basic.hs
 src/Data/Haexpress/Name/Derive.o: \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Name.hs \
   src/Data/Haexpress/Name/Derive.hs
@@ -217,6 +224,7 @@ src/Data/Haexpress/Name.o: \
   src/Data/Haexpress/Name.hs
 src/Data/Haexpress.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -235,6 +243,8 @@ src/Data/Haexpress/Utils/List.o: \
   src/Data/Haexpress/Utils/List.hs
 src/Data/Haexpress/Utils/String.o: \
   src/Data/Haexpress/Utils/String.hs
+src/Data/Haexpress/Utils/TH.o: \
+  src/Data/Haexpress/Utils/TH.hs
 src/Data/Haexpress/Utils/Typeable.o: \
   src/Data/Haexpress/Utils/Typeable.hs
 test/canon.o: \
@@ -242,6 +252,7 @@ test/canon.o: \
   test/Test/ListableExpr.hs \
   test/canon.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -267,6 +278,7 @@ test/core.o: \
   test/Test/ListableExpr.hs \
   test/core.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -292,6 +304,7 @@ test/express.o: \
   test/Test/ListableExpr.hs \
   test/express.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -317,6 +330,7 @@ test/fixtures.o: \
   test/Test/ListableExpr.hs \
   test/fixtures.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -342,6 +356,7 @@ test/fold.o: \
   test/Test/ListableExpr.hs \
   test/fold.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -367,6 +382,7 @@ test/hole.o: \
   test/Test/ListableExpr.hs \
   test/hole.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -392,6 +408,7 @@ test/instances.o: \
   test/Test/ListableExpr.hs \
   test/instances.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -417,6 +434,7 @@ test/listable.o: \
   test/Test/ListableExpr.hs \
   test/listable.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -442,6 +460,7 @@ test/main.o: \
   test/Test/ListableExpr.hs \
   test/main.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -467,6 +486,7 @@ test/map.o: \
   test/Test/ListableExpr.hs \
   test/map.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -492,6 +512,7 @@ test/match.o: \
   test/Test/ListableExpr.hs \
   test/match.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -517,6 +538,7 @@ test/name-derive.o: \
   test/Test/ListableExpr.hs \
   test/name-derive.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -542,6 +564,7 @@ test/name.o: \
   test/Test/ListableExpr.hs \
   test/name.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -567,6 +590,7 @@ test/ord.o: \
   test/Test/ListableExpr.hs \
   test/ord.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -592,6 +616,7 @@ test/show.o: \
   test/Test/ListableExpr.hs \
   test/show.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -615,6 +640,7 @@ test/show: \
 test/Test/ListableExpr.o: \
   test/Test/ListableExpr.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -634,6 +660,7 @@ test/Test.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
@@ -658,6 +685,7 @@ test/utils.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress.hs \
