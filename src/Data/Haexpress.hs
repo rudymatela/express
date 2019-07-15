@@ -14,6 +14,7 @@ module Data.Haexpress
   , module Data.Haexpress.Match
   , module Data.Haexpress.Instances
   , module Data.Haexpress.Name
+  , module Data.Haexpress.Name.Derive
   , module Data.Haexpress.Express
   )
 where
@@ -23,4 +24,5 @@ import Data.Haexpress.Canon
 import Data.Haexpress.Match
 import Data.Haexpress.Instances
 import Data.Haexpress.Name
+import Data.Haexpress.Name.Derive
 import Data.Haexpress.Express
