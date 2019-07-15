@@ -54,6 +54,7 @@ library
                      , Data.Haexpress.Hole
                      , Data.Haexpress.Instances
                      , Data.Haexpress.Name
+                     , Data.Haexpress.Name.Derive
                      , Data.Haexpress.Canon
                      , Data.Haexpress.Match
                      , Data.Haexpress.Utils.List
