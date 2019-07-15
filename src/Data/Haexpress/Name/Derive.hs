@@ -57,6 +57,8 @@ reallyDeriveName t  =  do
   where
   showJustName = reverse . takeWhile (/= '.') . reverse . show
   vname = map toLower . take 1 $ showJustName t
+-- TODO: on deriveName, use full camelCase name?
+-- TODO: on deriveName, use x for Num instances?
 
 -- Not only really derive Name instances,
 -- but cascade through argument types.
@@ -66,7 +68,7 @@ reallyDeriveNameCascading t =
   =<< mapM reallyDeriveName
   =<< filterM (liftM not . isTypeSynonym)
   =<< return . (t:) . delete t
-  =<< t `typeConCascadingArgsThat` (`isntInstanceOf` ''Name)
+  =<< t `typeConCascadingArgsThat` (`isntInstanceOf` ''N.Name)
 
 
 -- * Template haskell utilities

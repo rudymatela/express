@@ -512,6 +512,31 @@ test/match: \
   test/Test/ListableExpr.hs \
   test/match.hs \
   mk/toplibs
+test/name-derive.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/name-derive.hs \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Name/Derive.hs \
+  src/Data/Haexpress/Match.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Hole.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs
+test/name-derive: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/name-derive.hs \
+  mk/toplibs
 test/name.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \

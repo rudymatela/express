@@ -11,6 +11,7 @@ TESTS = \
   test/fixtures \
   test/express \
   test/name \
+  test/name-derive \
   test/utils \
   test/canon \
   test/match \

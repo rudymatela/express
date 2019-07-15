@@ -28,6 +28,7 @@ test/main
 test/map
 test/match
 test/name
+test/name-derive
 test/utils
 test/fold
 test/ord
