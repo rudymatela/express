@@ -22,31 +22,17 @@ import Data.Haexpress.Utils.TH
 
 -- This function needs the @TemplateHaskell@ extension.
 deriveName :: Name -> DecsQ
-deriveName = deriveNameX True False
+deriveName  =  deriveWhenNeededOrWarn ''N.Name reallyDeriveName
 
 -- | Same as 'deriveName' but does not warn when instance already exists
 --   ('deriveName' is preferable).
 deriveNameIfNeeded :: Name -> DecsQ
-deriveNameIfNeeded = deriveNameX False False
+deriveNameIfNeeded  =  deriveWhenNeeded ''N.Name reallyDeriveName
 
 -- | Derives a 'Name' instance for a given type 'Name'
 --   cascading derivation of type arguments as well.
 deriveNameCascading :: Name -> DecsQ
-deriveNameCascading = deriveNameX True True
-
-deriveNameX :: Bool -> Bool -> Name -> DecsQ
-deriveNameX warnExisting cascade t  =  do
-  is <- t `isInstanceOf` ''N.Name
-  if is
-  then do
-    unless (not warnExisting)
-      (reportWarning $ "Instance Name " ++ show t
-                    ++ " already exists, skipping derivation")
-    return []
-  else
-    if cascade
-    then reallyDeriveNameCascading t
-    else reallyDeriveName t
+deriveNameCascading  =  deriveWhenNeeded ''N.Name reallyDeriveNameCascading
 
 reallyDeriveName :: Name -> DecsQ
 reallyDeriveName t  =  do
@@ -62,9 +48,4 @@ reallyDeriveName t  =  do
 -- Not only really derive Name instances,
 -- but cascade through argument types.
 reallyDeriveNameCascading :: Name -> DecsQ
-reallyDeriveNameCascading t =
-      return . concat
-  =<< mapM reallyDeriveName
-  =<< filterM (liftM not . isTypeSynonym)
-  =<< return . (t:) . delete t
-  =<< t `typeConCascadingArgsThat` (`isntInstanceOf` ''N.Name)
+reallyDeriveNameCascading  =  reallyDeriveCascading ''N.Name reallyDeriveName

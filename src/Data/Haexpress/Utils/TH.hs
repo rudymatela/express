@@ -7,7 +7,10 @@
 --
 -- Template Haskell utilities.
 module Data.Haexpress.Utils.TH
-  ( typeConArgs
+  ( reallyDeriveCascading
+  , deriveWhenNeeded
+  , deriveWhenNeededOrWarn
+  , typeConArgs
   , typeConArgsThat
   , typeConCascadingArgsThat
   , normalizeType
@@ -25,7 +28,36 @@ module Data.Haexpress.Utils.TH
 where
 
 import Control.Monad
+import Data.List
 import Language.Haskell.TH
+
+deriveWhenNeeded :: Name -> (Name -> DecsQ) -> Name -> DecsQ
+deriveWhenNeeded  =  deriveWhenNeededX False
+
+deriveWhenNeededOrWarn :: Name -> (Name -> DecsQ) -> Name -> DecsQ
+deriveWhenNeededOrWarn  =  deriveWhenNeededX True
+
+deriveWhenNeededX :: Bool -> Name -> (Name -> DecsQ) -> Name -> DecsQ
+deriveWhenNeededX warnExisting cls reallyDerive t  =  do
+  is <- t `isInstanceOf` cls
+  if is
+  then do
+    unless (not warnExisting)
+      (reportWarning $ "Instance " ++ showJustName cls ++ " " ++ showJustName t
+                    ++ " already exists, skipping derivation")
+    return []
+  else
+    reallyDerive t
+  where
+    showJustName = reverse . takeWhile (/= '.') . reverse . show
+
+reallyDeriveCascading :: Name -> (Name -> DecsQ) -> Name -> DecsQ
+reallyDeriveCascading cls reallyDerive t =
+      return . concat
+  =<< mapM reallyDerive
+  =<< filterM (liftM not . isTypeSynonym)
+  =<< return . (t:) . delete t
+  =<< t `typeConCascadingArgsThat` (`isntInstanceOf` cls)
 
 typeConArgs :: Name -> Q [Name]
 typeConArgs t = do
