@@ -667,6 +667,7 @@ e1 -:- e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
   [ cons
   , value ":" ((:) :: Char -> String -> String)
   , value ":" ((:) :: Bool -> [Bool] -> [Bool])
+  , value ":" ((:) :: Maybe Int -> [Maybe Int] -> [Maybe Int])
   ]
   where
   err  =  error $ "(-:-): unhandled type " ++ show (typ e1)
