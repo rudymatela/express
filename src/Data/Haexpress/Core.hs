@@ -63,6 +63,7 @@ module Data.Haexpress.Core
   , unfoldApp
   , showExpr
   , showOpExpr -- TODO: eventually remove this
+  , showPrecExpr
   )
 where
 
