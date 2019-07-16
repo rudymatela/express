@@ -9,6 +9,7 @@ module Data.Haexpress.Express (Express (..)) where
 
 import Data.Haexpress.Core
 import Data.Typeable
+import Data.Ratio
 
 class Typeable a => Express a where
   expr :: a -> Expr
@@ -41,8 +42,40 @@ instance (Express a, Express b, Express c, Express d) => Express (a,b,c,d) where
                   :$ expr x :$ expr y :$ expr z :$ expr w
 
 instance Express a => Express [a] where
-  expr xs@[]      =  value "[]" ([] -: xs)
-  expr xs@(y:ys)  =  value ":"  ((:) ->>: xs) :$ expr y :$ expr ys
+  expr xs@[]
+    | typeOf xs == typeOf ""  =  value "\"\"" ([] -: xs)
+    | otherwise               =  value "[]" ([] -: xs)
+  expr xs@(y:ys)              =  value ":"  ((:) ->>: xs) :$ expr y :$ expr ys
+
+
+-- instances of further types and arities --
+
+instance (Show a, Express a) => Express (Ratio a) where
+  expr  =  val
+-- The following would allow zero denominators
+-- expr (n % d) = constant "%" ((%) -:> n) :$ expr n :$ expr d
+-- TODO: allow zero denominators as it is not our problem
+--       but only after refactoring Extrapolate to use Haexpress
+
+instance (Express a, Express b, Express c, Express d, Express e)
+      => Express (a,b,c,d,e) where
+  expr (x,y,z,w,v)  =  value ",,,," ((,,,,) ->>>>>: (x,y,z,w,v))
+                    :$ expr x :$ expr y :$ expr z :$ expr w :$ expr v
+
+instance (Express a, Express b, Express c, Express d, Express e, Express f)
+      => Express (a,b,c,d,e,f) where
+  expr (x,y,z,w,v,u)  =  value ",,,,," ((,,,,,) ->>>>>>: (x,y,z,w,v,u))
+                    :$ expr x :$ expr y :$ expr z :$ expr w :$ expr v :$ expr u
+
+instance ( Express a, Express b, Express c, Express d, Express e, Express f
+         , Express g )
+      => Express (a,b,c,d,e,f,g) where
+  expr (x,y,z,w,v,u,t)  =  value ",,,,,," ((,,,,,,) ->>>>>>>: (x,y,z,w,v,u,t))
+                        :$ expr x :$ expr y :$ expr z :$ expr w
+                        :$ expr v :$ expr u :$ expr t
+
+
+-- type binding utilities --
 
 (-:) :: a -> a -> a
 (-:) = asTypeOf -- const
@@ -95,3 +128,7 @@ infixl 1 ->>>>>:>
 (->>>>>>:) :: (a->b->c->d->e->f->g) -> g -> (a->b->c->d->e->f->g)
 (->>>>>>:) = const
 infixl 1 ->>>>>>:
+
+(->>>>>>>:) :: (a->b->c->d->e->f->g->h) -> h -> (a->b->c->d->e->f->g->h)
+(->>>>>>>:) = const
+infixl 1 ->>>>>>>:
