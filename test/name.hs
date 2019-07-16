@@ -46,4 +46,19 @@ tests n =
   , name (undefined :: (Bool,Bool,Bool)) == "pqr"
   , name (undefined :: (Char,Char,Char)) == "cde"
   , name (undefined :: (Int,Bool,Char)) == "xpc"
+
+  -- tuples
+  , name (undefined :: (Int,Int,Int,Int)) == "xxxx"
+  , name (undefined :: (Int,Int,Int,Int,Int)) == "xxxxx"
+  , name (undefined :: (Int,Int,Int,Int,Int,Int)) == "xxxxxx"
+  , name (undefined :: (Int,Int,Int,Int,Int,Int,Int)) == "xxxxxxx"
+  , name (undefined :: (Int,Int,Int,Int,Int,Int,Int,Int)) == "xxxxxxxx"
+  , name (undefined :: (Int,Int,Int,Int,Int,Int,Int,Int,Int)) == "xxxxxxxxx"
+  , name (undefined :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int)) == "xxxxxxxxxx"
+  , name (undefined :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int)) == "xxxxxxxxxxx"
+  , name (undefined :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int)) == "xxxxxxxxxxxx"
+
+  , name (undefined :: (Bool,Bool,Bool,Bool)) == "pppp"
+  , name (undefined :: (Bool,Bool,Bool,Bool,Bool)) == "ppppp"
+  , name (undefined :: (Bool,Bool,Bool,Bool,Bool,Bool)) == "pppppp"
   ]

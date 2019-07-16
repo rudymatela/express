@@ -183,3 +183,65 @@ instance Name a => Name [a] where
 -- > ["xs", "ys", "zs", "xs'", "ys'", "zs'", "xs''", "ys''", ...]
 names :: Name a => a -> [String]
 names  =  variableNamesFromTemplate . name
+
+
+-- instances of further types and arities --
+
+instance Name Word where  name _  =  "x"
+
+instance (Name a, Name b, Name c, Name d, Name e) => Name (a,b,c,d,e) where
+  name xyzwv  =  name x ++ name y ++ name z ++ name w ++ name v
+    where  (x,y,z,w,v)  =  xyzwv
+
+instance (Name a, Name b, Name c, Name d, Name e, Name f)
+      => Name (a,b,c,d,e,f) where
+  name xyzwvu  =  name x ++ name y ++ name z ++ name w ++ name v ++ name u
+    where  (x,y,z,w,v,u)  =  xyzwvu
+
+instance (Name a, Name b, Name c, Name d, Name e, Name f, Name g)
+      => Name (a,b,c,d,e,f,g) where
+  name xyzwvut  =  name x ++ name y ++ name z ++ name w
+                ++ name v ++ name u ++ name t
+    where  (x,y,z,w,v,u,t)  =  xyzwvut
+
+instance (Name a, Name b, Name c, Name d, Name e, Name f, Name g, Name h)
+      => Name (a,b,c,d,e,f,g,h) where
+  name xyzwvuts  =  name x ++ name y ++ name z ++ name w
+                 ++ name v ++ name u ++ name t ++ name s
+    where  (x,y,z,w,v,u,t,s)  =  xyzwvuts
+
+instance ( Name a, Name b, Name c, Name d
+         , Name e, Name f, Name g, Name h
+         , Name i)
+      => Name (a,b,c,d,e,f,g,h,i) where
+  name xyzwvutsr  =  name x ++ name y ++ name z ++ name w
+                  ++ name v ++ name u ++ name t ++ name s
+                  ++ name r
+    where  (x,y,z,w,v,u,t,s,r)  =  xyzwvutsr
+
+instance ( Name a, Name b, Name c, Name d
+         , Name e, Name f, Name g, Name h
+         , Name i, Name j )
+      => Name (a,b,c,d,e,f,g,h,i,j) where
+  name xyzwvutsrq  =  name x ++ name y ++ name z ++ name w
+                   ++ name v ++ name u ++ name t ++ name s
+                   ++ name r ++ name q
+    where  (x,y,z,w,v,u,t,s,r,q)  =  xyzwvutsrq
+
+instance ( Name a, Name b, Name c, Name d
+         , Name e, Name f, Name g, Name h
+         , Name i, Name j, Name k )
+      => Name (a,b,c,d,e,f,g,h,i,j,k) where
+  name xyzwvutsrqp  =  name x ++ name y ++ name z ++ name w
+                    ++ name v ++ name u ++ name t ++ name s
+                    ++ name r ++ name q ++ name p
+    where  (x,y,z,w,v,u,t,s,r,q,p)  =  xyzwvutsrqp
+
+instance ( Name a, Name b, Name c, Name d
+         , Name e, Name f, Name g, Name h
+         , Name i, Name j, Name k, Name l )
+      => Name (a,b,c,d,e,f,g,h,i,j,k,l) where
+  name xyzwvutsrqpo  =  name x ++ name y ++ name z ++ name w
+                     ++ name v ++ name u ++ name t ++ name s
+                     ++ name r ++ name q ++ name p ++ name o
+    where  (x,y,z,w,v,u,t,s,r,q,p,o)  =  xyzwvutsrqpo
