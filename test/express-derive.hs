@@ -23,6 +23,15 @@ deriveListable ''List
 deriveListable ''Bush
 deriveListable ''Tree
 
+-- Nested datatype cascade
+data Nested  =  Nested N0 (N1 Int) (N2 Int Int) deriving (Eq, Show)
+data N0      =  R0 Int deriving (Eq, Show)
+data N1 a    =  R1 a   deriving (Eq, Show)
+data N2 a b  =  R2 a b deriving (Eq, Show)
+
+deriveExpressCascading ''Nested
+deriveListableCascading ''Nested
+
 -- Recursive nested datatype cascade
 data RN       =  RN RN0 (RN1 Int) (RN2 Int RN) deriving (Eq, Show)
 data RN0      =  Nest0 Int | Recurse0 RN deriving (Eq, Show)
@@ -76,8 +85,12 @@ tests n  =
   , holds n (exprIsValUnderEvaluate :: Tree Int -> Bool)
   , holds n (exprIsValUnderEvaluate :: Tree Bool -> Bool)
 
---, holds n (exprIsValUnderEvaluate :: RN -> Bool) -- TODO: make me pass!
+  , holds n (exprIsValUnderEvaluate :: Nested -> Bool)
+  , holds n (exprIsValUnderEvaluate :: N0 -> Bool)
+  , holds n (exprIsValUnderEvaluate :: N1 Int -> Bool)
+  , holds n (exprIsValUnderEvaluate :: N2 Int Bool -> Bool)
 
+--, holds n (exprIsValUnderEvaluate :: RN -> Bool) -- TODO: make me pass!
   , holds n (exprIsValUnderEvaluate :: RN0 -> Bool)
   , holds n (exprIsValUnderEvaluate :: RN1 Int -> Bool)
   , holds n (exprIsValUnderEvaluate :: RN2 Int Bool -> Bool)
