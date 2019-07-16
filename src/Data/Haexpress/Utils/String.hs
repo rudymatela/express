@@ -155,4 +155,5 @@ variableNamesFromTemplate  =  primeCycle . f
   f [c]   | c `elem` ['a'..'x']  =  let x = ord c in map ((:[]) . chr) [x,x+1,x+2]
   f cs    | last cs == 's'       =  (++ "s") <$> f (init cs)
   f [c,d] | ord d - ord c == 1   =  [[c,d], [chr $ ord c + 2, chr $ ord d + 2]]
-  f cs                           =  cs : map (\n -> cs ++ show n) [1..]
+  f cs | cs == "y" || cs == "z"  =  cs : map (\n -> cs ++ show n) [1..]
+  f cs                           =  [cs]
