@@ -49,6 +49,7 @@ library
                      , Data.Haexpress.Basic
                      , Data.Haexpress.Map
                      , Data.Haexpress.Express
+                     , Data.Haexpress.Express.Derive
                      , Data.Haexpress.Fixtures
                      , Data.Haexpress.Fold
                      , Data.Haexpress.Hole
@@ -132,6 +133,14 @@ test-suite instances
 test-suite express
   type:                exitcode-stdio-1.0
   main-is:             express.hs
+  hs-source-dirs:      test
+  other-modules:       Test, Test.ListableExpr
+  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  default-language:    Haskell2010
+
+test-suite express-derive
+  type:                exitcode-stdio-1.0
+  main-is:             express-derive.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
   build-depends:       base >= 4 && < 5, haexpress, leancheck
