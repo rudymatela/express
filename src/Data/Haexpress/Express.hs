@@ -33,11 +33,11 @@ instance (Express a, Express b) => Express (a,b) where
               :$ expr x :$ expr y
 
 instance (Express a, Express b, Express c) => Express (a,b,c) where
-  expr (x,y,z)  =  value "," ((,,) ->>>: (x,y,z))
+  expr (x,y,z)  =  value ",," ((,,) ->>>: (x,y,z))
                 :$ expr x :$ expr y :$ expr z
 
 instance (Express a, Express b, Express c, Express d) => Express (a,b,c,d) where
-  expr (x,y,z,w)  =  value "," ((,,,) ->>>>: (x,y,z,w))
+  expr (x,y,z,w)  =  value ",,," ((,,,) ->>>>: (x,y,z,w))
                   :$ expr x :$ expr y :$ expr z :$ expr w
 
 instance Express a => Express [a] where
