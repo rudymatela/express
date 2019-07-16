@@ -10,6 +10,7 @@ TESTS = \
   test/instances \
   test/fixtures \
   test/express \
+  test/express-derive \
   test/name \
   test/name-derive \
   test/utils \

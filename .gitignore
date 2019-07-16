@@ -20,6 +20,7 @@ bench/tiers
 test/canon
 test/core
 test/express
+test/express-derive
 test/fixtures
 test/hole
 test/instances

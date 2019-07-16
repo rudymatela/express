@@ -1,6 +1,7 @@
 module Test
   ( module Test.LeanCheck
   , module Test.LeanCheck.Utils
+  , module Test.LeanCheck.Derive
   , module Data.Haexpress.Fixtures
   , module Data.Haexpress.Utils.List
   , module Data.Haexpress.Utils.Typeable
@@ -26,6 +27,7 @@ import Data.Maybe
 import Data.Either
 import Test.LeanCheck
 import Test.LeanCheck.Utils
+import Test.LeanCheck.Derive
 import Test.ListableExpr
 import Data.Haexpress.Fixtures
 import Data.Haexpress.Utils.List

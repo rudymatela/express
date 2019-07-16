@@ -21,6 +21,12 @@ module Data.Haexpress.Utils.TH
   , typeConstructors
   , isTypeSynonym
   , typeSynonymType
+  , mergeIFns
+  , mergeI
+  , lookupValN
+  , letin
+  , showJustName
+  , typeConstructorsArgNames
   , (|=>|)
   , whereI
   , module Language.Haskell.TH
@@ -48,8 +54,9 @@ deriveWhenNeededX warnExisting cls reallyDerive t  =  do
     return []
   else
     reallyDerive t
-  where
-    showJustName = reverse . takeWhile (/= '.') . reverse . show
+
+showJustName :: Name -> String
+showJustName = reverse . takeWhile (/= '.') . reverse . show
 
 reallyDeriveCascading :: Name -> (Name -> DecsQ) -> Name -> DecsQ
 reallyDeriveCascading cls reallyDerive t =
@@ -268,3 +275,26 @@ nubMerge (x:xs) (y:ys) | x < y     = x :    xs  `nubMerge` (y:ys)
 
 nubMerges :: Ord a => [[a]] -> [a]
 nubMerges = foldr nubMerge []
+
+letin :: Name -> Name -> [Name] -> ExpQ
+letin x c ns = do
+  und <- VarE <$> lookupValN "undefined"
+  let lhs = conP c (map varP ns)
+  let rhs = return $ foldl AppE (ConE c) [und | _ <- ns]
+  let bot = foldl1 (\e1 e2 -> [| $e1 . $e2 |])
+                   [ [| instances $(varE n) |] | n <- ns ]
+  [| let $lhs = $rhs `asTypeOf` $(varE x) in $bot |]
+
+typeConstructorsArgNames :: Name -> Q [(Name,[Name])]
+typeConstructorsArgNames t = do
+  cs <- typeConstructors t
+  sequence [ do ns <- sequence [newName "x" | _ <- ts]
+                return (c,ns)
+           | (c,ts) <- cs ]
+
+lookupValN :: String -> Q Name
+lookupValN s = do
+  mn <- lookupValueName s
+  case mn of
+    Just n -> return n
+    Nothing -> fail $ "lookupValN: cannot find " ++ s

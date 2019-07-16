@@ -16,6 +16,7 @@ module Data.Haexpress
   , module Data.Haexpress.Name
   , module Data.Haexpress.Name.Derive
   , module Data.Haexpress.Express
+  , module Data.Haexpress.Express.Derive
   )
 where
 
@@ -26,3 +27,4 @@ import Data.Haexpress.Instances
 import Data.Haexpress.Name
 import Data.Haexpress.Name.Derive
 import Data.Haexpress.Express
+import Data.Haexpress.Express.Derive

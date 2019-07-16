@@ -15,6 +15,7 @@ bench/compare.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs \
@@ -41,6 +42,7 @@ bench/pairs.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs \
@@ -67,6 +69,7 @@ bench/tiers.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs \
@@ -91,6 +94,7 @@ mk/All.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs \
@@ -112,6 +116,7 @@ mk/Toplibs.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs \
@@ -150,6 +155,14 @@ src/Data/Haexpress/Core.o: \
   src/Data/Haexpress/Utils/String.hs \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress/Core.hs
+src/Data/Haexpress/Express/Derive.o: \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
+  src/Data/Haexpress/Core.hs
 src/Data/Haexpress/Express.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
   src/Data/Haexpress/Utils/String.hs \
@@ -171,6 +184,7 @@ src/Data/Haexpress/Fixtures.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -236,6 +250,7 @@ src/Data/Haexpress.o: \
   src/Data/Haexpress/Hole.hs \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -265,6 +280,7 @@ test/canon.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -291,6 +307,7 @@ test/core.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -298,6 +315,33 @@ test/core: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/core.hs \
+  mk/toplibs
+test/express-derive.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/express-derive.hs \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Name/Derive.hs \
+  src/Data/Haexpress/Match.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Hole.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Fixtures.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs
+test/express-derive: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  test/express-derive.hs \
   mk/toplibs
 test/express.o: \
   test/Test.hs \
@@ -317,6 +361,7 @@ test/express.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -343,6 +388,7 @@ test/fixtures.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -369,6 +415,7 @@ test/fold.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -395,6 +442,7 @@ test/hole.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -421,6 +469,7 @@ test/instances.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -447,6 +496,7 @@ test/listable.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -473,6 +523,7 @@ test/main.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -499,6 +550,7 @@ test/map.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -525,6 +577,7 @@ test/match.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -551,6 +604,7 @@ test/name-derive.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -577,6 +631,7 @@ test/name.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -603,6 +658,7 @@ test/ord.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -629,6 +685,7 @@ test/show.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -653,6 +710,7 @@ test/Test/ListableExpr.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -673,6 +731,7 @@ test/Test.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
@@ -698,6 +757,7 @@ test/utils.o: \
   src/Data/Haexpress/Fold.hs \
   src/Data/Haexpress/Fixtures.hs \
   src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs
