@@ -1,5 +1,6 @@
 -- Copyright (c) 2019 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
+{-# LANGUAGE CPP #-}
 import Test
 
 main :: IO ()
@@ -51,12 +52,19 @@ tests n =
   , holds n (okExpress :: (Int,Int,Int,Int,Int) -> Bool)
   , holds n (okExpress :: (Int,Int,Int,Int,Int,Int) -> Bool)
   , holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int) -> Bool)
--- TODO: futher tuple tests
---, holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
---, holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
---, holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
---, holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
---, holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
+#if __GLASGOW_HASKELL__ < 710
+-- No 8-tuples for you:
+-- On GHC 7.8, 8-tuples are not Typeable instances.  We could add a standalone
+-- deriving clause, but that may cause trouble if some other library does the
+-- same.  User should declare Generalizable 8-tuples manually when using GHC <=
+-- 7.8.
+#else
+  , holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
+  , holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
+  , holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
+  , holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
+  , holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
+#endif
   ]
 
 -- this is true only for some types

@@ -5,6 +5,7 @@
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines the 'Express' type class.
+{-# LANGUAGE CPP #-}
 module Data.Haexpress.Express (Express (..)) where
 
 import Data.Haexpress.Core
@@ -74,6 +75,57 @@ instance ( Express a, Express b, Express c, Express d, Express e, Express f
                         :$ expr x :$ expr y :$ expr z :$ expr w
                         :$ expr v :$ expr u :$ expr t
 
+#if __GLASGOW_HASKELL__ < 710
+-- No 8-tuples for you:
+-- On GHC 7.8, 8-tuples are not Typeable instances.  We could add a standalone
+-- deriving clause, but that may cause trouble if some other library does the
+-- same.  User should declare Generalizable 8-tuples manually when using GHC <=
+-- 7.8.
+#else
+instance ( Express a, Express b, Express c, Express d, Express e, Express f
+         , Express g, Express h )
+      => Express (a,b,c,d,e,f,g,h) where
+  expr (x,y,z,w,v,u,t,s)  =
+    value ",,,,,,," ((,,,,,,,) ->>>>>>>>: (x,y,z,w,v,u,t,s))
+      :$ expr x :$ expr y :$ expr z :$ expr w
+      :$ expr v :$ expr u :$ expr t :$ expr s
+
+instance ( Express a, Express b, Express c, Express d, Express e, Express f
+         , Express g, Express h, Express i )
+      => Express (a,b,c,d,e,f,g,h,i) where
+  expr (x,y,z,w,v,u,t,s,r)  =
+    value ",,,,,,,," ((,,,,,,,,) ->>>>>>>>>: (x,y,z,w,v,u,t,s,r))
+      :$ expr x :$ expr y :$ expr z :$ expr w
+      :$ expr v :$ expr u :$ expr t :$ expr s
+      :$ expr r
+
+instance ( Express a, Express b, Express c, Express d, Express e, Express f
+         , Express g, Express h, Express i, Express j )
+      => Express (a,b,c,d,e,f,g,h,i,j) where
+  expr (x,y,z,w,v,u,t,s,r,q)  =
+    value ",,,,,,,,," ((,,,,,,,,,) ->>>>>>>>>>: (x,y,z,w,v,u,t,s,r,q))
+      :$ expr x :$ expr y :$ expr z :$ expr w
+      :$ expr v :$ expr u :$ expr t :$ expr s
+      :$ expr r :$ expr q
+
+instance ( Express a, Express b, Express c, Express d, Express e, Express f
+         , Express g, Express h, Express i, Express j, Express k )
+      => Express (a,b,c,d,e,f,g,h,i,j,k) where
+  expr (x,y,z,w,v,u,t,s,r,q,p)  =
+    value ",,,,,,,,,," ((,,,,,,,,,,) ->>>>>>>>>>>: (x,y,z,w,v,u,t,s,r,q,p))
+      :$ expr x :$ expr y :$ expr z :$ expr w
+      :$ expr v :$ expr u :$ expr t :$ expr s
+      :$ expr r :$ expr q :$ expr p
+
+instance ( Express a, Express b, Express c, Express d, Express e, Express f
+         , Express g, Express h, Express i, Express j, Express k, Express l )
+      => Express (a,b,c,d,e,f,g,h,i,j,k,l) where
+  expr (x,y,z,w,v,u,t,s,r,q,p,o)  =
+    value ",,,,,,,,,,," ((,,,,,,,,,,,) ->>>>>>>>>>>>: (x,y,z,w,v,u,t,s,r,q,p,o))
+      :$ expr x :$ expr y :$ expr z :$ expr w
+      :$ expr v :$ expr u :$ expr t :$ expr s
+      :$ expr r :$ expr q :$ expr p :$ expr o
+#endif
 
 -- type binding utilities --
 
@@ -132,3 +184,27 @@ infixl 1 ->>>>>>:
 (->>>>>>>:) :: (a->b->c->d->e->f->g->h) -> h -> (a->b->c->d->e->f->g->h)
 (->>>>>>>:) = const
 infixl 1 ->>>>>>>:
+
+(->>>>>>>>:) :: (a->b->c->d->e->f->g->h->i) -> i -> (a->b->c->d->e->f->g->h->i)
+(->>>>>>>>:) = const
+infixl 1 ->>>>>>>>:
+
+(->>>>>>>>>:) :: (a->b->c->d->e->f->g->h->i->j) -> j
+              -> (a->b->c->d->e->f->g->h->i->j)
+(->>>>>>>>>:) = const
+infixl 1 ->>>>>>>>>:
+
+(->>>>>>>>>>:) :: (a->b->c->d->e->f->g->h->i->j->k) -> k
+               -> (a->b->c->d->e->f->g->h->i->j->k)
+(->>>>>>>>>>:) = const
+infixl 1 ->>>>>>>>>>:
+
+(->>>>>>>>>>>:) :: (a->b->c->d->e->f->g->h->i->j->k->l) -> l
+                -> (a->b->c->d->e->f->g->h->i->j->k->l)
+(->>>>>>>>>>>:) = const
+infixl 1 ->>>>>>>>>>>:
+
+(->>>>>>>>>>>>:) :: (a->b->c->d->e->f->g->h->i->j->k->l->m) -> m
+                 -> (a->b->c->d->e->f->g->h->i->j->k->l->m)
+(->>>>>>>>>>>>:) = const
+infixl 1 ->>>>>>>>>>>>:
