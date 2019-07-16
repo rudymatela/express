@@ -78,6 +78,7 @@ module Data.Haexpress.Fixtures
   , insert'
 
   , comma
+  , pair
   , (-|-)
   , triple
   , quadruple
@@ -859,10 +860,21 @@ ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
 infix 4 -<-
 
 (-|-) :: Expr -> Expr -> Expr
-e1 -|- e2 = comma :$ e1 :$ e2
+(-|-) = pair
+
+pair :: Expr -> Expr -> Expr
+pair x y  =  comma :$ x :$ y
+  where
+  comma  =  case (show $ typ x, show $ typ y) of
+            ("Int", "Int")  -> value "," ((,) :: Pair Int Int)
+            ("Int", "Bool") -> value "," ((,) :: Pair Int Bool)
+            ("Bool","Int")  -> value "," ((,) :: Pair Bool Int)
+            ("Bool","Bool") -> value "," ((,) :: Pair Bool Bool)
+            (t,t')          -> error $ "(-:-): unhandled types " ++ t ++ " " ++ t'
+type Pair a b = a -> b -> (a,b)
 
 comma :: Expr
-comma = value "," ((,) :: Int -> Int -> (Int,Int))
+comma = value "," ((,) :: Pair Int Int)
 
 triple :: Expr -> Expr -> Expr -> Expr
 triple e1 e2 e3 = ccE :$ e1 :$ e2 :$ e3
