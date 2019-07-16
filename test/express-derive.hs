@@ -37,6 +37,8 @@ data RN       =  RN RN0 (RN1 Int) (RN2 Int RN) deriving (Eq, Show)
 data RN0      =  Nest0 Int | Recurse0 RN deriving (Eq, Show)
 data RN1 a    =  Nest1 a   | Recurse1 RN deriving (Eq, Show)
 data RN2 a b  =  Nest2 a b | Recurse2 RN deriving (Eq, Show)
+-- beware: values of the above type are always infinite!
+--         derivation works but full evaluation does not terminate
 
 deriveExpressCascading ''RN
 deriveListableCascading ''RN
@@ -53,9 +55,15 @@ deriveExpressIfNeeded ''Bool
 deriveExpressIfNeeded ''Maybe
 deriveExpressIfNeeded ''Either
 
+data Mutual    =  Mutual0   | Mutual CoMutual deriving (Eq, Show)
+data CoMutual  =  CoMutual0 | CoMutual Mutual deriving (Eq, Show)
+
+deriveListableCascading ''Mutual
+deriveExpressCascading ''Mutual
+
 
 main :: IO ()
-main  =  mainTest tests 1080
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
 tests n  =
@@ -90,10 +98,8 @@ tests n  =
   , holds n (exprIsValUnderEvaluate :: N1 Int -> Bool)
   , holds n (exprIsValUnderEvaluate :: N2 Int Bool -> Bool)
 
---, holds n (exprIsValUnderEvaluate :: RN -> Bool) -- TODO: make me pass!
-  , holds n (exprIsValUnderEvaluate :: RN0 -> Bool)
-  , holds n (exprIsValUnderEvaluate :: RN1 Int -> Bool)
-  , holds n (exprIsValUnderEvaluate :: RN2 Int Bool -> Bool)
+  , holds n (exprIsValUnderEvaluate :: Mutual -> Bool)
+  , holds n (exprIsValUnderEvaluate :: CoMutual -> Bool)
   ]
 
 -- not true in all cases
