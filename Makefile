@@ -31,6 +31,7 @@ GHCIMPORTDIRS = src:test
 GHCFLAGS = -O2 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)
 HADDOCKFLAGS = --no-print-missing-docs
 RUNPARAMETERS =
+LIB_DEPS = base template-haskell
 
 all: mk/toplibs
 

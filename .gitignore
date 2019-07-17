@@ -34,10 +34,10 @@ test/utils
 test/fold
 test/ord
 test/show
-doc/*.html
-doc/*.css
-doc/*.js
-doc/*.png
-doc/*.gif
-doc/*.json
+doc/**/*.html
+doc/**/*.css
+doc/**/*.js
+doc/**/*.png
+doc/**/*.gif
+doc/**/*.json
 mk/toplibs
