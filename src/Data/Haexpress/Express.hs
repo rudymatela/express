@@ -12,6 +12,25 @@ import Data.Haexpress.Core
 import Data.Typeable
 import Data.Ratio
 
+-- |
+-- 'Express' typeclass instances provide an 'expr' function
+-- that allows values to be deeply encoded as applications of 'Expr's.
+--
+-- > expr False  =  val False
+-- > expr (Just True)  =  value "Just" (Just :: Bool -> Maybe Bool) :$ val True
+--
+-- The function 'expr' can be contrasted with the function 'val':
+--
+-- * 'val' always encodes values as atomic 'Value' 'Expr's --
+--   shallow encoding.
+-- * 'expr' ideally encodes expressions as applications (':$')
+--   between 'Value' 'Expr's --
+--   deep encoding.
+--
+-- Depending on the situation, one or the other may be desirable.
+--
+-- Instances can be automatically derived using the TH function
+-- 'Data.Haexpress.Express.Derive.deriveExpress'.
 class Typeable a => Express a where
   expr :: a -> Expr
 
