@@ -1,6 +1,6 @@
 -- Cabal file for haexpress
 name:                haexpress
-version:             0.0.0
+version:             0.0.1
 synopsis:            Haexpress
 description:
   Haexpress!
@@ -41,7 +41,7 @@ source-repository head
 source-repository this
   type:           git
   location:       https://github.com/rudymatela/haexpress
-  tag:            v0.0.0
+  tag:            v0.0.1
 
 library
   exposed-modules:     Data.Haexpress
