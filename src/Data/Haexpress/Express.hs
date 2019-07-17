@@ -31,6 +31,17 @@ import Data.Ratio
 --
 -- Instances can be automatically derived using the TH function
 -- 'Data.Haexpress.Express.Derive.deriveExpress'.
+--
+-- The following example shows a datatype and its instance:
+--
+-- > data Stack a = Stack a (Stack a) | Empty
+--
+-- > instance Express a => Express (Stack a) where
+-- >   expr s@(Stack x y) = value "Stack" (Stack ->>: s) :$ expr x :$ expr y
+-- >   expr s@Empty       = value "Empty" (Empty   -: s)
+--
+-- To declare 'expr' it may be useful to use auxiliary type binding operators:
+-- '-:', '->:', '->>:', ....
 class Typeable a => Express a where
   expr :: a -> Expr
 
