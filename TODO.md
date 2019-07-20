@@ -3,6 +3,12 @@ TO DO list for haexpress
 
 Here is a list of things TO DO for haexpress:
 
+* _new naming standard_ instead of naming plain 'Expr's as somethingE.
+  Whenever the function encoded is polymorphic, use the type instead of `E`.
+  For example: justInt and justBool are respectively the Exprs representing the
+  Just constructors for the types int and bool.
+  Later on I can decide if I'll rename notE to notBool.
+
 * on fixtures, add:
 
 	- nilInt

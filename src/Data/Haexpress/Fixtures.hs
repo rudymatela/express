@@ -84,6 +84,15 @@ module Data.Haexpress.Fixtures
   , sort'
   , insert'
 
+  -- ** Maybes
+  , nothing
+  , nothingInt
+  , nothingBool
+  , just
+  , justInt
+  , justBool
+
+  -- ** Tuples
   , comma
   , pair
   , (-|-)
@@ -876,6 +885,26 @@ compare' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
 type Compare a = a -> a -> Ordering
+
+nothing :: Expr
+nothing  =  nothingInt
+
+nothingInt, nothingBool :: Expr
+nothingInt   =  val (Nothing :: Maybe Int)
+nothingBool  =  val (Nothing :: Maybe Bool)
+
+justInt, justBool :: Expr
+justInt      =  value "Just" (Just :: Just Int)
+justBool     =  value "Just" (Just :: Just Bool)
+type Just a  =  a -> Maybe a
+
+just :: Expr -> Expr
+just ex  =  headOr err $ mapMaybe ($$ ex)
+  [ justInt
+  , justBool
+  ]
+  where
+  err  =  error $ "just: unhandled type " ++ show (typ ex)
 
 (-|-) :: Expr -> Expr -> Expr
 (-|-) = pair
