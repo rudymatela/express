@@ -22,4 +22,8 @@ tests n =
   , unfoldApp (abs' xx)          == [absE, xx]
   , unfoldApp (abs' (xx -+- yy)) == [absE, xx -+- yy]
   , unfoldApp (xx -+- abs' xx)   == [plus, xx, abs' xx]
+  , unfoldApp one                == [one]
+  , unfoldApp false              == [false]
+
+  , holds n $ \e -> foldApp (unfoldApp e) == e
   ]

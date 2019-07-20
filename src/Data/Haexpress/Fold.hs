@@ -10,6 +10,7 @@ module Data.Haexpress.Fold
   , unfold
   , foldPair
   , unfoldPair
+  , foldApp
   , unfoldApp
   )
 where
@@ -21,6 +22,10 @@ where
 import Data.Haexpress.Core
 
 data ExprPair = ExprPair
+
+foldApp :: [Expr] -> Expr
+foldApp = foldl1 (:$)
+-- TODO: document foldApp
 
 -- note this will generate an ill-typed pair expression
 -- use with caution
