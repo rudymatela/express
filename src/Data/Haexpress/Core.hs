@@ -986,8 +986,8 @@ depth _         =  1
 -- given by the maximum number of nested function applications.
 -- Curried function application is counted /each time/,
 -- i.e. the application of a two argument function
--- increases the depth of its first argument by one
--- and of its second argument by two.
+-- increases the depth of its first argument by two
+-- and of its second argument by one.
 -- (cf. 'depth')
 --
 -- > > height zero
