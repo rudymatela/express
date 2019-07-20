@@ -83,7 +83,42 @@ import Data.Haexpress.Utils.List
 import Data.Haexpress.Utils.String
 import Data.Haexpress.Utils.Typeable
 
--- | A functional-application expression representation
+-- |
+-- Values of type 'Expr' represent objects or applications between objects
+-- encapsulated together with their types and string representations.
+-- 'Expr' types are always monomorphic.
+--
+-- An 'Expr' can be constructed using:
+--
+-- * 'val',   for values that are 'Show' instances;
+-- * 'value', for values that are not 'Show' instances, like functions;
+-- * ':$',    for applications between 'Expr's.
+--
+-- > > val False
+-- > False :: Bool
+--
+-- > > value "not" not :$ val False
+-- > not False :: Bool
+--
+-- An 'Expr' can be evaluated using 'evaluate', 'eval' or 'evl'.
+--
+-- > > evl $ val (1 :: Int) :: Int
+-- > 1
+--
+-- > > evaluate $ val (1 :: Int) :: Maybe Bool
+-- > Nothing
+--
+-- > > eval 'a' (val 'b')
+-- > 'b'
+--
+-- 'Show'ing a value of type 'Expr' will return a pretty-printed representation
+-- of the expression together with its type.
+--
+-- > > show (value "not" not :$ val False)
+-- > "not False :: Bool"
+--
+-- You can think of 'Expr' as 'Dynamic' with
+-- applications and string representations.
 data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dynamic'
            |  Expr :$ Expr         -- ^ function application between expressions
   deriving Typeable -- for GHC < 7.10
