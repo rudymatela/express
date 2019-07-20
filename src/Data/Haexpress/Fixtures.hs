@@ -36,6 +36,7 @@ module Data.Haexpress.Fixtures
   , (-/=-)
   , (-<=-)
   , (-<-)
+  , compare'
 
   -- ** Integers
   , i_, xx, yy, zz, xx'
@@ -858,6 +859,20 @@ ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
 infix 4 -<-
+
+compare' :: Expr -> Expr -> Expr
+compare' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "compare" (compare :: Compare ())
+  , value "compare" (compare :: Compare Int)
+  , value "compare" (compare :: Compare Bool)
+  , value "compare" (compare :: Compare Char)
+  , value "compare" (compare :: Compare [Int])
+  , value "compare" (compare :: Compare [Bool])
+  , value "compare" (compare :: Compare [Char])
+  ]
+  where
+  err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
+type Compare a = a -> a -> Ordering
 
 (-|-) :: Expr -> Expr -> Expr
 (-|-) = pair
