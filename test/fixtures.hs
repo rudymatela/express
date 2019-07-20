@@ -106,8 +106,8 @@ tests n =
   , evl (unit one) == [1 :: Int]
 
   -- Int -> Int -> Int
-  , show iiE == "(?) :: Int -> Int -> Int"
-  , show (iiE :$ xx) == "(x ?) :: Int -> Int"
+  , show (var "?" (undefined :: Int->Int->Int)) == "(?) :: Int -> Int -> Int"
+  , show (var "?" (undefined :: Int->Int->Int) :$ xx) == "(x ?) :: Int -> Int"
   , show (xx -?- yy) == "x ? y :: Int"
   , show (pp -?- qq) == "p ? q :: Bool"
   , show (xxs -?- yys) == "xs ? ys :: [Int]"

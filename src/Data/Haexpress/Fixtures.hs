@@ -48,7 +48,7 @@ module Data.Haexpress.Fixtures
   , (-+-), (-*-)
   , ff, ffE
   , gg, ggE
-  , (-?-), iiE
+  , (-?-)
   , (-$-)
   , odd'
   , even'
@@ -330,22 +330,6 @@ ffE = var "f" (undefined :: Int -> Int)
 gg :: Expr -> Expr
 gg = (ggE :$)
 
--- | A variable function @?@ of type @Int -> Int -> Int@ encoded as an 'Expr'.
---
--- > > iiE
--- > (?) :: Int -> Int -> Int
---
--- > > iiE :$ xx
--- > (x ?) :: Int -> Int
---
--- > > iiE :$ xx :$ yy
--- > x ? y :: Int
-iiE :: Expr
-iiE  =  var "?" (?)
-  where
-  (?) :: Int -> Int -> Int
-  x ? y  =  undefined
-
 -- | A variable binary operator @?@ lifted over the 'Expr' type.
 --   Works for 'Int', 'Bool', 'Char', @[Int]@ and 'String'.
 --
@@ -359,7 +343,7 @@ iiE  =  var "?" (?)
 -- > *** Exception: (-?-): cannot apply `(?) :: * -> * -> *` to `x :: Int' and `q :: Bool'.  Unhandled types?
 (-?-) :: Expr -> Expr -> Expr
 ex -?- ey  =  fromMaybe err $ ($$ ey) $ headOr err $ mapMaybe ($$ ex)
-  [ iiE
+  [ var "?" (undefined :: Int -> Int -> Int)
   , var "?" (undefined :: Bool -> Bool -> Bool)
   , var "?" (undefined :: Char -> Char -> Char)
   , var "?" (undefined :: [Int] -> [Int] -> [Int])
