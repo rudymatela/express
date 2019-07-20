@@ -3,11 +3,15 @@ TO DO list for haexpress
 
 Here is a list of things TO DO for haexpress:
 
-* derive `Name` using TH
+* on fixtures, add:
 
-* derive `Express` using TH
-
-* export `showPrecExpr` from Core
+	- nilInt
+	- nilBool
+	- nilChar
+	- nothing
+	- nothingInt
+	- nothingBool
+	- ... and others whereever possible
 
 * document and test the `Instances` module
 
