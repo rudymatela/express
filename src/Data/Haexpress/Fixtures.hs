@@ -67,7 +67,13 @@ module Data.Haexpress.Fixtures
   , yys
   , nil
   , emptyString
+  , nilInt
+  , nilBool
+  , nilChar
   , cons
+  , consInt
+  , consBool
+  , consChar
   , (-:-)
   , unit
   , (-++-)
@@ -601,7 +607,7 @@ yys  =  var "ys" [int]
 -- > > nil
 -- > [] :: [Int]
 nil :: Expr
-nil  =  val ([] :: [Int])
+nil  =  nilInt
 
 -- | An empty 'String' encoded as an 'Expr'.
 --
@@ -609,6 +615,12 @@ nil  =  val ([] :: [Int])
 -- > "" :: String
 emptyString :: Expr
 emptyString  =  val ""
+
+-- | The empty list '[]' encoded as an 'Expr'.
+nilInt, nilBool, nilChar :: Expr
+nilInt   =  val ([] :: [Int])
+nilBool  =  val ([] :: [Bool])
+nilChar  =  value "[]" ([] :: [Char])
 
 -- | The list constructor with 'Int' as element type encoded as an 'Expr'.
 --
@@ -620,7 +632,14 @@ emptyString  =  val ""
 --
 -- Consider using '-:-' and 'unit' when building lists of 'Expr'.
 cons :: Expr
-cons = value ":" ((:) :: Int -> [Int] -> [Int])
+cons  =  consInt
+
+-- | The list constructor ':' encoded as an 'Expr'.
+consInt, consBool, consChar :: Expr
+consInt   =  value ":" ((:) :: Cons Int)
+consBool  =  value ":" ((:) :: Cons Bool)
+consChar  =  value ":" ((:) :: Cons Char)
+type Cons a = a -> [a] -> [a]
 
 -- | 'unit' constructs a list with a single element.
 --   This works for elements of type 'Int', 'Char' and 'Bool'.
@@ -635,7 +654,7 @@ unit e  =  e -:- nil'
   where
   nil' | typ e == typ i_  =  nil
        | typ e == typ c_  =  emptyString
-       | typ e == typ b_  =  val ([] :: [Bool])
+       | typ e == typ b_  =  nilBool
 
 -- | The list constructor lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -650,10 +669,10 @@ unit e  =  e -:- nil'
 -- > "bc" :: [Char]
 (-:-) :: Expr -> Expr -> Expr
 e1 -:- e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
-  [ cons
-  , value ":" ((:) :: Char -> String -> String)
-  , value ":" ((:) :: Bool -> [Bool] -> [Bool])
-  , value ":" ((:) :: Maybe Int -> [Maybe Int] -> [Maybe Int])
+  [ consInt
+  , consBool
+  , consChar
+  , value ":" ((:) :: Cons (Maybe Int))
   ]
   where
   err  =  error $ "(-:-): unhandled type " ++ show (typ e1)
