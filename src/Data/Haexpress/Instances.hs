@@ -124,10 +124,10 @@ mkEq (==)  =
 
 mkOrd :: Typeable a => (a -> a -> Ordering) -> [Expr]
 mkOrd compare  =
-  [ value "compare" compare
-  , value "<=" (<=)
+  [ value "<=" (<=)
   , value "<" (<)
 -- we don't include other Ord functions, at least for now
+--, value "compare" compare
   ]
   where
   x <  y  =  x `compare` y == LT
@@ -137,7 +137,6 @@ mkOrdLessEqual :: Typeable a => (a -> a -> Bool) -> [Expr]
 mkOrdLessEqual (<=)  =
   [ value "<=" (<=)
   , value "<" (<)
--- TODO: include compare here for consistency with mkOrd
   ]
   where
   x < y  =  not (y <= x)
