@@ -65,6 +65,32 @@ tests n =
   , holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
   , holds n (okExpress :: (Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int) -> Bool)
 #endif
+
+  -- Transforming lists into Exprs
+  , expr ([]::[Int]) == value "[]" ([]::[Int])
+  , expr ([0::Int])  == zero -:- nil
+  , expr ([0::Int,1])  == zero -:- one -:- nil
+  , holds n $ \xs -> expr xs == foldr (-:-) nil (map expr (xs :: [Int]))
+  , holds n $ \ps -> expr ps == foldr (-:-) nilBool (map expr (ps :: [Bool]))
+
+  -- Transforming Maybes into Exprs
+  , expr (Nothing    :: Maybe Int)   ==  nothing
+  , expr (Nothing    :: Maybe Bool)  ==  nothingBool
+  , expr (Just 1     :: Maybe Int)   ==  just one
+  , expr (Just False :: Maybe Bool)  ==  just false
+  , holds n $ \x -> expr (Just x) == just (expr (x :: Int))
+  , holds n $ \p -> expr (Just p) == just (expr (p :: Bool))
+
+  -- Transforming Tuples into Exprs
+  , expr ((0,False) :: (Int,Bool))  ==  pair zero false
+  , expr ((True,1)  :: (Bool,Int))  ==  pair true one
+
+  -- Showing Exprs
+  , holds n $ \x -> show (expr x) == show (x :: ()) ++ " :: ()"
+  , holds n $ \x -> show (expr x) == show (x :: Int) ++ " :: Int"
+  , holds n $ \p -> show (expr p) == show (p :: Bool) ++ " :: Bool"
+  , holds n $ \x -> show (expr x) == show (x :: ((),Maybe Int,[Bool]))
+                                        ++ " :: ((),(Maybe Int),[Bool])"
   ]
 
 -- this is true only for some types
