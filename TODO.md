@@ -9,6 +9,9 @@ Here is a list of things TO DO for haexpress:
   Just constructors for the types int and bool.
   Later on I can decide if I'll rename notE to notBool.
 
+* _explain new naming standard_ on Fixtures, explain the new naming standard
+  described above.
+
 * on fixtures, add:
 
 	- nilInt
