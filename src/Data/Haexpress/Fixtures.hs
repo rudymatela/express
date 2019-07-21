@@ -27,7 +27,7 @@ module Data.Haexpress.Fixtures
   , notE
   , orE
   , andE
-  , impliesE
+  , implies
   , not'
   , (-||-)
   , (-&&-)
@@ -43,6 +43,12 @@ module Data.Haexpress.Fixtures
   , ii, jj, kk, ii'
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
+  , idInt
+  , idBool
+  , idChar
+  , idInts
+  , idBools
+  , idString
   , id', const', negate', abs'
   , plus, times
   , (-+-), (-*-)
@@ -182,10 +188,10 @@ orE :: Expr
 orE  =  value "||" (||)
 
 (-==>-) :: Expr -> Expr -> Expr
-e1 -==>- e2  =  impliesE :$ e1 :$ e2
+e1 -==>- e2  =  implies :$ e1 :$ e2
 
-impliesE :: Expr
-impliesE  =  value "==>" (==>)
+implies :: Expr
+implies  =  value "==>" (==>)
   where
   False ==> _  =  True
   True  ==> p  =  p
@@ -453,12 +459,12 @@ minus  =  value "-" ((-) :: Int -> Int -> Int)
 -- > True :: Bool
 id' :: Expr -> Expr
 id' e  =  headOr err $ mapMaybe ($$ e)
-  [ idE -- :: Int -> Int
-  , value "id" (id :: Bool -> Bool)
-  , value "id" (id :: Char -> Char)
-  , value "id" (id :: [Int] -> [Int])
-  , value "id" (id :: [Bool] -> [Bool])
-  , value "id" (id :: String -> String)
+  [ idInt
+  , idBool
+  , idChar
+  , idInts
+  , idBools
+  , idString
   ]
   where
   err  =  error $ "id': unhandled type " ++ show (typ e)
@@ -474,7 +480,17 @@ id' e  =  headOr err $ mapMaybe ($$ e)
 -- > > evaluate $ idE :$ zero :: Maybe Int
 -- > Just 0
 idE :: Expr
-idE  =  value "id" (id :: Int -> Int)
+idE  =  idInt
+
+-- | The function 'id' encoded as an 'Expr'.  (cf. 'id'')
+idInt,idBool,idChar,idInts,idBools,idString :: Expr
+idInt     =  value "id" (id :: Id Int)
+idBool    =  value "id" (id :: Id Bool)
+idChar    =  value "id" (id :: Id Char)
+idInts    =  value "id" (id :: Id [Int])
+idBools   =  value "id" (id :: Id [Bool])
+idString  =  value "id" (id :: Id String)
+type Id a = a -> a
 
 const' :: Expr -> Expr -> Expr
 const' e1 e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
@@ -643,7 +659,7 @@ nilChar  =  value "[]" ([] :: [Char])
 cons :: Expr
 cons  =  consInt
 
--- | The list constructor ':' encoded as an 'Expr'.
+-- | The list constructor @ : @ encoded as an 'Expr'.
 consInt, consBool, consChar :: Expr
 consInt   =  value ":" ((:) :: Cons Int)
 consBool  =  value ":" ((:) :: Cons Bool)
