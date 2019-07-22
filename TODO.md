@@ -40,6 +40,10 @@ only then
 
 * write the README
 
+* write a tutorial on the `Data.Haexpress` module's haddock
+
+* review `Data.Haexpress` haddock
+
 * release on GitHub
 
 * release on Hackage -- this should coincide with a new release for both
