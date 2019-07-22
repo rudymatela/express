@@ -34,8 +34,6 @@ Here is a list of things TO DO for haexpress:
 
 * Document `test/Test.ListableExpr` module thoroughly;
 
-* partially replace `Test.Extrapolate.Core` with this
-
 
 only then
 ---------
