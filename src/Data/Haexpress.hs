@@ -128,10 +128,51 @@ module Data.Haexpress
   , deriveExpressCascading
   , deriveExpressIfNeeded
 
-  -- * Other modules
-  , module Data.Haexpress.Instances
-  , module Data.Haexpress.Name
-  , module Data.Haexpress.Name.Derive
+  -- -- -- Data.Haexpress.Instances exports -- -- --
+
+  -- * Typeclass instances as Exprs
+  , reifyEq
+  , reifyOrd
+  , reifyEqOrd
+  , reifyName
+
+  , mkEq
+  , mkOrd
+  , mkOrdLessEqual
+  , mkName
+  , mkNameWith
+
+  , isEq
+  , isOrd
+  , isEqOrd
+  , isEqT
+  , isOrdT
+  , isEqOrdT
+
+  , mkEquation
+  , mkComparisonLE
+  , mkComparisonLT
+  , mkComparison
+  , lookupComparison
+
+  , listVarsWith
+  , lookupName
+  , lookupNames
+
+  , validApps
+  , findValidApp
+
+  , preludeNameInstances
+
+  -- -- -- Data.Haexpress.Name exports -- -- --
+
+  -- * Naming variables
+  , Name (..)
+  , names
+  , variableNamesFromTemplate
+  , deriveName
+  , deriveNameCascading
+  , deriveNameIfNeeded
   )
 where
 
