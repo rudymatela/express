@@ -119,6 +119,10 @@ import Data.Haexpress.Utils.Typeable
 --
 -- You can think of 'Expr' as 'Dynamic' with
 -- applications and string representations.
+--
+-- Functions that manipulate 'Expr's usually follow the convention
+-- where a 'value' whose 'String' representation starts with @'_'@
+-- represents a 'var'iable.
 data Expr  =  Value String Dynamic -- ^ a 'value' enconded as 'String' and 'Dynamic'
            |  Expr :$ Expr         -- ^ function application between expressions
   deriving Typeable -- for GHC < 7.10
@@ -202,6 +206,9 @@ e1 $$ e2 | isIllTyped e  =  Nothing
 --
 -- > > var "xs" (undefined :: [Int])
 -- > xs :: [Int]
+--
+-- By convention, a variable is just a 'value' whose string representation
+-- starts with underscore (@'_'@).
 var :: Typeable a => String -> a -> Expr
 var s a = value ('_':s) (undefined `asTypeOf` a)
 
