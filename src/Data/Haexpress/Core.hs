@@ -62,14 +62,10 @@ module Data.Haexpress.Core
   -- * Other utilities
   , unfoldApp
   , showExpr
-  , showOpExpr -- TODO: eventually remove this
+  , showOpExpr
   , showPrecExpr
   )
 where
-
--- TODO: talk more about convention of preceding variables with "_"
---       mentioning whenever it is used
--- TODO: rename lexicompare family?
 
 import Data.Dynamic
 import Data.Function (on)
@@ -120,6 +116,7 @@ import Data.Haexpress.Utils.Typeable
 -- You can think of 'Expr' as 'Dynamic' with
 -- applications and string representations.
 --
+-- /The 'var' underscore convention:/
 -- Functions that manipulate 'Expr's usually follow the convention
 -- where a 'value' whose 'String' representation starts with @'_'@
 -- represents a 'var'iable.
@@ -207,7 +204,8 @@ e1 $$ e2 | isIllTyped e  =  Nothing
 -- > > var "xs" (undefined :: [Int])
 -- > xs :: [Int]
 --
--- By convention, a variable is just a 'value' whose string representation
+-- This function follows the /underscore convention/:
+-- a variable is just a 'value' whose string representation
 -- starts with underscore (@'_'@).
 var :: Typeable a => String -> a -> Expr
 var s a = value ('_':s) (undefined `asTypeOf` a)
