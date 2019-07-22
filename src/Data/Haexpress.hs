@@ -13,13 +13,13 @@ module Data.Haexpress
   -- * The Expr datatype
     Expr (..)
 
-  -- * Smart constructors
+  -- ** Building Exprs
   , value
   , val
   , ($$)
   , var
 
-  -- * Evaluating Exprs
+  -- ** Evaluating Exprs
   , evaluate
   , eval
   , evl
@@ -28,7 +28,7 @@ module Data.Haexpress
   , mtyp
   , toDynamic
 
-  -- * Boolean properties
+  -- ** Boolean properties of Exprs
   , isValue
   , isApp
   , isVar
@@ -38,16 +38,23 @@ module Data.Haexpress
   , hasVar
   , isGround
 
-  -- * Comparison
+  -- ** Comparing Exprs
   , compareComplexity
 
-  -- * Properties
+  -- ** Properties of Exprs
   , arity
   , size
   , depth
   , height
 
-  -- * Listing subexpressions
+  -- ** Showing Exprs
+  , showExpr
+  , showPrecExpr
+  , showOpExpr
+
+  -- * Subexpressions
+
+  -- ** Listing subexpressions
   , subexprs
   , values
   , vars
@@ -57,14 +64,9 @@ module Data.Haexpress
   , nubVars
   , nubConsts
 
-  -- * Showing Exprs
-  , showExpr
-  , showPrecExpr
-  , showOpExpr
-
   -- -- -- Data.Haexpress.Map exports -- -- --
 
-  -- * Mapping subexpressions
+  -- ** Mapping subexpressions
   , mapValues
   , mapVars
   , mapConsts
@@ -74,9 +76,28 @@ module Data.Haexpress
   , renameVarsBy
 
 
+  -- -- -- Data.Haexpress.Hole exports -- -- --
+
+  -- * Variables and holes
+
+  -- ** Creating variables
+  , varAsTypeOf
+  , listVars
+  , listVarsAsTypeOf
+
+  -- ** Typed holes
+  , hole
+  , isHole
+  , holes
+  , nubHoles
+  , holeAsTypeOf
+
+
   -- -- -- Data.Haexpress.Fold exports -- -- --
 
-  -- * Folding Exprs
+  -- * Juggling Exprs
+
+  -- ** Folding Exprs
   , fold
   , unfold
   , foldPair
@@ -84,24 +105,9 @@ module Data.Haexpress
   , foldApp
   , unfoldApp
 
-
-  -- -- -- Data.Haexpress.Hole exports -- -- --
-
-  -- * Creating variables
-  , varAsTypeOf
-  , listVars
-  , listVarsAsTypeOf
-
-  -- * Typed holes
-  , hole
-  , isHole
-  , holes
-  , nubHoles
-  , holeAsTypeOf
-
   -- -- -- Data.Haexpress.Canon exports -- -- --
 
-  -- * Canonicalizing Exprs
+  -- ** Canonicalizing Exprs
   , canonicalize
   , canonicalizeWith
   , canonicalization
@@ -113,7 +119,7 @@ module Data.Haexpress
 
   -- -- -- Data.Haexpress.Match exports -- -- --
 
-  -- * Matching Exprs
+  -- ** Matching Exprs
   , match
   , matchWith
   , isInstanceOf
@@ -122,15 +128,27 @@ module Data.Haexpress
 
   -- -- -- Data.Haexpress.Express exports -- -- --
 
-  -- * The Express typeclass
+  -- * Typeclasses
+
+  -- ** The Express typeclass
   , Express (..)
   , deriveExpress
   , deriveExpressCascading
   , deriveExpressIfNeeded
 
+  -- -- -- Data.Haexpress.Name exports -- -- --
+
+  -- ** The Name typeclass
+  , Name (..)
+  , names
+  , variableNamesFromTemplate
+  , deriveName
+  , deriveNameCascading
+  , deriveNameIfNeeded
+
   -- -- -- Data.Haexpress.Instances exports -- -- --
 
-  -- * Typeclass instances as Exprs
+  -- ** Typeclass instances as Exprs
   , reifyEq
   , reifyOrd
   , reifyEqOrd
@@ -163,24 +181,14 @@ module Data.Haexpress
   , findValidApp
 
   , preludeNameInstances
-
-  -- -- -- Data.Haexpress.Name exports -- -- --
-
-  -- * Naming variables
-  , Name (..)
-  , names
-  , variableNamesFromTemplate
-  , deriveName
-  , deriveNameCascading
-  , deriveNameIfNeeded
   )
 where
 
 import Data.Haexpress.Basic
 import Data.Haexpress.Canon
 import Data.Haexpress.Match
-import Data.Haexpress.Instances
 import Data.Haexpress.Name
 import Data.Haexpress.Name.Derive
 import Data.Haexpress.Express
 import Data.Haexpress.Express.Derive
+import Data.Haexpress.Instances
