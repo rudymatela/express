@@ -99,7 +99,7 @@ module Data.Haexpress
   , nubHoles
   , holeAsTypeOf
 
-  -- -- -- Data.Haexpress.Canon expors -- -- --
+  -- -- -- Data.Haexpress.Canon exports -- -- --
 
   -- * Canonicalizing Exprs
   , canonicalize
@@ -111,6 +111,8 @@ module Data.Haexpress
   , canonicalVariations
   , fastCanonicalVariations
 
+  -- -- -- Data.Haexpress.Match exports -- -- --
+
   -- * Matching Exprs
   , match
   , matchWith
@@ -118,12 +120,18 @@ module Data.Haexpress
   , hasInstanceOf
   , isSubexprOf
 
--- TODO: explicitly export everything instead of the modules
+  -- -- -- Data.Haexpress.Express exports -- -- --
+
+  -- * The Express typeclass
+  , Express (..)
+  , deriveExpress
+  , deriveExpressCascading
+  , deriveExpressIfNeeded
+
+  -- * Other modules
   , module Data.Haexpress.Instances
   , module Data.Haexpress.Name
   , module Data.Haexpress.Name.Derive
-  , module Data.Haexpress.Express
-  , module Data.Haexpress.Express.Derive
   )
 where
 
