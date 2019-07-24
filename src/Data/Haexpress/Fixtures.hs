@@ -6,6 +6,48 @@
 --
 -- Defines some 'Expr' fixtures to facilitate testing and playing around on
 -- the REPL (GHCI).
+--
+-- * Instead of having to write:
+--
+--     > > value "&&" (&&) :$ (value "not" not :$ val True) :$ val False
+--     > not True && False :: Bool
+--
+--     Using this module, we can just write:
+--
+--     > > not' true -&&- false
+--     > not True && False :: Bool
+--
+-- * Instead of having to write:
+--
+--     > > value "+" ((+)::Int->Int->Int) :$ (value "*" ((*)::Int->Int->Int) :$ var "x" (undefined::Int) :$ var "y" (undefined::Int)) :$ (value "*" ((*)::Int->Int->Int) :$ val (1::Int) :$ val (2::Int))
+--     > x * y + 1 * 2 :: Int
+--
+--     Using this module, we can just write:
+--
+--     > > xx -*- yy -+- one -*- two
+--     > x * y + 1 * 2 :: Int
+--
+-- * Instead of having to write:
+--
+--     > > value "||" (||) :$ (value "==" ((==)::Int->Int->Bool) :$ val (3::Int) :$ (value "+" ((+)::Int->Int->Int) :$ var "y" (undefined::Int) :$ val (1::Int))) :$ (value "not" not :$ val False)
+--     > 3 == y + 1 || not False :: Bool
+--
+--     We can just write:
+--
+--     > > (three -==- yy -+- one) -||- not' false
+--     > x == y + 1 || not False :: Bool
+--
+-- This exports over a hundred symbols
+-- to be used mainly when writing unit tests
+-- or playing around on GHCi.
+--
+-- Since the 'Expr' type only allows monomorphic values,
+-- encoded polimorphic values are monomorphized
+-- usually to the 'Int' type.
+--
+-- /Beware:/ lifted 'Expr' functions sometimes work for different types.
+-- The current version does not have a rationale for types that are included:
+-- you have to either try around on the REPL or look at the source to really know.
 module Data.Haexpress.Fixtures
   (
   -- * Convenience re-export
