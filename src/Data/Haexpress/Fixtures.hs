@@ -14,11 +14,42 @@ module Data.Haexpress.Fixtures
   -- * Functions and values encoded as Expr or functions of Exprs
   -- | The naming rules are:
   --
-  -- * Terminal values are named in words (e.g.: 'zero', 'bee', 'cee', 'dee', 'false').
-  -- * Variables have the first character duplicated (e.g.: 'xx', 'yy', 'xxs');
-  -- * Encoded functions are followed by @E@ (e.g.: 'idE', 'plus');
-  -- * Lifted functions are primed (e.g.: 'id'', 'negate'');
-  -- * Lifted operators are surrounded by dashes (e.g.: '-+-', '-*-').
+  -- * 'Int's are encoded using their English names,
+  --   e.g.: 'zero', 'one', 'two';
+  --
+  -- * 'Char's are encoded using their English names,
+  --   e.g.: 'bee', 'cee', 'dee';
+  --
+  -- * 0-argument constructors are encoded in lowercase,
+  --   e.g.: 'false', 'true', 'nothing', 'just';
+  --
+  -- * lifted constructors are lowercased,
+  --   e.g.: 'just';
+  --
+  -- * lifted functions are primed
+  --   e.g.: 'id'', 'negate'', 'head'';
+  --
+  -- * lifted operators are surrounded by dashes,
+  --   e.g.: '-+-', '-*-', '-&&-', '-||-', '-:-'.
+  --
+  -- * operators are encoded using their English names,
+  --   e.g.: 'plus', 'times', 'cons';
+  --
+  -- * encoded functions are followed by @E@,
+  --   e.g.: 'idE', 'notE', 'absE';
+  --
+  -- * variables have the first character duplicated,
+  --   e.g.: 'xx', 'yy', 'xxs';
+  --
+  -- * encoded values may have the element type appended,
+  --   e.g.: 'idInt', 'idBool', 'justInt', 'nilChar'.
+  --
+  -- Unqualified polymorphic constructors and functions
+  -- have their element types bound to 'Int'.
+  --
+  -- There are exceptions to the above rules such as:
+  -- when a name would conflict with a Prelude function.
+  -- (e.g.: 'orE' and 'andE')
 
   -- ** Booleans
   , b_, pp, qq
