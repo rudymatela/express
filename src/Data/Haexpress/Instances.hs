@@ -231,20 +231,20 @@ isOrd is  =  isOrdT is . typ
 isEqOrd :: [Expr] -> Expr -> Bool
 isEqOrd is e  =  isEq is e && isOrd is e
 
-mkComparison :: String -> [Expr] -> Expr -> Expr -> Maybe Expr
-mkComparison n' is e1 e2  =  do
+mkComparison :: String -> [Expr] -> Expr -> Expr -> Expr
+mkComparison n' is e1 e2  =  fromMaybe (val False) $ do
   e1e <- findValidApp os e1
   e1e $$ e2
   where
   os = [eq | eq@(Value n _) <- is, n == n']
 
-mkEquation :: [Expr] -> Expr -> Expr -> Maybe Expr
+mkEquation :: [Expr] -> Expr -> Expr -> Expr
 mkEquation  =  mkComparison "=="
 
-mkComparisonLT :: [Expr] -> Expr -> Expr -> Maybe Expr
+mkComparisonLT :: [Expr] -> Expr -> Expr -> Expr
 mkComparisonLT  =  mkComparison "<"
 
-mkComparisonLE :: [Expr] -> Expr -> Expr -> Maybe Expr
+mkComparisonLE :: [Expr] -> Expr -> Expr -> Expr
 mkComparisonLE  =  mkComparison "<="
 
 lookupName :: [Expr] -> Expr -> String
