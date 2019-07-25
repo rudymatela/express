@@ -26,4 +26,6 @@ tests n =
   , unfoldApp false              == [false]
 
   , holds n $ \e -> foldApp (unfoldApp e) == e
+
+  , holds n $ \es -> es == unfold (fold es)
   ]

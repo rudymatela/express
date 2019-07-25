@@ -80,18 +80,40 @@ unfoldPair _  =  error "unpair: not an Expr pair"
 
 data ExprList = ExprList
 
--- note this will generate an ill-typed list expression
--- also works on welltyped lists
+-- | /O(n)/.
+-- Folds a list of 'Expr's into a single 'Expr'.
+-- (cf. 'unfold')
+--
+-- This /always/ generates an ill-typed expression.
+--
+-- > fold [val False, val True, val (1::Int)]
+-- > [False,True,1] :: ill-typed # ExprList $ Bool #
+--
+-- This is useful when applying transformations on lists of Exprs,
+-- such as 'canonicalize', 'mapVars' or 'canonicalVariations'.
+--
+-- > > let ii = var "i" (undefined::Int)
+-- > > let kk = var "k" (undefined::Int)
+-- > > let qq = var "q" (undefined::Bool)
+-- > > let notE = value "not" not
+-- > > unfold . canonicalize . fold $ [ii,kk,notE :$ qq, notE :$ val False]
+-- > [x :: Int,y :: Int,not p :: Bool,not False :: Bool]
 fold :: [Expr] -> Expr
 fold []      =  value "[]" ExprList
 fold (e:es)  =  value ":"  ExprList :$ e :$ fold es
--- TODO: document fold
 
+-- | /O(n)/.
+-- Unfolds an 'Expr' representing a list into a list of 'Expr's.
+-- This reverses the effect of 'fold'.
+--
+-- > > expr [1,2,3::Int]
+-- > [1,2,3] :: [Int]
+-- > > unfold $ expr [1,2,3::Int]
+-- > [1 :: Int,2 :: Int,3 :: Int]
 unfold :: Expr -> [Expr]
 unfold   (Value "[]" _)               =  []
 unfold (((Value ":"  _) :$ e) :$ es)  =  e : unfold es
 unfold e  =  error $ "unfold: cannot unfold expression: " ++ show e
--- TODO: document unfold
 
 -- TODO: remove the following comment section eventually
 --
