@@ -8,4 +8,18 @@ main = mainTest tests 5040
 tests :: Int -> [Bool]
 tests n =
   [ True
+
+  , isHole (hole (undefined :: Int))  == True
+  , isHole (hole (undefined :: Bool)) == True
+  , isHole (hole (undefined :: Char)) == True
+  , holds n $ \x -> isHole (val (x :: Int))  == False
+  , holds n $ \p -> isHole (val (p :: Bool)) == False
+  , holds n $ \c -> isHole (val (c :: Char)) == False
+
+  , holds n $ \e -> isHole e ==> isVar e
+  , holds n $ \e1 e2 -> isHole (e1 :$ e2) == False
+
+  , holds n $ \e -> holes e `isSubsequenceOf` vars e
+  , holds n $ \e -> nubHoles e `isSubsetOf` holes e
+  , holds n $ \e -> nubHoles e `isSubsequenceOf` nubVars e
   ]

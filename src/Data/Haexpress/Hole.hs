@@ -47,6 +47,14 @@ varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
   undefine = id -- there's no way to do this using the old Data.Dynamic API.
 #endif
 
+-- | /O(1)/.
+-- Creates an 'Expr' representing a typed hole with the type of the given
+-- 'Expr'. (cf. 'hole')
+--
+-- > > val (1::Int)
+-- > 1 :: Int
+-- > > holeAsTypeOf $ val (1::Int)
+-- > _ :: Int
 holeAsTypeOf :: Expr -> Expr
 holeAsTypeOf = ("" `varAsTypeOf`)
 
@@ -58,25 +66,60 @@ holeAsTypeOf = ("" `varAsTypeOf`)
 --
 -- > > hole (undefined :: Maybe String)
 -- > _ :: Maybe [Char]
+--
+-- A hole is represented as a variable with no name or
+-- a value named @"_"@:
+--
+-- > hole x = var "" x
+-- > hole x = value "_" x
 hole :: Typeable a => a -> Expr
 hole a = var "" (undefined `asTypeOf` a)
 
--- /O(1)/.
+-- | /O(1)/.
+-- Checks if an 'Expr' represents a typed hole.
+-- (cf. 'hole')
+--
+-- > > isHole $ hole (undefined :: Int)
+-- > True
+--
+-- > > isHole $ value "not" not :$ val True
+-- > False
+--
+-- > > isHole $ val 'a'
+-- > False
 isHole :: Expr -> Bool
 isHole (Value "_" _)  = True
 isHole _              = False
--- TODO: document and test isHole
--- TODO: document isHole ==> isVar
 
+-- | /O(n)/.
+-- Lists all holes in an expression, in order and with repetitions.
+-- (cf. 'nubHoles')
+--
+-- > > holes $ hole (undefined :: Bool)
+-- > [_ :: Bool]
+--
+-- > > holes $ value "&&" (&&) :$ hole (undefined :: Bool) :$ hole (undefined :: Bool)
+-- > [_ :: Bool,_ :: Bool]
+--
+-- > > holes $ hole (undefined :: Bool->Bool) :$ hole (undefined::Bool)
+-- > [_ :: Bool -> Bool,_ :: Bool]
 holes :: Expr -> [Expr]
 holes  =  filter isHole . values
--- TODO: document and test holes
--- TODO: property  holes `isSubsequenceOf` vars
 
+-- | /O(n log n)/.
+-- Lists all holes in an expression without repetitions.
+-- (cf. 'holes')
+--
+-- > > nubHoles $ hole (undefined :: Bool)
+-- > [_ :: Bool]
+--
+-- > > nubHoles $ value "&&" (&&) :$ hole (undefined :: Bool) :$ hole (undefined :: Bool)
+-- > [_ :: Bool]
+--
+-- > > nubHoles $ hole (undefined :: Bool->Bool) :$ hole (undefined::Bool)
+-- > [_ :: Bool,_ :: Bool -> Bool]
 nubHoles :: Expr -> [Expr]
 nubHoles  =  nubSort . holes
--- TODO: document and test nubHoles
--- TODO: property nubHoles `isSubsetOf` holes
 
 listVars :: Typeable a => String -> a -> [Expr]
 listVars s a  =  map (`var` a) (variableNamesFromTemplate s)

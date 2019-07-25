@@ -3,6 +3,13 @@ TO DO list for haexpress
 
 Here is a list of things TO DO for haexpress:
 
+* FIXME:
+
+  ```
+  *All Prelude> hole (undefined :: Bool->Bool) :$ hole (undefined::Bool)
+  *** Exception: src/Data/Haexpress/Utils/String.hs:89:1-59: Non-exhaustive patterns in function isInfix
+  ```
+
 * document and test the `Instances` module
 
 * document and test recently added stuff
