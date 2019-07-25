@@ -72,15 +72,29 @@ updateAssignments (e,e') = \bs ->
                 then Just bs
                 else Nothing
 
--- 0 `isInstanceOf` x = True
--- y `isInstanceOf` x = True
--- x `isInstanceOf` 0 = False
--- 1 `isInstanceOf` 0 = False
--- x + (y + x) `isInstanceOf` x + y = True
--- y + (y + x) `isInstanceOf` x + y = True
--- 0 + (y + x) `isInstanceOf` x + y = True
--- x `isInstanceOf` x = True
--- _ `isInstanceOf` x = True
+-- |
+-- Given two 'Expr's,
+-- checks if the first expression
+-- is an instance of the second
+-- in terms of variables.
+-- (cf. 'hasInstanceOf')
+--
+-- > > let zero = val (0::Int)
+-- > > let one  = val (1::Int)
+-- > > let xx   = var "x" (undefined :: Int)
+-- > > let yy   = var "y" (undefined :: Int)
+-- > > let e1 -+- e2  =  value "+" ((+)::Int->Int->Int) :$ e1 :$ e2
+--
+-- >  one `isInstanceOf` one   =  True
+-- >   xx `isInstanceOf` xx    =  True
+-- >   yy `isInstanceOf` xx    =  True
+-- > zero `isInstanceOf` xx    =  True
+-- >   xx `isInstanceOf` zero  =  False
+-- >  one `isInstanceOf` zero  =  False
+-- >   (xx -+- (yy -+- xx)) `isInstanceOf`   (xx -+- yy)  =  True
+-- >   (yy -+- (yy -+- xx)) `isInstanceOf`   (xx -+- yy)  =  True
+-- > (zero -+- (yy -+- xx)) `isInstanceOf` (zero -+- yy)  =  True
+-- >  (one -+- (yy -+- xx)) `isInstanceOf` (zero -+- yy)  =  False
 isInstanceOf :: Expr -> Expr -> Bool
 e1 `isInstanceOf` e2 = isJust $ e1 `match` e2
 
