@@ -19,20 +19,40 @@ import Data.Maybe
 import Data.Functor ((<$>))
 import Control.Monad ((>=>))
 
--- | List matches if possible
+-- |
+-- Given two expressions, returns a 'Just' list of matches
+-- of subexpressions of the first expressions
+-- to variables in the second expression.
+-- Returns 'Nothing' when there is no match.
 --
--- > 0 + 1       `match` x + y       = Just [x=0, y=1]
--- > 0 + (1 + 2) `match` x + y       = Just [x=0, y=1 + 2]
--- > 0 + (1 + 2) `match` x + (y + y) = Nothing
--- > (x + x) + (1 + 2) `match` x + (y + y) = Nothing
+-- > > let zero = val (0::Int)
+-- > > let one  = val (1::Int)
+-- > > let xx   = var "x" (undefined :: Int)
+-- > > let yy   = var "y" (undefined :: Int)
+-- > > let e1 -+- e2  =  value "+" ((+)::Int->Int->Int) :$ e1 :$ e2
+--
+-- > > (zero -+- one) `match` (xx -+- yy)
+-- > Just [(y :: Int,1 :: Int),(x :: Int,0 :: Int)]
+--
+-- > > (zero -+- (one -+- two)) `match` (xx -+- yy)
+-- > Just [(y :: Int,1 + 2 :: Int),(x :: Int,0 :: Int)]
+--
+-- > > (zero -+- (one -+- two)) `match` (xx -+- (yy -+- yy))
+-- > Nothing
+--
+-- In short:
+--
+-- >           (zero -+- one) `match` (xx -+- yy)           =  Just [(xx,zero), (yy,one)]
+-- > (zero -+- (one -+- two)) `match` (xx -+- yy)           =  Just [(xx,zero), (yy,one-+-two)]
+-- > (zero -+- (one -+- two)) `match` (xx -+- (yy -+- yy))  =  Nothing
 match :: Expr -> Expr -> Maybe [(Expr,Expr)]
 match = matchWith []
--- TODO: proper documentation for match
 
--- | List matches with preexisting bindings:
+-- |
+-- Like 'match' but allowing predefined bindings.
 --
--- > 0 + 1 `matchWith [(x,0)]` x + y = Just [x=0, y=1]
--- > 0 + 1 `matchWith [(x,1)]` x + y = Nothing
+-- > matchWith [(xx,zero)] (zero -+- one) (xx -+- yy)  =  Just [(xx,zero), (yy,one)]
+-- > matchWith [(xx,one)]  (zero -+- one) (xx -+- yy)  =  Nothing
 matchWith :: [(Expr,Expr)] -> Expr -> Expr -> Maybe [(Expr,Expr)]
 matchWith bs e1' e2' = m e1' e2' bs
   where
