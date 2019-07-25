@@ -23,26 +23,60 @@ import Data.Haexpress.Core
 
 data ExprPair = ExprPair
 
+-- | /O(n)/.
+-- Folds a list of 'Expr' with function application (':$').
+-- This reverses the effect of 'unfoldApp'.
+--
+-- > foldApp [e0]           =  e0
+-- > foldApp [e0,e1]        =  e0 :$ e1
+-- > foldApp [e0,e1,e2]     =  e0 :$ e1 :$ e2
+-- > foldApp [e0,e1,e2,e3]  =  e0 :$ e1 :$ e2 :$ e3
+--
+-- Remember ':$' is left-associative, so:
+--
+-- > foldApp [e0]           =    e0
+-- > foldApp [e0,e1]        =   (e0 :$ e1)
+-- > foldApp [e0,e1,e2]     =  ((e0 :$ e1) :$ e2)
+-- > foldApp [e0,e1,e2,e3]  = (((e0 :$ e1) :$ e2) :$ e3)
+--
+-- This function /may/ produce an ill-typed expression.
 foldApp :: [Expr] -> Expr
 foldApp = foldl1 (:$)
--- TODO: document foldApp
 
--- note this will generate an ill-typed pair expression
--- use with caution
--- uses: e.g.: unfoldPair . canonicalize . foldPair
+-- | /O(1)/.
+-- Folds a pair of 'Expr' values into a single 'Expr'.
+-- (cf. 'unfoldPair')
+--
+-- This /always/ generates an ill-typed expression.
+--
+-- > > foldPair (val False, val (1::Int))
+-- > (False,1) :: ill-typed # ExprPair $ Bool #
+--
+-- > > foldPair (val (0::Int), val True)
+-- > (0,True) :: ill-typed # ExprPair $ Int #
+--
+-- This is useful when applying transformations on pairs of Exprs,
+-- such as 'canonicalize', 'mapValues' or 'canonicalVariations'.
+--
+-- > > let ii = var "i" (undefined::Int)
+-- > > let kk = var "k" (undefined::Int)
+-- > > unfoldPair $ canonicalize $ foldPair (ii,kk)
+-- > (x :: Int,y :: Int)
 foldPair :: (Expr,Expr) -> Expr
 foldPair (e1,e2)  =  value "," (undefined :: ExprPair) :$ e1 :$ e2
--- TODO: document foldPair
 
--- note this is intended to undo the effect of foldPair
--- also works on welltyped pairs
+-- | /O(1)/.
+-- Unfolds an 'Expr' representing a pair.
+-- This reverses the effect of 'foldPair'.
 --
--- does not work when the function being applied is explicitly prefixed @(,)@
--- ... maybe I should change that?
+-- > > value "," ((,) :: Bool->Bool->(Bool,Bool)) :$ val True :$ val False
+-- > (True,False) :: (Bool,Bool)
+-- > > unfoldPair $ value "," ((,) :: Bool->Bool->(Bool,Bool)) :$ val True :$ val False
+-- > (True :: Bool,False :: Bool)
 unfoldPair :: Expr -> (Expr,Expr)
 unfoldPair (Value "," _ :$ e1 :$ e2) = (e1,e2)
+unfoldPair (Value "(,)" _ :$ e1 :$ e2) = (e1,e2)
 unfoldPair _  =  error "unpair: not an Expr pair"
--- TODO: document unfoldPair
 
 data ExprList = ExprList
 

@@ -586,15 +586,17 @@ lexicompare = lexicompareBy lexicompareConstants
 -- Unfold a function application 'Expr' into a list of function and
 -- arguments.
 --
--- > unfoldApp e0                          =  [e0]
--- > unfoldApp (e0 :$ e1)                  =  [e0,e1]
--- > unfoldApp ((e0 :$ e1) :$ e2)          =  [e0,e1,e2]
--- > unfoldApp (((e0 :$ e1) :$ e2) :$ e3)  =  [e0,e1,e2,e3]
---
 -- > unfoldApp $ e0                    =  [e0]
 -- > unfoldApp $ e0 :$ e1              =  [e0,e1]
 -- > unfoldApp $ e0 :$ e1 :$ e2        =  [e0,e1,e2]
 -- > unfoldApp $ e0 :$ e1 :$ e2 :$ e3  =  [e0,e1,e2,e3]
+--
+-- Remember ':$' is left-associative, so:
+--
+-- > unfoldApp e0                          =  [e0]
+-- > unfoldApp (e0 :$ e1)                  =  [e0,e1]
+-- > unfoldApp ((e0 :$ e1) :$ e2)          =  [e0,e1,e2]
+-- > unfoldApp (((e0 :$ e1) :$ e2) :$ e3)  =  [e0,e1,e2,e3]
 unfoldApp :: Expr -> [Expr]
 unfoldApp e  =  u e []
   where
