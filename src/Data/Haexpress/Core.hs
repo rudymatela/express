@@ -73,7 +73,6 @@ import Data.List (intercalate, sort)
 import Data.Maybe (fromMaybe, isNothing, isJust)
 import Data.Either (either)
 import Data.Monoid ((<>))
-import Data.Typeable (TypeRep, typeOf, funResultTy, splitTyConApp, TyCon, typeRepTyCon)
 
 import Data.Haexpress.Utils.List
 import Data.Haexpress.Utils.String
