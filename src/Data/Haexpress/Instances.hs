@@ -325,6 +325,16 @@ preludeNameInstances = concat
   , reifyName (u :: Rational -> Rational)
   , reifyName (u :: Float -> Float)
   , reifyName (u :: Double -> Double)
+
+  , reifyName (u :: () -> () -> ())
+  , reifyName (u :: Bool -> Bool -> Bool)
+  , reifyName (u :: Int -> Int -> Int)
+  , reifyName (u :: Integer -> Integer -> Integer)
+  , reifyName (u :: Char -> Char -> Char)
+  , reifyName (u :: Ordering -> Ordering -> Ordering)
+  , reifyName (u :: Rational -> Rational -> Rational)
+  , reifyName (u :: Float -> Float -> Float)
+  , reifyName (u :: Double -> Double -> Double)
   ]
   where
   u :: a
