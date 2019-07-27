@@ -102,10 +102,7 @@ e1 `isInstanceOf` e2 = isJust $ e1 `match` e2
 -- Checks if any of the subexpressions of the first argument 'Expr'
 -- is an instance of the second argument 'Expr'.
 hasInstanceOf :: Expr -> Expr -> Bool
-e1           `hasInstanceOf` e2 | e1   `isInstanceOf` e2 = True
-(e1f :$ e1x) `hasInstanceOf` e2 | e1f `hasInstanceOf` e2 ||
-                                  e1x `hasInstanceOf` e2 = True
-_            `hasInstanceOf` _                           = False
+e1 `hasInstanceOf` e2  =  any (`isInstanceOf` e2) (subexprs e1)
 
 -- | /O(n^2)/.
 -- Checks if an 'Expr' is a subexpression of another.
