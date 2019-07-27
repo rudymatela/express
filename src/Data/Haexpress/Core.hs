@@ -80,9 +80,9 @@ import Data.Haexpress.Utils.String
 import Data.Haexpress.Utils.Typeable
 
 -- |
--- Values of type 'Expr' represent objects or applications between objects
--- encapsulated together with their types and string representations.
--- 'Expr' types are always monomorphic.
+-- Values of type 'Expr' represent objects or applications between objects.
+-- Each object is encapsulated together with its types and string representation.
+-- Values encoded in 'Expr's are always monomorphic.
 --
 -- An 'Expr' can be constructed using:
 --
