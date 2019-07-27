@@ -47,4 +47,11 @@ tests n =
   , (xx -+- yy) `isSubexprOf` abs' (yy -+- xx) == False
   , xx `isSubexprOf` yy == False
   , xx `isSubexprOf` xx == True
+
+  -- tests of hasInstanceOf --
+  , holds n $ \e1 e2 -> e1 `isInstanceOf` e2 ==> e1 `hasInstanceOf` e2
+  , holds n $ \ef ex e -> ((ef :$ ex) `hasInstanceOf` e)
+                       == ((ef :$ ex) `isInstanceOf` e || ef `hasInstanceOf` e
+                                                       || ex `hasInstanceOf` e)
+  , holds n $ \e1 e2 -> e1 `hasInstanceOf` e2 ==> any (`isInstanceOf` e2) (subexprs e1)
   ]

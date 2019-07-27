@@ -55,8 +55,10 @@ foldApp = foldl1 (:$)
 -- > > foldPair (val (0::Int), val True)
 -- > (0,True) :: ill-typed # ExprPair $ Int #
 --
--- This is useful when applying transformations on pairs of Exprs,
--- such as 'canonicalize', 'mapValues' or 'canonicalVariations'.
+-- This is useful when applying transformations on pairs of 'Expr's, such as
+-- 'Data.Haexpress.Canon.canonicalize',
+-- 'Data.Haexpress.Map.mapValues' or
+-- 'Data.Haexpress.Canon.canonicalVariations'.
 --
 -- > > let ii = var "i" (undefined::Int)
 -- > > let kk = var "k" (undefined::Int)
@@ -89,8 +91,10 @@ data ExprList = ExprList
 -- > fold [val False, val True, val (1::Int)]
 -- > [False,True,1] :: ill-typed # ExprList $ Bool #
 --
--- This is useful when applying transformations on lists of Exprs,
--- such as 'canonicalize', 'mapVars' or 'canonicalVariations'.
+-- This is useful when applying transformations on lists of 'Expr's, such as
+-- 'Data.Haexpress.Canon.canonicalize',
+-- 'Data.Haexpress.Map.mapValues' or
+-- 'Data.Haexpress.Canon.canonicalVariations'.
 --
 -- > > let ii = var "i" (undefined::Int)
 -- > > let kk = var "k" (undefined::Int)

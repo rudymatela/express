@@ -36,6 +36,9 @@ import Data.Haexpress.Utils.String (variableNamesFromTemplate)
 -- > > let one = val (1::Int)
 -- > > "x" `varAsTypeOf` one
 -- > x :: Int
+--
+-- > > "p" `varAsTypeOf` val False
+-- > p :: Bool
 varAsTypeOf :: String -> Expr -> Expr
 varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
   where
@@ -121,10 +124,57 @@ holes  =  filter isHole . values
 nubHoles :: Expr -> [Expr]
 nubHoles  =  nubSort . holes
 
+-- |
+-- Generate an infinite list of variables
+-- based on a template and a given type.
+-- (cf. 'listVarsAsTypeOf')
+--
+-- > > putL 10 $ listVars "x" (undefined :: Int)
+-- > [ x :: Int
+-- > , y :: Int
+-- > , z :: Int
+-- > , x' :: Int
+-- > , y' :: Int
+-- > , z' :: Int
+-- > , x'' :: Int
+-- > , ...
+-- > ]
+--
+-- > > putL 10 $ listVars "p" (undefined :: Bool)
+-- > [ p :: Bool
+-- > , q :: Bool
+-- > , r :: Bool
+-- > , p' :: Bool
+-- > , q' :: Bool
+-- > , r' :: Bool
+-- > , p'' :: Bool
+-- > , ...
+-- > ]
 listVars :: Typeable a => String -> a -> [Expr]
 listVars s a  =  map (`var` a) (variableNamesFromTemplate s)
--- TODO: document and test listVars
 
+-- |
+-- Generate an infinite list of variables
+-- based on a template
+-- and the type of a given 'Expr'.
+-- (cf. 'listVars')
+--
+-- > > let one = val (1::Int)
+-- > > putL 10 $ "x" `listVarsAsTypeOf` one
+-- > [ x :: Int
+-- > , y :: Int
+-- > , z :: Int
+-- > , x' :: Int
+-- > , ...
+-- > ]
+--
+-- > > let false = val False
+-- > > putL 10 $ "p" `listVarsAsTypeOf` false
+-- > [ p :: Bool
+-- > , q :: Bool
+-- > , r :: Bool
+-- > , p' :: Bool
+-- > , ...
+-- > ]
 listVarsAsTypeOf :: String -> Expr -> [Expr]
 listVarsAsTypeOf s e  =  map (`varAsTypeOf` e) (variableNamesFromTemplate s)
--- TODO: document and test listVarsAsTypeOf

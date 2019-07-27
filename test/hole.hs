@@ -22,4 +22,9 @@ tests n =
   , holds n $ \e -> holes e `isSubsequenceOf` vars e
   , holds n $ \e -> nubHoles e `isSubsetOf` holes e
   , holds n $ \e -> nubHoles e `isSubsequenceOf` nubVars e
+
+  , [xx, yy, zz, xx'] `isPrefixOf` listVars "x" (undefined :: Int)
+  , [pp, qq, rr, pp'] `isPrefixOf` listVars "p" (undefined :: Bool)
+  , [xx, yy, zz, xx'] `isPrefixOf` listVarsAsTypeOf "x" zero
+  , [pp, qq, rr, pp'] `isPrefixOf` listVarsAsTypeOf "p" false
   ]

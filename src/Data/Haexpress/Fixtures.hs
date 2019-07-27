@@ -94,7 +94,7 @@ module Data.Haexpress.Fixtures
   -- (e.g.: 'orE' and 'andE')
 
   -- ** Booleans
-  , b_, pp, qq
+  , b_, pp, qq, rr, pp'
   , false
   , true
   , notE
@@ -221,8 +221,19 @@ pp  =  var "p" bool
 qq :: Expr
 qq  =  var "q" bool
 
-rr :: Expr -- ar, I'm a pirate
+-- | 'Expr' representing a variable @r :: `Bool`@.
+--
+-- > > rr
+-- > r :: Bool
+rr :: Expr
 rr  =  var "r" bool
+
+-- | 'Expr' representing a variable @p' :: `Bool`@.
+--
+-- > > pp'
+-- > p' :: Bool
+pp' :: Expr
+pp'  =  var "p'" bool
 
 
 -- | 'False' encoded as an 'Expr'.
