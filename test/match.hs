@@ -53,5 +53,5 @@ tests n =
   , holds n $ \ef ex e -> ((ef :$ ex) `hasInstanceOf` e)
                        == ((ef :$ ex) `isInstanceOf` e || ef `hasInstanceOf` e
                                                        || ex `hasInstanceOf` e)
-  , holds n $ \e1 e2 -> e1 `hasInstanceOf` e2 ==> any (`isInstanceOf` e2) (subexprs e1)
+  , holds n $ \e1 e2 -> e1 `hasInstanceOf` e2 == any (`isInstanceOf` e2) (subexprs e1)
   ]
