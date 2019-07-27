@@ -73,4 +73,10 @@ tests n =
   , show (ffE -$- minusOne) == "f $ (-1) :: Int"
 
   , holds n $ \e -> showExpr e `isPrefixOf` show e
+
+  -- showing holes --
+  , show (hole (undefined :: Int -> Int) :$ one)              == "_ 1 :: Int"
+  , show (hole (undefined :: Int -> Int) :$ xx)               == "_ x :: Int"
+  , show (hole (undefined :: Int -> Int -> Int) :$ one :$ xx) == "_ 1 x :: Int"
+  , show (hole (undefined :: Int -> Int -> Int) :$ i_ :$ i_)  == "_ _ _ :: Int"
   ]
