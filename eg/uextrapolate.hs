@@ -4,7 +4,24 @@
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 --
 -- A small property-based testing library capable of generalizing
--- counter-examples implemented in under 50 lines of code.
+-- counterexamples implemented in under 50 lines of code.
+--
+-- This example works like other property-based testing libraries
+-- like QuickCheck, LeanCheck or SmallCheck:
+--
+-- When given a property, it will test it for 500 test arguments.
+-- If no counterexample is found, "tests passed" is reported.
+-- If a counterexample is found, it is reported.
+--
+-- However, when a counterexample is found, this program will try to generalize
+-- it by replacing subexpressions to variables.  If a generalization that
+-- _fails_ 500 tests is found, it is reported.
+--
+-- Limitations:
+--
+-- * this only supports properties with one argument (uncurried).
+-- * this only supports generalization of Int, Bool, [Int] and [Bool] values.
+-- * there is no way to configure the number of test arguments.
 --
 -- Please see Extrapolate for a full-featured version:
 --
@@ -16,19 +33,33 @@ import Test.LeanCheck hiding (counterExample, check)
 
 main :: IO ()
 main  =  do
+  putStrLn "sort . sort = sort"
   check $ \xs -> sort (sort xs :: [Int]) == sort xs
+
+  putStrLn "length . nub = length  (incorrect when there are repeated elements)"
   check $ \xs -> length (nub xs :: [Int]) == length xs
+
+  putStrLn "\\(x,y) -> x + y == y + x"
   check $ \(x,y) -> x + y == y + (x :: Int)
+
+  putStrLn "\\x -> x == x + 1  (always incorrect)"
+  check $ \x -> x == x + (1 :: Int)
+
+  putStrLn "\\(x,y) -> x + y == x + x  (incorrect)"
   check $ \(x,y) -> x + y == x + (x :: Int)
+
+  putStrLn "\\(x,y) -> x /= y  (incorrect whenever x and y are equal)"
+  check $ \(x,y) -> x /= (y :: Int)
 
 
 check :: (Listable a, Express a) => (a -> Bool) -> IO ()
 check prop  =  putStrLn $ case counterExample 500 prop of
-  Nothing -> "+++ Tests passed."
+  Nothing -> "+++ Tests passed.\n"
   Just ce -> "*** Falsified, counterexample:  " ++ show ce
           ++ case counterExampleGeneralization 500 prop ce of
              Nothing -> ""
              Just g -> "\n               generalization:  " ++ show g
+          ++ "\n"
 
 
 counterExample :: (Listable a, Express a) => Int -> (a -> Bool) -> Maybe Expr

@@ -79,6 +79,28 @@ bench/tiers: \
   test/Test/ListableExpr.hs \
   bench/tiers.hs \
   mk/toplibs
+eg/uextrapolate: \
+  eg/uextrapolate.hs \
+  mk/toplibs
+eg/uextrapolate.o: \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Name/Derive.hs \
+  src/Data/Haexpress/Match.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Hole.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs \
+  eg/uextrapolate.hs
 mk/All.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
   src/Data/Haexpress/Utils/TH.hs \
@@ -169,6 +191,8 @@ src/Data/Haexpress/Express.o: \
   src/Data/Haexpress/Utils/List.hs \
   src/Data/Haexpress/Express.hs \
   src/Data/Haexpress/Core.hs
+src/Data/Haexpress/Fixtures: \
+  mk/toplibs
 src/Data/Haexpress/Fixtures.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
   src/Data/Haexpress/Utils/TH.hs \

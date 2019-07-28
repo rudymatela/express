@@ -1,5 +1,21 @@
+sort . sort = sort
 +++ Tests passed.
+
+length . nub = length  (incorrect when there are repeated elements)
 *** Falsified, counterexample:  [0,0] :: [Int]
                generalization:  x:x:xs :: [Int]
+
+\(x,y) -> x + y == y + x
 +++ Tests passed.
+
+\x -> x == x + 1  (always incorrect)
+*** Falsified, counterexample:  0 :: Int
+               generalization:  x :: Int
+
+\(x,y) -> x + y == x + x  (incorrect)
 *** Falsified, counterexample:  (0,1) :: (Int,Int)
+
+\(x,y) -> x /= y  (incorrect whenever x and y are equal)
+*** Falsified, counterexample:  (0,0) :: (Int,Int)
+               generalization:  (x,x) :: (Int,Int)
+
