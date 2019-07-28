@@ -1,4 +1,4 @@
--- uextrapolate.hs -- micro extrapolate
+-- u-extrapolate.hs -- micro extrapolate
 --
 -- Copyright (c) 2019 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).

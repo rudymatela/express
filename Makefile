@@ -23,7 +23,7 @@ TESTS = \
   test/listable
 EGS =
 BENCHS = \
-  eg/uextrapolate \
+  eg/u-extrapolate \
   bench/compare \
   bench/pairs \
   bench/tiers \

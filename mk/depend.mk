@@ -79,10 +79,10 @@ bench/tiers: \
   test/Test/ListableExpr.hs \
   bench/tiers.hs \
   mk/toplibs
-eg/uextrapolate: \
-  eg/uextrapolate.hs \
+eg/u-extrapolate: \
+  eg/u-extrapolate.hs \
   mk/toplibs
-eg/uextrapolate.o: \
+eg/u-extrapolate.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
   src/Data/Haexpress/Utils/TH.hs \
   src/Data/Haexpress/Utils/String.hs \
@@ -100,7 +100,7 @@ eg/uextrapolate.o: \
   src/Data/Haexpress/Core.hs \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs \
-  eg/uextrapolate.hs
+  eg/u-extrapolate.hs
 mk/All.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
   src/Data/Haexpress/Utils/TH.hs \
