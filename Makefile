@@ -114,6 +114,11 @@ hlint:
 	  --ignore "Redundant bracket" \
 	  .
 
+markdown: README.html
+
+%.html: %.md
+	pandoc $< -o $@
+
 # NOTE: (very hacky!) the following target allows parallel compilation (-jN) of
 # eg and test programs so long as they don't share dependencies _not_ stored
 # in src/ and test/.  Runnable binaries should depend on mk/toplibs instead of

@@ -40,4 +40,5 @@ doc/**/*.js
 doc/**/*.png
 doc/**/*.gif
 doc/**/*.json
+README.html
 mk/toplibs
