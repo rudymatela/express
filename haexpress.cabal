@@ -225,3 +225,10 @@ benchmark tiers
   other-modules:       Test, Test.ListableExpr
   build-depends:       base >= 4 && < 5, haexpress, leancheck
   default-language:    Haskell2010
+
+benchmark uextrapolate
+  type:                exitcode-stdio-1.0
+  main-is:             uextrapolate.hs
+  hs-source-dirs:      eg
+  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  default-language:    Haskell2010
