@@ -56,7 +56,7 @@ import Data.Maybe
 -- | /O(1)./
 -- Reifies an 'Eq' instance into a list of 'Expr's.
 -- The list will contain '==' and '/=' for the given type.
--- (cf. 'mkEquation')
+-- (cf. 'mkEq', 'mkEquation')
 --
 -- > > reifyEq (undefined :: Int)
 -- > [ (==) :: Int -> Int -> Bool
@@ -75,7 +75,7 @@ reifyEq a  =  mkEq  ((==) -:> a)
 -- | /O(1)./
 -- Reifies an 'Ord' instance into a list of 'Expr's.
 -- The list will contain 'compare', '<=' and '<' for the given type.
--- (cf. 'mkComparisonLE', 'mkComparisonLT')
+-- (cf. 'mkOrd', 'mkOrdLessEqual', 'mkComparisonLE', 'mkComparisonLT')
 --
 -- > > reifyOrd (undefined :: Int)
 -- > [ (<=) :: Int -> Int -> Bool
@@ -99,7 +99,7 @@ reifyEqOrd a  =  reifyEq a ++ reifyOrd a
 -- | /O(1)./
 -- Reifies a 'Name' instance into a list of 'Expr's.
 -- The list will contain 'name' for the given type.
--- (cf. 'lookupName', 'lookupNames')
+-- (cf. 'mkName', 'lookupName', 'lookupNames')
 --
 -- > > reifyName (undefined :: Int)
 -- > [name :: Int -> [Char]]
@@ -111,6 +111,13 @@ reifyName a  =  mkName (name -:> a)
 
 -- todo: reifyExpr and related functions
 
+-- | /O(1)/.
+-- Builds a reified 'Eq' instance from the given '==' function.
+-- (cf. 'reifyEq')
+--
+-- > > mkEq ((==) :: Int -> Int -> Bool)
+-- > [ (==) :: Int -> Int -> Bool
+-- > , (/=) :: Int -> Int -> Bool ]
 mkEq :: Typeable a => (a -> a -> Bool) -> [Expr]
 mkEq (==)  =
   [ value "==" (==)
@@ -119,6 +126,9 @@ mkEq (==)  =
   where
   x /= y = not (x == y)
 
+-- | /O(1)/.
+-- Builds a reified 'Ord' instance from the given 'compare' function.
+-- (cf. 'reifyOrd', 'mkOrdLessEqual')
 mkOrd :: Typeable a => (a -> a -> Ordering) -> [Expr]
 mkOrd compare  =
   [ value "<=" (<=)
@@ -130,6 +140,9 @@ mkOrd compare  =
   x <  y  =  x `compare` y == LT
   x <= y  =  x `compare` y /= GT
 
+-- | /O(1)/.
+-- Builds a reified 'Ord' instance from the given '<=' function.
+-- (cf. 'reifyOrd', 'mkOrd')
 mkOrdLessEqual :: Typeable a => (a -> a -> Bool) -> [Expr]
 mkOrdLessEqual (<=)  =
   [ value "<=" (<=)
@@ -138,9 +151,15 @@ mkOrdLessEqual (<=)  =
   where
   x < y  =  not (y <= x)
 
+-- | /O(1)/.
+-- Builds a reified 'Name' instance from the given 'name' function.
+-- (cf. 'reifyName', 'mkNameWith')
 mkName :: Typeable a => (a -> String) -> [Expr]
 mkName name  =  [value "name" name]
 
+-- | /O(1)/.
+-- Builds a reified 'Name' instance from the given 'String' and type.
+-- (cf. 'reifyName', 'mkName')
 mkNameWith :: Typeable a => String -> a -> [Expr]
 mkNameWith n a  =  [value "name" (const n -:> a)]
 
