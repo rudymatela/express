@@ -14,6 +14,7 @@ log/
 *.dyn_o
 TAGS
 tags
+eg/uextrapolate
 bench/compare
 bench/pairs
 bench/tiers
