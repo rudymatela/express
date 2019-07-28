@@ -4,7 +4,7 @@
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 --
 -- A small property-based testing library capable of generalizing
--- counter-examples implemented in under 50 lines.
+-- counter-examples implemented in under 50 lines of code.
 --
 -- Please see Extrapolate for a full-featured version:
 --
@@ -44,10 +44,7 @@ counterExampleGeneralization maxTests prop e  =  listToMaybe
 candidateGeneralizations :: Expr -> [Expr]
 candidateGeneralizations  =  map canonicalize
                           .  concatMap canonicalVariations
-                          .  candidateHoleGeneralizations
-
-candidateHoleGeneralizations :: Expr -> [Expr]
-candidateHoleGeneralizations  =  gen
+                          .  gen
   where
   gen e@(e1 :$ e2)  =
     [holeAsTypeOf e | isListable e]
@@ -60,8 +57,9 @@ candidateHoleGeneralizations  =  gen
   isListable  =  not . null . tiersFor
 
 grounds :: Expr -> [Expr]
-grounds e = (e //-)
-        <$> concat (products [mapT ((,) v) (tiersFor v) | v <- nubVars e])
+grounds e  =  map (e //-)
+           .  concat
+           $  products [mapT ((,) v) (tiersFor v) | v <- nubVars e]
 
 tiersFor :: Expr -> [[Expr]]
 tiersFor e  =  case show (typ e) of
