@@ -1,6 +1,14 @@
--- Copyright 2019 Rudy Matela
+-- uextrapolate.hs -- micro extrapolate
 --
--- micro extrapolate
+-- Copyright (c) 2019 Rudy Matela.
+-- Distributed under the 3-Clause BSD licence (see the file LICENSE).
+--
+-- A small property-based testing library capable of generalizing
+-- counter-examples implemented in under 50 lines.
+--
+-- Please see Extrapolate for a full-featured version:
+--
+--   https://github.com/rudymatela/extrapolate
 import Data.List
 import Data.Maybe
 import Data.Haexpress
