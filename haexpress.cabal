@@ -27,6 +27,7 @@ extra-source-files: .gitignore
                   , stack.yaml
                   , test/sdist
                   , test/model/bench/*.out
+                  , test/model/eg/*.out
                   , bench/versions
                   , bench/runtime/zero/versions
                   , bench/runtime/zero/bench/*.runtime
