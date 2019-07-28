@@ -145,6 +145,17 @@ primeCycle :: [String] -> [String]
 primeCycle []  =  []
 primeCycle ss  =  ss ++ map (++ "'") (primeCycle ss)
 
+-- |
+-- Returns an infinite list of variable names based on the given template.
+--
+-- > > variableNamesFromTemplate "x"
+-- > ["x", "y", "z", "x'", "y'", ...]
+--
+-- > > variableNamesFromTemplate "p"
+-- > ["p", "q", "r", "p'", "q'", ...]
+--
+-- > > variableNamesFromTemplate "xy"
+-- > ["xy", "zw", "xy'", "zw'", "xy''", ...]
 variableNamesFromTemplate :: String -> [String]
 variableNamesFromTemplate  =  primeCycle . f
   where
