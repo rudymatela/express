@@ -1,0 +1,5 @@
++++ Tests passed.
+*** Falsified, counterexample:  [0,0] :: [Int]
+               generalization:  x:x:xs :: [Int]
++++ Tests passed.
+*** Falsified, counterexample:  (0,1) :: (Int,Int)
