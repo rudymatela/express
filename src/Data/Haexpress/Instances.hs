@@ -78,18 +78,15 @@ reifyEq a  =  mkEq  ((==) -:> a)
 -- (cf. 'mkComparisonLE', 'mkComparisonLT')
 --
 -- > > reifyOrd (undefined :: Int)
--- > [ compare :: Int -> Int -> Ordering
--- > , (<=) :: Int -> Int -> Bool
+-- > [ (<=) :: Int -> Int -> Bool
 -- > , (<) :: Int -> Int -> Bool ]
 --
 -- > > reifyOrd (undefined :: Bool)
--- > [ compare :: Bool -> Bool -> Ordering
--- > , (<=) :: Bool -> Bool -> Bool
+-- > [ (<=) :: Bool -> Bool -> Bool
 -- > , (<) :: Bool -> Bool -> Bool ]
 --
 -- > > reifyOrd (undefined :: [Bool])
--- > [ compare :: [Bool] -> [Bool] -> Ordering
--- > , (<=) :: [Bool] -> [Bool] -> Bool
+-- > [ (<=) :: [Bool] -> [Bool] -> Bool
 -- > , (<) :: [Bool] -> [Bool] -> Bool ]
 reifyOrd :: (Typeable a, Ord a) => a -> [Expr]
 reifyOrd a  =  mkOrd (compare -:> a)
