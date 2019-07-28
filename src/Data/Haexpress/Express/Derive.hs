@@ -21,6 +21,8 @@ import Data.Char
 import Data.List
 import Data.Haexpress.Utils.TH
 
+-- | Derives an 'Express' instance for the given type 'Name'.
+--
 -- This function needs the @TemplateHaskell@ extension.
 deriveExpress :: Name -> DecsQ
 deriveExpress  =  deriveWhenNeededOrWarn ''Express reallyDeriveExpress
