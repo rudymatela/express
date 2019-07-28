@@ -19,8 +19,17 @@ It's like `Data.Dynamic` but with support for:
 [`Expr`] is the type we use to encode expressions.
 
 
-Example: heterogeneous lists
-----------------------------
+Installing
+----------
+
+To install the latest Haexpress version from Hackage, just run:
+
+	$ cabal update
+	$ cabal install haexpress
+
+
+Example 1: heterogeneous lists
+------------------------------
 
 Like with `Data.Dynamic`, we can use Haexpress to create heterogeneous lists.
 
@@ -46,13 +55,22 @@ We can then apply [`evaluate`] to select values of different types:
 	["123"]
 
 
-Installing
-----------
+Example 2: listing applications
+-------------------------------
 
-To install the latest Haexpress version from Hackage, just run:
+TODO: write me.
 
-	$ cabal update
-	$ cabal install haexpress
+
+Example 3: u-Extrapolate
+------------------------
+
+TODO: write me.
+
+
+Example 4: u-Speculate
+----------------------
+
+TODO: write me.
 
 
 [Haexpress's Haddock documentation]: https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html
