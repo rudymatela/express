@@ -20,6 +20,9 @@ import Data.Char
 import Data.List
 import Data.Haexpress.Utils.TH
 
+-- | Derives a 'N.Name' instance
+--   for the given type 'Name'.
+--
 -- This function needs the @TemplateHaskell@ extension.
 deriveName :: Name -> DecsQ
 deriveName  =  deriveWhenNeededOrWarn ''N.Name reallyDeriveName
@@ -29,7 +32,7 @@ deriveName  =  deriveWhenNeededOrWarn ''N.Name reallyDeriveName
 deriveNameIfNeeded :: Name -> DecsQ
 deriveNameIfNeeded  =  deriveWhenNeeded ''N.Name reallyDeriveName
 
--- | Derives a 'Name' instance for a given type 'Name'
+-- | Derives a 'N.Name' instance for a given type 'Name'
 --   cascading derivation of type arguments as well.
 deriveNameCascading :: Name -> DecsQ
 deriveNameCascading  =  deriveWhenNeeded ''N.Name reallyDeriveNameCascading
