@@ -15,10 +15,6 @@ module Data.Haexpress.Fold
   )
 where
 
--- TODO: foldApp
--- TODO: isList
--- TODO: unfoldList
-
 import Data.Haexpress.Core
 
 data ExprPair = ExprPair

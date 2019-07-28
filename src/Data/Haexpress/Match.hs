@@ -62,7 +62,6 @@ matchWith bs e1' e2' = m e1' e2' bs
     | isVar e2 && mtyp e1 == mtyp e2  =  updateAssignments (e2,e1)
     | e1 == e2                        =  Just
     | otherwise                       =  const Nothing
--- TODO: proper documentation for matchWith
 
 updateAssignments :: (Expr,Expr) -> [(Expr,Expr)] -> Maybe [(Expr,Expr)]
 updateAssignments (e,e') = \bs ->
@@ -117,4 +116,3 @@ e1 `hasInstanceOf` e2  =  any (`isInstanceOf` e2) (subexprs e1)
 -- > False
 isSubexprOf :: Expr -> Expr -> Bool
 isSubexprOf e = (e `elem`) . subexprs
--- TODO: test isSubexprOf
