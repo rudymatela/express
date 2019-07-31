@@ -1,0 +1,45 @@
+Equations about _, 0, (+), abs:
+abs 0  =  0
+x + 0  =  x
+0 + x  =  x
+abs (abs x)  =  abs x
+x + y  =  y + x
+abs (x + y)  =  abs (y + x)
+abs (x + abs x)  =  x + abs x
+abs (abs x + x)  =  x + abs x
+abs x + abs x  =  abs (x + x)
+x + (y + z)  =  x + (z + y)
+x + (y + z)  =  y + (x + z)
+x + (y + z)  =  y + (z + x)
+x + (y + z)  =  z + (x + y)
+x + (y + z)  =  z + (y + x)
+(x + y) + z  =  x + (y + z)
+(x + y) + z  =  x + (z + y)
+(x + y) + z  =  y + (x + z)
+(x + y) + z  =  y + (z + x)
+(x + y) + z  =  z + (y + x)
+(x + y) + z  =  (x + z) + y
+(x + y) + z  =  (y + x) + z
+(x + y) + z  =  (y + z) + x
+(x + y) + z  =  (z + x) + y
+(x + y) + z  =  (z + y) + x
+
+Equations about _, False, True, not:
+not False  =  True
+not True  =  False
+not (not p)  =  p
+
+Equations about _, _, [], (:), (++), sort:
+sort []  =  []
+xs ++ []  =  xs
+[] ++ xs  =  xs
+sort (sort xs)  =  sort xs
+sort [x]  =  [x]
+[x] ++ xs  =  x:xs
+sort (xs ++ ys)  =  sort (ys ++ xs)
+sort (x:sort xs)  =  sort (x:xs)
+sort (xs ++ sort ys)  =  sort (xs ++ ys)
+sort (sort xs ++ ys)  =  sort (xs ++ ys)
+(x:xs) ++ ys  =  x:(xs ++ ys)
+(xs ++ ys) ++ zs  =  xs ++ (ys ++ zs)
+

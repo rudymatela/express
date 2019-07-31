@@ -24,6 +24,7 @@ TESTS = \
 EGS =
 BENCHS = \
   eg/u-extrapolate \
+  eg/u-speculate \
   bench/compare \
   bench/pairs \
   bench/tiers \

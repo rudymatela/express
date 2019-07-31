@@ -101,6 +101,28 @@ eg/u-extrapolate.o: \
   src/Data/Haexpress/Canon.hs \
   src/Data/Haexpress/Basic.hs \
   eg/u-extrapolate.hs
+eg/u-speculate: \
+  eg/u-speculate.hs \
+  mk/toplibs
+eg/u-speculate.o: \
+  src/Data/Haexpress/Utils/Typeable.hs \
+  src/Data/Haexpress/Utils/TH.hs \
+  src/Data/Haexpress/Utils/String.hs \
+  src/Data/Haexpress/Utils/List.hs \
+  src/Data/Haexpress.hs \
+  src/Data/Haexpress/Name.hs \
+  src/Data/Haexpress/Name/Derive.hs \
+  src/Data/Haexpress/Match.hs \
+  src/Data/Haexpress/Map.hs \
+  src/Data/Haexpress/Instances.hs \
+  src/Data/Haexpress/Hole.hs \
+  src/Data/Haexpress/Fold.hs \
+  src/Data/Haexpress/Express.hs \
+  src/Data/Haexpress/Express/Derive.hs \
+  src/Data/Haexpress/Core.hs \
+  src/Data/Haexpress/Canon.hs \
+  src/Data/Haexpress/Basic.hs \
+  eg/u-speculate.hs
 mk/All.o: \
   src/Data/Haexpress/Utils/Typeable.hs \
   src/Data/Haexpress/Utils/TH.hs \
