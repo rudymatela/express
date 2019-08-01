@@ -73,7 +73,6 @@ printEquationsAbout es  =  do
 speculateAbout :: [Expr] -> [Expr]
 speculateAbout  =  discardLater hasRewrite
                 .  discardLaterInstances
-                .  filter isntIdentity
                 .  concatMap trueCanonicalVariations
                 .  discardLaterInstances
                 .  sort
@@ -85,6 +84,7 @@ speculateAbout  =  discardLater hasRewrite
 trueCanonicalVariations :: Expr -> [Expr]
 trueCanonicalVariations  =  discardLaterInstances
                          .  filter isTrue
+                         .  filter isntIdentity
                          .  canonicalVariations
 
 discardLaterInstances :: [Expr] -> [Expr]
