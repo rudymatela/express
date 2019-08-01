@@ -10,6 +10,8 @@ module Data.Haexpress.Fold
   , unfold
   , foldPair
   , unfoldPair
+  , foldTrio
+  , unfoldTrio
   , foldApp
   , unfoldApp
   )
@@ -74,7 +76,17 @@ foldPair (e1,e2)  =  value "," (undefined :: ExprPair) :$ e1 :$ e2
 unfoldPair :: Expr -> (Expr,Expr)
 unfoldPair (Value "," _ :$ e1 :$ e2) = (e1,e2)
 unfoldPair (Value "(,)" _ :$ e1 :$ e2) = (e1,e2)
-unfoldPair _  =  error "unpair: not an Expr pair"
+unfoldPair _  =  error "unfoldPair: not an Expr pair"
+
+data ExprTrio = ExprTrio
+
+foldTrio :: (Expr,Expr,Expr) -> Expr
+foldTrio (e1,e2,e3)  =  value ",," (undefined :: ExprTrio) :$ e1 :$ e2 :$ e3
+
+unfoldTrio :: Expr -> (Expr,Expr,Expr)
+unfoldTrio (Value ",," _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
+unfoldTrio (Value "(,,)" _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
+unfoldTrio _  =  error "unfoldTrio: not an Expr trio"
 
 data ExprList = ExprList
 

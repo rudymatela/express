@@ -9,15 +9,18 @@ tests n =
   [ True
 
   , holds n $ \e1 e2 -> (e1,e2) == unfoldPair (foldPair (e1,e2))
+  , holds n $ \e123 -> e123 == unfoldTrio (foldTrio e123)
 
-  -- the result of pair always ill-typed
+  -- the result of foldPair and foldTrio is always ill-typed
   , holds n $ \e1 e2 -> isIllTyped $ foldPair (e1,e2)
+  , holds n $ \e123 -> isIllTyped $ foldTrio e123
 
-  -- even though pair returns an ill-typed expression
+  -- (==) works even though foldPair returns an ill-typed expression
   , holds n $ \e1 e2 -> foldPair (e1,e2) == foldPair (e1,e2)
   , fails n $ \e1 e2 -> foldPair (e1,e2) == foldPair (e2,e1)
 
   , show (foldPair (xx,yy)) == "(x,y) :: ill-typed # ExprPair $ Int #"
+  , show (foldTrio (xx,yy,zz)) == "(x,y,z) :: ill-typed # ExprTrio $ Int #"
 
   , unfoldApp (abs' xx)          == [absE, xx]
   , unfoldApp (abs' (xx -+- yy)) == [absE, xx -+- yy]

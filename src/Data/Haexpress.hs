@@ -102,6 +102,8 @@ module Data.Haexpress
   , unfold
   , foldPair
   , unfoldPair
+  , foldTrio
+  , unfoldTrio
   , foldApp
   , unfoldApp
 
