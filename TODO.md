@@ -3,8 +3,6 @@ TO DO list for haexpress
 
 Here is a list of things TO DO for haexpress:
 
-* write the README
-
 * write a tutorial on the `Data.Haexpress` module's haddock
 
 * release on GitHub
