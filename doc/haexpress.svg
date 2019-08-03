@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="95.000229mm"
+   width="75mm"
    height="60mm"
-   viewBox="0 0 95.000226 60.000001"
+   viewBox="0 0 74.999998 60.000001"
    version="1.1"
    id="svg857"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
@@ -36,7 +36,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70710678"
-     inkscape:cx="103.84516"
+     inkscape:cx="-293.54885"
      inkscape:cy="190.13572"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -116,11 +116,6 @@ The proportions are based on the beautiful proportions of the Thompson-Wheeler H
        style="clip-rule:nonzero;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1763895"
        d="m -277.11863,232.26764 20.00023,-30 -20.00023,-30 h 15 l 20.00023,30 -20.00023,30 z m 0,0"
        id="path7"
-       inkscape:connector-curvature="0" />
-    <path
-       style="clip-rule:nonzero;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.17638952"
-       d="m -182.1184,232.26764 -20.00023,-30 20.00023,-30 h -15 l -20.00023,30 20.00023,30 z m 0,0"
-       id="path7-5"
        inkscape:connector-curvature="0" />
   </g>
 </svg>
