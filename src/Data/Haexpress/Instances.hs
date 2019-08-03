@@ -49,6 +49,7 @@ import Data.Haexpress.Express
 import Data.Haexpress.Utils.Typeable
 import Data.Haexpress.Utils.List
 import Data.Maybe
+import Control.Applicative ((<$>)) -- for GHC <= 7.8
 
 
 -- reifying instances --

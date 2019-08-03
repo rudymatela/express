@@ -5,6 +5,7 @@
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines utilities for folding and unfolding 'Expr's.
+{-# LANGUAGE DeriveDataTypeable #-} -- for GHC <= 7.8
 module Data.Haexpress.Fold
   ( fold
   , unfold
@@ -18,8 +19,10 @@ module Data.Haexpress.Fold
 where
 
 import Data.Haexpress.Core
+import Data.Typeable (Typeable) -- for GHC <= 7.8
 
 data ExprPair = ExprPair
+  deriving Typeable -- for GHC <= 7.8
 
 -- | /O(n)/.
 -- Folds a list of 'Expr' with function application (':$').
@@ -79,6 +82,7 @@ unfoldPair (Value "(,)" _ :$ e1 :$ e2) = (e1,e2)
 unfoldPair _  =  error "unfoldPair: not an Expr pair"
 
 data ExprTrio = ExprTrio
+  deriving Typeable -- for GHC <= 7.8
 
 foldTrio :: (Expr,Expr,Expr) -> Expr
 foldTrio (e1,e2,e3)  =  value ",," (undefined :: ExprTrio) :$ e1 :$ e2 :$ e3
@@ -89,6 +93,7 @@ unfoldTrio (Value "(,,)" _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
 unfoldTrio _  =  error "unfoldTrio: not an Expr trio"
 
 data ExprList = ExprList
+  deriving Typeable -- for GHC <= 7.8
 
 -- | /O(n)/.
 -- Folds a list of 'Expr's into a single 'Expr'.

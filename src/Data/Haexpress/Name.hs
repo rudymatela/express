@@ -17,6 +17,7 @@ import Data.Haexpress.Utils.String
 import Data.Char
 import Data.List
 import Data.Ratio (Ratio)
+import Data.Word (Word) -- for GHC <= 7.8
 
 -- |
 -- If we were to come up with a variable name for the given type

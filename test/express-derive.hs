@@ -1,15 +1,16 @@
 -- Copyright (c) 2019 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 
 import Test
 
 
-data Choice  =  Ae | Bee | Cee deriving (Show, Eq)
-data Peano  =  Zero | Succ Peano deriving (Show, Eq)
-data List a  =  a :- List a | Nil deriving (Show, Eq)
-data Bush a  =  Bush a :-: Bush a | Leaf a deriving (Show, Eq)
-data Tree a  =  Node (Tree a) a (Tree a) | Null deriving (Show, Eq)
+data Choice  =  Ae | Bee | Cee deriving (Show, Eq, Typeable)
+data Peano  =  Zero | Succ Peano deriving (Show, Eq, Typeable)
+data List a  =  a :- List a | Nil deriving (Show, Eq, Typeable)
+data Bush a  =  Bush a :-: Bush a | Leaf a deriving (Show, Eq, Typeable)
+data Tree a  =  Node (Tree a) a (Tree a) | Null deriving (Show, Eq, Typeable)
 
 deriveExpress ''Choice
 deriveExpress ''Peano
@@ -24,19 +25,19 @@ deriveListable ''Bush
 deriveListable ''Tree
 
 -- Nested datatype cascade
-data Nested  =  Nested N0 (N1 Int) (N2 Int Int) deriving (Eq, Show)
-data N0      =  R0 Int deriving (Eq, Show)
-data N1 a    =  R1 a   deriving (Eq, Show)
-data N2 a b  =  R2 a b deriving (Eq, Show)
+data Nested  =  Nested N0 (N1 Int) (N2 Int Int) deriving (Eq, Show, Typeable)
+data N0      =  R0 Int deriving (Eq, Show, Typeable)
+data N1 a    =  R1 a   deriving (Eq, Show, Typeable)
+data N2 a b  =  R2 a b deriving (Eq, Show, Typeable)
 
 deriveExpressCascading ''Nested
 deriveListableCascading ''Nested
 
 -- Recursive nested datatype cascade
-data RN       =  RN RN0 (RN1 Int) (RN2 Int RN) deriving (Eq, Show)
-data RN0      =  Nest0 Int | Recurse0 RN deriving (Eq, Show)
-data RN1 a    =  Nest1 a   | Recurse1 RN deriving (Eq, Show)
-data RN2 a b  =  Nest2 a b | Recurse2 RN deriving (Eq, Show)
+data RN       =  RN RN0 (RN1 Int) (RN2 Int RN) deriving (Eq, Show, Typeable)
+data RN0      =  Nest0 Int | Recurse0 RN deriving (Eq, Show, Typeable)
+data RN1 a    =  Nest1 a   | Recurse1 RN deriving (Eq, Show, Typeable)
+data RN2 a b  =  Nest2 a b | Recurse2 RN deriving (Eq, Show, Typeable)
 -- beware: values of the above type are always infinite!
 --         derivation works but full evaluation does not terminate
 
@@ -55,8 +56,8 @@ deriveExpressIfNeeded ''Bool
 deriveExpressIfNeeded ''Maybe
 deriveExpressIfNeeded ''Either
 
-data Mutual    =  Mutual0   | Mutual CoMutual deriving (Eq, Show)
-data CoMutual  =  CoMutual0 | CoMutual Mutual deriving (Eq, Show)
+data Mutual    =  Mutual0   | Mutual CoMutual deriving (Eq, Show, Typeable)
+data CoMutual  =  CoMutual0 | CoMutual Mutual deriving (Eq, Show, Typeable)
 
 deriveListableCascading ''Mutual
 deriveExpressCascading ''Mutual
