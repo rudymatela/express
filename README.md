@@ -64,7 +64,143 @@ TODO: write me.
 Example 3: u-Extrapolate
 ------------------------
 
-TODO: write me.
+This example shows how to build a property-based testing library capable of
+generalizing counter-examples in under 40 lines of code.  Besides, using
+Haexpress to encode expressions, it uses [`LeanCheck`] for generating test
+values.
+
+	import Data.Haexpress
+	import Test.LeanCheck hiding (counterExample, check)
+
+Given a maximum number of tests and a property, the following `counterExample`
+function returns either `Nothing` when tests pass or `Just` a counterexample
+encoded as an [`Expr`].
+
+	counterExample :: (Listable a, Express a) => Int -> (a -> Bool) -> Maybe Expr
+	counterExample maxTests prop  =  listToMaybe
+	  [expr x | x <- take maxTests list, not (prop x)]
+
+Examples (REPL):
+
+	> counterExample 100 (\(x,y) -> x + y == y + x)
+	Nothing
+	> counterExample 100 (\x -> x == x + x)
+	Just (1 :: Integer)
+	> counterExample 100 (\xs -> nub xs == (xs :: [Int]))
+	Just ([0,0] :: [Int])
+
+Before moving on to generalize counterexamples, we need a way to compute ground
+expressions from an expression with variables.  For that, we will use `grounds`
+and `tiersFor`:
+
+	grounds :: Expr -> [Expr]
+	grounds e  =  map (e //-)
+	           .  concat
+	           $  products [mapT ((,) v) (tiersFor v) | v <- nubVars e]
+
+	tiersFor :: Expr -> [[Expr]]
+	tiersFor e  =  case show (typ e) of
+	  "Int"    ->  mapT val (tiers `asTypeOf` [[undefined :: Int]])
+	  "Bool"   ->  mapT val (tiers `asTypeOf` [[undefined :: Bool]])
+	  "[Int]"  ->  mapT val (tiers `asTypeOf` [[undefined :: [Int]]])
+	  "[Bool]" ->  mapT val (tiers `asTypeOf` [[undefined :: [Bool]]])
+	  _        ->  []
+
+Above, we restrict ourselves to `Int`, `Bool`, `[Int]` and `[Bool]` as test
+types.  So we can now compute the grounds of an expression with variables:
+
+	> grounds (value "not" not :$ var "p" (undefined :: Bool))
+	[ not False :: Bool
+	, not True :: Bool
+	]
+	> grounds (value "&&" (&&) :$ var "p" (undefined :: Bool) :$ var "q" (undefined :: Bool))
+	[ False && False :: Bool
+	, False && True :: Bool
+	, True && False :: Bool
+	, True && True :: Bool
+	]
+
+To compute candidate generalizations from a given counter-example, we use the
+following function:
+
+	candidateGeneralizations :: Expr -> [Expr]
+	candidateGeneralizations  =  map canonicalize
+	                          .  concatMap canonicalVariations
+	                          .  gen
+	  where
+	  gen e@(e1 :$ e2)  =
+	    [holeAsTypeOf e | isListable e]
+	    ++ [g1 :$ g2 | g1 <- gen e1, g2 <- gen e2]
+	    ++ map (:$ e2) (gen e1)
+	    ++ map (e1 :$) (gen e2)
+	  gen e
+	    | isVar e    =  []
+	    | otherwise  =  [holeAsTypeOf e | isListable e]
+	  isListable  =  not . null . tiersFor
+
+The need for `isListable` above makes sure we only replace by variables what we
+can enumerate.  Our candidate generalizations are listed in non-increasing
+order of generality:
+
+	> candidateGeneralizations (value "not" not :$ val False)
+	[ p :: Bool
+	, not p :: Bool
+	]
+	Prelude> candidateGeneralizations (value "||" (||) :$ val False :$ val True)
+	[ p :: Bool
+	, p || q :: Bool
+	, p || p :: Bool
+	, p || True :: Bool
+	, False || p :: Bool
+	]
+
+For a given maximum number of tests, property and counter-example, the
+following function returns a counter-example generalization if one is found.
+It goes through the list of candidate generalizations and returns the first for
+which all tests _fail_.
+
+	counterExampleGeneralization :: Express a => Int -> (a -> Bool) -> Expr -> Maybe Expr
+	counterExampleGeneralization maxTests prop e  =  listToMaybe
+	  [g | g <- candidateGeneralizations e
+	     , all (not . prop . evl) (take maxTests $ grounds g)]
+
+We can finally define our `check` function, that will test a property and
+report a counterexample and a generalization when either are found.
+
+	check :: (Listable a, Express a) => (a -> Bool) -> IO ()
+	check prop  =  putStrLn $ case counterExample 500 prop of
+	  Nothing -> "+++ Tests passed.\n"
+	  Just ce -> "*** Falsified, counterexample:  " ++ show ce
+	          ++ case counterExampleGeneralization 500 prop ce of
+	             Nothing -> ""
+	             Just g -> "\n               generalization:  " ++ show g
+	          ++ "\n"
+
+Now we can find counterexamples and their generalizations:
+
+	> check $ \xs -> sort (sort xs :: [Int]) == sort xs
+	+++ Tests passed.
+
+	> check $ \xs -> length (nub xs :: [Int]) == length xs
+	*** Falsified, counterexample:  [0,0] :: [Int]
+	               generalization:  x:x:xs :: [Int]
+
+	> check $ \x -> x == x + (1 :: Int)
+	*** Falsified, counterexample:  0 :: Int
+	               generalization:  x :: Int
+
+	> check $ \(x,y) -> x /= (y :: Int)
+	*** Falsified, counterexample:  (0,0) :: (Int,Int)
+	               generalization:  (x,x) :: (Int,Int)
+
+The implementation above has some limitations:
+
+* it only supports properties with one argument (uncurried);
+* it only supports generalization of `Int`, `Bool`, `[Int]` and `[Bool]` values;
+* there is no way to configure the number of test arguments.
+
+Please see [Extrapolate] for a full-featured version without the above
+limitations and with support for conditional generalizations.
 
 
 Example 4: u-Speculate
