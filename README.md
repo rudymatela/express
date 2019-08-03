@@ -40,7 +40,13 @@ Here, we use applications of [`val`] to create a heterogeneous list:
 	> :t xs
 	xs :: [Expr]
 	> xs
-	[False :: Bool,True :: Bool,1 :: Int,2 :: Int,3 :: Integer,"123" :: [Char]]
+	[ False :: Bool
+	, True :: Bool
+	, 1 :: Int
+	, 2 :: Int
+	, 3 :: Integer
+	, "123" :: [Char]
+	]
 
 We can then apply [`evaluate`] to select values of different types:
 
@@ -58,8 +64,25 @@ We can then apply [`evaluate`] to select values of different types:
 Example 2: listing applications
 -------------------------------
 
-TODO: write me.
+Carrying on from Example 1, we define an heterogeneous list of functions
+encoded as [`Expr`]s:
 
+	> let fs = [value "not" not, value "&&" (&&), value "abs" (abs :: Int -> Int)]
+	> :t fs
+	fs :: [Expr]
+
+Using [`$$`] we list the type correct applications of functions in `fs` to
+values in `xs`.
+
+	> import Data.Maybe (catMaybes)
+	> catMaybes [f $$ x | f <- fs, x <- xs]
+	[ not False :: Bool
+	, not True :: Bool
+	, (False &&) :: Bool -> Bool
+	, (True &&) :: Bool -> Bool
+	, abs 1 :: Int
+	, abs 2 :: Int
+	]
 
 Example 3: u-Extrapolate
 ------------------------
@@ -220,6 +243,7 @@ For a detailed documentation, please see [Haexpress's Haddock documentation].
 [`Expr`]:         https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#t:val
 [`val`]:          https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#v:val
 [`evaluate`]:     https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#v:evaluate
+[`$$`]:           https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#v:-36--36-
 [`Show`]:         https://hackage.haskell.org/package/base/docs/Prelude.html#t:Show
 [`Data.Dynamic`]: https://hackage.haskell.org/package/base/docs/Data-Dynamic.html
 
