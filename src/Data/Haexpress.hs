@@ -4,7 +4,70 @@
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
--- Defines the 'Expr' type and utilities involving it
+-- Haexpress is a library for manipulating dynamically typed Haskell expressions.
+-- It's like "Data.Dynamic" but with support for encoding applications and
+-- variables.
+--
+-- It provides the 'Expr' type and over a hundred functions for
+-- building, evaluating, comparing, folding, canonicalizing and matching
+-- 'Expr's.
+--
+-- /Example:/
+-- Like with "Data.Dynamic", we can use Haexpress to create heterogeneous lists:
+--
+-- > > let xs = [val False, val True, val (1::Int), val (2::Int), val (3::Integer), val "123"]
+-- > > :t xs
+-- > xs :: [Expr]
+-- > > xs
+-- > [ False :: Bool
+-- > , True :: Bool
+-- > , 1 :: Int
+-- > , 2 :: Int
+-- > , 3 :: Integer
+-- > , "123" :: [Char]
+-- > ]
+--
+-- We can then apply 'evaluate' to select values of different types:
+--
+-- > > import Data.Maybe
+-- > > mapMaybe evaluate xs :: [Bool]
+-- > [False,True]
+-- > > mapMaybe evaluate xs :: [Int]
+-- > [1,2]
+-- > > mapMaybe evaluate xs :: [Integer]
+-- > [3]
+-- > > mapMaybe evaluate xs :: [String]
+-- > ["123"]
+--
+-- If define an heterogeneous list of functions encoded as 'Expr's:
+--
+-- > > let fs = [value "not" not, value "&&" (&&), value "abs" (abs :: Int -> Int)]
+-- > > :t fs
+-- > fs :: [Expr]
+--
+-- Using '$$' we can list the type correct applications
+-- between the two previously defined lists:
+--
+-- > > catMaybes [f $$ x | f <- fs, x <- xs]
+-- > [ not False :: Bool
+-- > , not True :: Bool
+-- > , (False &&) :: Bool -> Bool
+-- > , (True &&) :: Bool -> Bool
+-- > , abs 1 :: Int
+-- > , abs 2 :: Int
+-- > ]
+--
+-- Other uses of Haexpress include:
+--
+-- * generalizing counter-examples of property-based testing
+--   in <https://hackage.haskell.org/package/extrapolate Extrapolate>;
+-- * conjecturing equations based on the results of testing
+--   in <https://hackage.haskell.org/package/speculate Speculate>.
+--
+-- In this documentation,
+-- the complexity of most functions is given in big O notation
+-- where /n/ is the size of the expression being manipulated or produced.
+-- There may still be a /m/ cost associated with the values being stored in 'Expr's.
 {-# LANGUAGE CPP #-}
 module Data.Haexpress
   ( 

@@ -4,7 +4,12 @@
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
--- Defines the 'Expr' type and utilities involving it.
+-- This module defines the 'Expr' type and basic utilities involving it.
+--
+-- This is the core of the Haexpress library.
+-- As a user, you are probably better of importing "Data.Haexpress".
+-- If you want to understand how the library works,
+-- this is the place to start.
 --
 -- The complexity of most functions are given in big O notation
 -- where /n/ is the size of the expression being manipulated or produced.
@@ -80,7 +85,7 @@ import Data.Haexpress.Utils.Typeable
 
 -- |
 -- Values of type 'Expr' represent objects or applications between objects.
--- Each object is encapsulated together with its types and string representation.
+-- Each object is encapsulated together with its type and string representation.
 -- Values encoded in 'Expr's are always monomorphic.
 --
 -- An 'Expr' can be constructed using:
@@ -112,8 +117,8 @@ import Data.Haexpress.Utils.Typeable
 -- > > show (value "not" not :$ val False)
 -- > "not False :: Bool"
 --
--- You can think of 'Expr' as 'Dynamic' with
--- applications and string representations.
+-- 'Expr' is like 'Dynamic' but has support for applications and variables
+-- (':$', 'var').
 --
 -- /The 'var' underscore convention:/
 -- Functions that manipulate 'Expr's usually follow the convention

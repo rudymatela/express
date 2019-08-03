@@ -76,7 +76,6 @@ encoded as [`Expr`]s:
 Using [`$$`] we list the type correct applications of functions in `fs` to
 values in `xs`.
 
-	> import Data.Maybe (catMaybes)
 	> catMaybes [f $$ x | f <- fs, x <- xs]
 	[ not False :: Bool
 	, not True :: Bool
