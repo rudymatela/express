@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="95.000229mm"
+   height="60mm"
+   viewBox="0 0 95.000226 60.000001"
+   version="1.1"
+   id="svg857"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="haexpress.svg">
+  <title
+     id="title867">Haexpress</title>
+  <defs
+     id="defs851">
+    <clipPath
+       id="clip1">
+      <path
+         inkscape:connector-curvature="0"
+         d="M 0,340.15625 H 481.89062 V 0 H 0 Z m 0,0"
+         id="path2" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="103.84516"
+     inkscape:cy="190.13572"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1630"
+     inkscape:window-height="1063"
+     inkscape:window-x="1366"
+     inkscape:window-y="15"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata854">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Haexpress</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:date>2019-08-03</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Rudy Matela</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:source>https://github.com/rudymatela/haexpress</dc:source>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>Haexpress</rdf:li>
+            <rdf:li>Haskell</rdf:li>
+            <rdf:li>logo</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:description>Haexpress's logo.  An X is seen in blue intersected with a lambda sign.
+
+The proportions are based on the beautiful proportions of the Thompson-Wheeler Haskell logo (2009).</dc:description>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(277.11863,-172.26764)">
+    <path
+       style="clip-rule:nonzero;fill:#7f99b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.17638953"
+       d="m -217.11863,172.26764 -39.99977,59.99992 h 14.99992 l 39.99977,-59.99992 z"
+       id="path9-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path9"
+       d="m -257.1184,232.26764 20.00023,-30 -20.00023,-30 h 15 l 39.99977,60 h -15 l -12.49954,-18.74965 -12.50023,18.74965 z m 0,0"
+       style="clip-rule:nonzero;fill:#4c6680;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.17638952" />
+    <path
+       style="clip-rule:nonzero;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1763895"
+       d="m -277.11863,232.26764 20.00023,-30 -20.00023,-30 h 15 l 20.00023,30 -20.00023,30 z m 0,0"
+       id="path7"
+       inkscape:connector-curvature="0" />
+    <path
+       style="clip-rule:nonzero;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.17638952"
+       d="m -182.1184,232.26764 -20.00023,-30 20.00023,-30 h -15 l -20.00023,30 20.00023,30 z m 0,0"
+       id="path7-5"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>
