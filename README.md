@@ -10,7 +10,7 @@ Haexpress
 
 
 Haexpress is a library for manipulating dynamically typed Haskell expressions.
-It's like `Data.Dynamic` but with support for:
+It's like [`Data.Dynamic`] but with support for:
 
 * encoding applications;
 * variables;
@@ -31,7 +31,7 @@ To install the latest Haexpress version from Hackage, just run:
 Example 1: heterogeneous lists
 ------------------------------
 
-Like with `Data.Dynamic`, we can use Haexpress to create heterogeneous lists.
+Like with [`Data.Dynamic`], we can use Haexpress to create heterogeneous lists.
 
 For types that are [`Show`] instances, we can use [`val`] to encode values as [`Expr`]s.
 Here, we use applications of [`val`] to create a heterogeneous list:
@@ -66,7 +66,7 @@ Example 3: u-Extrapolate
 
 This example shows how to build a property-based testing library capable of
 generalizing counter-examples in under 40 lines of code.  Besides, using
-Haexpress to encode expressions, it uses [`LeanCheck`] for generating test
+Haexpress to encode expressions, it uses [LeanCheck] for generating test
 values.
 
 	import Data.Haexpress
@@ -210,6 +210,16 @@ TODO: write me.
 
 
 [Haexpress's Haddock documentation]: https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html
+
+[`Expr`]:         https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#t:val
+[`val`]:          https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#v:val
+[`evaluate`]:     https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#v:evaluate
+[`Show`]:         https://hackage.haskell.org/package/base/docs/Prelude.html#t:Show
+[`Data.Dynamic`]: https://hackage.haskell.org/package/base/docs/Data-Dynamic.html
+
+[LeanCheck]:   https://hackage.haskell.org/package/leancheck
+[Extrapolate]: https://hackage.haskell.org/package/extrapolate
+[Speculate]:   https://hackage.haskell.org/package/speculate
 
 [haexpress-logo]: https://github.com/rudymatela/haexpress/raw/master/doc/haexpress.svg?sanitize=true
 
