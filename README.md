@@ -209,6 +209,12 @@ Example 4: u-Speculate
 TODO: write me.
 
 
+Further reading
+---------------
+
+For a detailed documentation, please see [Haexpress's Haddock documentation].
+
+
 [Haexpress's Haddock documentation]: https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html
 
 [`Expr`]:         https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#t:val
