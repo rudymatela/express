@@ -229,7 +229,20 @@ limitations and with support for conditional generalizations.
 Example 4: u-Speculate
 ----------------------
 
-TODO: write me.
+Using Haexpress, it takes less than 70 lines of code to define a function
+`speculateAbout` that conjectures equations about a set of functions based on
+the results of testing:
+
+	> speculateAbout [hole (undefined :: Bool), val False, val True, value "not" not]
+	[ not False == True :: Bool
+	, not True == False :: Bool
+	, not (not p) == p :: Bool
+	]
+
+	> speculateAbout -- TODO: sort
+
+Please see ...
+
 
 
 Further reading
