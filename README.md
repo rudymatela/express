@@ -10,13 +10,15 @@ Haexpress
 
 
 Haexpress is a library for manipulating dynamically typed Haskell expressions.
-It's like [`Data.Dynamic`] but with support for:
+It's like [`Data.Dynamic`] but with support for encoding applications and
+variables.
 
-* encoding applications;
-* variables;
-* string representation.
+It provides the [`Expr`] type and over a hundred functions for
+building, evaluating, comparing, folding, canonicalizing and matching
+[`Expr`]s.  See [Haexpress's Haddock documentation] for more details.
 
-[`Expr`] is the type we use to encode expressions.
+This library has been used successfully in the implementation of
+[Speculate] and [Extrapolate].
 
 
 Installing
@@ -87,10 +89,10 @@ values in `xs`.
 Example 3: u-Extrapolate
 ------------------------
 
-This example shows how to build a property-based testing library capable of
-generalizing counter-examples in under 40 lines of code.  Besides, using
-Haexpress to encode expressions, it uses [LeanCheck] for generating test
-values.
+[u-Extrapolate] is a property-based testing property-based testing library
+capable of generalizing counter-examples.  It's implementation has under 40
+lines of code.  Besides, using Haexpress to encode expressions, it uses
+[LeanCheck] for generating test values.
 
 	import Data.Haexpress
 	import Test.LeanCheck hiding (counterExample, check)
@@ -216,7 +218,7 @@ Now we can find counterexamples and their generalizations:
 	*** Falsified, counterexample:  (0,0) :: (Int,Int)
 	               generalization:  (x,x) :: (Int,Int)
 
-The implementation above has some limitations:
+[u-Extrapolate] has some limitations:
 
 * it only supports properties with one argument (uncurried);
 * it only supports generalization of `Int`, `Bool`, `[Int]` and `[Bool]` values;
@@ -239,16 +241,51 @@ the results of testing:
 	, not (not p) == p :: Bool
 	]
 
-	> speculateAbout -- TODO: sort
+	> speculateAbout
+    >   [ hole (undefined :: Int)
+    >   , hole (undefined :: [Int])
+    >   , val ([] :: [Int])
+    >   , value ":" ((:) :: Int -> [Int] -> [Int])
+    >   , value "++" ((++) :: [Int] -> [Int] -> [Int])
+    >   , value "sort" (sort :: [Int] -> [Int])
+    >   ]
+	[ sort [] == [] :: Bool
+    , xs ++ [] == xs :: Bool
+    , [] ++ xs == xs :: Bool
+    , sort (sort xs) == sort xs :: Bool
+    , sort [x] == [x] :: Bool
+    , [x] ++ xs == x:xs :: Bool
+    , sort (xs ++ ys) == sort (ys ++ xs) :: Bool
+    , sort (x:sort xs) == sort (x:xs) :: Bool
+    , sort (xs ++ sort ys) == sort (xs ++ ys) :: Bool
+    , sort (sort xs ++ ys) == sort (xs ++ ys) :: Bool
+    , (x:xs) ++ ys == x:(xs ++ ys) :: Bool
+    , (xs ++ ys) ++ zs == xs ++ (ys ++ zs) :: Bool
+	]
 
-Please see ...
+Please see the [u-Speculate] example in the [eg](eg) folder for the full code
+of `speculateAbout`.
 
+[u-Speculate] has some limitations:
+
+* it sometimes prints redundant equations;
+* although it usually runs quickly with less than 6 symbols,
+  runtime is exponential with the number of symbols given,
+  providing it with more than a dozen symbols can make it run for several
+  minutes or hours;
+* there is no way to configure the size limit of reported equations;
+* it only supports variables of `Int`, `Bool`, `[Int]`, and `[Bool]` types.
+
+Please see [Speculate] for a full-featured version without the above
+limitations.
 
 
 Further reading
 ---------------
 
 For a detailed documentation, please see [Haexpress's Haddock documentation].
+
+For more examples, see the [eg](eg) and [bench](bench) folders.
 
 
 [Haexpress's Haddock documentation]: https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html
@@ -263,6 +300,9 @@ For a detailed documentation, please see [Haexpress's Haddock documentation].
 [LeanCheck]:   https://hackage.haskell.org/package/leancheck
 [Extrapolate]: https://hackage.haskell.org/package/extrapolate
 [Speculate]:   https://hackage.haskell.org/package/speculate
+
+[u-Speculate]:   eg/u-speculate.hs
+[u-Extrapolate]: eg/u-extrapolate.hs
 
 [haexpress-logo]: https://github.com/rudymatela/haexpress/raw/master/doc/haexpress.svg?sanitize=true
 
