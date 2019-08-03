@@ -83,12 +83,13 @@ instance Express a => Express [a] where
 
 -- instances of further types and arities --
 
-instance (Show a, Express a) => Express (Ratio a) where
+instance (Integral a, Show a, Express a) => Express (Ratio a) where
   expr  =  val
 -- The following would allow zero denominators
 -- expr (n % d) = constant "%" ((%) -:> n) :$ expr n :$ expr d
 -- TODO: allow zero denominators as it is not our problem
 --       but only after refactoring Extrapolate to use Haexpress
+-- note that the "Integral a" restriction above is needed on GHC <= 7.10
 
 instance (Express a, Express b, Express c, Express d, Express e)
       => Express (a,b,c,d,e) where
