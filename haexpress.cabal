@@ -16,6 +16,7 @@ cabal-version:       1.18
 
 extra-doc-files: README.md
                , TODO.md
+               , doc/haexpress.svg
 extra-source-files: .gitignore
                   , Makefile
                   , mk/depend.mk
