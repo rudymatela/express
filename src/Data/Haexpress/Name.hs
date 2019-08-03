@@ -16,8 +16,6 @@ import Data.Haexpress.Utils.String
 
 import Data.Char
 import Data.List
-import Data.Maybe (fromJust)
-import Data.Either (fromLeft, fromRight)
 import Data.Ratio (Ratio)
 
 -- |
@@ -123,7 +121,9 @@ instance Name (a -> b)  where  name _  =  "f"
 -- > names (undefined :: Maybe Int) = ["mx", "mx1", "mx2", ...]
 -- > nemes (undefined :: Maybe Bool) = ["mp", "mp1", "mp2", ...]
 instance Name a => Name (Maybe a) where
-  name mx  =  "m" ++ name (fromJust mx)
+  name mx  =  "m" ++ name x
+    where
+    Just x = mx
 
 -- |
 -- > names (undefined :: Either Int Int) = ["exy", "exy1", ...]
@@ -131,8 +131,8 @@ instance Name a => Name (Maybe a) where
 instance (Name a, Name b) => Name (Either a b) where
   name exy  =  "e" ++ n ++ m
     where
-    x = fromLeft undefined exy
-    y = fromRight undefined exy
+    Left x  = exy
+    Right y = exy
     n = name x
     m = head $ names y \\ [n]
 
