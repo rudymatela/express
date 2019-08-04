@@ -1,7 +1,7 @@
 -- Cabal file for express
-name:                express
-version:             0.1.0
-synopsis:            Express
+name: express
+version: 0.1.0
+synopsis: Dynamically-typed expressions involving applications and variables.
 description:
   Express is a library for manipulating dynamically typed Haskell expressions.
   It's like @ Data.Dynamic @ but with support for encoding applications and
@@ -12,14 +12,14 @@ description:
   @ Expr @s.  See the README and Haddock documentation for more details.
 
 
-homepage:            https://github.com/rudymatela/express#readme
-license:             BSD3
-license-file:        LICENSE
-author:              Rudy Matela <rudy@matela.com.br>
-maintainer:          Rudy Matela <rudy@matela.com.br>
-category:            Testing
-build-type:          Simple
-cabal-version:       1.18
+homepage: https://github.com/rudymatela/express#readme
+license: BSD3
+license-file: LICENSE
+author:     Rudy Matela <rudy@matela.com.br>
+maintainer: Rudy Matela <rudy@matela.com.br>
+category: Data
+build-type: Simple
+cabal-version: 1.18
 
 extra-doc-files: README.md
                , TODO.md
