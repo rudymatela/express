@@ -3,8 +3,6 @@ TO DO list for express
 
 Here is a list of things TO DO for express:
 
-* release on GitHub
-
 * release on Hackage -- this should coincide with a new release for both
   Speculate and Extrapolate.
 
