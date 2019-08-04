@@ -25,6 +25,7 @@ extra-doc-files: README.md
                , TODO.md
                , doc/express.svg
 extra-source-files: .gitignore
+                  , .travis.yml
                   , Makefile
                   , mk/depend.mk
                   , mk/haskell.mk
@@ -39,6 +40,7 @@ extra-source-files: .gitignore
                   , bench/versions
                   , bench/runtime/zero/versions
                   , bench/runtime/zero/bench/*.runtime
+                  , bench/runtime/zero/eg/*.runtime
 tested-with: GHC==8.6
            , GHC==8.4
            , GHC==8.2
