@@ -3,7 +3,14 @@ name:                express
 version:             0.0.6
 synopsis:            Express
 description:
-  Express!
+  Express is a library for manipulating dynamically typed Haskell expressions.
+  It's like @ Data.Dynamic @ but with support for encoding applications and
+  variables.
+  .
+  It provides the @ Expr @ type and over a hundred functions for
+  building, evaluating, comparing, folding, canonicalizing and matching
+  @ Expr @s.  See the README and Haddock documentation for more details.
+
 
 homepage:            https://github.com/rudymatela/express#readme
 license:             BSD3
