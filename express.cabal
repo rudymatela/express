@@ -32,8 +32,12 @@ extra-source-files: .gitignore
                   , bench/versions
                   , bench/runtime/zero/versions
                   , bench/runtime/zero/bench/*.runtime
-tested-with: GHC==8.4, GHC==8.2, GHC==8.0
-           , GHC==7.10, GHC==7.8, GHC==7.6, GHC==7.4
+tested-with: GHC==8.6
+           , GHC==8.4
+           , GHC==8.2
+           , GHC==8.0
+           , GHC==7.10
+           , GHC==7.8
 
 
 source-repository head
