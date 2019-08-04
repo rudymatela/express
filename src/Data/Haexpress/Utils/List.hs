@@ -15,7 +15,7 @@ module Data.Haexpress.Utils.List
   , lookupId
   , (+++)
   , module Data.List
-#if __GLASGOW_HASKELL__ <= 710
+#if __GLASGOW_HASKELL__ < 710
   , isSubsequenceOf
 #endif
   )
@@ -51,7 +51,7 @@ isSubsetOf :: Ord a => [a] -> [a] -> Bool
 xs `isSubsetOf` ys  =  nubSort xs `isSubsequenceOf` nubSort ys
 
 
-#if __GLASGOW_HASKELL__ <= 710
+#if __GLASGOW_HASKELL__ < 710
 -- only exported from Data.List since base 4.8.0.0
 isSubsequenceOf :: Eq a => [a] -> [a] -> Bool
 isSubsequenceOf []    _                    =  True
