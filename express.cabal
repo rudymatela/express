@@ -1,6 +1,6 @@
 -- Cabal file for express
 name:                express
-version:             0.0.5
+version:             0.0.6
 synopsis:            Express
 description:
   Express!
@@ -43,7 +43,7 @@ source-repository head
 source-repository this
   type:           git
   location:       https://github.com/rudymatela/express
-  tag:            v0.0.5
+  tag:            v0.0.6
 
 library
   exposed-modules:     Data.Express
