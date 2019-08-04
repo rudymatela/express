@@ -1,11 +1,11 @@
--- Cabal file for haexpress
-name:                haexpress
+-- Cabal file for express
+name:                express
 version:             0.0.5
-synopsis:            Haexpress
+synopsis:            Express
 description:
-  Haexpress!
+  Express!
 
-homepage:            https://github.com/rudymatela/haexpress#readme
+homepage:            https://github.com/rudymatela/express#readme
 license:             BSD3
 license-file:        LICENSE
 author:              Rudy Matela <rudy@matela.com.br>
@@ -16,7 +16,7 @@ cabal-version:       1.18
 
 extra-doc-files: README.md
                , TODO.md
-               , doc/haexpress.svg
+               , doc/express.svg
 extra-source-files: .gitignore
                   , Makefile
                   , mk/depend.mk
@@ -38,32 +38,32 @@ tested-with: GHC==8.4, GHC==8.2, GHC==8.0
 
 source-repository head
   type:           git
-  location:       https://github.com/rudymatela/haexpress
+  location:       https://github.com/rudymatela/express
 
 source-repository this
   type:           git
-  location:       https://github.com/rudymatela/haexpress
+  location:       https://github.com/rudymatela/express
   tag:            v0.0.5
 
 library
-  exposed-modules:     Data.Haexpress
-                     , Data.Haexpress.Core
-                     , Data.Haexpress.Basic
-                     , Data.Haexpress.Map
-                     , Data.Haexpress.Express
-                     , Data.Haexpress.Express.Derive
-                     , Data.Haexpress.Fixtures
-                     , Data.Haexpress.Fold
-                     , Data.Haexpress.Hole
-                     , Data.Haexpress.Instances
-                     , Data.Haexpress.Name
-                     , Data.Haexpress.Name.Derive
-                     , Data.Haexpress.Canon
-                     , Data.Haexpress.Match
-                     , Data.Haexpress.Utils.List
-                     , Data.Haexpress.Utils.String
-                     , Data.Haexpress.Utils.Typeable
-                     , Data.Haexpress.Utils.TH
+  exposed-modules:     Data.Express
+                     , Data.Express.Core
+                     , Data.Express.Basic
+                     , Data.Express.Map
+                     , Data.Express.Express
+                     , Data.Express.Express.Derive
+                     , Data.Express.Fixtures
+                     , Data.Express.Fold
+                     , Data.Express.Hole
+                     , Data.Express.Instances
+                     , Data.Express.Name
+                     , Data.Express.Name.Derive
+                     , Data.Express.Canon
+                     , Data.Express.Match
+                     , Data.Express.Utils.List
+                     , Data.Express.Utils.String
+                     , Data.Express.Utils.Typeable
+                     , Data.Express.Utils.TH
   hs-source-dirs:      src
   build-depends:       base >= 4 && < 5, template-haskell
   default-language:    Haskell2010
@@ -73,7 +73,7 @@ test-suite main
   main-is:             main.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite core
@@ -81,7 +81,7 @@ test-suite core
   main-is:             core.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite canon
@@ -89,7 +89,7 @@ test-suite canon
   main-is:             canon.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite hole
@@ -97,7 +97,7 @@ test-suite hole
   main-is:             hole.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite match
@@ -105,7 +105,7 @@ test-suite match
   main-is:             match.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite map
@@ -113,7 +113,7 @@ test-suite map
   main-is:             map.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite fixtures
@@ -121,7 +121,7 @@ test-suite fixtures
   main-is:             fixtures.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite instances
@@ -129,7 +129,7 @@ test-suite instances
   main-is:             instances.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite express
@@ -137,7 +137,7 @@ test-suite express
   main-is:             express.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite express-derive
@@ -145,7 +145,7 @@ test-suite express-derive
   main-is:             express-derive.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite ord
@@ -153,7 +153,7 @@ test-suite ord
   main-is:             ord.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite listable
@@ -161,7 +161,7 @@ test-suite listable
   main-is:             listable.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite name
@@ -169,7 +169,7 @@ test-suite name
   main-is:             name.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite name-derive
@@ -177,7 +177,7 @@ test-suite name-derive
   main-is:             name-derive.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite fold
@@ -185,7 +185,7 @@ test-suite fold
   main-is:             fold.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite show
@@ -193,7 +193,7 @@ test-suite show
   main-is:             show.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 test-suite utils
@@ -201,7 +201,7 @@ test-suite utils
   main-is:             utils.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 benchmark compare
@@ -209,7 +209,7 @@ benchmark compare
   main-is:             compare.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 benchmark pairs
@@ -217,7 +217,7 @@ benchmark pairs
   main-is:             pairs.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 benchmark tiers
@@ -225,19 +225,19 @@ benchmark tiers
   main-is:             tiers.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 benchmark u-extrapolate
   type:                exitcode-stdio-1.0
   main-is:             u-extrapolate.hs
   hs-source-dirs:      eg
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
 benchmark u-speculate
   type:                exitcode-stdio-1.0
   main-is:             u-speculate.hs
   hs-source-dirs:      eg
-  build-depends:       base >= 4 && < 5, haexpress, leancheck
+  build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010

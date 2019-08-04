@@ -1,13 +1,13 @@
 -- |
--- Module      : Data.Haexpress.Core
+-- Module      : Data.Express.Core
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- This module defines the 'Expr' type and basic utilities involving it.
 --
--- This is the core of the Haexpress library.
--- As a user, you are probably better of importing "Data.Haexpress".
+-- This is the core of the Express library.
+-- As a user, you are probably better of importing "Data.Express".
 -- If you want to understand how the library works,
 -- this is the place to start.
 --
@@ -15,7 +15,7 @@
 -- where /n/ is the size of the expression being manipulated or produced.
 -- There may still be a /m/ cost associated with the values being stored in 'Expr's.
 {-# LANGUAGE DeriveDataTypeable #-} -- for GHC < 7.10
-module Data.Haexpress.Core
+module Data.Express.Core
   (
   -- * The Expr datatype
     Expr (..)
@@ -79,9 +79,9 @@ import Data.Maybe (fromMaybe, isNothing, isJust)
 import Data.Either (either)
 import Data.Monoid ((<>))
 
-import Data.Haexpress.Utils.List
-import Data.Haexpress.Utils.String
-import Data.Haexpress.Utils.Typeable
+import Data.Express.Utils.List
+import Data.Express.Utils.String
+import Data.Express.Utils.Typeable
 
 -- |
 -- Values of type 'Expr' represent objects or applications between objects.

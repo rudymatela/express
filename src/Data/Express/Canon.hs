@@ -1,11 +1,11 @@
 -- |
--- Module      : Data.Haexpress.Canon
+-- Module      : Data.Express.Canon
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Utilities for canonicalizing 'Expr's with variables.
-module Data.Haexpress.Canon
+module Data.Express.Canon
   ( canonicalize
   , canonicalizeWith
   , canonicalization
@@ -17,9 +17,9 @@ module Data.Haexpress.Canon
   )
 where
 
-import Data.Haexpress.Basic
-import Data.Haexpress.Name
-import Data.Haexpress.Instances
+import Data.Express.Basic
+import Data.Express.Name
+import Data.Express.Instances
 import Data.List ((\\))
 
 -- |
@@ -178,7 +178,7 @@ canonicalVariations = map canonicalize . fastCanonicalVariations
 -- A faster version of 'canonicalVariations' that
 -- disregards name clashes across different types.
 -- Results are confusing to the user
--- but fine for Haexpress which differentiates
+-- but fine for Express which differentiates
 -- between variables with the same name but different types.
 --
 -- Without applying 'canonicalize', the following 'Expr'

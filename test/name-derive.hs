@@ -4,7 +4,7 @@
 
 import Test
 
-import Data.Haexpress.Utils.List
+import Data.Express.Utils.List
 
 data Peano = Zero | Succ Peano deriving Show
 data List a = a :- List a | Nil deriving Show

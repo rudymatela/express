@@ -1,5 +1,5 @@
 -- |
--- Module      : Data.Haexpress.Fixtures
+-- Module      : Data.Express.Fixtures
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
@@ -48,10 +48,10 @@
 -- /Beware:/ lifted 'Expr' functions sometimes work for different types.
 -- The current version does not have a rationale for types that are included:
 -- you have to either try around on the REPL or look at the source to really know.
-module Data.Haexpress.Fixtures
+module Data.Express.Fixtures
   (
   -- * Convenience re-export
-    module Data.Haexpress
+    module Data.Express
 
   -- * Functions and values encoded as Expr or functions of Exprs
   -- | The naming rules are:
@@ -182,7 +182,7 @@ module Data.Haexpress.Fixtures
   )
 where
 
-import Data.Haexpress
+import Data.Express
 import Data.Maybe
 import Data.Typeable (Typeable, typeOf)
 import Data.Char

@@ -1,21 +1,21 @@
-Haexpress
-=========
+Express
+=======
 
-[![Haexpress's Build Status][build-status]][build-log]
-[![Haexpress on Hackage][hackage-version]][haexpress-on-hackage]
-[![Haexpress on Stackage LTS][stackage-lts-badge]][haexpress-on-stackage-lts]
-[![Haexpress on Stackage Nightly][stackage-nightly-badge]][haexpress-on-stackage-nightly]
+[![Express's Build Status][build-status]][build-log]
+[![Express on Hackage][hackage-version]][express-on-hackage]
+[![Express on Stackage LTS][stackage-lts-badge]][express-on-stackage-lts]
+[![Express on Stackage Nightly][stackage-nightly-badge]][express-on-stackage-nightly]
 
-![Haexpress logo][haexpress-logo]
+![Express logo][express-logo]
 
 
-Haexpress is a library for manipulating dynamically typed Haskell expressions.
+Express is a library for manipulating dynamically typed Haskell expressions.
 It's like [`Data.Dynamic`] but with support for encoding applications and
 variables.
 
 It provides the [`Expr`] type and over a hundred functions for
 building, evaluating, comparing, folding, canonicalizing and matching
-[`Expr`]s.  See [Haexpress's Haddock documentation] for more details.
+[`Expr`]s.  See [Express's Haddock documentation] for more details.
 
 This library has been used successfully in the implementation of
 [Speculate] and [Extrapolate].
@@ -24,16 +24,16 @@ This library has been used successfully in the implementation of
 Installing
 ----------
 
-To install the latest Haexpress version from Hackage, just run:
+To install the latest Express version from Hackage, just run:
 
 	$ cabal update
-	$ cabal install haexpress
+	$ cabal install express
 
 
 Example 1: heterogeneous lists
 ------------------------------
 
-Like with [`Data.Dynamic`], we can use Haexpress to create heterogeneous lists.
+Like with [`Data.Dynamic`], we can use Express to create heterogeneous lists.
 
 For types that are [`Show`] instances, we can use [`val`] to encode values as [`Expr`]s.
 Here, we use applications of [`val`] to create a heterogeneous list:
@@ -90,10 +90,10 @@ Example 3: u-Extrapolate
 
 [u-Extrapolate] is a property-based testing property-based testing library
 capable of generalizing counter-examples.  It's implementation has under 40
-lines of code.  Besides, using Haexpress to encode expressions, it uses
+lines of code.  Besides, using Express to encode expressions, it uses
 [LeanCheck] for generating test values.
 
-	import Data.Haexpress
+	import Data.Express
 	import Test.LeanCheck hiding (counterExample, check)
 
 Given a maximum number of tests and a property, the following `counterExample`
@@ -230,7 +230,7 @@ limitations and with support for conditional generalizations.
 Example 4: u-Speculate
 ----------------------
 
-Using Haexpress, it takes less than 70 lines of code to define a function
+Using Express, it takes less than 70 lines of code to define a function
 `speculateAbout` that conjectures equations about a set of functions based on
 the results of testing:
 
@@ -282,17 +282,17 @@ limitations.
 Further reading
 ---------------
 
-For a detailed documentation, please see [Haexpress's Haddock documentation].
+For a detailed documentation, please see [Express's Haddock documentation].
 
 For more examples, see the [eg](eg) and [bench](bench) folders.
 
 
-[Haexpress's Haddock documentation]: https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html
+[Express's Haddock documentation]: https://hackage.haskell.org/package/express/docs/Data-Express.html
 
-[`Expr`]:         https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#t:val
-[`val`]:          https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#v:val
-[`evaluate`]:     https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#v:evaluate
-[`$$`]:           https://hackage.haskell.org/package/haexpress/docs/Data-Haexpress.html#v:-36--36-
+[`Expr`]:         https://hackage.haskell.org/package/express/docs/Data-Express.html#t:val
+[`val`]:          https://hackage.haskell.org/package/express/docs/Data-Express.html#v:val
+[`evaluate`]:     https://hackage.haskell.org/package/express/docs/Data-Express.html#v:evaluate
+[`$$`]:           https://hackage.haskell.org/package/express/docs/Data-Express.html#v:-36--36-
 [`Show`]:         https://hackage.haskell.org/package/base/docs/Prelude.html#t:Show
 [`Data.Dynamic`]: https://hackage.haskell.org/package/base/docs/Data-Dynamic.html
 
@@ -303,14 +303,14 @@ For more examples, see the [eg](eg) and [bench](bench) folders.
 [u-Speculate]:   eg/u-speculate.hs
 [u-Extrapolate]: eg/u-extrapolate.hs
 
-[haexpress-logo]: https://github.com/rudymatela/haexpress/raw/master/doc/haexpress.svg?sanitize=true
+[express-logo]: https://github.com/rudymatela/express/raw/master/doc/express.svg?sanitize=true
 
-[build-status]: https://travis-ci.org/rudymatela/haexpress.svg?branch=master
-[build-log]:    https://travis-ci.org/rudymatela/haexpress
-[hackage-version]: https://img.shields.io/hackage/v/haexpress.svg
-[haexpress-on-hackage]: https://hackage.haskell.org/package/haexpress
-[stackage-lts-badge]:            https://stackage.org/package/haexpress/badge/lts
-[stackage-nightly-badge]:        https://stackage.org/package/haexpress/badge/nightly
-[haexpress-on-stackage]:         https://stackage.org/package/haexpress
-[haexpress-on-stackage-lts]:     https://stackage.org/lts/package/haexpress
-[haexpress-on-stackage-nightly]: https://stackage.org/nightly/package/haexpress
+[build-status]: https://travis-ci.org/rudymatela/express.svg?branch=master
+[build-log]:    https://travis-ci.org/rudymatela/express
+[hackage-version]: https://img.shields.io/hackage/v/express.svg
+[express-on-hackage]: https://hackage.haskell.org/package/express
+[stackage-lts-badge]:          https://stackage.org/package/express/badge/lts
+[stackage-nightly-badge]:      https://stackage.org/package/express/badge/nightly
+[express-on-stackage]:         https://stackage.org/package/express
+[express-on-stackage-lts]:     https://stackage.org/lts/package/express
+[express-on-stackage-nightly]: https://stackage.org/nightly/package/express

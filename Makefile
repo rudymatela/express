@@ -1,4 +1,4 @@
-# Makefile for haexpress
+# Makefile for express
 #
 # Copyright:   (c) 2015-2018 Rudy Matela
 # License:     3-Clause BSD  (see the file LICENSE)

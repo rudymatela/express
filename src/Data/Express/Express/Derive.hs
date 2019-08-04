@@ -1,25 +1,25 @@
 {-# LANGUAGE TemplateHaskell, CPP #-}
 -- |
--- Module      : Data.Haexpress.Express.Derive
+-- Module      : Data.Express.Express.Derive
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Allows automatic derivation of 'Express' typeclass instances.
-module Data.Haexpress.Express.Derive
+module Data.Express.Express.Derive
   ( deriveExpress
   , deriveExpressCascading
   , deriveExpressIfNeeded
   )
 where
 
-import Data.Haexpress.Core
-import Data.Haexpress.Express
+import Data.Express.Core
+import Data.Express.Express
 
 import Control.Monad
 import Data.Char
 import Data.List
-import Data.Haexpress.Utils.TH
+import Data.Express.Utils.TH
 
 -- | Derives an 'Express' instance for the given type 'Name'.
 --

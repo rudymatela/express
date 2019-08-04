@@ -1,24 +1,24 @@
 {-# LANGUAGE TemplateHaskell, CPP #-}
 -- |
--- Module      : Data.Haexpress.Name.Derive
+-- Module      : Data.Express.Name.Derive
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Allows automatic derivation of 'Name' typeclass instances.
-module Data.Haexpress.Name.Derive
+module Data.Express.Name.Derive
   ( deriveName
   , deriveNameCascading
   , deriveNameIfNeeded
   )
 where
 
-import qualified Data.Haexpress.Name as N
+import qualified Data.Express.Name as N
 
 import Control.Monad
 import Data.Char
 import Data.List
-import Data.Haexpress.Utils.TH
+import Data.Express.Utils.TH
 
 -- | Derives a 'N.Name' instance
 --   for the given type 'Name'.

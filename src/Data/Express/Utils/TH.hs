@@ -1,12 +1,12 @@
 {-# LANGUAGE TemplateHaskell, CPP #-}
 -- |
--- Module      : Data.Haexpress.Name.Derive
+-- Module      : Data.Express.Name.Derive
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Template Haskell utilities.
-module Data.Haexpress.Utils.TH
+module Data.Express.Utils.TH
   ( reallyDeriveCascading
   , deriveWhenNeeded
   , deriveWhenNeededOrWarn

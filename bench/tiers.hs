@@ -5,7 +5,7 @@
 import Test
 import Data.List (intercalate, nub)
 import Test.LeanCheck.Tiers (showTiers)
-import Data.Haexpress.Utils.List
+import Data.Express.Utils.List
 
 showDotsLongerThan :: Show a => Int -> [a] -> String
 showDotsLongerThan n xs = "["

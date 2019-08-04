@@ -1,18 +1,18 @@
 -- |
--- Module      : Data.Haexpress.Name
+-- Module      : Data.Express.Name
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines the 'Name' type class.
-module Data.Haexpress.Name
+module Data.Express.Name
   ( Name (..)
   , names
   , variableNamesFromTemplate
   )
 where
 
-import Data.Haexpress.Utils.String
+import Data.Express.Utils.String
 
 import Data.Char
 import Data.List

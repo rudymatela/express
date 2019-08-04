@@ -1,12 +1,12 @@
 -- |
--- Module      : Data.Haexpress.Fold
+-- Module      : Data.Express.Fold
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines utilities for folding and unfolding 'Expr's.
 {-# LANGUAGE DeriveDataTypeable #-} -- for GHC <= 7.8
-module Data.Haexpress.Fold
+module Data.Express.Fold
   ( fold
   , unfold
   , foldPair
@@ -18,7 +18,7 @@ module Data.Haexpress.Fold
   )
 where
 
-import Data.Haexpress.Core
+import Data.Express.Core
 import Data.Typeable (Typeable) -- for GHC <= 7.8
 
 data ExprPair = ExprPair
@@ -57,9 +57,9 @@ foldApp = foldl1 (:$)
 -- > (0,True) :: ill-typed # ExprPair $ Int #
 --
 -- This is useful when applying transformations on pairs of 'Expr's, such as
--- 'Data.Haexpress.Canon.canonicalize',
--- 'Data.Haexpress.Map.mapValues' or
--- 'Data.Haexpress.Canon.canonicalVariations'.
+-- 'Data.Express.Canon.canonicalize',
+-- 'Data.Express.Map.mapValues' or
+-- 'Data.Express.Canon.canonicalVariations'.
 --
 -- > > let ii = var "i" (undefined::Int)
 -- > > let kk = var "k" (undefined::Int)
@@ -105,9 +105,9 @@ data ExprList = ExprList
 -- > [False,True,1] :: ill-typed # ExprList $ Bool #
 --
 -- This is useful when applying transformations on lists of 'Expr's, such as
--- 'Data.Haexpress.Canon.canonicalize',
--- 'Data.Haexpress.Map.mapValues' or
--- 'Data.Haexpress.Canon.canonicalVariations'.
+-- 'Data.Express.Canon.canonicalize',
+-- 'Data.Express.Map.mapValues' or
+-- 'Data.Express.Canon.canonicalVariations'.
 --
 -- > > let ii = var "i" (undefined::Int)
 -- > > let kk = var "k" (undefined::Int)

@@ -1,10 +1,10 @@
 -- |
--- Module      : Data.Haexpress
+-- Module      : Data.Express
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
--- Haexpress is a library for manipulating dynamically typed Haskell expressions.
+-- Express is a library for manipulating dynamically typed Haskell expressions.
 -- It's like "Data.Dynamic" but with support for encoding applications and
 -- variables.
 --
@@ -13,7 +13,7 @@
 -- 'Expr's.
 --
 -- /Example:/
--- Like with "Data.Dynamic", we can use Haexpress to create heterogeneous lists:
+-- Like with "Data.Dynamic", we can use Express to create heterogeneous lists:
 --
 -- > > let xs = [val False, val True, val (1::Int), val (2::Int), val (3::Integer), val "123"]
 -- > > :t xs
@@ -57,7 +57,7 @@
 -- > , abs 2 :: Int
 -- > ]
 --
--- Other uses of Haexpress include:
+-- Other uses of Express include:
 --
 -- * generalizing counter-examples of property-based testing
 --   in <https://hackage.haskell.org/package/extrapolate Extrapolate>;
@@ -69,9 +69,9 @@
 -- where /n/ is the size of the expression being manipulated or produced.
 -- There may still be a /m/ cost associated with the values being stored in 'Expr's.
 {-# LANGUAGE CPP #-}
-module Data.Haexpress
+module Data.Express
   ( 
-  -- -- -- Data.Haexpress.Core exports -- -- --
+  -- -- -- Data.Express.Core exports -- -- --
 
   -- * The Expr datatype
     Expr (..)
@@ -127,7 +127,7 @@ module Data.Haexpress
   , nubVars
   , nubConsts
 
-  -- -- -- Data.Haexpress.Map exports -- -- --
+  -- -- -- Data.Express.Map exports -- -- --
 
   -- ** Mapping subexpressions
   , mapValues
@@ -139,7 +139,7 @@ module Data.Haexpress
   , renameVarsBy
 
 
-  -- -- -- Data.Haexpress.Hole exports -- -- --
+  -- -- -- Data.Express.Hole exports -- -- --
 
   -- * Variables and holes
 
@@ -156,7 +156,7 @@ module Data.Haexpress
   , holeAsTypeOf
 
 
-  -- -- -- Data.Haexpress.Fold exports -- -- --
+  -- -- -- Data.Express.Fold exports -- -- --
 
   -- * Juggling Exprs
 
@@ -170,7 +170,7 @@ module Data.Haexpress
   , foldApp
   , unfoldApp
 
-  -- -- -- Data.Haexpress.Canon exports -- -- --
+  -- -- -- Data.Express.Canon exports -- -- --
 
   -- ** Canonicalizing Exprs
   , canonicalize
@@ -182,7 +182,7 @@ module Data.Haexpress
   , canonicalVariations
   , fastCanonicalVariations
 
-  -- -- -- Data.Haexpress.Match exports -- -- --
+  -- -- -- Data.Express.Match exports -- -- --
 
   -- ** Matching Exprs
   , match
@@ -191,7 +191,7 @@ module Data.Haexpress
   , hasInstanceOf
   , isSubexprOf
 
-  -- -- -- Data.Haexpress.Express exports -- -- --
+  -- -- -- Data.Express.Express exports -- -- --
 
   -- * Typeclasses
 
@@ -201,7 +201,7 @@ module Data.Haexpress
   , deriveExpressCascading
   , deriveExpressIfNeeded
 
-  -- -- -- Data.Haexpress.Name exports -- -- --
+  -- -- -- Data.Express.Name exports -- -- --
 
   -- ** The Name typeclass
   , Name (..)
@@ -211,7 +211,7 @@ module Data.Haexpress
   , deriveNameCascading
   , deriveNameIfNeeded
 
-  -- -- -- Data.Haexpress.Instances exports -- -- --
+  -- -- -- Data.Express.Instances exports -- -- --
 
   -- ** Typeclass instances as Exprs
   , reifyEq
@@ -249,11 +249,11 @@ module Data.Haexpress
   )
 where
 
-import Data.Haexpress.Basic
-import Data.Haexpress.Canon
-import Data.Haexpress.Match
-import Data.Haexpress.Name
-import Data.Haexpress.Name.Derive
-import Data.Haexpress.Express
-import Data.Haexpress.Express.Derive
-import Data.Haexpress.Instances
+import Data.Express.Basic
+import Data.Express.Canon
+import Data.Express.Match
+import Data.Express.Name
+import Data.Express.Name.Derive
+import Data.Express.Express
+import Data.Express.Express.Derive
+import Data.Express.Instances

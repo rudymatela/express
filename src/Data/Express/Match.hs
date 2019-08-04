@@ -1,11 +1,11 @@
 -- |
--- Module      : Data.Haexpress.Match
+-- Module      : Data.Express.Match
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Utilities for matching 'Expr's with 'var'iables.
-module Data.Haexpress.Match
+module Data.Express.Match
   ( match
   , matchWith
   , isInstanceOf
@@ -14,7 +14,7 @@ module Data.Haexpress.Match
   )
 where
 
-import Data.Haexpress.Basic
+import Data.Express.Basic
 import Data.Maybe
 import Data.Functor ((<$>))
 import Control.Monad ((>=>))

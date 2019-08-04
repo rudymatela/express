@@ -3,7 +3,7 @@
 import Test
 import Test.LeanCheck.Function
 
-import Data.Haexpress.Utils.List (isNub)
+import Data.Express.Utils.List (isNub)
 
 main :: IO ()
 main = mainTest tests 5040

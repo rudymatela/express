@@ -1,5 +1,5 @@
 -- |
--- Module      : Data.Haexpress.Utils.String
+-- Module      : Data.Express.Utils.String
 -- Copyright   : (c) 2016-2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
@@ -7,7 +7,7 @@
 -- Utilities for manipulating strings.
 --
 -- At some point, this file was part of the Speculate tool.
-module Data.Haexpress.Utils.String
+module Data.Express.Utils.String
   ( module Data.String
   , module Data.Char
   , unquote

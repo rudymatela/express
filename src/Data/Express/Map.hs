@@ -1,11 +1,11 @@
 -- |
--- Module      : Data.Haexpress.Map
+-- Module      : Data.Express.Map
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Utilities for mapping or transforming 'Expr's.
-module Data.Haexpress.Map
+module Data.Express.Map
   ( mapValues
   , mapVars
   , mapConsts
@@ -16,8 +16,8 @@ module Data.Haexpress.Map
   )
 where
 
-import Data.Haexpress.Core
-import Data.Haexpress.Utils.List
+import Data.Express.Core
+import Data.Express.Utils.List
 import Data.Maybe (fromMaybe)
 
 -- | /O(n*m)/.

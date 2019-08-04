@@ -1,12 +1,12 @@
 -- |
--- Module      : Data.Haexpress.Hole
+-- Module      : Data.Express.Hole
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Utilities for manipulating variables and typed holes encoded as 'Expr's.
 {-# LANGUAGE CPP #-}
-module Data.Haexpress.Hole
+module Data.Express.Hole
   (
   -- * Creating variables
     varAsTypeOf
@@ -22,13 +22,13 @@ module Data.Haexpress.Hole
   )
 where
 
-import Data.Haexpress.Core
+import Data.Express.Core
 
 import Data.Dynamic
 import Data.Maybe (fromMaybe)
-import Data.Haexpress.Utils.Typeable (tyArity)
-import Data.Haexpress.Utils.List (nubSort)
-import Data.Haexpress.Utils.String (variableNamesFromTemplate)
+import Data.Express.Utils.Typeable (tyArity)
+import Data.Express.Utils.List (nubSort)
+import Data.Express.Utils.String (variableNamesFromTemplate)
 
 -- | /O(1)/.
 -- Creates a 'var'iable with the same type as the given 'Expr'.

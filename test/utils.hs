@@ -1,9 +1,9 @@
 -- Copyright (c) 2017-2018 Rudy Matela.  -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 
-import Data.Haexpress.Utils.List
-import Data.Haexpress.Utils.String
-import Data.Haexpress.Utils.Typeable
+import Data.Express.Utils.List
+import Data.Express.Utils.String
+import Data.Express.Utils.Typeable
 
 main :: IO ()
 main = mainTest tests 5040

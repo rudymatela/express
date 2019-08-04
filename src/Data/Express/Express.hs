@@ -1,14 +1,14 @@
 -- |
--- Module      : Data.Haexpress.Express
+-- Module      : Data.Express.Express
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines the 'Express' type class.
 {-# LANGUAGE CPP #-}
-module Data.Haexpress.Express (Express (..)) where
+module Data.Express.Express (Express (..)) where
 
-import Data.Haexpress.Core
+import Data.Express.Core
 import Data.Typeable
 import Data.Ratio
 
@@ -30,7 +30,7 @@ import Data.Ratio
 -- Depending on the situation, one or the other may be desirable.
 --
 -- Instances can be automatically derived using the TH function
--- 'Data.Haexpress.Express.Derive.deriveExpress'.
+-- 'Data.Express.Express.Derive.deriveExpress'.
 --
 -- The following example shows a datatype and its instance:
 --
@@ -88,7 +88,7 @@ instance (Integral a, Show a, Express a) => Express (Ratio a) where
 -- The following would allow zero denominators
 -- expr (n % d) = constant "%" ((%) -:> n) :$ expr n :$ expr d
 -- TODO: allow zero denominators as it is not our problem
---       but only after refactoring Extrapolate to use Haexpress
+--       but only after refactoring Extrapolate to use Express
 -- note that the "Integral a" restriction above is needed on GHC <= 7.10
 
 instance (Express a, Express b, Express c, Express d, Express e)

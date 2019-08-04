@@ -15,9 +15,9 @@
    version="1.1"
    id="svg857"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
-   sodipodi:docname="haexpress.svg">
+   sodipodi:docname="express.svg">
   <title
-     id="title867">Haexpress</title>
+     id="title867">Express</title>
   <defs
      id="defs851">
     <clipPath
@@ -58,7 +58,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Haexpress</dc:title>
+        <dc:title>Express</dc:title>
         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
         <dc:date>2019-08-03</dc:date>
@@ -67,15 +67,15 @@
             <dc:title>Rudy Matela</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:source>https://github.com/rudymatela/haexpress</dc:source>
+        <dc:source>https://github.com/rudymatela/express</dc:source>
         <dc:subject>
           <rdf:Bag>
-            <rdf:li>Haexpress</rdf:li>
+            <rdf:li>Express</rdf:li>
             <rdf:li>Haskell</rdf:li>
             <rdf:li>logo</rdf:li>
           </rdf:Bag>
         </dc:subject>
-        <dc:description>Haexpress's logo.  An X is seen in blue intersected with a lambda sign.
+        <dc:description>Express's logo.  An X is seen in blue intersected with a lambda sign.
 
 The proportions are based on the beautiful proportions of the Thompson-Wheeler Haskell logo (2009).</dc:description>
       </cc:Work>

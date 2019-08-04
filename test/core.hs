@@ -1,7 +1,7 @@
 -- Copyright (c) 2019 Rudy Matela.  -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 
-import Data.Haexpress.Utils.List
+import Data.Express.Utils.List
 import Test.LeanCheck.Error (errorToNothing)
 
 main :: IO ()

@@ -23,7 +23,7 @@
 --   https://github.com/rudymatela/speculate
 import Data.List
 import Data.Maybe
-import Data.Haexpress
+import Data.Express
 import Test.LeanCheck
 
 main :: IO ()

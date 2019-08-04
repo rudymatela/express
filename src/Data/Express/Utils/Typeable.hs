@@ -1,13 +1,13 @@
 -- |
--- Module      : Data.Haexpress.Utils.Typeable
+-- Module      : Data.Express.Utils.Typeable
 -- Copyright   : (c) 2016-2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
--- This module is part of Haexpress.
+-- This module is part of Express.
 --
 -- Utilities to manipulate 'TypeRep's (of 'Typeable' values).
-module Data.Haexpress.Utils.Typeable
+module Data.Express.Utils.Typeable
   ( tyArity
   , unFunTy
   , isFunTy

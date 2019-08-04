@@ -1,8 +1,8 @@
 module All
-  ( module Data.Haexpress
-  , module Data.Haexpress.Fixtures
+  ( module Data.Express
+  , module Data.Express.Fixtures
   )
 where
 
-import Data.Haexpress
-import Data.Haexpress.Fixtures
+import Data.Express
+import Data.Express.Fixtures

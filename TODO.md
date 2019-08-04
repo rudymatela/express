@@ -1,7 +1,7 @@
-TO DO list for haexpress
-========================
+TO DO list for express
+======================
 
-Here is a list of things TO DO for haexpress:
+Here is a list of things TO DO for express:
 
 * release on GitHub
 
@@ -9,7 +9,7 @@ Here is a list of things TO DO for haexpress:
   Speculate and Extrapolate.
 
 
-* review `Data.Haexpress` haddock
+* review `Data.Express` haddock
 
 * document the `Instances` module
 

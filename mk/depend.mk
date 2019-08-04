@@ -1,24 +1,24 @@
 bench/compare.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
   bench/compare.hs
 bench/compare: \
   test/Test.hs \
@@ -28,24 +28,24 @@ bench/compare: \
 bench/pairs.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
   bench/pairs.hs
 bench/pairs: \
   test/Test.hs \
@@ -55,24 +55,24 @@ bench/pairs: \
 bench/tiers.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
   bench/tiers.hs
 bench/tiers: \
   test/Test.hs \
@@ -83,253 +83,253 @@ eg/u-extrapolate: \
   eg/u-extrapolate.hs \
   mk/toplibs
 eg/u-extrapolate.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
   eg/u-extrapolate.hs
 eg/u-speculate: \
   eg/u-speculate.hs \
   mk/toplibs
 eg/u-speculate.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
   eg/u-speculate.hs
 mk/All.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
   mk/All.hs
 mk/Toplibs.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
   mk/Toplibs.hs
 Setup.o: \
   Setup.hs
 Setup: \
   Setup.hs \
   mk/toplibs
-src/Data/Haexpress/Basic.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Basic.hs
-src/Data/Haexpress/Canon: \
+src/Data/Express/Basic.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Basic.hs
+src/Data/Express/Canon: \
   mk/toplibs
-src/Data/Haexpress/Canon.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
-src/Data/Haexpress/Core.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Core.hs
-src/Data/Haexpress/Express/Derive.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs
-src/Data/Haexpress/Express.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Core.hs
-src/Data/Haexpress/Fixtures: \
+src/Data/Express/Canon.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
+src/Data/Express/Core.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Core.hs
+src/Data/Express/Express/Derive.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs
+src/Data/Express/Express.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Core.hs
+src/Data/Express/Fixtures: \
   mk/toplibs
-src/Data/Haexpress/Fixtures.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
-src/Data/Haexpress/Fold.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Core.hs
-src/Data/Haexpress/Hole.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Core.hs
-src/Data/Haexpress/Instances.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Basic.hs
-src/Data/Haexpress/Map.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Core.hs
-src/Data/Haexpress/Match.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Basic.hs
-src/Data/Haexpress/Name/Derive.o: \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs
-src/Data/Haexpress/Name.o: \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Name.hs
-src/Data/Haexpress.o: \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
-src/Data/Haexpress/Utils/List.o: \
-  src/Data/Haexpress/Utils/List.hs
-src/Data/Haexpress/Utils/String.o: \
-  src/Data/Haexpress/Utils/String.hs
-src/Data/Haexpress/Utils/TH.o: \
-  src/Data/Haexpress/Utils/TH.hs
-src/Data/Haexpress/Utils/Typeable.o: \
-  src/Data/Haexpress/Utils/Typeable.hs
+src/Data/Express/Fixtures.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
+src/Data/Express/Fold.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Core.hs
+src/Data/Express/Hole.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Core.hs
+src/Data/Express/Instances.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Basic.hs
+src/Data/Express/Map.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Core.hs
+src/Data/Express/Match.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Basic.hs
+src/Data/Express/Name/Derive.o: \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs
+src/Data/Express/Name.o: \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Name.hs
+src/Data/Express.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
+src/Data/Express/Utils/List.o: \
+  src/Data/Express/Utils/List.hs
+src/Data/Express/Utils/String.o: \
+  src/Data/Express/Utils/String.hs
+src/Data/Express/Utils/TH.o: \
+  src/Data/Express/Utils/TH.hs
+src/Data/Express/Utils/Typeable.o: \
+  src/Data/Express/Utils/Typeable.hs
 test/canon.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/canon.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/canon: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -339,24 +339,24 @@ test/core.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/core.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/core: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -366,24 +366,24 @@ test/express-derive.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/express-derive.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/express-derive: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -393,24 +393,24 @@ test/express.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/express.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/express: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -420,24 +420,24 @@ test/fixtures.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/fixtures.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/fixtures: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -447,24 +447,24 @@ test/fold.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/fold.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/fold: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -474,24 +474,24 @@ test/hole.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/hole.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/hole: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -501,24 +501,24 @@ test/instances.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/instances.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/instances: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -528,24 +528,24 @@ test/listable.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/listable.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/listable: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -555,24 +555,24 @@ test/main.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/main.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/main: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -582,24 +582,24 @@ test/map.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/map.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/map: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -609,24 +609,24 @@ test/match.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/match.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/match: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -636,24 +636,24 @@ test/name-derive.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/name-derive.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/name-derive: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -663,24 +663,24 @@ test/name.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/name.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/name: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -690,24 +690,24 @@ test/ord.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/ord.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/ord: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -717,24 +717,24 @@ test/show.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   test/show.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/show: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -742,45 +742,45 @@ test/show: \
   mk/toplibs
 test/Test/ListableExpr.o: \
   test/Test/ListableExpr.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/Test.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/Test: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
@@ -789,24 +789,24 @@ test/utils.o: \
   test/utils.hs \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  src/Data/Haexpress/Utils/Typeable.hs \
-  src/Data/Haexpress/Utils/TH.hs \
-  src/Data/Haexpress/Utils/String.hs \
-  src/Data/Haexpress/Utils/List.hs \
-  src/Data/Haexpress.hs \
-  src/Data/Haexpress/Name.hs \
-  src/Data/Haexpress/Name/Derive.hs \
-  src/Data/Haexpress/Match.hs \
-  src/Data/Haexpress/Map.hs \
-  src/Data/Haexpress/Instances.hs \
-  src/Data/Haexpress/Hole.hs \
-  src/Data/Haexpress/Fold.hs \
-  src/Data/Haexpress/Fixtures.hs \
-  src/Data/Haexpress/Express.hs \
-  src/Data/Haexpress/Express/Derive.hs \
-  src/Data/Haexpress/Core.hs \
-  src/Data/Haexpress/Canon.hs \
-  src/Data/Haexpress/Basic.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs
 test/utils: \
   test/utils.hs \
   test/Test.hs \

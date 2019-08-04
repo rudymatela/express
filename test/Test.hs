@@ -2,9 +2,9 @@ module Test
   ( module Test.LeanCheck
   , module Test.LeanCheck.Utils
   , module Test.LeanCheck.Derive
-  , module Data.Haexpress.Fixtures
-  , module Data.Haexpress.Utils.List
-  , module Data.Haexpress.Utils.Typeable
+  , module Data.Express.Fixtures
+  , module Data.Express.Utils.List
+  , module Data.Express.Utils.Typeable
   , module Test.ListableExpr
   , module Data.Maybe
   , module Data.Either
@@ -29,9 +29,9 @@ import Test.LeanCheck
 import Test.LeanCheck.Utils
 import Test.LeanCheck.Derive
 import Test.ListableExpr
-import Data.Haexpress.Fixtures
-import Data.Haexpress.Utils.List
-import Data.Haexpress.Utils.Typeable
+import Data.Express.Fixtures
+import Data.Express.Utils.List
+import Data.Express.Utils.Typeable
 
 reportTests :: [Bool] -> IO ()
 reportTests tests =

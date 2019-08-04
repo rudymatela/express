@@ -1,11 +1,11 @@
 -- |
--- Module      : Data.Haexpress.Instances
+-- Module      : Data.Express.Instances
 -- Copyright   : (c) 2019 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines utilities do deal with instances of typeclasses
-module Data.Haexpress.Instances
+module Data.Express.Instances
   ( reifyEq
   , reifyOrd
   , reifyEqOrd
@@ -43,11 +43,11 @@ where
 
 -- TODO: document and test functions of the Instances module
 
-import Data.Haexpress.Basic
-import Data.Haexpress.Name
-import Data.Haexpress.Express
-import Data.Haexpress.Utils.Typeable
-import Data.Haexpress.Utils.List
+import Data.Express.Basic
+import Data.Express.Name
+import Data.Express.Express
+import Data.Express.Utils.Typeable
+import Data.Express.Utils.List
 import Data.Maybe
 import Control.Applicative ((<$>)) -- for GHC <= 7.8
 

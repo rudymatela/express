@@ -28,7 +28,7 @@
 --   https://github.com/rudymatela/extrapolate
 import Data.List
 import Data.Maybe
-import Data.Haexpress
+import Data.Express
 import Test.LeanCheck hiding (counterExample, check)
 
 main :: IO ()
