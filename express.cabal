@@ -145,7 +145,7 @@ test-suite instances
   build-depends:       base >= 4 && < 5, express, leancheck
   default-language:    Haskell2010
 
-test-suite express
+test-suite express-instances
   type:                exitcode-stdio-1.0
   main-is:             express.hs
   hs-source-dirs:      test
