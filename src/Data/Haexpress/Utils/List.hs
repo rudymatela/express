@@ -6,6 +6,7 @@
 --
 -- Re-exports the "Data.List" module along with additional functions over
 -- lists.
+{-# LANGUAGE CPP #-}
 module Data.Haexpress.Utils.List
   ( nubSort
   , isPermutationOf
@@ -14,6 +15,9 @@ module Data.Haexpress.Utils.List
   , lookupId
   , (+++)
   , module Data.List
+#if __GLASGOW_HASKELL__ <= 710
+  , isSubsequenceOf
+#endif
   )
 where
 
@@ -45,13 +49,16 @@ nubSort  =  nnub . sort
 -- Checks that all elements of the first list are elements of the second.
 isSubsetOf :: Ord a => [a] -> [a] -> Bool
 xs `isSubsetOf` ys  =  nubSort xs `isSubsequenceOf` nubSort ys
-  where
-  -- only exported from Data.List since base 4.8.0.0
-  isSubsequenceOf :: Eq a => [a] -> [a] -> Bool
-  isSubsequenceOf []    _                    =  True
-  isSubsequenceOf (_:_) []                   =  False
-  isSubsequenceOf (x:xs) (y:ys) | x == y     =     xs  `isSubsequenceOf` ys
-                                | otherwise  =  (x:xs) `isSubsequenceOf` ys
+
+
+#if __GLASGOW_HASKELL__ <= 710
+-- only exported from Data.List since base 4.8.0.0
+isSubsequenceOf :: Eq a => [a] -> [a] -> Bool
+isSubsequenceOf []    _                    =  True
+isSubsequenceOf (_:_) []                   =  False
+isSubsequenceOf (x:xs) (y:ys) | x == y     =     xs  `isSubsequenceOf` ys
+                              | otherwise  =  (x:xs) `isSubsequenceOf` ys
+#endif
 
 -- | /O(n log n)/.
 -- Checks that all elements of the first list are elements of the second.

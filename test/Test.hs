@@ -15,8 +15,6 @@ module Test
   , tyChar
   , tyInts
   , tyIntToInt
-
-  , isSubsequenceOf
   )
 where
 
@@ -68,11 +66,3 @@ tyInts =  typeOf (undefined :: [Int])
 
 tyIntToInt :: TypeRep
 tyIntToInt  =  typeOf (undefined :: Int -> Int)
-
--- Not available on GHC <= 7.8
-isSubsequenceOf :: Eq a => [a] -> [a] -> Bool
-isSubsequenceOf []    _  = True
-isSubsequenceOf (_:_) [] = False
-isSubsequenceOf (x:xs) (y:ys)
-  | x == y    =    xs  `isSubsequenceOf` ys
-  | otherwise = (x:xs) `isSubsequenceOf` ys
