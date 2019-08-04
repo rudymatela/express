@@ -1,3 +1,16 @@
+-- |
+-- Module      : Test.ListableExpr
+-- Copyright   : (c) 2019 Rudy Matela
+-- License     : 3-Clause BSD  (see the file LICENSE)
+-- Maintainer  : Rudy Matela <rudy@matela.com.br>
+--
+-- This module exports a 'Listable' 'Expr' instance.
+-- This instance does not, by any means, list all possible expressions.
+-- It lists expressions based on a subset of the symbols exported by
+-- "Data.Express.Fixtures".
+--
+-- This is only intended to be used for testing,
+-- so this will not be exported on @ express.cabal @.
 module Test.ListableExpr
   (
   -- * The Expr type

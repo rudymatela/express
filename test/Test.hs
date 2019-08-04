@@ -1,3 +1,12 @@
+-- |
+-- Module      : Test
+-- Copyright   : (c) 2019 Rudy Matela
+-- License     : 3-Clause BSD  (see the file LICENSE)
+-- Maintainer  : Rudy Matela <rudy@matela.com.br>
+--
+-- This module defines utilities used to test "Data.Express".
+--
+-- It should never be exported in @ express.cabal @.
 module Test
   ( module Test.LeanCheck
   , module Test.LeanCheck.Utils
