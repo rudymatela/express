@@ -90,6 +90,12 @@ tests n =
   , (xx -+- yy) //- [(yy,yy -+- zz),(xx,xx -+- yy)]
     == (xx -+- yy) -+- (yy -+- zz)
 
+  , ((xx -+- yy) -+- zz) // [(xx -+- yy, zero)] == (zero -+- zz)
+  , (xx -+- (yy -+- zz)) // [(xx -+- yy, zero)] == (xx -+- (yy -+- zz))
+
+  , holds n $ \(SameTypeE e1 e2)   ->          e1 // [(e1,e2)] == e2
+  , holds n $ \(IntE e1) (IntE e2) -> (e1 -+- e1) // [(e1,e2)] == (e2 -+- e2)
+
   , holds n $ \e -> renameVarsBy id e == e
   , holds n $ \c e -> (renameVarsBy tail . renameVarsBy (c:)) e == e
   , renameVarsBy (++ "1") (xx -+- yy) == (var "x1" int -+- var "y1" int)
