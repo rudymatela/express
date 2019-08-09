@@ -22,6 +22,7 @@ module Data.Express.Utils.Typeable
   , funTyCon
   , compareTy
   , elementTy
+  , typesIn
   , (->::)
   , module Data.Typeable
   )
@@ -29,6 +30,7 @@ where
 
 import Data.Typeable
 import Data.Monoid ((<>))
+import Data.Express.Utils.List
 
 -- Different versions of Typeable/GHC provide different orderings for TypeReps.
 -- The following is a version independent ordering, with the following
@@ -114,6 +116,14 @@ mkComparisonTy a = a ->:: a ->:: boolTy
 
 mkCompareTy :: TypeRep -> TypeRep
 mkCompareTy a = a ->:: a ->:: orderingTy
+
+-- | /O(n)/.
+-- Return all sub types of a given type including itself.
+typesIn :: TypeRep -> [TypeRep]
+typesIn t  =  nubSortBy compareTy $ tin t []
+  where
+  tin :: TypeRep -> [TypeRep] -> [TypeRep]
+  tin t  =  foldr (.) (t:) (map tin ts)  where  (_,ts)  =  splitTyConApp t
 
 -- | An infix alias for 'mkFunTy'.  It is right associative.
 (->::) :: TypeRep -> TypeRep -> TypeRep

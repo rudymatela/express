@@ -9,6 +9,7 @@
 {-# LANGUAGE CPP #-}
 module Data.Express.Utils.List
   ( nubSort
+  , nubSortBy
   , isPermutationOf
   , isSubsetOf
   , isNub
@@ -44,6 +45,15 @@ nubSort  =  nnub . sort
   nnub [] = []
   nnub [x] = [x]
   nnub (x:xs) = x : nnub (dropWhile (==x) xs)
+
+nubSortBy :: (a -> a -> Ordering) -> [a] -> [a]
+nubSortBy cmp  =  nnub . sortBy cmp
+  where
+  x -==- y  =  x `cmp` y == EQ
+  -- linear nub of adjacent values
+  nnub [] = []
+  nnub [x] = [x]
+  nnub (x:xs) = x : nnub (dropWhile (-==-x) xs)
 
 -- | /O(n log n)/.
 -- Checks that all elements of the first list are elements of the second.
