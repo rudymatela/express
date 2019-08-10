@@ -30,12 +30,61 @@ To install the latest Express version from Hackage, just run:
 	$ cabal install express
 
 
+Basics
+------
+
+For types that are [`Show`] instances,
+we can use [`val`] to encode values as [`Expr`]s.
+
+	> let false = val False
+	> :t false
+	false :: Expr
+	> print false
+	False :: Bool
+
+	> let one = val (1 :: Int)
+	> :t one
+	one :: Expr
+	> print one
+	1 :: Int
+
+As seen above, the [`Show`] instance for [`Expr`] produces a string with the
+encoded value and it's type.
+
+For types that aren't [`Show`] instances, like functions,
+we can use [`value`] to encode values as [`Expr`]s.
+
+	> let notE = value "not" not
+	> :t notE
+	notE :: Expr
+	> print notE
+	not :: Bool -> Bool
+
+Using [`:$`] we can apply function valued [`Expr`]s, to other Exprs.
+
+	> let notFalse = notE :$ false
+	> :t notFalse
+	notFalse :: Expr
+	> notFalse
+	not False :: Bool
+
+Using [`evaluate`] and [`eval`] we can evaluate [`Expr`]s back into a regular Haskell value.
+
+	> evaluate notFalse :: Maybe Bool
+	Just True
+	> evaluate notFalse :: Maybe Int
+	Nothing
+	> eval False notFalse
+	True
+	> eval (0::Int) notFalse
+	0
+
+
 Example 1: heterogeneous lists
 ------------------------------
 
 Like with [`Data.Dynamic`], we can use Express to create heterogeneous lists.
 
-For types that are [`Show`] instances, we can use [`val`] to encode values as [`Expr`]s.
 Here, we use applications of [`val`] to create a heterogeneous list:
 
 	> let xs = [val False, val True, val (1::Int), val (2::Int), val (3::Integer), val "123"]
@@ -292,6 +341,7 @@ For more examples, see the [eg](eg) and [bench](bench) folders.
 [`Expr`]:         https://hackage.haskell.org/package/express/docs/Data-Express.html#t:val
 [`val`]:          https://hackage.haskell.org/package/express/docs/Data-Express.html#v:val
 [`evaluate`]:     https://hackage.haskell.org/package/express/docs/Data-Express.html#v:evaluate
+[`:$`]:           https://hackage.haskell.org/package/express-0.1.1/docs/Data-Express.html#v::-36-
 [`$$`]:           https://hackage.haskell.org/package/express/docs/Data-Express.html#v:-36--36-
 [`Show`]:         https://hackage.haskell.org/package/base/docs/Prelude.html#t:Show
 [`Data.Dynamic`]: https://hackage.haskell.org/package/base/docs/Data-Dynamic.html
