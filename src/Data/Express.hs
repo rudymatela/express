@@ -12,6 +12,48 @@
 -- building, evaluating, comparing, folding, canonicalizing and matching
 -- 'Expr's.
 --
+-- /Basics./
+-- For types that are 'Show' instances,
+-- we can use 'val' to encode values as 'Expr's:
+--
+-- > > let false = val False
+-- > > :t false
+-- > false :: Expr
+-- > > print false
+-- > False :: Bool
+--
+-- As seen above, the 'Show' instance for 'Expr' produces a string with the
+-- encoded value and it's type.
+--
+-- For types that aren't 'Show' instances, like functions,
+-- we can use 'value' to encode values as 'Expr's.
+--
+-- > > let notE = value "not" not
+-- > > :t notE
+-- > notE :: Expr
+-- > > print notE
+-- > not :: Bool -> Bool
+--
+-- Using ':$' we can apply function valued 'Expr's, to other Exprs.
+--
+-- > > let notFalse = notE :$ false
+-- > > :t notFalse
+-- > notFalse :: Expr
+-- > > notFalse
+-- > not False :: Bool
+--
+-- Using 'evaluate' or 'eval' we can evaluate 'Expr's
+-- back into a regular Haskell value.
+--
+-- > > evaluate notFalse :: Maybe Bool
+-- > Just True
+-- > > evaluate notFalse :: Maybe Int
+-- > Nothing
+-- > > eval False notFalse
+-- > True
+-- > > eval (0::Int) notFalse
+-- > 0
+--
 -- /Example:/
 -- Like with "Data.Dynamic", we can use Express to create heterogeneous lists:
 --
@@ -39,7 +81,7 @@
 -- > > mapMaybe evaluate xs :: [String]
 -- > ["123"]
 --
--- If define an heterogeneous list of functions encoded as 'Expr's:
+-- If we define an heterogeneous list of functions encoded as 'Expr's:
 --
 -- > > let fs = [value "not" not, value "&&" (&&), value "abs" (abs :: Int -> Int)]
 -- > > :t fs
