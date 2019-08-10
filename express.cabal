@@ -1,6 +1,6 @@
 -- Cabal file for express
 name: express
-version: 0.1.0
+version: 0.1.1
 synopsis: Dynamically-typed expressions involving applications and variables.
 description:
   Express is a library for manipulating dynamically typed Haskell expressions.
@@ -57,7 +57,7 @@ source-repository head
 source-repository this
   type:           git
   location:       https://github.com/rudymatela/express
-  tag:            v0.1.0
+  tag:            v0.1.1
 
 library
   exposed-modules:     Data.Express
