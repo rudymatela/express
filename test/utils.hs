@@ -24,6 +24,39 @@ tests n =
   , show (mkCompareTy boolTy) == "Bool -> Bool -> Ordering"
   , show (mkCompareTy intTy)  == "Int -> Int -> Ordering"
 
+  , showTypesInTypeOf (u :: Int)    == ["Int"]
+  , showTypesInTypeOf (u :: Bool)   == ["Bool"]
+  , showTypesInTypeOf (u :: [Int])  == ["Int", "[Int]"]
+  , showTypesInTypeOf (u :: [Bool]) == ["Bool", "[Bool]"]
+  , showTypesInTypeOf (u :: (Int,Int))     == ["Int", "(Int,Int)"]
+  , showTypesInTypeOf (u :: (Bool,Bool))   == ["Bool", "(Bool,Bool)"]
+  , showTypesInTypeOf (u :: (Int,Bool))    == ["Bool", "Int", "(Int,Bool)"]
+  , showTypesInTypeOf (u :: Maybe Integer) == ["Integer", "Maybe Integer"]
+  , showTypesInTypeOf (u :: Int -> Int)    == ["Int", "Int -> Int"]
+  , showTypesInTypeOf (u :: Int -> Bool)   == ["Bool", "Int", "Int -> Bool"]
+  , showTypesInTypeOf (u :: Int -> Int -> Int)
+    == [ "Int"
+       , "Int -> Int"
+       , "Int -> Int -> Int"
+       ]
+  , showTypesInTypeOf (u :: Either String ())
+    == [ "()"
+       , "Char"
+       , "[Char]"
+       , "Either [Char] ()"
+       ]
+  , showTypesInTypeOf (u :: Either String Bool -> Maybe Int -> Int -> Bool)
+    == [ "Bool"
+       , "Char"
+       , "Int"
+       , "Maybe Int"
+       , "[Char]"
+       , "Either [Char] Bool"
+       , "Int -> Bool"
+       , "Maybe Int -> Int -> Bool"
+       , "Either [Char] Bool -> Maybe Int -> Int -> Bool"
+       ]
+
   , primeCycle [] == []
   , ["x", "y", "z", "x'", "y'", "z'", "x''"] `isPrefixOf` primeCycle ["x","y","z"]
   , ["x","x'","x''","x'''","x''''","x'''''"] `isPrefixOf` primeCycle ["x"]
@@ -51,3 +84,9 @@ tests n =
   , ["thingAndThing", "thingAndThing'", "thingAndThing''", "thingAndThing'''"]
     `isPrefixOf` variableNamesFromTemplate "thingAndThing"
   ]
+
+u :: a
+u  =  undefined
+
+showTypesInTypeOf :: Typeable a => a -> [String]
+showTypesInTypeOf  =  map show . typesIn . typeOf
