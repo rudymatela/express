@@ -119,6 +119,35 @@ mkCompareTy a = a ->:: a ->:: orderingTy
 
 -- | /O(n)/.
 -- Return all sub types of a given type including itself.
+--
+-- > > typesIn $ typeOf (undefined :: Int)
+-- > [Int]
+--
+-- > > typesIn $ typeOf (undefined :: Bool)
+-- > [Bool]
+--
+-- > > typesIn $ typeOf (undefined :: [Int])
+-- > [ Int
+-- > , [Int]
+-- > ]
+--
+-- > > typesIn $ typeOf (undefined :: Int -> Int -> Int)
+-- > [ Int
+-- > , Int -> Int
+-- > , Int -> Int -> Int
+-- > ]
+--
+-- > > typesIn $ typeOf (undefined :: Int -> [Int] -> [Int])
+-- > [ Int
+-- > , [Int]
+-- > , [Int] -> [Int]
+-- > , Int -> [Int] -> [Int]
+-- > ]
+--
+-- > > typesIn $ typeOf (undefined :: Maybe Bool)
+-- > [ Bool
+-- > , Maybe Bool
+-- > ]
 typesIn :: TypeRep -> [TypeRep]
 typesIn t  =  nubSortBy compareTy $ tin t []
   where
