@@ -34,17 +34,20 @@ tests n =
   , showTypesInTypeOf (u :: Maybe Integer) == ["Integer", "Maybe Integer"]
   , showTypesInTypeOf (u :: Int -> Int)    == ["Int", "Int -> Int"]
   , showTypesInTypeOf (u :: Int -> Bool)   == ["Bool", "Int", "Int -> Bool"]
+
   , showTypesInTypeOf (u :: Int -> Int -> Int)
     == [ "Int"
        , "Int -> Int"
        , "Int -> Int -> Int"
        ]
+
   , showTypesInTypeOf (u :: Either String ())
     == [ "()"
        , "Char"
        , "[Char]"
        , "Either [Char] ()"
        ]
+
   , showTypesInTypeOf (u :: Either String Bool -> Maybe Int -> Int -> Bool)
     == [ "Bool"
        , "Char"
@@ -55,6 +58,17 @@ tests n =
        , "Int -> Bool"
        , "Maybe Int -> Int -> Bool"
        , "Either [Char] Bool -> Maybe Int -> Int -> Bool"
+       ]
+
+  , map show (typesInList [typeOf (u :: Int), typeOf (u :: Bool)])
+    == [ "Bool"
+       , "Int"
+       ]
+
+  , map show (typesInList [typeOf (u :: Int), typeOf (u :: Int -> Bool)])
+    == [ "Bool"
+       , "Int"
+       , "Int -> Bool"
        ]
 
   , primeCycle [] == []

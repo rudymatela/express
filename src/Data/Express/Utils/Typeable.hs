@@ -23,6 +23,7 @@ module Data.Express.Utils.Typeable
   , compareTy
   , elementTy
   , typesIn
+  , typesInList
   , (->::)
   , module Data.Typeable
   )
@@ -149,10 +150,13 @@ mkCompareTy a = a ->:: a ->:: orderingTy
 -- > , Maybe Bool
 -- > ]
 typesIn :: TypeRep -> [TypeRep]
-typesIn t  =  nubSortBy compareTy $ tin t []
+typesIn t  =  typesInList [t]
+
+typesInList :: [TypeRep] -> [TypeRep]
+typesInList ts  =  nubSortBy compareTy $ tins ts []
   where
-  tin :: TypeRep -> [TypeRep] -> [TypeRep]
-  tin t  =  foldr (.) (t:) (map tin ts)  where  (_,ts)  =  splitTyConApp t
+  tin t  =  (t:) . tins (typeRepArgs t)
+  tins ts  =  foldr (.) id (map tin ts)
 
 -- | An infix alias for 'mkFunTy'.  It is right associative.
 (->::) :: TypeRep -> TypeRep -> TypeRep
