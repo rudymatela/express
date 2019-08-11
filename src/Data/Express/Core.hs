@@ -825,26 +825,30 @@ nubSubexprs  =  s
 -- > > values (xx -+- yy)
 -- > [ (+) :: Int -> Int -> Int
 -- > , x :: Int
--- > , y :: Int ]
+-- > , y :: Int
+-- > ]
 --
 -- > > values (xx -+- (yy -+- zz))
 -- > [ (+) :: Int -> Int -> Int
 -- > , x :: Int
 -- > , (+) :: Int -> Int -> Int
 -- > , y :: Int
--- > , z :: Int ]
+-- > , z :: Int
+-- > ]
 --
 -- > > values (zero -+- (one -*- two))
 -- > [ (+) :: Int -> Int -> Int
 -- > , 0 :: Int
 -- > , (*) :: Int -> Int -> Int
 -- > , 1 :: Int
--- > , 2 :: Int ]
+-- > , 2 :: Int
+-- > ]
 --
 -- > > values (pp -&&- true)
 -- > [ (&&) :: Bool -> Bool -> Bool
 -- > , p :: Bool
--- > , True :: Bool ]
+-- > , True :: Bool
+-- > ]
 values :: Expr -> [Expr]
 values e  =  v e []
   where
@@ -859,24 +863,28 @@ values e  =  v e []
 -- > > nubValues (xx -+- yy)
 -- > [ x :: Int
 -- > , y :: Int
--- > , (+) :: Int -> Int -> Int ]
+-- > , (+) :: Int -> Int -> Int
+-- ]
 --
 -- > > nubValues (xx -+- (yy -+- zz))
 -- > [ x :: Int
 -- > , y :: Int
 -- > , z :: Int
--- > , (+) :: Int -> Int -> Int ]
+-- > , (+) :: Int -> Int -> Int
+-- > ]
 --
 -- > > nubValues (zero -+- (one -*- two))
 -- > [ 0 :: Int
 -- > , 1 :: Int
 -- > , 2 :: Int
 -- > , (*) :: Int -> Int -> Int
--- > , (+) :: Int -> Int -> Int ]
+-- > , (+) :: Int -> Int -> Int
+-- > ]
 --
 -- > > nubValues (pp -&&- pp)
 -- > [ p :: Bool
--- > , (&&) :: Bool -> Bool -> Bool ]
+-- > , (&&) :: Bool -> Bool -> Bool
+-- > ]
 nubValues :: Expr -> [Expr]
 nubValues  =  v
   where
@@ -892,18 +900,21 @@ nubValues  =  v
 --
 -- > > consts (xx -+- (yy -+- zz))
 -- > [ (+) :: Int -> Int -> Int
--- > , (+) :: Int -> Int -> Int ]
+-- > , (+) :: Int -> Int -> Int
+-- > ]
 --
 -- > > consts (zero -+- (one -*- two))
 -- > [ (+) :: Int -> Int -> Int
 -- > , 0 :: Int
 -- > , (*) :: Int -> Int -> Int
 -- > , 1 :: Int
--- > , 2 :: Int ]
+-- > , 2 :: Int
+-- > ]
 --
 -- > > consts (pp -&&- true)
 -- > [ (&&) :: Bool -> Bool -> Bool
--- > , True :: Bool ]
+-- > , True :: Bool
+-- > ]
 consts :: Expr -> [Expr]
 consts  =  filter isConst . values
 
@@ -919,7 +930,8 @@ consts  =  filter isConst . values
 --
 -- > > nubConsts (pp -&&- true)
 -- > [ True :: Bool
--- > , (&&) :: Bool -> Bool -> Bool ]
+-- > , (&&) :: Bool -> Bool -> Bool
+-- > ]
 nubConsts :: Expr -> [Expr]
 nubConsts  =  c
   where
@@ -932,12 +944,14 @@ nubConsts  =  c
 --
 -- > > vars (xx -+- yy)
 -- > [ x :: Int
--- > , y :: Int ]
+-- > , y :: Int
+-- > ]
 --
 -- > > vars (xx -+- (yy -+- xx))
 -- > [ x :: Int
 -- > , y :: Int
--- > , x :: Int ]
+-- > , x :: Int
+-- > ]
 --
 -- > > vars (zero -+- (one -*- two))
 -- > []
@@ -953,11 +967,13 @@ vars  =  filter isVar . values
 --
 -- > > nubVars (yy -+- xx)
 -- > [ x :: Int
--- > , y :: Int ]
+-- > , y :: Int
+-- > ]
 --
 -- > > nubVars (xx -+- (yy -+- xx))
 -- > [ x :: Int
--- > , y :: Int ]
+-- > , y :: Int
+-- > ]
 --
 -- > > nubVars (zero -+- (one -*- two))
 -- > []
@@ -974,7 +990,7 @@ nubVars  =  v
 -- Return the arity of the given expression,
 -- i.e. the number of arguments that its type takes.
 --
--- > > arity (val 0)
+-- > > arity (val (0::Int))
 -- > 0
 --
 -- > > arity (val False)
@@ -995,6 +1011,12 @@ arity  =  tyArity . typ
 -- Returns the size of the given expression,
 -- i.e. the number of terminal values in it.
 --
+-- > zero       =  val (0 :: Int)
+-- > one        =  val (1 :: Int)
+-- > two        =  val (2 :: Int)
+-- > xx -+- yy  =  value "+" ((+) :: Int->Int->Int) :$ xx :$ yy
+-- > abs' xx    =  value "abs" (abs :: Int->Int) :$ xx
+--
 -- > > size zero
 -- > 1
 --
@@ -1013,6 +1035,14 @@ size  =  length . values
 -- i.e. the application of a two argument function
 -- increases the depth of both its arguments by one.
 -- (cf. 'height')
+--
+-- With
+--
+-- > zero       =  val (0 :: Int)
+-- > one        =  val (1 :: Int)
+-- > two        =  val (2 :: Int)
+-- > xx -+- yy  =  value "+" ((+) :: Int->Int->Int) :$ xx :$ yy
+-- > abs' xx    =  value "abs" (abs :: Int->Int) :$ xx
 --
 -- > > depth zero
 -- > 1
@@ -1037,6 +1067,16 @@ depth _         =  1
 -- increases the depth of its first argument by two
 -- and of its second argument by one.
 -- (cf. 'depth')
+--
+-- With:
+--
+-- > zero          =  val (0 :: Int)
+-- > one           =  val (1 :: Int)
+-- > two           =  val (2 :: Int)
+-- > const' xx yy  =  value "const" (const :: Int->Int->Int) :$ xx :$ yy
+-- > abs' xx       =  value "abs" (abs :: Int->Int) :$ xx
+--
+-- Then:
 --
 -- > > height zero
 -- > 1
