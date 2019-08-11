@@ -5,6 +5,14 @@
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines utilities do deal with instances of typeclasses
+--
+-- Functions provided by this module store the set of instances as a simple
+-- Haskell list.  When storing only a few instances this should be fine in
+-- terms of performance.
+--
+-- If you plan to store hundreds or thousands of instances,
+-- we recommend implementing different versions that use
+-- a more efficient Set/Map storage.
 module Data.Express.Instances
   ( reifyEq
   , reifyOrd
