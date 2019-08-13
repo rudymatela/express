@@ -239,6 +239,19 @@ module Data.Express
 
   -- ** The Express typeclass
   , Express (..)
+  , (-:)
+  , (->:)
+  , (->>:)
+  , (->>>:)
+  , (->>>>:)
+  , (->>>>>:)
+  , (->>>>>>:)
+  , (->>>>>>>:)
+  , (->>>>>>>>:)
+  , (->>>>>>>>>:)
+  , (->>>>>>>>>>:)
+  , (->>>>>>>>>>>:)
+  , (->>>>>>>>>>>>:)
   , deriveExpress
   , deriveExpressCascading
   , deriveExpressIfNeeded
