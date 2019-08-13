@@ -162,57 +162,84 @@ instance ( Express a, Express b, Express c, Express d, Express e, Express f
 
 -- type binding utilities --
 
+-- | Type restricted version of const
+-- that forces its first argument
+-- to have the same type as the second.
+--
+-- >  value -: (undefined :: Ty)  =  value :: Ty
 (-:) :: a -> a -> a
 (-:) = asTypeOf -- const
 infixl 1 -:
 
+-- | Type restricted version of const
+-- that forces the result of its first argument
+-- to have the same type as the second.
+--
+-- >  f ->: (undefined :: Ty)  =  f :: a -> Ty
 (->:) :: (a -> b) -> b -> (a -> b)
 (->:) = const
 infixl 1 ->:
 
+-- | Type restricted version of const
+-- that forces the result of the result of its first argument
+-- to have the same type as the second.
+--
+-- > f ->>: (undefined :: Ty)  =  f :: a -> b -> Ty
 (->>:) :: (a -> b -> c) -> c -> (a -> b -> c)
 (->>:) = const
 infixl 1 ->>:
 
+-- | Type restricted version of const
+-- that forces the result of the result of the result of its first argument
+-- to have the same type as the second.
 (->>>:) :: (a -> b -> c -> d) -> d -> (a -> b -> c -> d)
 (->>>:) = const
 infixl 1 ->>>:
 
+-- | Forces the result type of a 4-argument function.
 (->>>>:) :: (a -> b -> c -> d -> e) -> e -> (a -> b -> c -> d -> e)
 (->>>>:) = const
 infixl 1 ->>>>:
 
+-- | Forces the result type of a 5-argument function.
 (->>>>>:) :: (a -> b -> c -> d -> e -> f) -> f -> (a -> b -> c -> d -> e -> f)
 (->>>>>:) = const
 infixl 1 ->>>>>:
 
+-- | Forces the result type of a 6-argument function.
 (->>>>>>:) :: (a->b->c->d->e->f->g) -> g -> (a->b->c->d->e->f->g)
 (->>>>>>:) = const
 infixl 1 ->>>>>>:
 
+-- | Forces the result type of a 7-argument function.
 (->>>>>>>:) :: (a->b->c->d->e->f->g->h) -> h -> (a->b->c->d->e->f->g->h)
 (->>>>>>>:) = const
 infixl 1 ->>>>>>>:
 
+-- | Forces the result type of a 8-argument function.
 (->>>>>>>>:) :: (a->b->c->d->e->f->g->h->i) -> i -> (a->b->c->d->e->f->g->h->i)
 (->>>>>>>>:) = const
 infixl 1 ->>>>>>>>:
 
+-- | Forces the result type of a 9-argument function.
 (->>>>>>>>>:) :: (a->b->c->d->e->f->g->h->i->j) -> j
               -> (a->b->c->d->e->f->g->h->i->j)
 (->>>>>>>>>:) = const
 infixl 1 ->>>>>>>>>:
 
+-- | Forces the result type of a 10-argument function.
 (->>>>>>>>>>:) :: (a->b->c->d->e->f->g->h->i->j->k) -> k
                -> (a->b->c->d->e->f->g->h->i->j->k)
 (->>>>>>>>>>:) = const
 infixl 1 ->>>>>>>>>>:
 
+-- | Forces the result type of a 11-argument function.
 (->>>>>>>>>>>:) :: (a->b->c->d->e->f->g->h->i->j->k->l) -> l
                 -> (a->b->c->d->e->f->g->h->i->j->k->l)
 (->>>>>>>>>>>:) = const
 infixl 1 ->>>>>>>>>>>:
 
+-- | Forces the result type of a 12-argument function.
 (->>>>>>>>>>>>:) :: (a->b->c->d->e->f->g->h->i->j->k->l->m) -> m
                  -> (a->b->c->d->e->f->g->h->i->j->k->l->m)
 (->>>>>>>>>>>>:) = const
