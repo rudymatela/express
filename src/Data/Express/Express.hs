@@ -166,49 +166,25 @@ instance ( Express a, Express b, Express c, Express d, Express e, Express f
 (-:) = asTypeOf -- const
 infixl 1 -:
 
-(-:>) :: (a -> b) -> a -> (a -> b)
-(-:>) = const
-infixl 1 -:>
-
 (->:) :: (a -> b) -> b -> (a -> b)
 (->:) = const
 infixl 1 ->:
-
-(->:>) :: (a -> b -> c) -> b -> (a -> b -> c)
-(->:>) = const
-infixl 1 ->:>
 
 (->>:) :: (a -> b -> c) -> c -> (a -> b -> c)
 (->>:) = const
 infixl 1 ->>:
 
-(->>:>) :: (a -> b -> c -> d) -> c -> (a -> b -> c -> d)
-(->>:>) = const
-infixl 1 ->>:>
-
 (->>>:) :: (a -> b -> c -> d) -> d -> (a -> b -> c -> d)
 (->>>:) = const
 infixl 1 ->>>:
-
-(->>>:>) :: (a -> b -> c -> d -> e) -> d -> (a -> b -> c -> d -> e)
-(->>>:>) = const
-infixl 1 ->>>:>
 
 (->>>>:) :: (a -> b -> c -> d -> e) -> e -> (a -> b -> c -> d -> e)
 (->>>>:) = const
 infixl 1 ->>>>:
 
-(->>>>:>) :: (a -> b -> c -> d -> e -> f) -> e -> (a -> b -> c -> d -> e -> f)
-(->>>>:>) = const
-infixl 1 ->>>>:>
-
 (->>>>>:) :: (a -> b -> c -> d -> e -> f) -> f -> (a -> b -> c -> d -> e -> f)
 (->>>>>:) = const
 infixl 1 ->>>>>:
-
-(->>>>>:>) :: (a->b->c->d->e->f->g) -> f -> (a->b->c->d->e->f->g)
-(->>>>>:>) = const
-infixl 1 ->>>>>:>
 
 (->>>>>>:) :: (a->b->c->d->e->f->g) -> g -> (a->b->c->d->e->f->g)
 (->>>>>>:) = const
