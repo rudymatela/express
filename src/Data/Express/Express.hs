@@ -6,7 +6,23 @@
 --
 -- Defines the 'Express' type class.
 {-# LANGUAGE CPP #-}
-module Data.Express.Express (Express (..)) where
+module Data.Express.Express
+  ( Express (..)
+  , (-:)
+  , (->:)
+  , (->>:)
+  , (->>>:)
+  , (->>>>:)
+  , (->>>>>:)
+  , (->>>>>>:)
+  , (->>>>>>>:)
+  , (->>>>>>>>:)
+  , (->>>>>>>>>:)
+  , (->>>>>>>>>>:)
+  , (->>>>>>>>>>>:)
+  , (->>>>>>>>>>>>:)
+  )
+where
 
 import Data.Express.Core
 import Data.Typeable
