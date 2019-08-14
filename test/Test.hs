@@ -9,8 +9,8 @@
 -- It should never be exported in @ express.cabal @.
 module Test
   ( module Test.LeanCheck
-  , module Test.LeanCheck.Utils
   , module Test.LeanCheck.Derive
+  , module Test.LeanCheck.Utils
   , module Data.Express.Fixtures
   , module Data.Express.Utils.List
   , module Data.Express.Utils.Typeable
@@ -38,7 +38,22 @@ import Test.LeanCheck
 import Test.LeanCheck.Utils
 import Test.LeanCheck.Derive
 import Test.ListableExpr
-import Data.Express.Fixtures
+import Data.Express.Fixtures hiding
+  -- these are exported by LeanCheck as well
+  ( (-:)
+  , (->:)
+  , (->>:)
+  , (->>>:)
+  , (->>>>:)
+  , (->>>>>:)
+  , (->>>>>>:)
+  , (->>>>>>>:)
+  , (->>>>>>>>:)
+  , (->>>>>>>>>:)
+  , (->>>>>>>>>>:)
+  , (->>>>>>>>>>>:)
+  , (->>>>>>>>>>>>:)
+  )
 import Data.Express.Utils.List
 import Data.Express.Utils.Typeable
 
