@@ -57,7 +57,7 @@ import Data.Ratio
 -- >   expr s@Empty       = value "Empty" (Empty   -: s)
 --
 -- To declare 'expr' it may be useful to use auxiliary type binding operators:
--- '-:', '->:', '->>:', ....
+-- '-:', '->:', '->>:', '->>>:', '->>>>:', '->>>>>:', ...
 --
 -- For types with atomic values, just declare @ expr = val @
 class Typeable a => Express a where

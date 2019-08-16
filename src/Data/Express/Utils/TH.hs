@@ -27,6 +27,7 @@ module Data.Express.Utils.TH
   , showJustName
   , typeConstructorsArgNames
   , (|=>|)
+  , (|++|)
   , whereI
   , module Language.Haskell.TH
   )
@@ -229,6 +230,9 @@ c |=>| qds = do ds <- qds
   where ac (InstanceD o c ts ds) c' = InstanceD o (c++c') ts ds
         ac d                     _  = d
 #endif
+
+(|++|) :: DecsQ -> DecsQ -> DecsQ
+(|++|) = liftM2 (++)
 
 mergeIFns :: DecsQ -> DecsQ
 mergeIFns qds = do ds <- qds
