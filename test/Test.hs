@@ -38,22 +38,7 @@ import Test.LeanCheck
 import Test.LeanCheck.Utils
 import Test.LeanCheck.Derive
 import Test.ListableExpr
-import Data.Express.Fixtures hiding
-  -- these are exported by LeanCheck as well
-  ( (-:)
-  , (->:)
-  , (->>:)
-  , (->>>:)
-  , (->>>>:)
-  , (->>>>>:)
-  , (->>>>>>:)
-  , (->>>>>>>:)
-  , (->>>>>>>>:)
-  , (->>>>>>>>>:)
-  , (->>>>>>>>>>:)
-  , (->>>>>>>>>>>:)
-  , (->>>>>>>>>>>>:)
-  )
+import Data.Express.Fixtures
 import Data.Express.Utils.List
 import Data.Express.Utils.Typeable
 
