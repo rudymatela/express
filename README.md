@@ -338,8 +338,10 @@ For more examples, see the [eg](eg) and [bench](bench) folders.
 
 [Express's Haddock documentation]: https://hackage.haskell.org/package/express/docs/Data-Express.html
 
-[`Expr`]:         https://hackage.haskell.org/package/express/docs/Data-Express.html#t:val
+[`Expr`]:         https://hackage.haskell.org/package/express/docs/Data-Express.html#t:Expr
 [`val`]:          https://hackage.haskell.org/package/express/docs/Data-Express.html#v:val
+[`value`]:        https://hackage.haskell.org/package/express/docs/Data-Express.html#v:value
+[`eval`]:         https://hackage.haskell.org/package/express/docs/Data-Express.html#v:eval
 [`evaluate`]:     https://hackage.haskell.org/package/express/docs/Data-Express.html#v:evaluate
 [`:$`]:           https://hackage.haskell.org/package/express-0.1.1/docs/Data-Express.html#v::-36-
 [`$$`]:           https://hackage.haskell.org/package/express/docs/Data-Express.html#v:-36--36-
