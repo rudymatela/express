@@ -137,7 +137,7 @@ values in `xs`.
 Example 3: u-Extrapolate
 ------------------------
 
-[u-Extrapolate] is a property-based testing property-based testing library
+[u-Extrapolate] is a property-based testing library
 capable of generalizing counter-examples.  It's implementation has under 40
 lines of code.  Besides, using Express to encode expressions, it uses
 [LeanCheck] for generating test values.
