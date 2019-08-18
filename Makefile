@@ -32,6 +32,8 @@ BENCHS = \
 GHCIMPORTDIRS = src:test
 GHCFLAGS = -O2 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)
 HADDOCKFLAGS = --no-print-missing-docs
+HUGSIMPORTDIRS = .:./src:./test:./etc/hugs-backports:/usr/lib/hugs/packages/*
+HUGSFLAGS = -98 -h32M
 RUNPARAMETERS =
 LIB_DEPS = base template-haskell
 
