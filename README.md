@@ -17,7 +17,7 @@ It provides the [`Expr`] type and over a hundred functions for
 building, evaluating, comparing, folding, canonicalizing and matching
 [`Expr`]s.  See [Express's Haddock documentation] for more details.
 
-This library has been used successfully in the implementation of
+This library has been used in the implementation of
 [Speculate] and [Extrapolate].
 
 
@@ -32,6 +32,10 @@ To install the latest Express version from Hackage, just run:
 
 Basics
 ------
+
+To import `Express` just:
+
+	> import Data.Express
 
 For types that are [`Show`] instances,
 we can use [`val`] to encode values as [`Expr`]s.
