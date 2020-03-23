@@ -307,7 +307,8 @@ src/Data/Express/Utils/String.o: \
 src/Data/Express/Utils/TH.o: \
   src/Data/Express/Utils/TH.hs
 src/Data/Express/Utils/Typeable.o: \
-  src/Data/Express/Utils/Typeable.hs
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/List.hs
 test/canon.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
