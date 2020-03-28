@@ -165,11 +165,6 @@ mk/Toplibs.o: \
   src/Data/Express/Canon.hs \
   src/Data/Express/Basic.hs \
   mk/Toplibs.hs
-Setup.o: \
-  Setup.hs
-Setup: \
-  Setup.hs \
-  mk/toplibs
 src/Data/Express/Basic.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
