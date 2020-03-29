@@ -88,7 +88,7 @@ test-suite main
   main-is:             main.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite core
@@ -96,7 +96,7 @@ test-suite core
   main-is:             core.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite canon
@@ -104,7 +104,7 @@ test-suite canon
   main-is:             canon.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite hole
@@ -112,7 +112,7 @@ test-suite hole
   main-is:             hole.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite match
@@ -120,7 +120,7 @@ test-suite match
   main-is:             match.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite map
@@ -128,7 +128,7 @@ test-suite map
   main-is:             map.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite fixtures
@@ -136,7 +136,7 @@ test-suite fixtures
   main-is:             fixtures.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite instances
@@ -144,7 +144,7 @@ test-suite instances
   main-is:             instances.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite express-instances
@@ -152,7 +152,7 @@ test-suite express-instances
   main-is:             express.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite express-derive
@@ -160,7 +160,7 @@ test-suite express-derive
   main-is:             express-derive.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite ord
@@ -168,7 +168,7 @@ test-suite ord
   main-is:             ord.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite listable
@@ -176,7 +176,7 @@ test-suite listable
   main-is:             listable.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite name
@@ -184,7 +184,7 @@ test-suite name
   main-is:             name.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite name-derive
@@ -192,7 +192,7 @@ test-suite name-derive
   main-is:             name-derive.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite fold
@@ -200,7 +200,7 @@ test-suite fold
   main-is:             fold.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite show
@@ -208,7 +208,7 @@ test-suite show
   main-is:             show.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 test-suite utils
@@ -216,7 +216,7 @@ test-suite utils
   main-is:             utils.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 benchmark compare
@@ -224,7 +224,7 @@ benchmark compare
   main-is:             compare.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 benchmark pairs
@@ -232,7 +232,7 @@ benchmark pairs
   main-is:             pairs.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 benchmark tiers
@@ -240,19 +240,19 @@ benchmark tiers
   main-is:             tiers.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 benchmark u-extrapolate
   type:                exitcode-stdio-1.0
   main-is:             u-extrapolate.hs
   hs-source-dirs:      eg
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
 
 benchmark u-speculate
   type:                exitcode-stdio-1.0
   main-is:             u-speculate.hs
   hs-source-dirs:      eg
-  build-depends:       base >= 4 && < 5, express, leancheck >= 0.8
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.3
   default-language:    Haskell2010
