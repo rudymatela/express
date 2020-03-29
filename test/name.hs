@@ -1,4 +1,5 @@
--- Copyright (c) 2017-2018 Rudy Matela.  -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
+-- Copyright (c) 2017-2020 Rudy Matela.
+-- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 
 import Data.Express.Utils.List

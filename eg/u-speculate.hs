@@ -1,6 +1,6 @@
 -- u-extrapolate.hs -- micro Speculate / Speculite
 --
--- Copyright (c) 2019 Rudy Matela.
+-- Copyright (c) 2019-2020 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 --
 -- A small library capable of conjecturing laws about Haskell functions

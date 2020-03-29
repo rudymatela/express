@@ -1,6 +1,6 @@
 -- |
 -- Module      : Data.Express.Utils.Typeable
--- Copyright   : (c) 2016-2019 Rudy Matela
+-- Copyright   : (c) 2016-2020 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
