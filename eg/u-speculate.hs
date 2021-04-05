@@ -1,4 +1,4 @@
--- u-extrapolate.hs -- micro Speculate / Speculite
+-- u-speculate.hs -- micro Speculate / Speculite
 --
 -- Copyright (c) 2019-2020 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
@@ -16,7 +16,7 @@
 -- * even with pruning, this program still prints some redundant rules;
 -- * there is no way to configure maximum number of tests to consider an
 --   equation true;
--- * runtime is exponential as you add more symbols to Speculate about.
+-- * runtime is exponential as you add more symbols to speculate about.
 --
 -- Please see Speculate for a full featured version:
 --
