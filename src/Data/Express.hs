@@ -197,8 +197,6 @@ module Data.Express
   , holes
   , nubHoles
   , holeAsTypeOf
-
-  -- ** Filling holes
   , fill
 
   -- -- -- Data.Express.Fold exports -- -- --
@@ -225,7 +223,11 @@ module Data.Express
   , isCanonical
   , isCanonicalWith
   , canonicalVariations
+  , mostGeneralCanonicalVariation
+  , mostSpecificCanonicalVariation
   , fastCanonicalVariations
+  , fastMostGeneralVariation
+  , fastMostSpecificVariation
 
   -- -- -- Data.Express.Match exports -- -- --
 

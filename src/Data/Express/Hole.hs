@@ -19,8 +19,6 @@ module Data.Express.Hole
   , holes
   , nubHoles
   , holeAsTypeOf
-
-  -- * Filling holes
   , fill
   )
 where

@@ -13,7 +13,11 @@ module Data.Express.Canon
   , isCanonical
   , isCanonicalWith
   , canonicalVariations
+  , mostGeneralCanonicalVariation
+  , mostSpecificCanonicalVariation
   , fastCanonicalVariations
+  , fastMostGeneralVariation
+  , fastMostSpecificVariation
   )
 where
 
@@ -175,6 +179,84 @@ canonicalVariations :: Expr -> [Expr]
 canonicalVariations = map canonicalize . fastCanonicalVariations
 
 -- |
+-- Returns the most general canonical variation of an 'Expr'
+-- by filling holes with variables.
+--
+-- > > mostGeneralCanonicalVariation $ i_
+-- > x :: Int
+--
+-- > > mostGeneralCanonicalVariation $ i_ -+- i_
+-- > x + y :: Int
+--
+-- > > mostGeneralCanonicalVariation $ i_ -+- i_ -+- i_
+-- > (x + y) + z :: Int
+--
+-- > > mostGeneralCanonicalVariation $ i_ -+- ord' c_
+-- > x + ord c :: Int
+--
+-- > > mostGeneralCanonicalVariation $ i_ -+- i_ -+- ord' c_
+-- > (x + y) + ord c :: Int
+--
+-- > > mostGeneralCanonicalVariation $ i_ -+- i_ -+- length' (c_ -:- unit c_)
+-- > (x + y) + length (c:d:"") :: Int
+--
+-- In an expression without holes this functions just returns
+-- the given expression itself:
+--
+-- > > mostGeneralCanonicalVariation $ val (0 :: Int)
+-- > 0 :: Int
+--
+-- > > mostGeneralCanonicalVariation $ ord' bee
+-- > ord 'b' :: Int
+--
+-- Behaviour is undefined when applying this function to expressions already
+-- containing variables.
+--
+-- This function is the same as taking the 'head' of 'canonicalVariations'
+-- but a bit faster.
+mostGeneralCanonicalVariation :: Expr -> Expr
+mostGeneralCanonicalVariation  =  canonicalize . fastMostGeneralVariation
+
+-- |
+-- Returns the most specific canonical variation of an 'Expr'
+-- by filling holes with variables.
+--
+-- > > mostSpecificCanonicalVariation $ i_
+-- > x :: Int
+--
+-- > > mostSpecificCanonicalVariation $ i_ -+- i_
+-- > x + x :: Int
+--
+-- > > mostSpecificCanonicalVariation $ i_ -+- i_ -+- i_
+-- > (x + x) + x :: Int
+--
+-- > > mostSpecificCanonicalVariation $ i_ -+- ord' c_
+-- > x + ord c :: Int
+--
+-- > > mostSpecificCanonicalVariation $ i_ -+- i_ -+- ord' c_
+-- > (x + x) + ord c :: Int
+--
+-- > > mostSpecificCanonicalVariation $ i_ -+- i_ -+- length' (c_ -:- unit c_)
+-- > (x + x) + length (c:c:"") :: Int
+--
+-- In an expression without holes this functions just returns
+-- the given expression itself:
+--
+-- > > mostSpecificCanonicalVariation $ val (0 :: Int)
+-- > 0 :: Int
+--
+-- > > mostSpecificCanonicalVariation $ ord' bee
+-- > ord 'b' :: Int
+--
+-- Behaviour is undefined when applying this function to expressions already
+-- containing variables.
+--
+-- This function is the same as taking the 'last' of 'canonicalVariations'
+-- but a bit faster.
+mostSpecificCanonicalVariation :: Expr -> Expr
+mostSpecificCanonicalVariation  =  canonicalize . fastMostSpecificVariation
+
+-- |
 -- A faster version of 'canonicalVariations' that
 -- disregards name clashes across different types.
 -- Results are confusing to the user
@@ -215,3 +297,21 @@ fastCanonicalVariations e
     concat $ map (names !! i `varAsTypeOf` h:) (fillings (i+1) hs) -- new var
            : [ map (n `varAsTypeOf` h:) (fillings i hs) -- no new variable
              | n <- take i names ]
+
+-- |
+-- A faster version of 'mostGeneralCanonicalVariation'
+-- that disregards name clashes across different types.
+-- Consider using 'mostGeneralCanonicalVariation' instead.
+--
+-- The same caveats of 'fastCanonicalVariations' do apply here.
+fastMostGeneralVariation :: Expr -> Expr
+fastMostGeneralVariation e  =  fill e (zipWith varAsTypeOf (variableNamesFromTemplate "x") (holes e))
+
+-- |
+-- A faster version of 'mostSpecificCanonicalVariation'
+-- that disregards name clashes across different types.
+-- Consider using 'mostSpecificCanonicalVariation' instead.
+--
+-- The same caveats of 'fastCanonicalVariations' do apply here.
+fastMostSpecificVariation :: Expr -> Expr
+fastMostSpecificVariation e  =  fill e (map ("x" `varAsTypeOf`) (holes e))

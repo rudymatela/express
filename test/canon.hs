@@ -3,10 +3,10 @@
 import Test
 
 main :: IO ()
-main = mainTest tests 5040
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
-tests n =
+tests n  =
   [ True
 
   , canonicalize (xx -+- yy)
@@ -102,19 +102,22 @@ tests n =
                     in length (nub (sort es)) == length es
   , holds n $ \e -> length (canonicalVariations e)
                  == product (map (bell . snd) . counts $ holes e)
+
+  , holds n $ \e -> all isHole (vars e) ==> head (canonicalVariations e) == mostGeneralCanonicalVariation e
+  , holds n $ \e -> all isHole (vars e) ==> last (canonicalVariations e) == mostSpecificCanonicalVariation e
   ]
 
 -- O(1) bell number implementation
 -- only works up to 8
 -- but this is enough for testing.
 bell :: Int -> Int
-bell 0 = 1
-bell 1 = 1
-bell 2 = 2
-bell 3 = 5
-bell 4 = 15
-bell 5 = 52
-bell 6 = 203
-bell 7 = 877
-bell 8 = 4140
-bell _ = error "bell: argument > 8, implement me!"
+bell 0  =  1
+bell 1  =  1
+bell 2  =  2
+bell 3  =  5
+bell 4  =  15
+bell 5  =  52
+bell 6  =  203
+bell 7  =  877
+bell 8  =  4140
+bell _  =  error "bell: argument > 8, implement me!"
