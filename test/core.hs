@@ -73,6 +73,11 @@ tests n =
   , isWellTyped (abs' zero) == True
   , isWellTyped (zero :$ one) == False
 
+  , isFun (value "abs" (abs :: Int -> Int)) == True
+  , isFun (val (1::Int)) == False
+  , isFun (value "const" (const :: Bool -> Bool -> Bool) :$ val False) == True
+  , holds n $ \e -> (arity e /= 0) == isFun e
+
   -- eq instance
   , xx -+- yy == xx -+- yy
   , xx -+- yy /= yy -+- xx

@@ -42,6 +42,7 @@ module Data.Express.Core
   , isConst
   , isIllTyped
   , isWellTyped
+  , isFun
   , hasVar
   , isGround
 
@@ -323,6 +324,21 @@ isIllTyped  =  isNothing . mtyp
 -- > False
 isWellTyped :: Expr -> Bool
 isWellTyped  =  isJust . mtyp
+
+-- | /O(n)/.
+-- Returns whether the given 'Expr' is of a functional type.
+-- This is the same as checking if the 'arity' of the given 'Expr' is non-zero.
+--
+-- > > isFun (value "abs" (abs :: Int -> Int))
+-- > True
+--
+-- > > isFun (val (1::Int))
+-- > False
+--
+-- > > isFun (value "const" (const :: Bool -> Bool -> Bool) :$ val False)
+-- > True
+isFun :: Expr -> Bool
+isFun  =  isFunTy . typ
 
 -- |  /O(n)/.
 -- 'Just' the value of an expression when possible (correct type),

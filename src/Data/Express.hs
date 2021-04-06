@@ -140,6 +140,7 @@ module Data.Express
   , isConst
   , isIllTyped
   , isWellTyped
+  , isFun
   , hasVar
   , isGround
 
