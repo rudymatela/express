@@ -1,6 +1,6 @@
 -- tiers.hs -- prints tiers of expressions
 --
--- Copyright (c) 2019 Rudy Matela.
+-- Copyright (c) 2019-2021 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 import Data.List (intercalate, nub)

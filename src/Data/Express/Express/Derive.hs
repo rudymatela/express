@@ -1,7 +1,7 @@
 {-# LANGUAGE TemplateHaskell, CPP #-}
 -- |
 -- Module      : Data.Express.Express.Derive
--- Copyright   : (c) 2019-2020 Rudy Matela
+-- Copyright   : (c) 2019-2021 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --

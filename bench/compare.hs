@@ -1,6 +1,6 @@
 -- ord.hs -- prints results of the Ord Expr's instance
 --
--- Copyright (c) 2019 Rudy Matela.
+-- Copyright (c) 2019-2021 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 import System.Environment (getArgs)
