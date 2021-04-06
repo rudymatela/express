@@ -19,6 +19,9 @@ module Data.Express.Hole
   , holes
   , nubHoles
   , holeAsTypeOf
+
+  -- * Filling holes
+  , fill
   )
 where
 
@@ -178,3 +181,47 @@ listVars s a  =  map (`var` a) (variableNamesFromTemplate s)
 -- > ]
 listVarsAsTypeOf :: String -> Expr -> [Expr]
 listVarsAsTypeOf s e  =  map (`varAsTypeOf` e) (variableNamesFromTemplate s)
+
+
+-- | Fill holes in an expression with the given list.
+--
+-- > > let i_  =  hole (undefined :: Int)
+-- > > let e1 -+- e2  =  value "+" ((+) :: Int -> Int -> Int) :$ e1 :$ e2
+-- > > let xx  =  var "x" (undefined :: Int)
+-- > > let yy  =  var "y" (undefined :: Int)
+--
+-- > > fill (i_ -+- i_) [xx, yy]
+-- > x + y :: Int
+--
+-- > > fill (i_ -+- i_) [xx, xx]
+-- > x + x :: Int
+--
+-- > > let one  =  val (1::Int)
+--
+-- > > fill (i_ -+- i_) [one, one -+- one]
+-- > 1 + (1 + 1) :: Int
+--
+-- This function silently remaining expressions:
+--
+-- > > fill i_ [xx, yy]
+-- > x :: Int
+--
+-- This function silently keeps remaining holes:
+--
+-- > > fill (i_ -+- i_ -+- i_) [xx, yy]
+-- > (x + y) + _ :: Int
+--
+-- This function silently skips remaining holes
+-- if one is not of the right type:
+--
+-- > > fill (i_ -+- i_ -+- i_) [xx, val 'c', yy]
+-- > (x + _) + _ :: Int
+fill :: Expr -> [Expr] -> Expr
+fill e = fst . fill' e
+  where
+  fill' :: Expr -> [Expr] -> (Expr,[Expr])
+  fill' (e1 :$ e2) es = let (e1',es')  = fill' e1 es
+                            (e2',es'') = fill' e2 es'
+                        in (e1' :$ e2', es'')
+  fill' eh (e:es) | isHole eh && typ eh == typ e = (e,es)
+  fill' e es = (e,es)

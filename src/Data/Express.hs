@@ -198,6 +198,8 @@ module Data.Express
   , nubHoles
   , holeAsTypeOf
 
+  -- ** Filling holes
+  , fill
 
   -- -- -- Data.Express.Fold exports -- -- --
 

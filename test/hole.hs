@@ -27,4 +27,18 @@ tests n =
   , [pp, qq, rr, pp'] `isPrefixOf` listVars "p" (undefined :: Bool)
   , [xx, yy, zz, xx'] `isPrefixOf` listVarsAsTypeOf "x" zero
   , [pp, qq, rr, pp'] `isPrefixOf` listVarsAsTypeOf "p" false
+
+  -- fill unit tests
+  , fill (i_ -+- i_) [xx, yy] == xx -+- yy
+  , fill (i_ -+- i_) [xx, xx] == xx -+- xx
+  , fill (i_ -+- i_) [one, one -+- one] == one -+- (one -+- one)
+
+  -- silent behaviours of fill
+  , fill (i_ -+- i_ -+- i_) [xx, yy] == xx -+- yy -+- i_
+  , fill (i_) [xx, yy] == xx
+  , fill (i_ -+- i_ -+- i_) [xx, val 'c', yy] == xx -+- i_ -+- i_
+
+  -- fill properties
+  , holds n $ \(IntE e) -> fill (zero -+- i_ -+- two) [e] == zero -+- e -+- two
+  , holds n $ \(IntE e1, IntE e2) -> fill (i_ -+- one -+- i_) [e1, e2] == e1 -+- one -+- e2
   ]

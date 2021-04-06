@@ -215,20 +215,3 @@ fastCanonicalVariations e
     concat $ map (names !! i `varAsTypeOf` h:) (fillings (i+1) hs) -- new var
            : [ map (n `varAsTypeOf` h:) (fillings i hs) -- no new variable
              | n <- take i names ]
-
-
--- | Fill holes in an expression.
---   Silently skips holes that are not of the right type.
---   Silently discard remaining expressions.
-fill :: Expr -> [Expr] -> Expr
-fill e = fst . fill' e
-  where
-  fill' :: Expr -> [Expr] -> (Expr,[Expr])
-  fill' (e1 :$ e2) es = let (e1',es')  = fill' e1 es
-                            (e2',es'') = fill' e2 es'
-                        in (e1' :$ e2', es'')
-  fill' eh (e:es) | isHole eh && typ eh == typ e = (e,es)
-  fill' e es = (e,es)
--- TODO: copy tests from Speculate
--- TODO: add examples on Haddock
--- TODO: export? consider exporting 'fill' from the Hole module
