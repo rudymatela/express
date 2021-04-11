@@ -803,7 +803,7 @@ subexprs e  =  s e []
   s e@(e1 :$ e2)  =  (e:) . s e1 . s e2
   s e             =  (e:)
 
--- | /O(n log n)/ for the spine, /O(n^2)/ for full evaluation.
+-- | Average /O(n log n)/ for the spine, /O(n^2)/ for full evaluation.
 -- Lists all subexpressions of a given expression without repetitions.
 -- This includes the expression itself and partial function applications.
 -- (cf. 'subexprs')
@@ -824,16 +824,14 @@ subexprs e  =  s e []
 -- > , p && True :: Bool
 -- > , p && (p && True) :: Bool
 -- > ]
+--
+-- While this is /O(n log n)/ on average it is /O(n^2)/ in the worst-case
+-- (f (g (h (i (j (k (l (m (n x))))))))).
 nubSubexprs :: Expr -> [Expr]
 nubSubexprs  =  s
   where
   s e@(e1 :$ e2)  =  [e] +++ s e1 +++ s e2
   s e             =  [e]
--- TODO: After deciding if I'll stick to this implementation or the old one,
--- add note about complexity:
---
--- While this is /O(n log n)/ on average it is /O(n^2)/ in the worst-case.
--- Worst case = f (g (h (i (j (k (l (m (n x))))))))
 
 -- | /O(n)/.
 -- Lists all terminal values in an expression in order and with repetitions.
