@@ -174,8 +174,6 @@ src/Data/Express/Basic.o: \
   src/Data/Express/Fold.hs \
   src/Data/Express/Core.hs \
   src/Data/Express/Basic.hs
-src/Data/Express/Canon: \
-  mk/toplibs
 src/Data/Express/Canon.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
@@ -235,6 +233,8 @@ src/Data/Express/Fold.o: \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Fold.hs \
   src/Data/Express/Core.hs
+src/Data/Express/Hole: \
+  mk/toplibs
 src/Data/Express/Hole.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
