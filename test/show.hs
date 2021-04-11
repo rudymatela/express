@@ -86,6 +86,10 @@ tests n =
     == "(if p then False else True) || (if q then True else False) :: Bool"
   , show (if' (null' xxs) zero (head' xxs -+- value "sum" (sum :: [Int] -> Int) :$ tail' xxs))
     == "(if null xs then 0 else head xs + sum (tail xs)) :: Int"
+  , showExpr (if' pp xx yy)             == "if p then x else y"
+  , showExpr (if' false zero one)       == "if False then 0 else 1"
+  , showExpr (if' true two three)       == "if True then 2 else 3"
+  , showExpr (if' pp false true)        == "if p then False else True"
 
   -- showing holes --
   , show (hole (undefined :: Int -> Int) :$ one)              == "_ 1 :: Int"

@@ -464,9 +464,9 @@ showsPrecExpr d ee | isTuple ee = id
            (showsPrecExpr 0 `map` unfoldTuple ee)
   . showString ")"
 showsPrecExpr d (Value "if" _ :$ ep :$ ex :$ ey) =
-  showParen True $ showString "if "    . showsPrecExpr 0 ep
-                 . showString " then " . showsPrecExpr 0 ex
-                 . showString " else " . showsPrecExpr 0 ey
+  showParen (d >= 0) $ showString "if "    . showsPrecExpr 0 ep
+                     . showString " then " . showsPrecExpr 0 ex
+                     . showString " else " . showsPrecExpr 0 ey
 showsPrecExpr d (Value f' _ :$ e1 :$ e2)
   | isInfix f = showParen (d > prec f)
               $ showsOpExpr f e1
@@ -525,7 +525,7 @@ showPrecExpr n e = showsPrecExpr n e ""
 -- > > putStrLn $ showExpr $ (pp -||- true) -&&- (qq -||- false)
 -- > (p || True) && (q || False)
 showExpr :: Expr -> String
-showExpr = showPrecExpr 0
+showExpr = showPrecExpr (-1)
 
 -- | /O(n)/.
 --   Does not evaluate values when comparing, but rather uses their
