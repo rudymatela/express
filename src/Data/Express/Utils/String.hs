@@ -91,38 +91,38 @@ isInfix "" = error "isInfix: empty string"
 
 -- | Returns the precedence of default Haskell operators
 prec :: String -> Int
-prec " "  = 10
-prec "!!" = 9
-prec "."  = 9
-prec "^"  = 8
-prec "^^" = 8
-prec "**" = 8
-prec "*"  = 7
-prec "/"  = 7
-prec "%"  = 7
-prec "+"  = 6
-prec "-"  = 6
-prec ":"  = 5
-prec "++" = 5
-prec "\\" = 5
-prec ">"  = 4
-prec "<"  = 4
-prec ">=" = 4
-prec "<=" = 4
-prec "==" = 4
-prec "/=" = 4
-prec "`elem`" = 4
-prec "&&" = 3
-prec "||" = 2
-prec ">>=" = 1
-prec ">>" = 1
-prec ">=>" = 1
-prec "<=<" = 1
-prec "$"  = 0
-prec "`seq`" = 0
-prec "==>" = 0
-prec "<==>" = 0
-prec _ = 9
+prec " "       =  10
+prec "!!"      =   9
+prec "."       =   9
+prec "^"       =   8
+prec "^^"      =   8
+prec "**"      =   8
+prec "*"       =   7
+prec "/"       =   7
+prec "%"       =   7
+prec "+"       =   6
+prec "-"       =   6
+prec ":"       =   5
+prec "++"      =   5
+prec "\\"      =   5
+prec ">"       =   4
+prec "<"       =   4
+prec ">="      =   4
+prec "<="      =   4
+prec "=="      =   4
+prec "/="      =   4
+prec "`elem`"  =   4
+prec "&&"      =   3
+prec "||"      =   2
+prec ">>="     =   1
+prec ">>"      =   1
+prec ">=>"     =   1
+prec "<=<"     =   1
+prec "$"       =   0
+prec "`seq`"   =   0
+prec "==>"     =   0
+prec "<==>"    =   0
+prec _         =   9
 
 isPrefix :: String -> Bool
 isPrefix = not . isInfix
