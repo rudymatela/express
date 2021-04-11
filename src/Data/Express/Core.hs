@@ -481,8 +481,7 @@ showsPrecExpr d (Value f' _ :$ e1 :$ e2)
                  ('_':f) -> f -- on variables we drop the preceding _
                  f -> f       -- constants as themselves
 showsPrecExpr d (Value f' _ :$ e1)
-  | isInfix f = showParen True
-              $ showsOpExpr f e1 . showString " " . showString f
+  | isInfix f = showParen True $ showsOpExpr f e1 . showString " " . showString f
   where
   f = case f' of "_" -> "_"   -- holes are shown as _
                  ('_':f) -> f -- on variables we drop the preceding _
