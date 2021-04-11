@@ -275,6 +275,7 @@ orE  =  value "||" (||)
 
 (-==>-) :: Expr -> Expr -> Expr
 e1 -==>- e2  =  implies :$ e1 :$ e2
+infixr 0 -==>-
 
 implies :: Expr
 implies  =  value "==>" (==>)
@@ -307,6 +308,7 @@ not' pp  =  notE :$ pp
 -- > False
 (-&&-) :: Expr -> Expr -> Expr
 pp -&&- qq  =  andE :$ pp :$ qq
+infixr 3 -&&-
 
 -- | The function '||' lifted over the 'Expr' type.
 --
@@ -320,6 +322,7 @@ pp -&&- qq  =  andE :$ pp :$ qq
 -- > True
 (-||-) :: Expr -> Expr -> Expr
 pp -||- qq  =  orE :$ pp :$ qq
+infixr 2 -||-
 
 -- | A typed hole of 'Int' type.
 --
@@ -506,6 +509,7 @@ plus = value "+" ((+) :: Int -> Int -> Int)
 -- > 2 * x :: Int
 (-*-) :: Expr -> Expr -> Expr
 e1 -*- e2 = times :$ e1 :$ e2
+infixl 7 -*-
 
 -- | The operator '*' for the 'Int' type.  (See also '-*-'.)
 --
