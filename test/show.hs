@@ -37,7 +37,6 @@ tests n =
   , show (value "`compare`" (compare :: Int->Int->Ordering) :$ one :$ two) == "1 `compare` 2 :: Ordering"
 
   , holds n $ show . mapVars (\(Value ('_':s) d) -> Value (if null s then "_" else s) d) === show
---, holds n $ show . mapConsts (\(Value s d) -> Value ('_':s) d) === show -- TODO:
 
   , show emptyString == "\"\" :: [Char]"
   , show (space -:- emptyString) == "\" \" :: [Char]"
