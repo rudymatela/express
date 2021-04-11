@@ -458,11 +458,9 @@ showsPrecExpr d (Value ":" _ :$ e1 :$ e2) =
     '[':cs -> showString "[" . showsPrecExpr 0 e1 . showString "," . showString cs
     cs -> showParen (d > prec ":")
         $ showsOpExpr ":" e1 . showString ":" . showString cs
-showsPrecExpr d ee | isTuple ee = id
-    showString "("
-  . foldr1 (\s1 s2 -> s1 . showString "," . s2)
-           (showsPrecExpr 0 `map` unfoldTuple ee)
-  . showString ")"
+showsPrecExpr d ee | isTuple ee = showParen True
+                                $ foldr1 (\s1 s2 -> s1 . showString "," . s2)
+                                         (showsPrecExpr 0 `map` unfoldTuple ee)
 showsPrecExpr d (Value "if" _ :$ ep :$ ex :$ ey) =
   showParen (d >= 0) $ showString "if "    . showsPrecExpr 0 ep
                      . showString " then " . showsPrecExpr 0 ex
