@@ -170,4 +170,8 @@ tests n =
   , evl (unit bee) == "b"
   , evl (bee -:- unit cee) == "bc"
   , evl (bee -:- cee -:- unit dee) == "bcd"
+
+  -- if --
+  , evl (if' false zero one) == (1 :: Int)
+  , evl (if' true two three) == (2 :: Int)
   ]

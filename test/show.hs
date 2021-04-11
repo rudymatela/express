@@ -75,6 +75,18 @@ tests n =
 
   , holds n $ \e -> showExpr e `isPrefixOf` show e
 
+  , show (if' pp xx yy)             == "(if p then x else y) :: Int"
+  , show (if' false zero one)       == "(if False then 0 else 1) :: Int"
+  , show (if' true two three)       == "(if True then 2 else 3) :: Int"
+  , show (if' pp false true)        == "(if p then False else True) :: Bool"
+  , show (not' (if' pp false true)) == "not (if p then False else True) :: Bool"
+  , show (if' pp xx yy -*- zz)      == "(if p then x else y) * z :: Int"
+  , show (zz -*- if' pp xx yy)      == "z * (if p then x else y) :: Int"
+  , show (if' pp false true -||- if' qq true false)
+    == "(if p then False else True) || (if q then True else False) :: Bool"
+  , show (if' (null' xxs) zero (head' xxs -+- value "sum" (sum :: [Int] -> Int) :$ tail' xxs))
+    == "(if null xs then 0 else head xs + sum (tail xs)) :: Int"
+
   -- showing holes --
   , show (hole (undefined :: Int -> Int) :$ one)              == "_ 1 :: Int"
   , show (hole (undefined :: Int -> Int) :$ xx)               == "_ x :: Int"

@@ -463,6 +463,13 @@ showsPrecExpr d ee | isTuple ee = id
   . foldr1 (\s1 s2 -> s1 . showString "," . s2)
            (showsPrecExpr 0 `map` unfoldTuple ee)
   . showString ")"
+showsPrecExpr d (Value "if" _ :$ ep :$ ex :$ ey) = showParen True
+                                                 $ showString "if "
+                                                 . showsPrecExpr 0 ep
+                                                 . showString " then "
+                                                 . showsPrecExpr 0 ex
+                                                 . showString " else "
+                                                 . showsPrecExpr 0 ey
 showsPrecExpr d (Value f' _ :$ e1 :$ e2)
   | isInfix f = showParen (d > prec f)
               $ showsOpExpr f e1

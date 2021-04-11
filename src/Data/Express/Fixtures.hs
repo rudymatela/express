@@ -110,6 +110,7 @@ module Data.Express.Fixtures
   , (-<=-)
   , (-<-)
   , compare'
+  , if'
 
   -- ** Integers
   , i_, xx, yy, zz, xx'
@@ -158,6 +159,7 @@ module Data.Express.Fixtures
   , (-++-)
   , head'
   , tail'
+  , null'
   , length'
   , elem'
   , sort'
@@ -851,6 +853,26 @@ tail' exs = headOr err $ mapMaybe ($$ exs)
   where
   err  =  error $ "tail': unhandled type " ++ show (typ exs)
 
+-- | List 'null' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > null' $ unit one
+-- > null [1] :: Bool
+--
+-- > > null' $ nil
+-- > null [] :: Bool
+--
+-- > > evl $ null' nil :: Bool
+-- > True
+null' :: Expr -> Expr
+null' exs = headOr err $ mapMaybe ($$ exs)
+  [ value "null" (null :: [Int] -> Bool)
+  , value "null" (null :: [Char] -> Bool)
+  , value "null" (null :: [Bool] -> Bool)
+  ]
+  where
+  err  =  error $ "null': unhandled type " ++ show (typ exs)
+
 -- | List 'length' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
 --
@@ -971,6 +993,36 @@ ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
 infix 4 -<-
+
+-- | A virtual function @if :: Bool -> a -> a -> a@ lifted over the 'Expr' type.
+--   This is displayed as an if-then-else.
+--
+-- > > if' pp zero xx
+-- > (if p then 0 else x) :: Int
+--
+-- > > zz -*- if' pp xx yy
+-- > z * (if p then x else y) :: Int
+--
+-- > > if' pp false true -||- if' qq true false
+-- > (if p then False else True) || (if q then True else False) :: Bool
+--
+-- > > evl $ if' true (val 't') (val 'f') :: Char
+-- > 't'
+if' :: Expr -> Expr -> Expr -> Expr
+if' ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
+  [ value "if" (iff :: If ())
+  , value "if" (iff :: If Int)
+  , value "if" (iff :: If Bool)
+  , value "if" (iff :: If Char)
+  , value "if" (iff :: If [Int])
+  , value "if" (iff :: If [Bool])
+  , value "if" (iff :: If [Char])
+  ]
+  where
+  err  =  error $ "if': unhandled type " ++ show (typ ex)
+  iff :: Bool -> a -> a -> a
+  iff p x y  =  if p then x else y
+type If a = Bool -> a -> a -> a
 
 compare' :: Expr -> Expr -> Expr
 compare' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
