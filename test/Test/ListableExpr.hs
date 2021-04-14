@@ -69,7 +69,7 @@ newtype IntE  =  IntE { unIntE :: Expr }
 -- | Constant terminal value of 'Int' type.
 newtype IntE0  =  IntE0 { unIntE0 :: Expr }
 
--- | Varialbe of 'Int' type.
+-- | Variable of 'Int' type.
 newtype IntEV  =  IntEV { unIntEV :: Expr }
 
 -- | Functions from Int to Int
