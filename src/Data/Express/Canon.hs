@@ -170,11 +170,22 @@ names' = lookupNames preludeNameInstances
 -- > > canonicalVariations $ ord' bee
 -- > [ord 'b' :: Int]
 --
--- > > canonicalVariations $ ii -+- jj
--- > [i + j :: Int]
+-- When applying this to expressions already containing variables
+-- new variables are introduced so name clashes are avoided:
 --
--- Behaviour is undefined when applying this function to expressions already
--- containing variables.
+-- > > canonicalVariations $ i_ -+- ii -+- jj -+- i_
+-- > [ x + y + z + x' :: Int
+-- > , x + y + z + x :: Int ]
+--
+-- > > canonicalVariations $ ii -+- jj
+-- > [x + y :: Int]
+--
+-- > > canonicalVariations $ xx -+- i_ -+- i_ -+- length' (c_ -:- unit c_) -+- yy
+-- > [ (((x + y) + z) + length (c:d:"")) + x' :: Int
+-- > , (((x + y) + z) + length (c:c:"")) + x' :: Int
+-- > , (((x + y) + y) + length (c:d:"")) + z :: Int
+-- > , (((x + y) + y) + length (c:c:"")) + z :: Int
+-- > ]
 canonicalVariations :: Expr -> [Expr]
 canonicalVariations = map canonicalize . fastCanonicalVariations
 
@@ -208,9 +219,6 @@ canonicalVariations = map canonicalize . fastCanonicalVariations
 --
 -- > > mostGeneralCanonicalVariation $ ord' bee
 -- > ord 'b' :: Int
---
--- Behaviour is undefined when applying this function to expressions already
--- containing variables.
 --
 -- This function is the same as taking the 'head' of 'canonicalVariations'
 -- but a bit faster.
@@ -247,9 +255,6 @@ mostGeneralCanonicalVariation  =  canonicalize . fastMostGeneralVariation
 --
 -- > > mostSpecificCanonicalVariation $ ord' bee
 -- > ord 'b' :: Int
---
--- Behaviour is undefined when applying this function to expressions already
--- containing variables.
 --
 -- This function is the same as taking the 'last' of 'canonicalVariations'
 -- but a bit faster.
@@ -289,7 +294,7 @@ fastCanonicalVariations e
   hs' = holes e
   h' = head hs'
 
-  names  =  variableNamesFromTemplate "x"
+  names  =  variableNamesFromTemplate "x" \\ varnames e
 
   fillings :: Int -> [Expr] -> [[Expr]]
   fillings i []  =  [[]] -- no holes, single empty filling
@@ -305,7 +310,9 @@ fastCanonicalVariations e
 --
 -- The same caveats of 'fastCanonicalVariations' do apply here.
 fastMostGeneralVariation :: Expr -> Expr
-fastMostGeneralVariation e  =  fill e (zipWith varAsTypeOf (variableNamesFromTemplate "x") (holes e))
+fastMostGeneralVariation e  =  fill e (zipWith varAsTypeOf names (holes e))
+  where
+  names  =  variableNamesFromTemplate "x" \\ varnames e
 
 -- |
 -- A faster version of 'mostSpecificCanonicalVariation'
@@ -314,4 +321,12 @@ fastMostGeneralVariation e  =  fill e (zipWith varAsTypeOf (variableNamesFromTem
 --
 -- The same caveats of 'fastCanonicalVariations' do apply here.
 fastMostSpecificVariation :: Expr -> Expr
-fastMostSpecificVariation e  =  fill e (map ("x" `varAsTypeOf`) (holes e))
+fastMostSpecificVariation e  =  fill e (map (name `varAsTypeOf`) (holes e))
+  where
+  name  =  head $ variableNamesFromTemplate "x" \\ varnames e
+
+-- |
+-- Variable names existing in a given Expr.
+-- This function is not exported.
+varnames :: Expr -> [String]
+varnames e  =  [n | Value ('_':n) _ <- vars e]
