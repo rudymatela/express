@@ -3,6 +3,11 @@ TO DO list for express
 
 Here is a list of things TO DO for express:
 
+* improve compareComplexity to compare 0-arity
+
+* fix `O (n log n)` text on functions that use `+++`.  Mention that this is
+  only true on "shallow" expressions.
+
 * review Haddock of `Data.Express`
 
 * document the `Instances` module,
