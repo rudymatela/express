@@ -49,8 +49,6 @@ module Data.Express.Core
   -- * Comparison
   , compareComplexity
   , lexicompare
-  , lexicompareBy
-  , lexicompareConstants
 
   -- * Properties
   , arity
@@ -596,38 +594,6 @@ compareComplexity  =  (compare      `on` length . values)
                    <> (flip compare `on` length . vars)
                    <> (compare      `on` length . nubConsts)
 
-
--- | /O(n)./
--- Like 'lexicompare' but allows providing a function to compare constants
--- in case of a tie.
---
--- (cf. 'lexicompareConstants')
-lexicompareBy :: (Expr -> Expr -> Ordering) -> Expr -> Expr -> Ordering
-lexicompareBy compareConstants  =  cmp
-  where
-  e1@(Value ('_':s1) _) `cmp` e2@(Value ('_':s2) _)  =  typ e1 `compareTy` typ e2 <> s1 `compare` s2
-  (f :$ x)              `cmp` (g :$ y)               =  f  `cmp` g <> x `cmp` y
-  (_ :$ _)              `cmp` _                      =  GT
-  _                     `cmp` (_ :$ _)               =  LT
-  _                     `cmp` Value ('_':_) _        =  GT
-  Value ('_':_) _       `cmp` _                      =  LT
-  e1@(Value _ _)        `cmp` e2@(Value _ _)         =  e1 `compareConstants` e2
-  -- Var < Constants < Apps
-
--- | /O(n)./
--- Compare constant 'Expr's first by their type (`compareTy`)
--- then by their string representation.
---
--- This function will raise an error for expressions involving applications.
---
--- (cf. 'lexicompareBy')
-lexicompareConstants :: Expr -> Expr -> Ordering
-lexicompareConstants  =  cmp
-  where
-  e1 `cmp` e2 | typ e1 /= typ e2  =  typ e1 `compareTy` typ e2
-  Value s1 _ `cmp` Value s2 _  =  s1 `compare` s2
-  _ `cmp` _  =  error "lexicompareConstants can only compare constants"
-
 -- | /O(n)./
 -- Lexicographical structural comparison of 'Expr's
 -- where variables < constants < applications
@@ -642,7 +608,7 @@ lexicompareConstants  =  cmp
 -- > > lexicompare (zero -+- xx) (zero -+- xx)
 -- > EQ
 --
--- (cf. 'compareTy', 'lexicompareBy' and 'lexicompareConstants')
+-- (cf. 'compareTy')
 lexicompare :: Expr -> Expr -> Ordering
 lexicompare  =  cmp
   where
