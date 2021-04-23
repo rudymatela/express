@@ -9,7 +9,7 @@ main :: IO ()
 main  =  do
   as <- getArgs
   let n = case as of
-          [] -> 1000
+          [] -> 5040
           (n:_) -> read n
   putStrLn . unlines . map showCompare $ take n (list :: [(Expr,Expr)])
   where
