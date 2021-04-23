@@ -812,7 +812,7 @@ subexprs e  =  s e []
   s e@(e1 :$ e2)  =  (e:) . s e1 . s e2
   s e             =  (e:)
 
--- | Average /O(n log n)/ for the spine, /O(n^2)/ for full evaluation.
+-- | /O(n^3)/ for full evaluation.
 -- Lists all subexpressions of a given expression without repetitions.
 -- This includes the expression itself and partial function applications.
 -- (cf. 'subexprs')
@@ -834,8 +834,11 @@ subexprs e  =  s e []
 -- > , p && (p && True) :: Bool
 -- > ]
 --
--- While this is /O(n log n)/ on average it is /O(n^2)/ in the worst-case
--- (f (g (h (i (j (k (l (m (n x))))))))).
+-- Runtime averages to
+-- /O(n^2 log n)/ on evenly distributed expressions
+-- such as @(f x + g y) + (h z + f w)@;
+-- and to /O(n^3)/ on deep expressions
+-- such as @f (g (h (f (g (h x)))))@.
 nubSubexprs :: Expr -> [Expr]
 nubSubexprs  =  s
   where
@@ -880,7 +883,7 @@ values e  =  v e []
   v (e1 :$ e2)  =  v e1 . v e2
   v e           =  (e:)
 
--- | /O(n log n)/.
+-- | /O(n^2)/.
 -- Lists all terminal values in an expression without repetitions.
 -- (cf. 'values')
 --
@@ -909,6 +912,12 @@ values e  =  v e []
 -- > [ p :: Bool
 -- > , (&&) :: Bool -> Bool -> Bool
 -- > ]
+--
+-- Runtime averages to
+-- /O(n log n)/ on evenly distributed expressions
+-- such as @(f x + g y) + (h z + f w)@;
+-- and to /O(n^2)/ on deep expressions
+-- such as @f (g (h (f (g (h x)))))@.
 nubValues :: Expr -> [Expr]
 nubValues  =  v
   where
@@ -942,7 +951,7 @@ nubValues  =  v
 consts :: Expr -> [Expr]
 consts  =  filter isConst . values
 
--- | /O(n log n)/.
+-- | /O(n^2)/.
 -- List terminal constants in an expression without repetitions.
 -- (cf. 'consts')
 --
@@ -956,6 +965,12 @@ consts  =  filter isConst . values
 -- > [ True :: Bool
 -- > , (&&) :: Bool -> Bool -> Bool
 -- > ]
+--
+-- Runtime averages to
+-- /O(n log n)/ on evenly distributed expressions
+-- such as @(f x + g y) + (h z + f w)@;
+-- and to /O(n^2)/ on deep expressions
+-- such as @f (g (h (f (g (h x)))))@.
 nubConsts :: Expr -> [Expr]
 nubConsts  =  c
   where
@@ -985,7 +1000,7 @@ nubConsts  =  c
 vars :: Expr -> [Expr]
 vars  =  filter isVar . values
 
--- | /O(n log n)/.
+-- | /O(n^2)/.
 -- Lists all variables in an expression without repetitions.
 -- (cf. 'vars')
 --
@@ -1004,6 +1019,12 @@ vars  =  filter isVar . values
 --
 -- > > nubVars (pp -&&- true)
 -- > [p :: Bool]
+--
+-- Runtime averages to
+-- /O(n log n)/ on evenly distributed expressions
+-- such as @(f x + g y) + (h z + f w)@;
+-- and to /O(n^2)/ on deep expressions
+-- such as @f (g (h (f (g (h x)))))@.
 nubVars :: Expr -> [Expr]
 nubVars  =  v
   where

@@ -110,7 +110,7 @@ isHole _              = False
 holes :: Expr -> [Expr]
 holes  =  filter isHole . values
 
--- | /O(n log n)/.
+-- | /O(n^2)/.
 -- Lists all holes in an expression without repetitions.
 -- (cf. 'holes')
 --
@@ -122,6 +122,12 @@ holes  =  filter isHole . values
 --
 -- > > nubHoles $ hole (undefined :: Bool->Bool) :$ hole (undefined::Bool)
 -- > [_ :: Bool,_ :: Bool -> Bool]
+--
+-- Runtime averages to
+-- /O(n log n)/ on evenly distributed expressions
+-- such as @(f x + g y) + (h z + f w)@;
+-- and to /O(n^2)/ on deep expressions
+-- such as @f (g (h (f (g (h x)))))@.
 nubHoles :: Expr -> [Expr]
 nubHoles  =  nubSort . holes
 
