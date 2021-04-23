@@ -526,18 +526,26 @@ showExpr :: Expr -> String
 showExpr = showPrecExpr (-1)
 
 -- | /O(n)/.
---   Does not evaluate values when comparing, but rather uses their
---   representation as strings and their types.
+-- Does not evaluate values when comparing, but rather uses their
+-- representation as strings and their types.
 --
---   This instance works for ill-typed expressions.
+-- This instance works for ill-typed expressions.
 instance Eq Expr where
   Value s1 d1 == Value s2 d2  =  s1 == s2 && dynTypeRep d1 == dynTypeRep d2
   ef1 :$ ex1  == ef2 :$ ex2   =  ef1 == ef2 && ex1 == ex2
   _           == _            =  False
 
+-- | /O(n)/.
+-- Does not evaluate values when comparing, but rather uses their
+-- representation as strings and their types.
+--
+-- This instance works for ill-typed expressions.
+--
+-- Expressions come first
+-- when they have smaller complexity ('compareComplexity')
+-- or when they come first lexicographically.
 instance Ord Expr where
   compare = compareComplexity <> lexicompare
--- TODO: document Ord Expr
 
 -- | /O(n)/.
 -- Compares the complexity of two 'Expr's.
