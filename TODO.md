@@ -3,9 +3,6 @@ TO DO list for express
 
 Here is a list of things TO DO for express:
 
-* consider declaring a `Num` instance for `Expr` on `Fixtures`,
-  so one could write `0 + 1` to mean `zero -+- one`.
-
 * review Haddock of `Data.Express`
 
 * document the `Instances` module,
