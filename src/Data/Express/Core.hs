@@ -615,10 +615,14 @@ compareLexicographically  =  cmp
   (f :$ x) `cmp` (g :$ y)  =  f  `cmp` g <> x `cmp` y
   (_ :$ _) `cmp` _         =  GT
   _        `cmp` (_ :$ _)  =  LT
-  e1@(Value s1 _) `cmp` e2@(Value s2 _)  =  isConst e1 `compare` isConst e2
+  e1@(Value s1 _) `cmp` e2@(Value s2 _)  =  isConst e1 `compare` isConst e2 -- var<const
                                          <> typ e1 `compareTy` typ e2
+                                         <> s1 `cmpbool` s2 -- False<True
+                                         <> length s1 `compare` length s2 -- 2<10
                                          <> s1 `compare` s2
-  -- Var < Constants < Apps
+  "False" `cmpbool` "True"   =  LT
+  "True"  `cmpbool` "False"  =  GT
+  _       `cmpbool` _        =  EQ
 
 -- | /O(n)/.
 -- Unfold a function application 'Expr' into a list of function and
