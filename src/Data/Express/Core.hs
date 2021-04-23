@@ -49,6 +49,7 @@ module Data.Express.Core
   -- * Comparison
   , compareComplexity
   , compareLexicographically
+  , compareQuickly
 
   -- * Properties
   , arity
@@ -588,6 +589,8 @@ instance Ord Expr where
 --
 -- > > (zero -+- one) `compareComplexity` (one -+- zero)
 -- > EQ
+--
+-- This comparison is not a total order.
 compareComplexity :: Expr -> Expr -> Ordering
 compareComplexity  =  (compare      `on` length . values)
                    <> (flip compare `on` length . nubVars)
@@ -609,6 +612,8 @@ compareComplexity  =  (compare      `on` length . values)
 -- > EQ
 --
 -- (cf. 'compareTy')
+--
+-- This comparison is a total order.
 compareLexicographically :: Expr -> Expr -> Ordering
 compareLexicographically  =  cmp
   where
@@ -623,6 +628,22 @@ compareLexicographically  =  cmp
   "False" `cmpbool` "True"   =  LT
   "True"  `cmpbool` "False"  =  GT
   _       `cmpbool` _        =  EQ
+
+-- | /O(n)./
+-- A fast total order between 'Expr's
+-- that can be used when sorting 'Expr' values.
+--
+-- This is lazier than its counterparts
+-- 'compareComplexity' and 'compareLexicographically'
+-- and tries to evaluate the given 'Expr's as least as possible.
+compareQuickly :: Expr -> Expr -> Ordering
+compareQuickly  =  cmp
+  where
+  (f :$ x)       `cmp` (g :$ y)        =  f  `cmp` g <> x `cmp` y
+  (_ :$ _)       `cmp` _               =  GT
+  _              `cmp` (_ :$ _)        =  LT
+  x@(Value n1 _) `cmp` y@(Value n2 _)  =  typ x `compareTy` typ y
+                                       <> n1 `compare` n2
 
 -- | /O(n)/.
 -- Unfold a function application 'Expr' into a list of function and

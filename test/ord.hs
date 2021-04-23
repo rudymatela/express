@@ -13,6 +13,10 @@ tests n =
   , holds n $ \(Ill e0) (Ill e1) (Ill e2) -> okEqOrd e0 e1 e2
 
   , holds n $ isComparison compareLexicographically
+  , holds n $ isComparison compareQuickly
+  , exists n $ \e1 e2 ->        e1 `compare` e2 /= e1 `compareLexicographically` e2
+  , exists n $ \e1 e2 ->        e1 `compare` e2 /= e1 `compareQuickly` e2
+  , exists n $ \e1 e2 -> e1 `compareQuickly` e2 /= e1 `compareLexicographically` e2
 
   -- Holes < Values < Apps
   , xx < zero

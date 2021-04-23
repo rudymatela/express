@@ -20,3 +20,6 @@ main  =  do
 
   putStrLn $ "sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  ="
   printL (sortBy compareLexicographically $ take 5040 $ list :: [Expr])
+
+  putStrLn $ "sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  ="
+  printL (sortBy compareQuickly $ take 5040 $ list :: [Expr])
