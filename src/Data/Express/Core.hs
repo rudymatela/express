@@ -589,10 +589,6 @@ compareComplexity  =  (compare      `on` length . values)
                    <> (flip compare `on` length . nubVars)
                    <> (flip compare `on` length . vars)
                    <> (compare      `on` length . nubConsts)
--- TODO: arity 0 comes before arity N
--- e1 `cmparty` e2 | arity e1 == 0 && arity e2 /= 0 = LT
--- e1 `cmparty` e2 | arity e1 /= 0 && arity e2 == 0 = GT
--- e1 `cmparty` e2 = EQ
 
 
 lexicompareBy :: (Expr -> Expr -> Ordering) -> Expr -> Expr -> Ordering
