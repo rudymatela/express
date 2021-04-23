@@ -17,6 +17,7 @@ module Test
   , module Test.ListableExpr
   , module Data.Maybe
   , module Data.Either
+  , module Data.Monoid
   , mainTest
 
   , tyBool
@@ -34,6 +35,7 @@ import Data.Typeable (TypeRep, typeOf)
 
 import Data.Maybe
 import Data.Either
+import Data.Monoid
 import Test.LeanCheck
 import Test.LeanCheck.Utils
 import Test.LeanCheck.Derive
