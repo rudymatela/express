@@ -217,7 +217,7 @@ var s a = value ('_':s) (undefined `asTypeOf` a)
 
 -- | /O(n)/.
 -- Computes the type of an expression.  This raises errors, but this should
--- not happen if expressions are smart-constructed.
+-- not happen if expressions are smart-constructed with '$$'.
 --
 -- > > let one = val (1 :: Int)
 -- > > let bee = val 'b'
@@ -369,7 +369,7 @@ isFun  =  isFunTy . typ
 evaluate :: Typeable a => Expr -> Maybe a
 evaluate e = toDynamic e >>= fromDynamic
 
--- | /O(n)/. 
+-- | /O(n)/.
 -- Evaluates an expression when possible (correct type).
 -- Returns a default value otherwise.
 --
@@ -423,12 +423,15 @@ toDynamic (e1 :$ e2)  = do v1 <- toDynamic e1
                            v2 <- toDynamic e2
                            dynApply v1 v2
 
+-- | Shows 'Expr's with their types.
+--
+-- > > show (value "not" not :$ val False)
+-- > "not False :: Bool"
 instance Show Expr where
   showsPrec d e = showParen (d > 10)
                 $ showsPrecExpr 0 e
                 . showString " :: "
                 . showsTypeExpr e
--- TODO: document Show Expr
 
 showsTypeExpr :: Expr -> String -> String
 showsTypeExpr e = case etyp e of
@@ -764,7 +767,7 @@ isValue _            =  False
 -- > False
 --
 -- > > isApp $ value "not" not :$ var "p" (undefined :: Bool)
--- > True 
+-- > True
 --
 -- This is equivalent to pattern matching the ':$' constructor.
 --

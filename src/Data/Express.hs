@@ -109,7 +109,7 @@
 -- In this documentation,
 -- the complexity of most functions is given in big O notation
 -- where /n/ is the size of the expression being manipulated or produced.
--- There may still be a /m/ cost associated with the values being stored in 'Expr's.
+-- There may still be a /m/ cost associated with the values stored in 'Expr's.
 {-# LANGUAGE CPP #-}
 module Data.Express
   ( 
