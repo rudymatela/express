@@ -12,6 +12,12 @@ tests n =
   , holds n $ (okEqOrd :: Expr -> Expr -> Expr -> Bool)
   , holds n $ \(Ill e0) (Ill e1) (Ill e2) -> okEqOrd e0 e1 e2
 
+  , holds n $ isComparison lexicompare
+  , holds n $ isComparison $ lexicompareBy lexicompareConstants
+  , holds n $ isComparison $ lexicompareBy lexicompare
+  , holds n $ lexicompare ==== lexicompareBy lexicompareConstants
+  , holds n $ lexicompare ==== lexicompareBy lexicompare
+
   -- Holes < Values < Apps
   , xx < zero
   , zero < zero -+- one

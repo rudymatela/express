@@ -644,7 +644,15 @@ lexicompareConstants  =  cmp
 --
 -- (cf. 'compareTy', 'lexicompareBy' and 'lexicompareConstants')
 lexicompare :: Expr -> Expr -> Ordering
-lexicompare = lexicompareBy lexicompareConstants
+lexicompare  =  cmp
+  where
+  (f :$ x) `cmp` (g :$ y)  =  f  `cmp` g <> x `cmp` y
+  (_ :$ _) `cmp` _         =  GT
+  _        `cmp` (_ :$ _)  =  LT
+  e1@(Value s1 _) `cmp` e2@(Value s2 _)  =  isConst e1 `compare` isConst e2
+                                         <> typ e1 `compareTy` typ e2
+                                         <> s1 `compare` s2
+  -- Var < Constants < Apps
 
 -- | /O(n)/.
 -- Unfold a function application 'Expr' into a list of function and
