@@ -48,6 +48,9 @@ module Data.Express.Core
 
   -- * Comparison
   , compareComplexity
+  , lexicompare
+  , lexicompareBy
+  , lexicompareConstants
 
   -- * Properties
   , arity
@@ -594,6 +597,11 @@ compareComplexity  =  (compare      `on` length . values)
                    <> (compare      `on` length . nubConsts)
 
 
+-- | /O(n)./
+-- Like 'lexicompare' but allows providing a function to compare constants
+-- in case of a tie.
+--
+-- (cf. 'lexicompareConstants')
 lexicompareBy :: (Expr -> Expr -> Ordering) -> Expr -> Expr -> Ordering
 lexicompareBy compareConstants  =  cmp
   where
@@ -606,6 +614,13 @@ lexicompareBy compareConstants  =  cmp
   e1@(Value _ _)        `cmp` e2@(Value _ _)         =  e1 `compareConstants` e2
   -- Var < Constants < Apps
 
+-- | /O(n)./
+-- Compare constant 'Expr's first by their type (`compareTy`)
+-- then by their string representation.
+--
+-- This function will raise an error for expressions involving applications.
+--
+-- (cf. 'lexicompareBy')
 lexicompareConstants :: Expr -> Expr -> Ordering
 lexicompareConstants  =  cmp
   where
@@ -613,6 +628,21 @@ lexicompareConstants  =  cmp
   Value s1 _ `cmp` Value s2 _  =  s1 `compare` s2
   _ `cmp` _  =  error "lexicompareConstants can only compare constants"
 
+-- | /O(n)./
+-- Lexicographical structural comparison of 'Expr's
+-- where variables < constants < applications
+-- then types are compared before string representations.
+--
+-- > > lexicompare one (one -+- one)
+-- > LT
+-- > > lexicompare one zero
+-- > GT
+-- > > lexicompare (xx -+- zero) (zero -+- xx)
+-- > LT
+-- > > lexicompare (zero -+- xx) (zero -+- xx)
+-- > EQ
+--
+-- (cf. 'compareTy', 'lexicompareBy' and 'lexicompareConstants')
 lexicompare :: Expr -> Expr -> Ordering
 lexicompare = lexicompareBy lexicompareConstants
 
