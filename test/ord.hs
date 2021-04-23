@@ -11,9 +11,12 @@ tests n =
 
   , holds n $ (okEqOrd :: Expr -> Expr -> Expr -> Bool)
   , holds n $ \(Ill e0) (Ill e1) (Ill e2) -> okEqOrd e0 e1 e2
+  , holds n $ compare ==== compareComplexity <> compareLexicographically
 
+  , holds n $ isComparison (compare :: Expr -> Expr -> Ordering)
   , holds n $ isComparison compareLexicographically
   , holds n $ isComparison compareQuickly
+
   , exists n $ \e1 e2 ->        e1 `compare` e2 /= e1 `compareLexicographically` e2
   , exists n $ \e1 e2 ->        e1 `compare` e2 /= e1 `compareQuickly` e2
   , exists n $ \e1 e2 -> e1 `compareQuickly` e2 /= e1 `compareLexicographically` e2
