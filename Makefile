@@ -27,7 +27,7 @@ BENCHS = \
   eg/u-speculate \
   bench/compare \
   bench/pairs \
-  bench/ord \
+  bench/sort \
   bench/tiers \
   $(EGS)
 GHCIMPORTDIRS = src:test
