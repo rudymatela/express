@@ -595,24 +595,23 @@ compareComplexity  =  (compare      `on` length . values)
 
 
 lexicompareBy :: (Expr -> Expr -> Ordering) -> Expr -> Expr -> Ordering
-lexicompareBy compareConstants = cmp
+lexicompareBy compareConstants  =  cmp
   where
-  e1@(Value ('_':s1) _) `cmp` e2@(Value ('_':s2) _)  =  typ e1 `compareTy` typ e2
-                                                     <> s1 `compare` s2
-  (f :$ x)        `cmp` (g :$ y)                     =  f  `cmp` g <> x `cmp` y
-  (_ :$ _)        `cmp` _                            =  GT
-  _               `cmp` (_ :$ _)                     =  LT
-  _               `cmp` Value ('_':_) _              =  GT
-  Value ('_':_) _ `cmp` _                            =  LT
+  e1@(Value ('_':s1) _) `cmp` e2@(Value ('_':s2) _)  =  typ e1 `compareTy` typ e2 <> s1 `compare` s2
+  (f :$ x)              `cmp` (g :$ y)               =  f  `cmp` g <> x `cmp` y
+  (_ :$ _)              `cmp` _                      =  GT
+  _                     `cmp` (_ :$ _)               =  LT
+  _                     `cmp` Value ('_':_) _        =  GT
+  Value ('_':_) _       `cmp` _                      =  LT
   e1@(Value _ _)        `cmp` e2@(Value _ _)         =  e1 `compareConstants` e2
   -- Var < Constants < Apps
 
 lexicompareConstants :: Expr -> Expr -> Ordering
-lexicompareConstants = cmp
+lexicompareConstants  =  cmp
   where
-  e1 `cmp` e2 | typ e1 /= typ e2 = typ e1 `compareTy` typ e2
-  Value s1 _ `cmp` Value s2 _ = s1 `compare` s2
-  _ `cmp` _ = error "lexicompareConstants can only compare constants"
+  e1 `cmp` e2 | typ e1 /= typ e2  =  typ e1 `compareTy` typ e2
+  Value s1 _ `cmp` Value s2 _  =  s1 `compare` s2
+  _ `cmp` _  =  error "lexicompareConstants can only compare constants"
 
 lexicompare :: Expr -> Expr -> Ordering
 lexicompare = lexicompareBy lexicompareConstants
