@@ -1,0 +1,5043 @@
+sort $ take 5040 $ list  ::  [ Expr ]  =
+  [ _ :: Bool
+  , p :: Bool
+  , p' :: Bool
+  , q :: Bool
+  , q' :: Bool
+  , r :: Bool
+  , _ :: Char
+  , c :: Char
+  , c' :: Char
+  , d :: Char
+  , d' :: Char
+  , e :: Char
+  , _ :: Int
+  , x :: Int
+  , x' :: Int
+  , x'' :: Int
+  , y :: Int
+  , y' :: Int
+  , z :: Int
+  , z' :: Int
+  , _ :: [Int]
+  , xs :: [Int]
+  , xs' :: [Int]
+  , ys :: [Int]
+  , ys' :: [Int]
+  , zs :: [Int]
+  , f :: Int -> Int
+  , g :: Int -> Int
+  , h :: Int -> Int
+  , False :: Bool
+  , True :: Bool
+  , ' ' :: Char
+  , 'A' :: Char
+  , 'a' :: Char
+  , 'b' :: Char
+  , 'c' :: Char
+  , -1 :: Int
+  , -2 :: Int
+  , -3 :: Int
+  , 0 :: Int
+  , 1 :: Int
+  , 2 :: Int
+  , 3 :: Int
+  , [-1,0] :: [Int]
+  , [-1] :: [Int]
+  , [0,-1] :: [Int]
+  , [0,0,0,0] :: [Int]
+  , [0,0,0] :: [Int]
+  , [0,0,1] :: [Int]
+  , [0,0] :: [Int]
+  , [0,1,0] :: [Int]
+  , [0,1] :: [Int]
+  , [0] :: [Int]
+  , [1,0,0] :: [Int]
+  , [1,0] :: [Int]
+  , [1,1] :: [Int]
+  , [1] :: [Int]
+  , [2] :: [Int]
+  , [] :: [Int]
+  , not :: Bool -> Bool
+  , abs :: Int -> Int
+  , id :: Int -> Int
+  , negate :: Int -> Int
+  , (&&) :: Bool -> Bool -> Bool
+  , (==>) :: Bool -> Bool -> Bool
+  , (||) :: Bool -> Bool -> Bool
+  , (*) :: Int -> Int -> Int
+  , (+) :: Int -> Int -> Int
+  , f _ :: Int
+  , f x :: Int
+  , f y :: Int
+  , f z :: Int
+  , f' _ :: Int
+  , g _ :: Int
+  , g x :: Int
+  , g y :: Int
+  , h _ :: Int
+  , h x :: Int
+  , f (-1) :: Int
+  , f 0 :: Int
+  , f 1 :: Int
+  , g 0 :: Int
+  , g 1 :: Int
+  , h 0 :: Int
+  , not _ :: Bool
+  , not p :: Bool
+  , not p' :: Bool
+  , not q :: Bool
+  , not r :: Bool
+  , ord _ :: Int
+  , ord c :: Int
+  , ord c' :: Int
+  , ord d :: Int
+  , ord e :: Int
+  , even _ :: Bool
+  , even x :: Bool
+  , even y :: Bool
+  , odd _ :: Bool
+  , odd x :: Bool
+  , odd y :: Bool
+  , abs _ :: Int
+  , abs x :: Int
+  , abs x' :: Int
+  , abs y :: Int
+  , abs z :: Int
+  , id _ :: Int
+  , id x :: Int
+  , id x' :: Int
+  , id y :: Int
+  , id y' :: Int
+  , id z :: Int
+  , id z' :: Int
+  , negate _ :: Int
+  , negate x :: Int
+  , negate x' :: Int
+  , negate y :: Int
+  , negate z :: Int
+  , head _ :: Int
+  , head xs :: Int
+  , head xs' :: Int
+  , head ys :: Int
+  , head zs :: Int
+  , sort _ :: [Int]
+  , sort xs :: [Int]
+  , sort ys :: [Int]
+  , tail _ :: [Int]
+  , tail xs :: [Int]
+  , tail ys :: [Int]
+  , tail zs :: [Int]
+  , (_ &&) :: Bool -> Bool
+  , (p &&) :: Bool -> Bool
+  , (_ ==>) :: Bool -> Bool
+  , (_ ||) :: Bool -> Bool
+  , (p ||) :: Bool -> Bool
+  , (q ||) :: Bool -> Bool
+  , (_ *) :: Int -> Int
+  , (x *) :: Int -> Int
+  , (y *) :: Int -> Int
+  , (_ +) :: Int -> Int
+  , (x +) :: Int -> Int
+  , (y +) :: Int -> Int
+  , (z +) :: Int -> Int
+  , not False :: Bool
+  , not True :: Bool
+  , ord ' ' :: Int
+  , ord 'A' :: Int
+  , ord 'a' :: Int
+  , ord 'b' :: Int
+  , even 0 :: Bool
+  , even 1 :: Bool
+  , odd 0 :: Bool
+  , odd 1 :: Bool
+  , abs (-1) :: Int
+  , abs 0 :: Int
+  , abs 1 :: Int
+  , abs 2 :: Int
+  , id (-1) :: Int
+  , id (-2) :: Int
+  , id 0 :: Int
+  , id 1 :: Int
+  , id 2 :: Int
+  , id 3 :: Int
+  , negate (-1) :: Int
+  , negate 0 :: Int
+  , negate 1 :: Int
+  , negate 2 :: Int
+  , head [-1] :: Int
+  , head [0,0,0] :: Int
+  , head [0,0] :: Int
+  , head [0,1] :: Int
+  , head [0] :: Int
+  , head [1,0] :: Int
+  , head [1] :: Int
+  , head [] :: Int
+  , sort [0] :: [Int]
+  , sort [] :: [Int]
+  , tail [0,0] :: [Int]
+  , tail [0] :: [Int]
+  , tail [1] :: [Int]
+  , tail [] :: [Int]
+  , (False &&) :: Bool -> Bool
+  , (True &&) :: Bool -> Bool
+  , (False ||) :: Bool -> Bool
+  , (True ||) :: Bool -> Bool
+  , (0 *) :: Int -> Int
+  , (1 *) :: Int -> Int
+  , ((-1) +) :: Int -> Int
+  , (0 +) :: Int -> Int
+  , (1 +) :: Int -> Int
+  , f (f _) :: Int
+  , f (ord _) :: Int
+  , f (ord c) :: Int
+  , f (abs _) :: Int
+  , f (abs x) :: Int
+  , f (id _) :: Int
+  , f (id x) :: Int
+  , f (id y) :: Int
+  , f (negate _) :: Int
+  , f (negate x) :: Int
+  , f (head _) :: Int
+  , f (head xs) :: Int
+  , g (ord _) :: Int
+  , g (abs _) :: Int
+  , g (id _) :: Int
+  , g (id x) :: Int
+  , g (negate _) :: Int
+  , g (head _) :: Int
+  , h (id _) :: Int
+  , abs (f _) :: Int
+  , abs (f x) :: Int
+  , abs (g _) :: Int
+  , id (f _) :: Int
+  , id (f x) :: Int
+  , id (f y) :: Int
+  , id (f z) :: Int
+  , id (f' _) :: Int
+  , id (g _) :: Int
+  , id (g x) :: Int
+  , id (g y) :: Int
+  , id (h _) :: Int
+  , id (h x) :: Int
+  , negate (f _) :: Int
+  , negate (f x) :: Int
+  , negate (g _) :: Int
+  , (f _ +) :: Int -> Int
+  , _ && p :: Bool
+  , _ && q :: Bool
+  , p && _ :: Bool
+  , q && _ :: Bool
+  , _ <= p :: Bool
+  , p <= _ :: Bool
+  , _ == p :: Bool
+  , _ == q :: Bool
+  , p == _ :: Bool
+  , q == _ :: Bool
+  , _ ==> p :: Bool
+  , p ==> _ :: Bool
+  , _ || p :: Bool
+  , _ || q :: Bool
+  , _ || r :: Bool
+  , p || _ :: Bool
+  , p || q :: Bool
+  , q || _ :: Bool
+  , q || p :: Bool
+  , r || _ :: Bool
+  , _ <= x :: Bool
+  , x <= _ :: Bool
+  , _ == x :: Bool
+  , _ == y :: Bool
+  , x == _ :: Bool
+  , y == _ :: Bool
+  , _ * x :: Int
+  , _ * y :: Int
+  , _ * z :: Int
+  , x * _ :: Int
+  , x * y :: Int
+  , y * _ :: Int
+  , y * x :: Int
+  , z * _ :: Int
+  , _ + x :: Int
+  , _ + x' :: Int
+  , _ + y :: Int
+  , _ + z :: Int
+  , x + _ :: Int
+  , x + y :: Int
+  , x + z :: Int
+  , x' + _ :: Int
+  , y + _ :: Int
+  , y + x :: Int
+  , z + _ :: Int
+  , z + x :: Int
+  , elem _ _ :: Bool
+  , elem _ xs :: Bool
+  , elem _ ys :: Bool
+  , elem x _ :: Bool
+  , elem x xs :: Bool
+  , elem y _ :: Bool
+  , _:_ :: [Int]
+  , _:xs :: [Int]
+  , _:xs' :: [Int]
+  , _:ys :: [Int]
+  , _:zs :: [Int]
+  , x:_ :: [Int]
+  , x:xs :: [Int]
+  , x:ys :: [Int]
+  , x:zs :: [Int]
+  , x':_ :: [Int]
+  , y:_ :: [Int]
+  , y:xs :: [Int]
+  , y:ys :: [Int]
+  , z:_ :: [Int]
+  , z:xs :: [Int]
+  , insert _ _ :: [Int]
+  , insert _ xs :: [Int]
+  , insert _ ys :: [Int]
+  , insert x _ :: [Int]
+  , insert x xs :: [Int]
+  , insert y _ :: [Int]
+  , _ ++ xs :: [Int]
+  , _ ++ ys :: [Int]
+  , _ ++ zs :: [Int]
+  , xs ++ _ :: [Int]
+  , xs ++ ys :: [Int]
+  , ys ++ _ :: [Int]
+  , ys ++ xs :: [Int]
+  , zs ++ _ :: [Int]
+  , _ && _ :: Bool
+  , p && p :: Bool
+  , _ < _ :: Bool
+  , _ <= _ :: Bool
+  , _ == _ :: Bool
+  , p == p :: Bool
+  , _ ==> _ :: Bool
+  , _ || _ :: Bool
+  , p || p :: Bool
+  , _ < _ :: Bool
+  , _ <= _ :: Bool
+  , _ == _ :: Bool
+  , x == x :: Bool
+  , _ * _ :: Int
+  , x * x :: Int
+  , _ + _ :: Int
+  , x + x :: Int
+  , y + y :: Int
+  , _ ++ _ :: [Int]
+  , xs ++ xs :: [Int]
+  , not (not _) :: Bool
+  , not (not p) :: Bool
+  , not (not q) :: Bool
+  , not (not r) :: Bool
+  , abs (abs _) :: Int
+  , abs (abs x) :: Int
+  , abs (abs y) :: Int
+  , id (id _) :: Int
+  , id (id x) :: Int
+  , id (id x') :: Int
+  , id (id y) :: Int
+  , id (id y') :: Int
+  , id (id z) :: Int
+  , negate (negate _) :: Int
+  , negate (negate x) :: Int
+  , negate (negate y) :: Int
+  , tail (tail _) :: [Int]
+  , tail (tail xs) :: [Int]
+  , f (ord 'a') :: Int
+  , f (abs 0) :: Int
+  , f (id 0) :: Int
+  , f (id 1) :: Int
+  , f (negate 0) :: Int
+  , f (head []) :: Int
+  , g (id 0) :: Int
+  , not (even _) :: Bool
+  , not (even x) :: Bool
+  , not (odd _) :: Bool
+  , not (odd x) :: Bool
+  , even (ord _) :: Bool
+  , even (abs _) :: Bool
+  , even (id _) :: Bool
+  , even (id x) :: Bool
+  , even (negate _) :: Bool
+  , even (head _) :: Bool
+  , odd (ord _) :: Bool
+  , odd (abs _) :: Bool
+  , odd (id _) :: Bool
+  , odd (id x) :: Bool
+  , odd (negate _) :: Bool
+  , odd (head _) :: Bool
+  , abs (f 0) :: Int
+  , abs (ord _) :: Int
+  , abs (ord c) :: Int
+  , abs (ord d) :: Int
+  , abs (id _) :: Int
+  , abs (id x) :: Int
+  , abs (id y) :: Int
+  , abs (id z) :: Int
+  , abs (negate _) :: Int
+  , abs (negate x) :: Int
+  , abs (negate y) :: Int
+  , abs (head _) :: Int
+  , abs (head xs) :: Int
+  , abs (head ys) :: Int
+  , id (f (-1)) :: Int
+  , id (f 0) :: Int
+  , id (f 1) :: Int
+  , id (g 0) :: Int
+  , id (g 1) :: Int
+  , id (h 0) :: Int
+  , id (ord _) :: Int
+  , id (ord c) :: Int
+  , id (ord d) :: Int
+  , id (ord e) :: Int
+  , id (abs _) :: Int
+  , id (abs x) :: Int
+  , id (abs x') :: Int
+  , id (abs y) :: Int
+  , id (abs z) :: Int
+  , id (negate _) :: Int
+  , id (negate x) :: Int
+  , id (negate x') :: Int
+  , id (negate y) :: Int
+  , id (negate z) :: Int
+  , id (head _) :: Int
+  , id (head xs) :: Int
+  , id (head xs') :: Int
+  , id (head ys) :: Int
+  , id (head zs) :: Int
+  , negate (f 0) :: Int
+  , negate (ord _) :: Int
+  , negate (ord c) :: Int
+  , negate (ord d) :: Int
+  , negate (abs _) :: Int
+  , negate (abs x) :: Int
+  , negate (abs y) :: Int
+  , negate (id _) :: Int
+  , negate (id x) :: Int
+  , negate (id y) :: Int
+  , negate (id z) :: Int
+  , negate (head _) :: Int
+  , negate (head xs) :: Int
+  , negate (head ys) :: Int
+  , head (sort _) :: Int
+  , head (sort xs) :: Int
+  , head (tail _) :: Int
+  , head (tail xs) :: Int
+  , head (tail ys) :: Int
+  , sort (tail _) :: [Int]
+  , tail (sort _) :: [Int]
+  , (not _ &&) :: Bool -> Bool
+  , (not _ ||) :: Bool -> Bool
+  , (not p ||) :: Bool -> Bool
+  , (ord _ *) :: Int -> Int
+  , (abs _ *) :: Int -> Int
+  , (id _ *) :: Int -> Int
+  , (id x *) :: Int -> Int
+  , (negate _ *) :: Int -> Int
+  , (head _ *) :: Int -> Int
+  , (ord _ +) :: Int -> Int
+  , (ord c +) :: Int -> Int
+  , (abs _ +) :: Int -> Int
+  , (abs x +) :: Int -> Int
+  , (id _ +) :: Int -> Int
+  , (id x +) :: Int -> Int
+  , (id y +) :: Int -> Int
+  , (negate _ +) :: Int -> Int
+  , (negate x +) :: Int -> Int
+  , (head _ +) :: Int -> Int
+  , (head xs +) :: Int -> Int
+  , _ && False :: Bool
+  , _ && True :: Bool
+  , p && False :: Bool
+  , p && True :: Bool
+  , False && _ :: Bool
+  , False && p :: Bool
+  , True && _ :: Bool
+  , True && p :: Bool
+  , _ <= False :: Bool
+  , _ <= True :: Bool
+  , False <= _ :: Bool
+  , True <= _ :: Bool
+  , _ == False :: Bool
+  , _ == True :: Bool
+  , p == False :: Bool
+  , p == True :: Bool
+  , False == _ :: Bool
+  , False == p :: Bool
+  , True == _ :: Bool
+  , True == p :: Bool
+  , _ ==> False :: Bool
+  , _ ==> True :: Bool
+  , False ==> _ :: Bool
+  , True ==> _ :: Bool
+  , _ || False :: Bool
+  , _ || True :: Bool
+  , p || False :: Bool
+  , p || True :: Bool
+  , q || False :: Bool
+  , q || True :: Bool
+  , False || _ :: Bool
+  , False || p :: Bool
+  , False || q :: Bool
+  , True || _ :: Bool
+  , True || p :: Bool
+  , True || q :: Bool
+  , _ <= 0 :: Bool
+  , 0 <= _ :: Bool
+  , _ == 0 :: Bool
+  , _ == 1 :: Bool
+  , x == 0 :: Bool
+  , 0 == _ :: Bool
+  , 0 == x :: Bool
+  , 1 == _ :: Bool
+  , _ * (-1) :: Int
+  , _ * 0 :: Int
+  , _ * 1 :: Int
+  , x * 0 :: Int
+  , x * 1 :: Int
+  , y * 0 :: Int
+  , (-1) * _ :: Int
+  , 0 * _ :: Int
+  , 0 * x :: Int
+  , 0 * y :: Int
+  , 1 * _ :: Int
+  , 1 * x :: Int
+  , _ + (-1) :: Int
+  , _ + 0 :: Int
+  , _ + 1 :: Int
+  , _ + 2 :: Int
+  , x + (-1) :: Int
+  , x + 0 :: Int
+  , x + 1 :: Int
+  , y + 0 :: Int
+  , y + 1 :: Int
+  , z + 0 :: Int
+  , (-1) + _ :: Int
+  , (-1) + x :: Int
+  , 0 + _ :: Int
+  , 0 + x :: Int
+  , 0 + y :: Int
+  , 0 + z :: Int
+  , 1 + _ :: Int
+  , 1 + x :: Int
+  , 1 + y :: Int
+  , 2 + _ :: Int
+  , elem _ [0] :: Bool
+  , elem _ [] :: Bool
+  , elem x [] :: Bool
+  , elem 0 _ :: Bool
+  , elem 0 xs :: Bool
+  , elem 1 _ :: Bool
+  , [_,-1] :: [Int]
+  , [_,0,0,0] :: [Int]
+  , [_,0,0] :: [Int]
+  , [_,0,1] :: [Int]
+  , [_,0] :: [Int]
+  , [_,1,0] :: [Int]
+  , [_,1] :: [Int]
+  , [_] :: [Int]
+  , [x,0,0] :: [Int]
+  , [x,0] :: [Int]
+  , [x,1] :: [Int]
+  , [x] :: [Int]
+  , [y,0] :: [Int]
+  , [y] :: [Int]
+  , [z] :: [Int]
+  , (-1):_ :: [Int]
+  , (-1):xs :: [Int]
+  , 0:_ :: [Int]
+  , 0:xs :: [Int]
+  , 0:ys :: [Int]
+  , 0:zs :: [Int]
+  , 1:_ :: [Int]
+  , 1:xs :: [Int]
+  , 1:ys :: [Int]
+  , 2:_ :: [Int]
+  , insert _ [0] :: [Int]
+  , insert _ [] :: [Int]
+  , insert x [] :: [Int]
+  , insert 0 _ :: [Int]
+  , insert 0 xs :: [Int]
+  , insert 1 _ :: [Int]
+  , _ ++ [0,0] :: [Int]
+  , _ ++ [0] :: [Int]
+  , _ ++ [1] :: [Int]
+  , _ ++ [] :: [Int]
+  , xs ++ [0] :: [Int]
+  , xs ++ [] :: [Int]
+  , ys ++ [] :: [Int]
+  , [0,0] ++ _ :: [Int]
+  , [0] ++ _ :: [Int]
+  , [0] ++ xs :: [Int]
+  , [1] ++ _ :: [Int]
+  , [] ++ _ :: [Int]
+  , [] ++ xs :: [Int]
+  , [] ++ ys :: [Int]
+  , not (not False) :: Bool
+  , not (not True) :: Bool
+  , abs (abs 0) :: Int
+  , abs (abs 1) :: Int
+  , id (id (-1)) :: Int
+  , id (id (-2)) :: Int
+  , id (id 0) :: Int
+  , id (id 1) :: Int
+  , id (id 2) :: Int
+  , negate (negate 0) :: Int
+  , negate (negate 1) :: Int
+  , tail (tail []) :: [Int]
+  , False && False :: Bool
+  , True && True :: Bool
+  , False == False :: Bool
+  , True == True :: Bool
+  , False || False :: Bool
+  , True || True :: Bool
+  , 0 == 0 :: Bool
+  , 0 * 0 :: Int
+  , 0 + 0 :: Int
+  , 1 + 1 :: Int
+  , [] ++ [] :: [Int]
+  , not (even 0) :: Bool
+  , not (odd 0) :: Bool
+  , even (id 0) :: Bool
+  , odd (id 0) :: Bool
+  , abs (ord ' ') :: Int
+  , abs (ord 'a') :: Int
+  , abs (id (-1)) :: Int
+  , abs (id 0) :: Int
+  , abs (id 1) :: Int
+  , abs (negate 0) :: Int
+  , abs (negate 1) :: Int
+  , abs (head [0]) :: Int
+  , abs (head []) :: Int
+  , id (ord ' ') :: Int
+  , id (ord 'a') :: Int
+  , id (ord 'b') :: Int
+  , id (abs (-1)) :: Int
+  , id (abs 0) :: Int
+  , id (abs 1) :: Int
+  , id (abs 2) :: Int
+  , id (negate (-1)) :: Int
+  , id (negate 0) :: Int
+  , id (negate 1) :: Int
+  , id (negate 2) :: Int
+  , id (head [-1]) :: Int
+  , id (head [0,0,0]) :: Int
+  , id (head [0,0]) :: Int
+  , id (head [0,1]) :: Int
+  , id (head [0]) :: Int
+  , id (head [1,0]) :: Int
+  , id (head [1]) :: Int
+  , id (head []) :: Int
+  , negate (ord ' ') :: Int
+  , negate (ord 'a') :: Int
+  , negate (abs 0) :: Int
+  , negate (abs 1) :: Int
+  , negate (id (-1)) :: Int
+  , negate (id 0) :: Int
+  , negate (id 1) :: Int
+  , negate (head [0]) :: Int
+  , negate (head []) :: Int
+  , head (sort []) :: Int
+  , head (tail [0]) :: Int
+  , head (tail []) :: Int
+  , (not False ||) :: Bool -> Bool
+  , (not True ||) :: Bool -> Bool
+  , (id 0 *) :: Int -> Int
+  , (ord 'a' +) :: Int -> Int
+  , (abs 0 +) :: Int -> Int
+  , (id 0 +) :: Int -> Int
+  , (id 1 +) :: Int -> Int
+  , (negate 0 +) :: Int -> Int
+  , (head [] +) :: Int -> Int
+  , False && True :: Bool
+  , True && False :: Bool
+  , False == True :: Bool
+  , True == False :: Bool
+  , False || True :: Bool
+  , True || False :: Bool
+  , 0 * 1 :: Int
+  , 1 * 0 :: Int
+  , (-1) + 0 :: Int
+  , 0 + (-1) :: Int
+  , 0 + 1 :: Int
+  , 1 + 0 :: Int
+  , elem 0 [] :: Bool
+  , [-1] :: [Int]
+  , [0,0,0] :: [Int]
+  , [0,0] :: [Int]
+  , [0,1] :: [Int]
+  , [0] :: [Int]
+  , [1,0] :: [Int]
+  , [1] :: [Int]
+  , insert 0 [] :: [Int]
+  , [0] ++ [] :: [Int]
+  , [] ++ [0] :: [Int]
+  , f (_ + x) :: Int
+  , f (x + _) :: Int
+  , _ + f x :: Int
+  , x + f _ :: Int
+  , f _ + x :: Int
+  , f x + _ :: Int
+  , f _:_ :: [Int]
+  , f _:xs :: [Int]
+  , f x:_ :: [Int]
+  , g _:_ :: [Int]
+  , f (_ * _) :: Int
+  , f (_ + _) :: Int
+  , g (_ + _) :: Int
+  , id (f (f _)) :: Int
+  , _ * f _ :: Int
+  , f _ * _ :: Int
+  , _ + f _ :: Int
+  , _ + g _ :: Int
+  , f _ + _ :: Int
+  , g _ + _ :: Int
+  , f (id (id _)) :: Int
+  , f (id (id x)) :: Int
+  , g (id (id _)) :: Int
+  , id (f (id _)) :: Int
+  , id (f (id x)) :: Int
+  , id (f (id y)) :: Int
+  , id (g (id _)) :: Int
+  , id (g (id x)) :: Int
+  , id (h (id _)) :: Int
+  , id (id (f _)) :: Int
+  , id (id (f x)) :: Int
+  , id (id (f y)) :: Int
+  , id (id (g _)) :: Int
+  , id (id (g x)) :: Int
+  , id (id (h _)) :: Int
+  , ((_ + x) +) :: Int -> Int
+  , ((x + _) +) :: Int -> Int
+  , f (abs (id _)) :: Int
+  , f (id (ord _)) :: Int
+  , f (id (abs _)) :: Int
+  , f (id (negate _)) :: Int
+  , f (id (head _)) :: Int
+  , f (negate (id _)) :: Int
+  , f (_ + 0) :: Int
+  , f (0 + _) :: Int
+  , not (_ && p) :: Bool
+  , not (p && _) :: Bool
+  , not (_ == p) :: Bool
+  , not (p == _) :: Bool
+  , not (_ || p) :: Bool
+  , not (_ || q) :: Bool
+  , not (p || _) :: Bool
+  , not (q || _) :: Bool
+  , not (_ == x) :: Bool
+  , not (x == _) :: Bool
+  , not (elem _ _) :: Bool
+  , not (elem _ xs) :: Bool
+  , not (elem x _) :: Bool
+  , abs (f (id _)) :: Int
+  , abs (id (f _)) :: Int
+  , abs (_ * x) :: Int
+  , abs (x * _) :: Int
+  , abs (_ + x) :: Int
+  , abs (_ + y) :: Int
+  , abs (x + _) :: Int
+  , abs (y + _) :: Int
+  , id (f (ord _)) :: Int
+  , id (f (ord c)) :: Int
+  , id (f (abs _)) :: Int
+  , id (f (abs x)) :: Int
+  , id (f (negate _)) :: Int
+  , id (f (negate x)) :: Int
+  , id (f (head _)) :: Int
+  , id (f (head xs)) :: Int
+  , id (g (ord _)) :: Int
+  , id (g (abs _)) :: Int
+  , id (g (negate _)) :: Int
+  , id (g (head _)) :: Int
+  , id (abs (f _)) :: Int
+  , id (abs (f x)) :: Int
+  , id (abs (g _)) :: Int
+  , id (negate (f _)) :: Int
+  , id (negate (f x)) :: Int
+  , id (negate (g _)) :: Int
+  , id (_ * x) :: Int
+  , id (_ * y) :: Int
+  , id (_ * z) :: Int
+  , id (x * _) :: Int
+  , id (x * y) :: Int
+  , id (y * _) :: Int
+  , id (y * x) :: Int
+  , id (z * _) :: Int
+  , id (_ + x) :: Int
+  , id (_ + x') :: Int
+  , id (_ + y) :: Int
+  , id (_ + z) :: Int
+  , id (x + _) :: Int
+  , id (x + y) :: Int
+  , id (x + z) :: Int
+  , id (x' + _) :: Int
+  , id (y + _) :: Int
+  , id (y + x) :: Int
+  , id (z + _) :: Int
+  , id (z + x) :: Int
+  , negate (f (id _)) :: Int
+  , negate (id (f _)) :: Int
+  , negate (_ * x) :: Int
+  , negate (x * _) :: Int
+  , negate (_ + x) :: Int
+  , negate (_ + y) :: Int
+  , negate (x + _) :: Int
+  , negate (y + _) :: Int
+  , head (_:_) :: Int
+  , head (_:xs) :: Int
+  , head (_:ys) :: Int
+  , head (_:zs) :: Int
+  , head (x:_) :: Int
+  , head (x:xs) :: Int
+  , head (x:ys) :: Int
+  , head (y:_) :: Int
+  , head (y:xs) :: Int
+  , head (z:_) :: Int
+  , head (insert _ _) :: Int
+  , head (insert _ xs) :: Int
+  , head (insert x _) :: Int
+  , head (_ ++ xs) :: Int
+  , head (_ ++ ys) :: Int
+  , head (xs ++ _) :: Int
+  , head (ys ++ _) :: Int
+  , sort (_:_) :: [Int]
+  , sort (_:xs) :: [Int]
+  , sort (x:_) :: [Int]
+  , tail (_:_) :: [Int]
+  , tail (_:xs) :: [Int]
+  , tail (_:ys) :: [Int]
+  , tail (x:_) :: [Int]
+  , tail (x:xs) :: [Int]
+  , tail (y:_) :: [Int]
+  , tail (insert _ _) :: [Int]
+  , tail (_ ++ xs) :: [Int]
+  , tail (xs ++ _) :: [Int]
+  , _ && not p :: Bool
+  , p && not _ :: Bool
+  , not _ && p :: Bool
+  , not p && _ :: Bool
+  , _ == not p :: Bool
+  , p == not _ :: Bool
+  , not _ == p :: Bool
+  , not p == _ :: Bool
+  , _ || not p :: Bool
+  , _ || not q :: Bool
+  , _ || even _ :: Bool
+  , _ || odd _ :: Bool
+  , p || not _ :: Bool
+  , q || not _ :: Bool
+  , not _ || p :: Bool
+  , not _ || q :: Bool
+  , not p || _ :: Bool
+  , not q || _ :: Bool
+  , even _ || _ :: Bool
+  , odd _ || _ :: Bool
+  , _ == ord _ :: Bool
+  , _ == id x :: Bool
+  , _ == head _ :: Bool
+  , x == id _ :: Bool
+  , ord _ == _ :: Bool
+  , id _ == x :: Bool
+  , id x == _ :: Bool
+  , head _ == _ :: Bool
+  , _ * ord _ :: Int
+  , _ * ord c :: Int
+  , _ * abs x :: Int
+  , _ * id x :: Int
+  , _ * id y :: Int
+  , _ * negate x :: Int
+  , _ * head _ :: Int
+  , _ * head xs :: Int
+  , x * ord _ :: Int
+  , x * abs _ :: Int
+  , x * id _ :: Int
+  , x * negate _ :: Int
+  , x * head _ :: Int
+  , y * id _ :: Int
+  , ord _ * _ :: Int
+  , ord _ * x :: Int
+  , ord c * _ :: Int
+  , abs _ * x :: Int
+  , abs x * _ :: Int
+  , id _ * x :: Int
+  , id _ * y :: Int
+  , id x * _ :: Int
+  , id y * _ :: Int
+  , negate _ * x :: Int
+  , negate x * _ :: Int
+  , head _ * _ :: Int
+  , head _ * x :: Int
+  , head xs * _ :: Int
+  , _ + f 0 :: Int
+  , _ + ord _ :: Int
+  , _ + ord c :: Int
+  , _ + ord d :: Int
+  , _ + abs x :: Int
+  , _ + abs y :: Int
+  , _ + id x :: Int
+  , _ + id y :: Int
+  , _ + id z :: Int
+  , _ + negate x :: Int
+  , _ + negate y :: Int
+  , _ + head _ :: Int
+  , _ + head xs :: Int
+  , _ + head ys :: Int
+  , x + ord _ :: Int
+  , x + ord c :: Int
+  , x + abs _ :: Int
+  , x + id _ :: Int
+  , x + id y :: Int
+  , x + negate _ :: Int
+  , x + head _ :: Int
+  , x + head xs :: Int
+  , y + ord _ :: Int
+  , y + abs _ :: Int
+  , y + id _ :: Int
+  , y + id x :: Int
+  , y + negate _ :: Int
+  , y + head _ :: Int
+  , z + id _ :: Int
+  , 0 + f _ :: Int
+  , f _ + 0 :: Int
+  , f 0 + _ :: Int
+  , ord _ + _ :: Int
+  , ord _ + x :: Int
+  , ord _ + y :: Int
+  , ord c + _ :: Int
+  , ord c + x :: Int
+  , ord d + _ :: Int
+  , abs _ + x :: Int
+  , abs _ + y :: Int
+  , abs x + _ :: Int
+  , abs y + _ :: Int
+  , id _ + x :: Int
+  , id _ + y :: Int
+  , id _ + z :: Int
+  , id x + _ :: Int
+  , id x + y :: Int
+  , id y + _ :: Int
+  , id y + x :: Int
+  , id z + _ :: Int
+  , negate _ + x :: Int
+  , negate _ + y :: Int
+  , negate x + _ :: Int
+  , negate y + _ :: Int
+  , head _ + _ :: Int
+  , head _ + x :: Int
+  , head _ + y :: Int
+  , head xs + _ :: Int
+  , head xs + x :: Int
+  , head ys + _ :: Int
+  , elem _ (tail _) :: Bool
+  , elem (ord _) _ :: Bool
+  , elem (abs _) _ :: Bool
+  , elem (id _) _ :: Bool
+  , elem (id _) xs :: Bool
+  , elem (id x) _ :: Bool
+  , elem (negate _) _ :: Bool
+  , _:sort _ :: [Int]
+  , _:sort xs :: [Int]
+  , _:tail _ :: [Int]
+  , _:tail xs :: [Int]
+  , _:tail ys :: [Int]
+  , x:sort _ :: [Int]
+  , x:tail _ :: [Int]
+  , x:tail xs :: [Int]
+  , y:tail _ :: [Int]
+  , [f _] :: [Int]
+  , f 0:_ :: [Int]
+  , ord _:_ :: [Int]
+  , ord _:xs :: [Int]
+  , ord _:ys :: [Int]
+  , ord c:_ :: [Int]
+  , ord c:xs :: [Int]
+  , ord d:_ :: [Int]
+  , abs _:_ :: [Int]
+  , abs _:xs :: [Int]
+  , abs _:ys :: [Int]
+  , abs x:_ :: [Int]
+  , abs x:xs :: [Int]
+  , abs y:_ :: [Int]
+  , id _:_ :: [Int]
+  , id _:xs :: [Int]
+  , id _:ys :: [Int]
+  , id _:zs :: [Int]
+  , id x:_ :: [Int]
+  , id x:xs :: [Int]
+  , id x:ys :: [Int]
+  , id y:_ :: [Int]
+  , id y:xs :: [Int]
+  , id z:_ :: [Int]
+  , negate _:_ :: [Int]
+  , negate _:xs :: [Int]
+  , negate _:ys :: [Int]
+  , negate x:_ :: [Int]
+  , negate x:xs :: [Int]
+  , negate y:_ :: [Int]
+  , head _:xs :: [Int]
+  , head _:ys :: [Int]
+  , head xs:_ :: [Int]
+  , head ys:_ :: [Int]
+  , insert _ (tail _) :: [Int]
+  , insert (ord _) _ :: [Int]
+  , insert (abs _) _ :: [Int]
+  , insert (id _) _ :: [Int]
+  , insert (id _) xs :: [Int]
+  , insert (id x) _ :: [Int]
+  , insert (negate _) _ :: [Int]
+  , _ ++ tail xs :: [Int]
+  , xs ++ tail _ :: [Int]
+  , tail _ ++ xs :: [Int]
+  , tail xs ++ _ :: [Int]
+  , ((_ || _) ||) :: Bool -> Bool
+  , ((_ + _) +) :: Int -> Int
+  , not (_ && _) :: Bool
+  , not (_ <= _) :: Bool
+  , not (_ == _) :: Bool
+  , not (_ ==> _) :: Bool
+  , not (_ || _) :: Bool
+  , not (p || p) :: Bool
+  , not (_ <= _) :: Bool
+  , not (_ == _) :: Bool
+  , even (_ + _) :: Bool
+  , odd (_ + _) :: Bool
+  , abs (_ * _) :: Int
+  , abs (_ + _) :: Int
+  , abs (x + x) :: Int
+  , id (_ * _) :: Int
+  , id (x * x) :: Int
+  , id (_ + _) :: Int
+  , id (x + x) :: Int
+  , id (y + y) :: Int
+  , negate (_ * _) :: Int
+  , negate (_ + _) :: Int
+  , negate (x + x) :: Int
+  , head (_ ++ _) :: Int
+  , head (xs ++ xs) :: Int
+  , sort (_ ++ _) :: [Int]
+  , tail (_ ++ _) :: [Int]
+  , ((_ + _) *) :: Int -> Int
+  , (_ * _ +) :: Int -> Int
+  , _ && not _ :: Bool
+  , not _ && _ :: Bool
+  , _ <= not _ :: Bool
+  , not _ <= _ :: Bool
+  , _ == not _ :: Bool
+  , not _ == _ :: Bool
+  , _ ==> not _ :: Bool
+  , not _ ==> _ :: Bool
+  , _ || not _ :: Bool
+  , p || not p :: Bool
+  , not _ || _ :: Bool
+  , not p || p :: Bool
+  , _ <= id _ :: Bool
+  , id _ <= _ :: Bool
+  , _ == abs _ :: Bool
+  , _ == id _ :: Bool
+  , _ == negate _ :: Bool
+  , abs _ == _ :: Bool
+  , id _ == _ :: Bool
+  , negate _ == _ :: Bool
+  , _ * abs _ :: Int
+  , _ * id _ :: Int
+  , _ * negate _ :: Int
+  , x * id x :: Int
+  , abs _ * _ :: Int
+  , id _ * _ :: Int
+  , id x * x :: Int
+  , negate _ * _ :: Int
+  , _ + abs _ :: Int
+  , _ + id _ :: Int
+  , _ + negate _ :: Int
+  , x + abs x :: Int
+  , x + id x :: Int
+  , x + negate x :: Int
+  , abs _ + _ :: Int
+  , abs x + x :: Int
+  , id _ + _ :: Int
+  , id x + x :: Int
+  , negate _ + _ :: Int
+  , negate x + x :: Int
+  , elem (head _) _ :: Bool
+  , head _:_ :: [Int]
+  , head xs:xs :: [Int]
+  , insert (head _) _ :: [Int]
+  , _ ++ sort _ :: [Int]
+  , _ ++ tail _ :: [Int]
+  , sort _ ++ _ :: [Int]
+  , tail _ ++ _ :: [Int]
+  , not (not (not _)) :: Bool
+  , not (not (not p)) :: Bool
+  , not (not (not q)) :: Bool
+  , abs (abs (abs _)) :: Int
+  , id (id (id _)) :: Int
+  , id (id (id x)) :: Int
+  , id (id (id x')) :: Int
+  , id (id (id y)) :: Int
+  , id (id (id z)) :: Int
+  , negate (negate (negate _)) :: Int
+  , f (id (id 0)) :: Int
+  , not (not (even _)) :: Bool
+  , not (not (odd _)) :: Bool
+  , even (id (id _)) :: Bool
+  , odd (id (id _)) :: Bool
+  , abs (abs (ord _)) :: Int
+  , abs (abs (id _)) :: Int
+  , abs (abs (id x)) :: Int
+  , abs (abs (negate _)) :: Int
+  , abs (abs (head _)) :: Int
+  , abs (id (abs _)) :: Int
+  , abs (id (abs x)) :: Int
+  , abs (id (id _)) :: Int
+  , abs (id (id x)) :: Int
+  , abs (id (id y)) :: Int
+  , abs (negate (abs _)) :: Int
+  , abs (negate (negate _)) :: Int
+  , id (f (id 0)) :: Int
+  , id (f (id 1)) :: Int
+  , id (g (id 0)) :: Int
+  , id (abs (abs _)) :: Int
+  , id (abs (abs x)) :: Int
+  , id (abs (abs y)) :: Int
+  , id (abs (id _)) :: Int
+  , id (abs (id x)) :: Int
+  , id (abs (id y)) :: Int
+  , id (abs (id z)) :: Int
+  , id (id (f 0)) :: Int
+  , id (id (f 1)) :: Int
+  , id (id (g 0)) :: Int
+  , id (id (ord _)) :: Int
+  , id (id (ord c)) :: Int
+  , id (id (ord d)) :: Int
+  , id (id (ord e)) :: Int
+  , id (id (abs _)) :: Int
+  , id (id (abs x)) :: Int
+  , id (id (abs y)) :: Int
+  , id (id (abs z)) :: Int
+  , id (id (negate _)) :: Int
+  , id (id (negate x)) :: Int
+  , id (id (negate y)) :: Int
+  , id (id (negate z)) :: Int
+  , id (id (head _)) :: Int
+  , id (id (head xs)) :: Int
+  , id (id (head ys)) :: Int
+  , id (id (head zs)) :: Int
+  , id (negate (id _)) :: Int
+  , id (negate (id x)) :: Int
+  , id (negate (id y)) :: Int
+  , id (negate (id z)) :: Int
+  , id (negate (negate _)) :: Int
+  , id (negate (negate x)) :: Int
+  , id (negate (negate y)) :: Int
+  , negate (abs (abs _)) :: Int
+  , negate (abs (negate _)) :: Int
+  , negate (id (id _)) :: Int
+  , negate (id (id x)) :: Int
+  , negate (id (id y)) :: Int
+  , negate (id (negate _)) :: Int
+  , negate (id (negate x)) :: Int
+  , negate (negate (ord _)) :: Int
+  , negate (negate (abs _)) :: Int
+  , negate (negate (id _)) :: Int
+  , negate (negate (id x)) :: Int
+  , negate (negate (head _)) :: Int
+  , head (tail (tail _)) :: Int
+  , (not (not _) ||) :: Bool -> Bool
+  , (id (id _) *) :: Int -> Int
+  , (id (id _) +) :: Int -> Int
+  , (id (id x) +) :: Int -> Int
+  , ((_ + 0) +) :: Int -> Int
+  , ((0 + _) +) :: Int -> Int
+  , not (even (id _)) :: Bool
+  , not (odd (id _)) :: Bool
+  , not (_ && False) :: Bool
+  , not (_ && True) :: Bool
+  , not (False && _) :: Bool
+  , not (True && _) :: Bool
+  , not (_ == False) :: Bool
+  , not (_ == True) :: Bool
+  , not (False == _) :: Bool
+  , not (True == _) :: Bool
+  , not (_ || False) :: Bool
+  , not (_ || True) :: Bool
+  , not (p || False) :: Bool
+  , not (p || True) :: Bool
+  , not (False || _) :: Bool
+  , not (False || p) :: Bool
+  , not (True || _) :: Bool
+  , not (True || p) :: Bool
+  , not (_ == 0) :: Bool
+  , not (0 == _) :: Bool
+  , not (elem _ []) :: Bool
+  , not (elem 0 _) :: Bool
+  , abs (id (ord _)) :: Int
+  , abs (id (ord c)) :: Int
+  , abs (id (negate _)) :: Int
+  , abs (id (negate x)) :: Int
+  , abs (id (head _)) :: Int
+  , abs (id (head xs)) :: Int
+  , abs (negate (ord _)) :: Int
+  , abs (negate (id _)) :: Int
+  , abs (negate (id x)) :: Int
+  , abs (negate (head _)) :: Int
+  , abs (head (tail _)) :: Int
+  , abs (_ * 0) :: Int
+  , abs (0 * _) :: Int
+  , abs (_ + 0) :: Int
+  , abs (_ + 1) :: Int
+  , abs (x + 0) :: Int
+  , abs (0 + _) :: Int
+  , abs (0 + x) :: Int
+  , abs (1 + _) :: Int
+  , id (f (ord 'a')) :: Int
+  , id (f (abs 0)) :: Int
+  , id (f (negate 0)) :: Int
+  , id (f (head [])) :: Int
+  , id (abs (f 0)) :: Int
+  , id (abs (ord _)) :: Int
+  , id (abs (ord c)) :: Int
+  , id (abs (ord d)) :: Int
+  , id (abs (negate _)) :: Int
+  , id (abs (negate x)) :: Int
+  , id (abs (negate y)) :: Int
+  , id (abs (head _)) :: Int
+  , id (abs (head xs)) :: Int
+  , id (abs (head ys)) :: Int
+  , id (negate (f 0)) :: Int
+  , id (negate (ord _)) :: Int
+  , id (negate (ord c)) :: Int
+  , id (negate (ord d)) :: Int
+  , id (negate (abs _)) :: Int
+  , id (negate (abs x)) :: Int
+  , id (negate (abs y)) :: Int
+  , id (negate (head _)) :: Int
+  , id (negate (head xs)) :: Int
+  , id (negate (head ys)) :: Int
+  , id (head (sort _)) :: Int
+  , id (head (tail _)) :: Int
+  , id (head (tail xs)) :: Int
+  , id (head (tail ys)) :: Int
+  , id (_ * (-1)) :: Int
+  , id (_ * 0) :: Int
+  , id (_ * 1) :: Int
+  , id (x * 0) :: Int
+  , id (x * 1) :: Int
+  , id (y * 0) :: Int
+  , id ((-1) * _) :: Int
+  , id (0 * _) :: Int
+  , id (0 * x) :: Int
+  , id (0 * y) :: Int
+  , id (1 * _) :: Int
+  , id (1 * x) :: Int
+  , id (_ + (-1)) :: Int
+  , id (_ + 0) :: Int
+  , id (_ + 1) :: Int
+  , id (_ + 2) :: Int
+  , id (x + (-1)) :: Int
+  , id (x + 0) :: Int
+  , id (x + 1) :: Int
+  , id (y + 0) :: Int
+  , id (y + 1) :: Int
+  , id (z + 0) :: Int
+  , id ((-1) + _) :: Int
+  , id ((-1) + x) :: Int
+  , id (0 + _) :: Int
+  , id (0 + x) :: Int
+  , id (0 + y) :: Int
+  , id (0 + z) :: Int
+  , id (1 + _) :: Int
+  , id (1 + x) :: Int
+  , id (1 + y) :: Int
+  , id (2 + _) :: Int
+  , negate (abs (ord _)) :: Int
+  , negate (abs (id _)) :: Int
+  , negate (abs (id x)) :: Int
+  , negate (abs (head _)) :: Int
+  , negate (id (ord _)) :: Int
+  , negate (id (ord c)) :: Int
+  , negate (id (abs _)) :: Int
+  , negate (id (abs x)) :: Int
+  , negate (id (head _)) :: Int
+  , negate (id (head xs)) :: Int
+  , negate (head (tail _)) :: Int
+  , negate (_ * 0) :: Int
+  , negate (0 * _) :: Int
+  , negate (_ + 0) :: Int
+  , negate (_ + 1) :: Int
+  , negate (x + 0) :: Int
+  , negate (0 + _) :: Int
+  , negate (0 + x) :: Int
+  , negate (1 + _) :: Int
+  , head [_,0,0] :: Int
+  , head [_,0] :: Int
+  , head [_,1] :: Int
+  , head [_] :: Int
+  , head [x,0] :: Int
+  , head [x] :: Int
+  , head [y] :: Int
+  , head ((-1):_) :: Int
+  , head (0:_) :: Int
+  , head (0:xs) :: Int
+  , head (0:ys) :: Int
+  , head (1:_) :: Int
+  , head (1:xs) :: Int
+  , head (insert _ []) :: Int
+  , head (insert 0 _) :: Int
+  , head (_ ++ [0]) :: Int
+  , head (_ ++ []) :: Int
+  , head (xs ++ []) :: Int
+  , head ([0] ++ _) :: Int
+  , head ([] ++ _) :: Int
+  , head ([] ++ xs) :: Int
+  , sort [_] :: [Int]
+  , sort (0:_) :: [Int]
+  , tail [_,0] :: [Int]
+  , tail [_] :: [Int]
+  , tail [x] :: [Int]
+  , tail (0:_) :: [Int]
+  , tail (0:xs) :: [Int]
+  , tail (1:_) :: [Int]
+  , tail (_ ++ []) :: [Int]
+  , tail ([] ++ _) :: [Int]
+  , (abs (id _) +) :: Int -> Int
+  , (id (ord _) +) :: Int -> Int
+  , (id (abs _) +) :: Int -> Int
+  , (id (negate _) +) :: Int -> Int
+  , (id (head _) +) :: Int -> Int
+  , (negate (id _) +) :: Int -> Int
+  , _ && not False :: Bool
+  , _ && not True :: Bool
+  , False && not _ :: Bool
+  , True && not _ :: Bool
+  , not _ && False :: Bool
+  , not _ && True :: Bool
+  , not False && _ :: Bool
+  , not True && _ :: Bool
+  , _ == not False :: Bool
+  , _ == not True :: Bool
+  , False == not _ :: Bool
+  , True == not _ :: Bool
+  , not _ == False :: Bool
+  , not _ == True :: Bool
+  , not False == _ :: Bool
+  , not True == _ :: Bool
+  , _ || not False :: Bool
+  , _ || not True :: Bool
+  , p || not False :: Bool
+  , p || not True :: Bool
+  , False || not _ :: Bool
+  , False || not p :: Bool
+  , True || not _ :: Bool
+  , True || not p :: Bool
+  , not _ || False :: Bool
+  , not _ || True :: Bool
+  , not p || False :: Bool
+  , not p || True :: Bool
+  , not False || _ :: Bool
+  , not False || p :: Bool
+  , not True || _ :: Bool
+  , not True || p :: Bool
+  , _ == id 0 :: Bool
+  , 0 == id _ :: Bool
+  , id _ == 0 :: Bool
+  , id 0 == _ :: Bool
+  , _ * ord 'a' :: Int
+  , _ * abs 0 :: Int
+  , _ * id 0 :: Int
+  , _ * id 1 :: Int
+  , _ * negate 0 :: Int
+  , _ * head [] :: Int
+  , x * id 0 :: Int
+  , 0 * ord _ :: Int
+  , 0 * abs _ :: Int
+  , 0 * id _ :: Int
+  , 0 * id x :: Int
+  , 0 * negate _ :: Int
+  , 0 * head _ :: Int
+  , 1 * id _ :: Int
+  , ord _ * 0 :: Int
+  , ord 'a' * _ :: Int
+  , abs _ * 0 :: Int
+  , abs 0 * _ :: Int
+  , id _ * 0 :: Int
+  , id _ * 1 :: Int
+  , id x * 0 :: Int
+  , id 0 * _ :: Int
+  , id 0 * x :: Int
+  , id 1 * _ :: Int
+  , negate _ * 0 :: Int
+  , negate 0 * _ :: Int
+  , head _ * 0 :: Int
+  , head [] * _ :: Int
+  , _ + ord ' ' :: Int
+  , _ + ord 'a' :: Int
+  , _ + abs 0 :: Int
+  , _ + abs 1 :: Int
+  , _ + id (-1) :: Int
+  , _ + id 0 :: Int
+  , _ + id 1 :: Int
+  , _ + negate 0 :: Int
+  , _ + negate 1 :: Int
+  , _ + head [0] :: Int
+  , _ + head [] :: Int
+  , x + ord 'a' :: Int
+  , x + abs 0 :: Int
+  , x + id 0 :: Int
+  , x + id 1 :: Int
+  , x + negate 0 :: Int
+  , x + head [] :: Int
+  , y + id 0 :: Int
+  , (-1) + id _ :: Int
+  , 0 + ord _ :: Int
+  , 0 + ord c :: Int
+  , 0 + abs _ :: Int
+  , 0 + abs x :: Int
+  , 0 + id _ :: Int
+  , 0 + id x :: Int
+  , 0 + id y :: Int
+  , 0 + negate _ :: Int
+  , 0 + negate x :: Int
+  , 0 + head _ :: Int
+  , 0 + head xs :: Int
+  , 1 + ord _ :: Int
+  , 1 + abs _ :: Int
+  , 1 + id _ :: Int
+  , 1 + id x :: Int
+  , 1 + negate _ :: Int
+  , 1 + head _ :: Int
+  , ord _ + 0 :: Int
+  , ord _ + 1 :: Int
+  , ord c + 0 :: Int
+  , ord ' ' + _ :: Int
+  , ord 'a' + _ :: Int
+  , ord 'a' + x :: Int
+  , abs _ + 0 :: Int
+  , abs _ + 1 :: Int
+  , abs x + 0 :: Int
+  , abs 0 + _ :: Int
+  , abs 0 + x :: Int
+  , abs 1 + _ :: Int
+  , id _ + (-1) :: Int
+  , id _ + 0 :: Int
+  , id _ + 1 :: Int
+  , id x + 0 :: Int
+  , id x + 1 :: Int
+  , id y + 0 :: Int
+  , id (-1) + _ :: Int
+  , id 0 + _ :: Int
+  , id 0 + x :: Int
+  , id 0 + y :: Int
+  , id 1 + _ :: Int
+  , id 1 + x :: Int
+  , negate _ + 0 :: Int
+  , negate _ + 1 :: Int
+  , negate x + 0 :: Int
+  , negate 0 + _ :: Int
+  , negate 0 + x :: Int
+  , negate 1 + _ :: Int
+  , head _ + 0 :: Int
+  , head _ + 1 :: Int
+  , head xs + 0 :: Int
+  , head [0] + _ :: Int
+  , head [] + _ :: Int
+  , head [] + x :: Int
+  , elem (id _) [] :: Bool
+  , elem (id 0) _ :: Bool
+  , _:sort [] :: [Int]
+  , _:tail [0] :: [Int]
+  , _:tail [] :: [Int]
+  , x:tail [] :: [Int]
+  , 0:sort _ :: [Int]
+  , 0:tail _ :: [Int]
+  , 0:tail xs :: [Int]
+  , 1:tail _ :: [Int]
+  , [ord _,0] :: [Int]
+  , [ord _] :: [Int]
+  , [ord c] :: [Int]
+  , ord ' ':_ :: [Int]
+  , ord 'a':_ :: [Int]
+  , ord 'a':xs :: [Int]
+  , [abs _,0] :: [Int]
+  , [abs _] :: [Int]
+  , [abs x] :: [Int]
+  , abs 0:_ :: [Int]
+  , abs 0:xs :: [Int]
+  , abs 1:_ :: [Int]
+  , [id _,0,0] :: [Int]
+  , [id _,0] :: [Int]
+  , [id _,1] :: [Int]
+  , [id _] :: [Int]
+  , [id x,0] :: [Int]
+  , [id x] :: [Int]
+  , [id y] :: [Int]
+  , id (-1):_ :: [Int]
+  , id 0:_ :: [Int]
+  , id 0:xs :: [Int]
+  , id 0:ys :: [Int]
+  , id 1:_ :: [Int]
+  , id 1:xs :: [Int]
+  , [negate _,0] :: [Int]
+  , [negate _] :: [Int]
+  , [negate x] :: [Int]
+  , negate 0:_ :: [Int]
+  , negate 0:xs :: [Int]
+  , negate 1:_ :: [Int]
+  , [head _,0] :: [Int]
+  , [head _] :: [Int]
+  , [head xs] :: [Int]
+  , head [0]:_ :: [Int]
+  , head []:_ :: [Int]
+  , head []:xs :: [Int]
+  , insert (id _) [] :: [Int]
+  , insert (id 0) _ :: [Int]
+  , _ ++ tail [] :: [Int]
+  , [] ++ tail _ :: [Int]
+  , tail _ ++ [] :: [Int]
+  , tail [] ++ _ :: [Int]
+  , not (not (not False)) :: Bool
+  , not (not (not True)) :: Bool
+  , id (id (id (-1))) :: Int
+  , id (id (id 0)) :: Int
+  , id (id (id 1)) :: Int
+  , id (id (id 2)) :: Int
+  , not (False || False) :: Bool
+  , not (True || True) :: Bool
+  , abs (abs (id 0)) :: Int
+  , abs (id (abs 0)) :: Int
+  , abs (id (id 0)) :: Int
+  , abs (id (id 1)) :: Int
+  , abs (0 + 0) :: Int
+  , id (abs (abs 0)) :: Int
+  , id (abs (abs 1)) :: Int
+  , id (abs (id (-1))) :: Int
+  , id (abs (id 0)) :: Int
+  , id (abs (id 1)) :: Int
+  , id (id (ord ' ')) :: Int
+  , id (id (ord 'a')) :: Int
+  , id (id (ord 'b')) :: Int
+  , id (id (abs (-1))) :: Int
+  , id (id (abs 0)) :: Int
+  , id (id (abs 1)) :: Int
+  , id (id (negate (-1))) :: Int
+  , id (id (negate 0)) :: Int
+  , id (id (negate 1)) :: Int
+  , id (id (head [0,0])) :: Int
+  , id (id (head [0])) :: Int
+  , id (id (head [1])) :: Int
+  , id (id (head [])) :: Int
+  , id (negate (id (-1))) :: Int
+  , id (negate (id 0)) :: Int
+  , id (negate (id 1)) :: Int
+  , id (negate (negate 0)) :: Int
+  , id (negate (negate 1)) :: Int
+  , id (0 * 0) :: Int
+  , id (0 + 0) :: Int
+  , id (1 + 1) :: Int
+  , negate (id (id 0)) :: Int
+  , negate (id (id 1)) :: Int
+  , negate (id (negate 0)) :: Int
+  , negate (negate (id 0)) :: Int
+  , negate (0 + 0) :: Int
+  , head ([] ++ []) :: Int
+  , (id (id 0) +) :: Int -> Int
+  , False || not False :: Bool
+  , True || not True :: Bool
+  , not False || False :: Bool
+  , not True || True :: Bool
+  , 0 * id 0 :: Int
+  , id 0 * 0 :: Int
+  , 0 + abs 0 :: Int
+  , 0 + id 0 :: Int
+  , 0 + negate 0 :: Int
+  , abs 0 + 0 :: Int
+  , id 0 + 0 :: Int
+  , negate 0 + 0 :: Int
+  , [head []] :: [Int]
+  , not (False || True) :: Bool
+  , not (True || False) :: Bool
+  , abs (id (ord 'a')) :: Int
+  , abs (id (negate 0)) :: Int
+  , abs (id (head [])) :: Int
+  , abs (negate (id 0)) :: Int
+  , id (abs (ord ' ')) :: Int
+  , id (abs (ord 'a')) :: Int
+  , id (abs (negate 0)) :: Int
+  , id (abs (negate 1)) :: Int
+  , id (abs (head [0])) :: Int
+  , id (abs (head [])) :: Int
+  , id (negate (ord ' ')) :: Int
+  , id (negate (ord 'a')) :: Int
+  , id (negate (abs 0)) :: Int
+  , id (negate (abs 1)) :: Int
+  , id (negate (head [0])) :: Int
+  , id (negate (head [])) :: Int
+  , id (head (tail [0])) :: Int
+  , id (head (tail [])) :: Int
+  , id (0 * 1) :: Int
+  , id (1 * 0) :: Int
+  , id ((-1) + 0) :: Int
+  , id (0 + (-1)) :: Int
+  , id (0 + 1) :: Int
+  , id (1 + 0) :: Int
+  , negate (abs (id 0)) :: Int
+  , negate (id (ord 'a')) :: Int
+  , negate (id (abs 0)) :: Int
+  , negate (id (head [])) :: Int
+  , head [0,0] :: Int
+  , head [0] :: Int
+  , head [1] :: Int
+  , tail [0] :: [Int]
+  , False || not True :: Bool
+  , True || not False :: Bool
+  , not False || True :: Bool
+  , not True || False :: Bool
+  , 0 + ord 'a' :: Int
+  , 0 + id 1 :: Int
+  , 0 + head [] :: Int
+  , 1 + id 0 :: Int
+  , ord 'a' + 0 :: Int
+  , id 0 + 1 :: Int
+  , id 1 + 0 :: Int
+  , head [] + 0 :: Int
+  , 0:tail [] :: [Int]
+  , [ord 'a'] :: [Int]
+  , [abs 0] :: [Int]
+  , [id 0,0] :: [Int]
+  , [id 0] :: [Int]
+  , [id 1] :: [Int]
+  , [negate 0] :: [Int]
+  , _:x:_ :: [Int]
+  , _:x:xs :: [Int]
+  , _:x:ys :: [Int]
+  , _:y:_ :: [Int]
+  , _:y:xs :: [Int]
+  , _:z:_ :: [Int]
+  , x:_:_ :: [Int]
+  , x:_:xs :: [Int]
+  , x:_:ys :: [Int]
+  , x:y:_ :: [Int]
+  , y:_:_ :: [Int]
+  , y:_:xs :: [Int]
+  , y:x:_ :: [Int]
+  , z:_:_ :: [Int]
+  , f (head (_:_)) :: Int
+  , id (f (_ + x)) :: Int
+  , id (f (x + _)) :: Int
+  , id (_ + f x) :: Int
+  , id (x + f _) :: Int
+  , id (f _ + x) :: Int
+  , id (f x + _) :: Int
+  , head (f _:_) :: Int
+  , _ || elem _ _ :: Bool
+  , elem _ _ || _ :: Bool
+  , elem _ (x:_) :: Bool
+  , elem x (_:_) :: Bool
+  , _:insert x _ :: [Int]
+  , _:(_ ++ xs) :: [Int]
+  , _:(_ ++ ys) :: [Int]
+  , _:(xs ++ _) :: [Int]
+  , _:(ys ++ _) :: [Int]
+  , x:insert _ _ :: [Int]
+  , x:(_ ++ xs) :: [Int]
+  , x:(xs ++ _) :: [Int]
+  , f (id _):_ :: [Int]
+  , id (f _):_ :: [Int]
+  , _ * x:_ :: [Int]
+  , x * _:_ :: [Int]
+  , _ + x:_ :: [Int]
+  , _ + x:xs :: [Int]
+  , _ + y:_ :: [Int]
+  , x + _:_ :: [Int]
+  , x + _:xs :: [Int]
+  , y + _:_ :: [Int]
+  , insert _ (x:_) :: [Int]
+  , insert x (_:_) :: [Int]
+  , _ ++ (_:xs) :: [Int]
+  , _ ++ (_:ys) :: [Int]
+  , _ ++ (x:xs) :: [Int]
+  , xs ++ (_:_) :: [Int]
+  , xs ++ (x:_) :: [Int]
+  , ys ++ (_:_) :: [Int]
+  , (_:_) ++ xs :: [Int]
+  , (_:_) ++ ys :: [Int]
+  , (_:xs) ++ _ :: [Int]
+  , (_:ys) ++ _ :: [Int]
+  , (x:_) ++ xs :: [Int]
+  , (x:xs) ++ _ :: [Int]
+  , _ || (_ || p) :: Bool
+  , _ || (p || _) :: Bool
+  , p || (_ || _) :: Bool
+  , (_ || _) || p :: Bool
+  , (_ || p) || _ :: Bool
+  , (p || _) || _ :: Bool
+  , _ + (_ + x) :: Int
+  , _ + (_ + y) :: Int
+  , _ + (x + _) :: Int
+  , _ + (x + x) :: Int
+  , _ + (y + _) :: Int
+  , x + (_ + _) :: Int
+  , x + (_ + x) :: Int
+  , x + (x + _) :: Int
+  , y + (_ + _) :: Int
+  , (_ + _) + x :: Int
+  , (_ + _) + y :: Int
+  , (_ + x) + _ :: Int
+  , (_ + x) + x :: Int
+  , (_ + y) + _ :: Int
+  , (x + _) + _ :: Int
+  , (x + _) + x :: Int
+  , (x + x) + _ :: Int
+  , (y + _) + _ :: Int
+  , _:_:_ :: [Int]
+  , _:_:xs :: [Int]
+  , _:_:ys :: [Int]
+  , _:_:zs :: [Int]
+  , x:x:_ :: [Int]
+  , x:x:xs :: [Int]
+  , _ ++ (_ ++ xs) :: [Int]
+  , _ ++ (xs ++ _) :: [Int]
+  , xs ++ (_ ++ _) :: [Int]
+  , (_ ++ _) ++ xs :: [Int]
+  , (_ ++ xs) ++ _ :: [Int]
+  , (xs ++ _) ++ _ :: [Int]
+  , f (id (_ + _)) :: Int
+  , f (_ + id _) :: Int
+  , f (id _ + _) :: Int
+  , id (f (_ * _)) :: Int
+  , id (f (_ + _)) :: Int
+  , id (g (_ + _)) :: Int
+  , id (_ * f _) :: Int
+  , id (f _ * _) :: Int
+  , id (_ + f _) :: Int
+  , id (_ + g _) :: Int
+  , id (f _ + _) :: Int
+  , id (g _ + _) :: Int
+  , _ || _ == _ :: Bool
+  , _ == _ || _ :: Bool
+  , _ * (_ + x) :: Int
+  , _ * (x + _) :: Int
+  , x * (_ + _) :: Int
+  , (_ + _) * x :: Int
+  , (_ + x) * _ :: Int
+  , (x + _) * _ :: Int
+  , _ + f (id _) :: Int
+  , _ + id (f _) :: Int
+  , _ + _ * x :: Int
+  , _ + x * _ :: Int
+  , x + _ * _ :: Int
+  , f _ + id _ :: Int
+  , f (id _) + _ :: Int
+  , id _ + f _ :: Int
+  , id (f _) + _ :: Int
+  , _ * _ + x :: Int
+  , _ * x + _ :: Int
+  , x * _ + _ :: Int
+  , elem _ (_:_) :: Bool
+  , elem _ (_:xs) :: Bool
+  , elem _ (_ ++ _) :: Bool
+  , elem (_ + _) _ :: Bool
+  , _:insert _ _ :: [Int]
+  , _:insert _ xs :: [Int]
+  , _:(_ ++ _) :: [Int]
+  , _:(xs ++ xs) :: [Int]
+  , x:(_ ++ _) :: [Int]
+  , y:(_ ++ _) :: [Int]
+  , _ * _:_ :: [Int]
+  , _ * _:xs :: [Int]
+  , _ + _:_ :: [Int]
+  , _ + _:xs :: [Int]
+  , _ + _:ys :: [Int]
+  , x + x:_ :: [Int]
+  , insert _ (_:_) :: [Int]
+  , insert _ (_:xs) :: [Int]
+  , insert _ (_ ++ _) :: [Int]
+  , insert (_ + _) _ :: [Int]
+  , _ ++ (_:_) :: [Int]
+  , _ ++ (x:_) :: [Int]
+  , _ ++ (y:_) :: [Int]
+  , _ ++ insert _ _ :: [Int]
+  , xs ++ (_:xs) :: [Int]
+  , (_:_) ++ _ :: [Int]
+  , (_:xs) ++ xs :: [Int]
+  , (x:_) ++ _ :: [Int]
+  , (y:_) ++ _ :: [Int]
+  , insert _ _ ++ _ :: [Int]
+  , f (id (id (id _))) :: Int
+  , id (f (id (id _))) :: Int
+  , id (f (id (id x))) :: Int
+  , id (g (id (id _))) :: Int
+  , id (id (f (id _))) :: Int
+  , id (id (f (id x))) :: Int
+  , id (id (g (id _))) :: Int
+  , id (id (id (f _))) :: Int
+  , id (id (id (f x))) :: Int
+  , id (id (id (g _))) :: Int
+  , not (not (_ || p)) :: Bool
+  , not (not (p || _)) :: Bool
+  , not (not (elem _ _)) :: Bool
+  , not (_ || not p) :: Bool
+  , not (p || not _) :: Bool
+  , not (not _ || p) :: Bool
+  , not (not p || _) :: Bool
+  , id (f (abs (id _))) :: Int
+  , id (f (id (ord _))) :: Int
+  , id (f (id (abs _))) :: Int
+  , id (f (id (negate _))) :: Int
+  , id (f (id (head _))) :: Int
+  , id (f (negate (id _))) :: Int
+  , id (abs (f (id _))) :: Int
+  , id (abs (id (f _))) :: Int
+  , id (id (f (ord _))) :: Int
+  , id (id (f (abs _))) :: Int
+  , id (id (f (negate _))) :: Int
+  , id (id (f (head _))) :: Int
+  , id (id (abs (f _))) :: Int
+  , id (id (negate (f _))) :: Int
+  , id (id (_ * x)) :: Int
+  , id (id (_ * y)) :: Int
+  , id (id (x * _)) :: Int
+  , id (id (y * _)) :: Int
+  , id (id (_ + x)) :: Int
+  , id (id (_ + y)) :: Int
+  , id (id (_ + z)) :: Int
+  , id (id (x + _)) :: Int
+  , id (id (x + y)) :: Int
+  , id (id (y + _)) :: Int
+  , id (id (y + x)) :: Int
+  , id (id (z + _)) :: Int
+  , id (negate (f (id _))) :: Int
+  , id (negate (id (f _))) :: Int
+  , id (_ * id x) :: Int
+  , id (_ * id y) :: Int
+  , id (x * id _) :: Int
+  , id (y * id _) :: Int
+  , id (id _ * x) :: Int
+  , id (id _ * y) :: Int
+  , id (id x * _) :: Int
+  , id (id y * _) :: Int
+  , id (_ + id x) :: Int
+  , id (_ + id y) :: Int
+  , id (_ + id z) :: Int
+  , id (x + id _) :: Int
+  , id (x + id y) :: Int
+  , id (y + id _) :: Int
+  , id (y + id x) :: Int
+  , id (z + id _) :: Int
+  , id (id _ + x) :: Int
+  , id (id _ + y) :: Int
+  , id (id _ + z) :: Int
+  , id (id x + _) :: Int
+  , id (id x + y) :: Int
+  , id (id y + _) :: Int
+  , id (id y + x) :: Int
+  , id (id z + _) :: Int
+  , head (head _:xs) :: Int
+  , head (head xs:_) :: Int
+  , tail (tail (_:_)) :: [Int]
+  , tail (_:tail _) :: [Int]
+  , _ || not (not p) :: Bool
+  , p || not (not _) :: Bool
+  , not _ || not p :: Bool
+  , not p || not _ :: Bool
+  , not (not _) || p :: Bool
+  , not (not p) || _ :: Bool
+  , _ * id (id x) :: Int
+  , x * id (id _) :: Int
+  , id _ * id x :: Int
+  , id x * id _ :: Int
+  , id (id _) * x :: Int
+  , id (id x) * _ :: Int
+  , _ + id (id x) :: Int
+  , _ + id (id y) :: Int
+  , _ + (x + 0) :: Int
+  , _ + (0 + x) :: Int
+  , x + id (id _) :: Int
+  , x + (_ + 0) :: Int
+  , x + (0 + _) :: Int
+  , y + id (id _) :: Int
+  , 0 + (_ + x) :: Int
+  , 0 + (x + _) :: Int
+  , id _ + id x :: Int
+  , id _ + id y :: Int
+  , id x + id _ :: Int
+  , id y + id _ :: Int
+  , id (id _) + x :: Int
+  , id (id _) + y :: Int
+  , id (id x) + _ :: Int
+  , id (id y) + _ :: Int
+  , (_ + x) + 0 :: Int
+  , (_ + 0) + x :: Int
+  , (x + _) + 0 :: Int
+  , (x + 0) + _ :: Int
+  , (0 + _) + x :: Int
+  , (0 + x) + _ :: Int
+  , elem (id (id _)) _ :: Bool
+  , _:tail (tail _) :: [Int]
+  , [_,x,0] :: [Int]
+  , [_,x] :: [Int]
+  , [_,y] :: [Int]
+  , _:(-1):_ :: [Int]
+  , _:0:_ :: [Int]
+  , _:0:xs :: [Int]
+  , _:0:ys :: [Int]
+  , _:1:_ :: [Int]
+  , _:1:xs :: [Int]
+  , [x,_,0] :: [Int]
+  , [x,_] :: [Int]
+  , x:0:_ :: [Int]
+  , x:0:xs :: [Int]
+  , x:1:_ :: [Int]
+  , [y,_] :: [Int]
+  , y:0:_ :: [Int]
+  , (-1):_:_ :: [Int]
+  , 0:_:_ :: [Int]
+  , 0:_:xs :: [Int]
+  , 0:_:ys :: [Int]
+  , 0:x:_ :: [Int]
+  , 0:x:xs :: [Int]
+  , 0:y:_ :: [Int]
+  , 1:_:_ :: [Int]
+  , 1:_:xs :: [Int]
+  , 1:x:_ :: [Int]
+  , abs (abs _):_ :: [Int]
+  , id (id _):_ :: [Int]
+  , id (id _):xs :: [Int]
+  , id (id _):ys :: [Int]
+  , id (id x):_ :: [Int]
+  , id (id x):xs :: [Int]
+  , id (id y):_ :: [Int]
+  , negate (negate _):_ :: [Int]
+  , insert (id (id _)) _ :: [Int]
+  , not (elem (id _) _) :: Bool
+  , abs (id (_ + x)) :: Int
+  , abs (id (x + _)) :: Int
+  , abs (head (_:_)) :: Int
+  , abs (head (_:xs)) :: Int
+  , abs (head (x:_)) :: Int
+  , abs (_ + ord _) :: Int
+  , abs (_ + id x) :: Int
+  , abs (_ + head _) :: Int
+  , abs (x + id _) :: Int
+  , abs (ord _ + _) :: Int
+  , abs (id _ + x) :: Int
+  , abs (id x + _) :: Int
+  , abs (head _ + _) :: Int
+  , id (f (_ + 0)) :: Int
+  , id (f (0 + _)) :: Int
+  , id (abs (_ * x)) :: Int
+  , id (abs (x * _)) :: Int
+  , id (abs (_ + x)) :: Int
+  , id (abs (_ + y)) :: Int
+  , id (abs (x + _)) :: Int
+  , id (abs (y + _)) :: Int
+  , id (negate (_ * x)) :: Int
+  , id (negate (x * _)) :: Int
+  , id (negate (_ + x)) :: Int
+  , id (negate (_ + y)) :: Int
+  , id (negate (x + _)) :: Int
+  , id (negate (y + _)) :: Int
+  , id (head (_:_)) :: Int
+  , id (head (_:xs)) :: Int
+  , id (head (_:ys)) :: Int
+  , id (head (_:zs)) :: Int
+  , id (head (x:_)) :: Int
+  , id (head (x:xs)) :: Int
+  , id (head (x:ys)) :: Int
+  , id (head (y:_)) :: Int
+  , id (head (y:xs)) :: Int
+  , id (head (z:_)) :: Int
+  , id (head (insert _ _)) :: Int
+  , id (head (_ ++ xs)) :: Int
+  , id (head (_ ++ ys)) :: Int
+  , id (head (xs ++ _)) :: Int
+  , id (head (ys ++ _)) :: Int
+  , id (_ * ord _) :: Int
+  , id (_ * ord c) :: Int
+  , id (_ * abs x) :: Int
+  , id (_ * negate x) :: Int
+  , id (_ * head _) :: Int
+  , id (_ * head xs) :: Int
+  , id (x * ord _) :: Int
+  , id (x * abs _) :: Int
+  , id (x * negate _) :: Int
+  , id (x * head _) :: Int
+  , id (ord _ * _) :: Int
+  , id (ord _ * x) :: Int
+  , id (ord c * _) :: Int
+  , id (abs _ * x) :: Int
+  , id (abs x * _) :: Int
+  , id (negate _ * x) :: Int
+  , id (negate x * _) :: Int
+  , id (head _ * _) :: Int
+  , id (head _ * x) :: Int
+  , id (head xs * _) :: Int
+  , id (_ + f 0) :: Int
+  , id (_ + ord _) :: Int
+  , id (_ + ord c) :: Int
+  , id (_ + ord d) :: Int
+  , id (_ + abs x) :: Int
+  , id (_ + abs y) :: Int
+  , id (_ + negate x) :: Int
+  , id (_ + negate y) :: Int
+  , id (_ + head _) :: Int
+  , id (_ + head xs) :: Int
+  , id (_ + head ys) :: Int
+  , id (x + ord _) :: Int
+  , id (x + ord c) :: Int
+  , id (x + abs _) :: Int
+  , id (x + negate _) :: Int
+  , id (x + head _) :: Int
+  , id (x + head xs) :: Int
+  , id (y + ord _) :: Int
+  , id (y + abs _) :: Int
+  , id (y + negate _) :: Int
+  , id (y + head _) :: Int
+  , id (0 + f _) :: Int
+  , id (f _ + 0) :: Int
+  , id (f 0 + _) :: Int
+  , id (ord _ + _) :: Int
+  , id (ord _ + x) :: Int
+  , id (ord _ + y) :: Int
+  , id (ord c + _) :: Int
+  , id (ord c + x) :: Int
+  , id (ord d + _) :: Int
+  , id (abs _ + x) :: Int
+  , id (abs _ + y) :: Int
+  , id (abs x + _) :: Int
+  , id (abs y + _) :: Int
+  , id (negate _ + x) :: Int
+  , id (negate _ + y) :: Int
+  , id (negate x + _) :: Int
+  , id (negate y + _) :: Int
+  , id (head _ + _) :: Int
+  , id (head _ + x) :: Int
+  , id (head _ + y) :: Int
+  , id (head xs + _) :: Int
+  , id (head xs + x) :: Int
+  , id (head ys + _) :: Int
+  , negate (id (_ + x)) :: Int
+  , negate (id (x + _)) :: Int
+  , negate (head (_:_)) :: Int
+  , negate (head (_:xs)) :: Int
+  , negate (head (x:_)) :: Int
+  , negate (_ + ord _) :: Int
+  , negate (_ + id x) :: Int
+  , negate (_ + head _) :: Int
+  , negate (x + id _) :: Int
+  , negate (ord _ + _) :: Int
+  , negate (id _ + x) :: Int
+  , negate (id x + _) :: Int
+  , negate (head _ + _) :: Int
+  , head (sort (_:_)) :: Int
+  , head (tail (_:_)) :: Int
+  , head (tail (_:xs)) :: Int
+  , head (tail (x:_)) :: Int
+  , head (_:sort _) :: Int
+  , head (_:tail _) :: Int
+  , head (_:tail xs) :: Int
+  , head (x:tail _) :: Int
+  , head (ord _:_) :: Int
+  , head (ord _:xs) :: Int
+  , head (ord c:_) :: Int
+  , head (abs _:_) :: Int
+  , head (abs _:xs) :: Int
+  , head (abs x:_) :: Int
+  , head (id _:_) :: Int
+  , head (id _:xs) :: Int
+  , head (id _:ys) :: Int
+  , head (id x:_) :: Int
+  , head (id x:xs) :: Int
+  , head (id y:_) :: Int
+  , head (negate _:_) :: Int
+  , head (negate _:xs) :: Int
+  , head (negate x:_) :: Int
+  , head (insert (id _) _) :: Int
+  , sort (id _:_) :: [Int]
+  , tail (ord _:_) :: [Int]
+  , tail (abs _:_) :: [Int]
+  , tail (id _:_) :: [Int]
+  , tail (id _:xs) :: [Int]
+  , tail (id x:_) :: [Int]
+  , tail (negate _:_) :: [Int]
+  , (head (_:_) +) :: Int -> Int
+  , _ * id (ord _) :: Int
+  , _ * id (head _) :: Int
+  , ord _ * id _ :: Int
+  , id _ * ord _ :: Int
+  , id _ * head _ :: Int
+  , id (ord _) * _ :: Int
+  , id (head _) * _ :: Int
+  , head _ * id _ :: Int
+  , _ + abs (ord _) :: Int
+  , _ + abs (id x) :: Int
+  , _ + abs (head _) :: Int
+  , _ + id (ord _) :: Int
+  , _ + id (ord c) :: Int
+  , _ + id (abs x) :: Int
+  , _ + id (negate x) :: Int
+  , _ + id (head _) :: Int
+  , _ + id (head xs) :: Int
+  , _ + negate (ord _) :: Int
+  , _ + negate (id x) :: Int
+  , _ + negate (head _) :: Int
+  , _ + head (tail _) :: Int
+  , x + abs (id _) :: Int
+  , x + id (ord _) :: Int
+  , x + id (abs _) :: Int
+  , x + id (negate _) :: Int
+  , x + id (head _) :: Int
+  , x + negate (id _) :: Int
+  , ord _ + abs _ :: Int
+  , ord _ + id _ :: Int
+  , ord _ + id x :: Int
+  , ord _ + negate _ :: Int
+  , ord _ + head _ :: Int
+  , ord c + id _ :: Int
+  , abs _ + ord _ :: Int
+  , abs _ + id x :: Int
+  , abs _ + head _ :: Int
+  , abs x + id _ :: Int
+  , abs (ord _) + _ :: Int
+  , abs (id _) + x :: Int
+  , abs (id x) + _ :: Int
+  , abs (head _) + _ :: Int
+  , id _ + ord _ :: Int
+  , id _ + ord c :: Int
+  , id _ + abs x :: Int
+  , id _ + negate x :: Int
+  , id _ + head _ :: Int
+  , id _ + head xs :: Int
+  , id x + ord _ :: Int
+  , id x + abs _ :: Int
+  , id x + negate _ :: Int
+  , id x + head _ :: Int
+  , id (ord _) + _ :: Int
+  , id (ord _) + x :: Int
+  , id (ord c) + _ :: Int
+  , id (abs _) + x :: Int
+  , id (abs x) + _ :: Int
+  , id (negate _) + x :: Int
+  , id (negate x) + _ :: Int
+  , id (head _) + _ :: Int
+  , id (head _) + x :: Int
+  , id (head xs) + _ :: Int
+  , negate _ + ord _ :: Int
+  , negate _ + id x :: Int
+  , negate _ + head _ :: Int
+  , negate x + id _ :: Int
+  , negate (ord _) + _ :: Int
+  , negate (id _) + x :: Int
+  , negate (id x) + _ :: Int
+  , negate (head _) + _ :: Int
+  , head _ + ord _ :: Int
+  , head _ + abs _ :: Int
+  , head _ + id _ :: Int
+  , head _ + id x :: Int
+  , head _ + negate _ :: Int
+  , head xs + id _ :: Int
+  , head (tail _) + _ :: Int
+  , elem _ (0:_) :: Bool
+  , elem 0 (_:_) :: Bool
+  , _:insert 0 _ :: [Int]
+  , _:(_ ++ [0]) :: [Int]
+  , _:(_ ++ []) :: [Int]
+  , _:(xs ++ []) :: [Int]
+  , _:([0] ++ _) :: [Int]
+  , _:([] ++ _) :: [Int]
+  , _:([] ++ xs) :: [Int]
+  , x:(_ ++ []) :: [Int]
+  , x:([] ++ _) :: [Int]
+  , 0:insert _ _ :: [Int]
+  , 0:(_ ++ xs) :: [Int]
+  , 0:(xs ++ _) :: [Int]
+  , ord _:tail _ :: [Int]
+  , abs _:tail _ :: [Int]
+  , abs (ord _):_ :: [Int]
+  , abs (id _):_ :: [Int]
+  , abs (id _):xs :: [Int]
+  , abs (id x):_ :: [Int]
+  , abs (negate _):_ :: [Int]
+  , id _:sort _ :: [Int]
+  , id _:tail _ :: [Int]
+  , id _:tail xs :: [Int]
+  , id x:tail _ :: [Int]
+  , id (ord _):_ :: [Int]
+  , id (ord _):xs :: [Int]
+  , id (ord c):_ :: [Int]
+  , id (abs _):_ :: [Int]
+  , id (abs _):xs :: [Int]
+  , id (abs x):_ :: [Int]
+  , id (negate _):_ :: [Int]
+  , id (negate _):xs :: [Int]
+  , id (negate x):_ :: [Int]
+  , id (head _):xs :: [Int]
+  , id (head xs):_ :: [Int]
+  , negate _:tail _ :: [Int]
+  , negate (ord _):_ :: [Int]
+  , negate (abs _):_ :: [Int]
+  , negate (id _):_ :: [Int]
+  , negate (id _):xs :: [Int]
+  , negate (id x):_ :: [Int]
+  , _ * 0:_ :: [Int]
+  , 0 * _:_ :: [Int]
+  , [_ + x] :: [Int]
+  , _ + 0:_ :: [Int]
+  , _ + 0:xs :: [Int]
+  , _ + 1:_ :: [Int]
+  , [x + _] :: [Int]
+  , x + 0:_ :: [Int]
+  , 0 + _:_ :: [Int]
+  , 0 + _:xs :: [Int]
+  , 0 + x:_ :: [Int]
+  , 1 + _:_ :: [Int]
+  , insert _ (0:_) :: [Int]
+  , insert 0 (_:_) :: [Int]
+  , _ ++ [_,0] :: [Int]
+  , _ ++ [_] :: [Int]
+  , _ ++ [x] :: [Int]
+  , _ ++ (0:xs) :: [Int]
+  , xs ++ [_] :: [Int]
+  , xs ++ (0:_) :: [Int]
+  , [0] ++ (_:_) :: [Int]
+  , [] ++ (_:_) :: [Int]
+  , [] ++ (_:xs) :: [Int]
+  , [] ++ (x:_) :: [Int]
+  , (_:_) ++ [0] :: [Int]
+  , (_:_) ++ [] :: [Int]
+  , (_:xs) ++ [] :: [Int]
+  , [_,0] ++ _ :: [Int]
+  , [_] ++ _ :: [Int]
+  , [_] ++ xs :: [Int]
+  , (x:_) ++ [] :: [Int]
+  , [x] ++ _ :: [Int]
+  , (0:_) ++ xs :: [Int]
+  , (0:xs) ++ _ :: [Int]
+  , _ || (_ || _) :: Bool
+  , (_ || _) || _ :: Bool
+  , _ * (_ * _) :: Int
+  , (_ * _) * _ :: Int
+  , _ + (_ + _) :: Int
+  , (_ + _) + _ :: Int
+  , _ ++ (_ ++ _) :: [Int]
+  , (_ ++ _) ++ _ :: [Int]
+  , _ && (_ || _) :: Bool
+  , (_ || _) && _ :: Bool
+  , _ == (_ || _) :: Bool
+  , (_ || _) == _ :: Bool
+  , _ || _ && _ :: Bool
+  , _ || _ == _ :: Bool
+  , _ && _ || _ :: Bool
+  , _ == _ || _ :: Bool
+  , _ == _ + _ :: Bool
+  , _ + _ == _ :: Bool
+  , _ * (_ + _) :: Int
+  , (_ + _) * _ :: Int
+  , _ + _ * _ :: Int
+  , _ * _ + _ :: Int
+  , not (not (_ && _)) :: Bool
+  , not (not (_ == _)) :: Bool
+  , not (not (_ || _)) :: Bool
+  , not (not (_ == _)) :: Bool
+  , not (_ && not _) :: Bool
+  , not (not _ && _) :: Bool
+  , not (_ == not _) :: Bool
+  , not (not _ == _) :: Bool
+  , not (_ || not _) :: Bool
+  , not (not _ || _) :: Bool
+  , abs (abs (_ + _)) :: Int
+  , abs (_ + abs _) :: Int
+  , abs (abs _ + _) :: Int
+  , id (id (_ * _)) :: Int
+  , id (id (x * x)) :: Int
+  , id (id (_ + _)) :: Int
+  , id (id (x + x)) :: Int
+  , id (_ * id _) :: Int
+  , id (x * id x) :: Int
+  , id (id _ * _) :: Int
+  , id (id x * x) :: Int
+  , id (_ + id _) :: Int
+  , id (x + id x) :: Int
+  , id (id _ + _) :: Int
+  , id (id x + x) :: Int
+  , negate (negate (_ + _)) :: Int
+  , negate (_ + negate _) :: Int
+  , negate (negate _ + _) :: Int
+  , head (head _:_) :: Int
+  , (id (_ + _) +) :: Int -> Int
+  , ((_ + id _) +) :: Int -> Int
+  , ((id _ + _) +) :: Int -> Int
+  , _ && not (not _) :: Bool
+  , not _ && not _ :: Bool
+  , not (not _) && _ :: Bool
+  , _ == not (not _) :: Bool
+  , not _ == not _ :: Bool
+  , not (not _) == _ :: Bool
+  , _ || not (not _) :: Bool
+  , _ || (_ || False) :: Bool
+  , _ || (_ || True) :: Bool
+  , _ || (False || _) :: Bool
+  , _ || (True || _) :: Bool
+  , False || (_ || _) :: Bool
+  , True || (_ || _) :: Bool
+  , not _ || not _ :: Bool
+  , not (not _) || _ :: Bool
+  , (_ || _) || False :: Bool
+  , (_ || _) || True :: Bool
+  , (_ || False) || _ :: Bool
+  , (_ || True) || _ :: Bool
+  , (False || _) || _ :: Bool
+  , (True || _) || _ :: Bool
+  , _ == id (id _) :: Bool
+  , id _ == id _ :: Bool
+  , id (id _) == _ :: Bool
+  , _ * id (id _) :: Int
+  , id _ * id _ :: Int
+  , id (id _) * _ :: Int
+  , _ + abs (abs _) :: Int
+  , _ + id (id _) :: Int
+  , _ + negate (negate _) :: Int
+  , _ + (_ + 0) :: Int
+  , _ + (_ + 1) :: Int
+  , _ + (0 + _) :: Int
+  , _ + (1 + _) :: Int
+  , x + id (id x) :: Int
+  , 0 + (_ + _) :: Int
+  , 1 + (_ + _) :: Int
+  , ord _ + ord _ :: Int
+  , abs _ + abs _ :: Int
+  , abs (abs _) + _ :: Int
+  , id _ + id _ :: Int
+  , id x + id x :: Int
+  , id (id _) + _ :: Int
+  , id (id x) + x :: Int
+  , negate _ + negate _ :: Int
+  , negate (negate _) + _ :: Int
+  , head _ + head _ :: Int
+  , (_ + _) + 0 :: Int
+  , (_ + _) + 1 :: Int
+  , (_ + 0) + _ :: Int
+  , (_ + 1) + _ :: Int
+  , (0 + _) + _ :: Int
+  , (1 + _) + _ :: Int
+  , [_,_,0,0] :: [Int]
+  , [_,_,0] :: [Int]
+  , [_,_,1] :: [Int]
+  , [_,_] :: [Int]
+  , [x,x] :: [Int]
+  , _ ++ (_ ++ []) :: [Int]
+  , _ ++ ([] ++ _) :: [Int]
+  , [] ++ (_ ++ _) :: [Int]
+  , (_ ++ _) ++ [] :: [Int]
+  , (_ ++ []) ++ _ :: [Int]
+  , ([] ++ _) ++ _ :: [Int]
+  , not (_ == id _) :: Bool
+  , not (id _ == _) :: Bool
+  , abs (id (_ * _)) :: Int
+  , abs (id (_ + _)) :: Int
+  , abs (negate (_ + _)) :: Int
+  , abs (head (_ ++ _)) :: Int
+  , abs (_ * id _) :: Int
+  , abs (id _ * _) :: Int
+  , abs (_ + id _) :: Int
+  , abs (_ + negate _) :: Int
+  , abs (id _ + _) :: Int
+  , abs (negate _ + _) :: Int
+  , id (abs (_ * _)) :: Int
+  , id (abs (_ + _)) :: Int
+  , id (abs (x + x)) :: Int
+  , id (negate (_ * _)) :: Int
+  , id (negate (_ + _)) :: Int
+  , id (negate (x + x)) :: Int
+  , id (head (_ ++ _)) :: Int
+  , id (head (xs ++ xs)) :: Int
+  , id (_ * abs _) :: Int
+  , id (_ * negate _) :: Int
+  , id (abs _ * _) :: Int
+  , id (negate _ * _) :: Int
+  , id (_ + abs _) :: Int
+  , id (_ + negate _) :: Int
+  , id (x + abs x) :: Int
+  , id (x + negate x) :: Int
+  , id (abs _ + _) :: Int
+  , id (abs x + x) :: Int
+  , id (negate _ + _) :: Int
+  , id (negate x + x) :: Int
+  , negate (abs (_ + _)) :: Int
+  , negate (id (_ * _)) :: Int
+  , negate (id (_ + _)) :: Int
+  , negate (head (_ ++ _)) :: Int
+  , negate (_ * id _) :: Int
+  , negate (id _ * _) :: Int
+  , negate (_ + abs _) :: Int
+  , negate (_ + id _) :: Int
+  , negate (abs _ + _) :: Int
+  , negate (id _ + _) :: Int
+  , head (tail (_ ++ _)) :: Int
+  , head (_ ++ tail _) :: Int
+  , head (tail _ ++ _) :: Int
+  , tail (head _:_) :: [Int]
+  , _ * abs (id _) :: Int
+  , _ * id (abs _) :: Int
+  , _ * id (negate _) :: Int
+  , _ * negate (id _) :: Int
+  , _ * (_ + 0) :: Int
+  , _ * (0 + _) :: Int
+  , 0 * (_ + _) :: Int
+  , abs _ * id _ :: Int
+  , abs (id _) * _ :: Int
+  , id _ * abs _ :: Int
+  , id _ * negate _ :: Int
+  , id (abs _) * _ :: Int
+  , id (negate _) * _ :: Int
+  , negate _ * id _ :: Int
+  , negate (id _) * _ :: Int
+  , (_ + _) * 0 :: Int
+  , (_ + 0) * _ :: Int
+  , (0 + _) * _ :: Int
+  , _ + abs (id _) :: Int
+  , _ + abs (negate _) :: Int
+  , _ + id (abs _) :: Int
+  , _ + id (negate _) :: Int
+  , _ + negate (abs _) :: Int
+  , _ + negate (id _) :: Int
+  , _ + _ * 0 :: Int
+  , _ + 0 * _ :: Int
+  , 0 + _ * _ :: Int
+  , abs _ + id _ :: Int
+  , abs _ + negate _ :: Int
+  , abs (id _) + _ :: Int
+  , abs (negate _) + _ :: Int
+  , id _ + abs _ :: Int
+  , id _ + negate _ :: Int
+  , id (abs _) + _ :: Int
+  , id (negate _) + _ :: Int
+  , negate _ + abs _ :: Int
+  , negate _ + id _ :: Int
+  , negate (abs _) + _ :: Int
+  , negate (id _) + _ :: Int
+  , _ * _ + 0 :: Int
+  , _ * 0 + _ :: Int
+  , 0 * _ + _ :: Int
+  , elem _ [_] :: Bool
+  , _:insert _ [] :: [Int]
+  , 0:(_ ++ _) :: [Int]
+  , 1:(_ ++ _) :: [Int]
+  , abs (head _):_ :: [Int]
+  , id (head _):_ :: [Int]
+  , negate (head _):_ :: [Int]
+  , head _:tail _ :: [Int]
+  , head (tail _):_ :: [Int]
+  , [_ * _] :: [Int]
+  , [_ + _,0] :: [Int]
+  , [_ + _] :: [Int]
+  , insert _ [_] :: [Int]
+  , _ ++ (0:_) :: [Int]
+  , _ ++ (1:_) :: [Int]
+  , (0:_) ++ _ :: [Int]
+  , (1:_) ++ _ :: [Int]
+  , not (not (not (not _))) :: Bool
+  , not (not (not (not p))) :: Bool
+  , id (id (id (id _))) :: Int
+  , id (id (id (id x))) :: Int
+  , id (id (id (id y))) :: Int
+  , id (id (id (id z))) :: Int
+  , abs (abs (id (id _))) :: Int
+  , abs (id (abs (id _))) :: Int
+  , abs (id (id (abs _))) :: Int
+  , abs (id (id (id _))) :: Int
+  , abs (id (id (id x))) :: Int
+  , id (f (id (id 0))) :: Int
+  , id (abs (abs (abs _))) :: Int
+  , id (abs (abs (id _))) :: Int
+  , id (abs (abs (id x))) :: Int
+  , id (abs (id (abs _))) :: Int
+  , id (abs (id (abs x))) :: Int
+  , id (abs (id (id _))) :: Int
+  , id (abs (id (id x))) :: Int
+  , id (abs (id (id y))) :: Int
+  , id (id (f (id 0))) :: Int
+  , id (id (abs (abs _))) :: Int
+  , id (id (abs (abs x))) :: Int
+  , id (id (abs (id _))) :: Int
+  , id (id (abs (id x))) :: Int
+  , id (id (abs (id y))) :: Int
+  , id (id (id (f 0))) :: Int
+  , id (id (id (ord _))) :: Int
+  , id (id (id (ord c))) :: Int
+  , id (id (id (ord d))) :: Int
+  , id (id (id (abs _))) :: Int
+  , id (id (id (abs x))) :: Int
+  , id (id (id (abs y))) :: Int
+  , id (id (id (negate _))) :: Int
+  , id (id (id (negate x))) :: Int
+  , id (id (id (negate y))) :: Int
+  , id (id (id (head _))) :: Int
+  , id (id (id (head xs))) :: Int
+  , id (id (id (head ys))) :: Int
+  , id (id (negate (id _))) :: Int
+  , id (id (negate (id x))) :: Int
+  , id (id (negate (id y))) :: Int
+  , id (id (negate (negate _))) :: Int
+  , id (id (negate (negate x))) :: Int
+  , id (negate (id (id _))) :: Int
+  , id (negate (id (id x))) :: Int
+  , id (negate (id (id y))) :: Int
+  , id (negate (id (negate _))) :: Int
+  , id (negate (id (negate x))) :: Int
+  , id (negate (negate (id _))) :: Int
+  , id (negate (negate (id x))) :: Int
+  , id (negate (negate (negate _))) :: Int
+  , negate (id (id (id _))) :: Int
+  , negate (id (id (id x))) :: Int
+  , negate (id (id (negate _))) :: Int
+  , negate (id (negate (id _))) :: Int
+  , negate (negate (id (id _))) :: Int
+  , (id (id (id _)) +) :: Int -> Int
+  , _ + (0 + 0) :: Int
+  , 0 + (_ + 0) :: Int
+  , 0 + (0 + _) :: Int
+  , (_ + 0) + 0 :: Int
+  , (0 + _) + 0 :: Int
+  , (0 + 0) + _ :: Int
+  , 0:0:_ :: [Int]
+  , 0:0:xs :: [Int]
+  , not (not (_ || False)) :: Bool
+  , not (not (_ || True)) :: Bool
+  , not (not (False || _)) :: Bool
+  , not (not (True || _)) :: Bool
+  , not (_ || not False) :: Bool
+  , not (_ || not True) :: Bool
+  , not (False || not _) :: Bool
+  , not (True || not _) :: Bool
+  , not (not _ || False) :: Bool
+  , not (not _ || True) :: Bool
+  , not (not False || _) :: Bool
+  , not (not True || _) :: Bool
+  , abs (id (id (ord _))) :: Int
+  , abs (id (id (negate _))) :: Int
+  , abs (id (id (head _))) :: Int
+  , abs (id (negate (id _))) :: Int
+  , abs (negate (id (id _))) :: Int
+  , id (abs (abs (ord _))) :: Int
+  , id (abs (abs (negate _))) :: Int
+  , id (abs (abs (head _))) :: Int
+  , id (abs (id (ord _))) :: Int
+  , id (abs (id (ord c))) :: Int
+  , id (abs (id (negate _))) :: Int
+  , id (abs (id (negate x))) :: Int
+  , id (abs (id (head _))) :: Int
+  , id (abs (id (head xs))) :: Int
+  , id (abs (negate (abs _))) :: Int
+  , id (abs (negate (id _))) :: Int
+  , id (abs (negate (id x))) :: Int
+  , id (abs (negate (negate _))) :: Int
+  , id (id (abs (ord _))) :: Int
+  , id (id (abs (ord c))) :: Int
+  , id (id (abs (negate _))) :: Int
+  , id (id (abs (negate x))) :: Int
+  , id (id (abs (head _))) :: Int
+  , id (id (abs (head xs))) :: Int
+  , id (id (negate (ord _))) :: Int
+  , id (id (negate (ord c))) :: Int
+  , id (id (negate (abs _))) :: Int
+  , id (id (negate (abs x))) :: Int
+  , id (id (negate (head _))) :: Int
+  , id (id (negate (head xs))) :: Int
+  , id (id (head (sort _))) :: Int
+  , id (id (head (tail _))) :: Int
+  , id (id (head (tail xs))) :: Int
+  , id (id (_ * 0)) :: Int
+  , id (id (_ * 1)) :: Int
+  , id (id (x * 0)) :: Int
+  , id (id (0 * _)) :: Int
+  , id (id (0 * x)) :: Int
+  , id (id (1 * _)) :: Int
+  , id (id (_ + (-1))) :: Int
+  , id (id (_ + 0)) :: Int
+  , id (id (_ + 1)) :: Int
+  , id (id (x + 0)) :: Int
+  , id (id (x + 1)) :: Int
+  , id (id (y + 0)) :: Int
+  , id (id ((-1) + _)) :: Int
+  , id (id (0 + _)) :: Int
+  , id (id (0 + x)) :: Int
+  , id (id (0 + y)) :: Int
+  , id (id (1 + _)) :: Int
+  , id (id (1 + x)) :: Int
+  , id (negate (abs (abs _))) :: Int
+  , id (negate (abs (id _))) :: Int
+  , id (negate (abs (id x))) :: Int
+  , id (negate (abs (negate _))) :: Int
+  , id (negate (id (ord _))) :: Int
+  , id (negate (id (ord c))) :: Int
+  , id (negate (id (abs _))) :: Int
+  , id (negate (id (abs x))) :: Int
+  , id (negate (id (head _))) :: Int
+  , id (negate (id (head xs))) :: Int
+  , id (negate (negate (ord _))) :: Int
+  , id (negate (negate (abs _))) :: Int
+  , id (negate (negate (head _))) :: Int
+  , id (head (tail (tail _))) :: Int
+  , id (_ * id 0) :: Int
+  , id (_ * id 1) :: Int
+  , id (x * id 0) :: Int
+  , id (0 * id _) :: Int
+  , id (0 * id x) :: Int
+  , id (1 * id _) :: Int
+  , id (id _ * 0) :: Int
+  , id (id _ * 1) :: Int
+  , id (id x * 0) :: Int
+  , id (id 0 * _) :: Int
+  , id (id 0 * x) :: Int
+  , id (id 1 * _) :: Int
+  , id (_ + id (-1)) :: Int
+  , id (_ + id 0) :: Int
+  , id (_ + id 1) :: Int
+  , id (x + id 0) :: Int
+  , id (x + id 1) :: Int
+  , id (y + id 0) :: Int
+  , id ((-1) + id _) :: Int
+  , id (0 + id _) :: Int
+  , id (0 + id x) :: Int
+  , id (0 + id y) :: Int
+  , id (1 + id _) :: Int
+  , id (1 + id x) :: Int
+  , id (id _ + (-1)) :: Int
+  , id (id _ + 0) :: Int
+  , id (id _ + 1) :: Int
+  , id (id x + 0) :: Int
+  , id (id x + 1) :: Int
+  , id (id y + 0) :: Int
+  , id (id (-1) + _) :: Int
+  , id (id 0 + _) :: Int
+  , id (id 0 + x) :: Int
+  , id (id 0 + y) :: Int
+  , id (id 1 + _) :: Int
+  , id (id 1 + x) :: Int
+  , negate (abs (id (id _))) :: Int
+  , negate (id (abs (id _))) :: Int
+  , negate (id (id (ord _))) :: Int
+  , negate (id (id (abs _))) :: Int
+  , negate (id (id (head _))) :: Int
+  , head [head _] :: Int
+  , head (head []:_) :: Int
+  , _ || not (not False) :: Bool
+  , _ || not (not True) :: Bool
+  , False || not (not _) :: Bool
+  , True || not (not _) :: Bool
+  , not _ || not False :: Bool
+  , not _ || not True :: Bool
+  , not False || not _ :: Bool
+  , not True || not _ :: Bool
+  , not (not _) || False :: Bool
+  , not (not _) || True :: Bool
+  , not (not False) || _ :: Bool
+  , not (not True) || _ :: Bool
+  , _ * id (id 0) :: Int
+  , 0 * id (id _) :: Int
+  , id _ * id 0 :: Int
+  , id 0 * id _ :: Int
+  , id (id _) * 0 :: Int
+  , id (id 0) * _ :: Int
+  , _ + id (id 0) :: Int
+  , _ + id (id 1) :: Int
+  , x + id (id 0) :: Int
+  , 0 + id (id _) :: Int
+  , 0 + id (id x) :: Int
+  , 1 + id (id _) :: Int
+  , id _ + id 0 :: Int
+  , id _ + id 1 :: Int
+  , id x + id 0 :: Int
+  , id 0 + id _ :: Int
+  , id 0 + id x :: Int
+  , id 1 + id _ :: Int
+  , id (id _) + 0 :: Int
+  , id (id _) + 1 :: Int
+  , id (id x) + 0 :: Int
+  , id (id 0) + _ :: Int
+  , id (id 0) + x :: Int
+  , id (id 1) + _ :: Int
+  , [_,0,0] :: [Int]
+  , [_,0] :: [Int]
+  , [_,1] :: [Int]
+  , _:([] ++ []) :: [Int]
+  , [x,0] :: [Int]
+  , [0,_,0] :: [Int]
+  , [0,_] :: [Int]
+  , [0,x] :: [Int]
+  , 0:1:_ :: [Int]
+  , [1,_] :: [Int]
+  , 1:0:_ :: [Int]
+  , [id (id _),0] :: [Int]
+  , [id (id _)] :: [Int]
+  , [id (id x)] :: [Int]
+  , id (id 0):_ :: [Int]
+  , id (id 0):xs :: [Int]
+  , id (id 1):_ :: [Int]
+  , 0 + 0:_ :: [Int]
+  , [] ++ [_] :: [Int]
+  , [_] ++ [] :: [Int]
+  , abs (id (_ + 0)) :: Int
+  , abs (id (0 + _)) :: Int
+  , abs (head [_]) :: Int
+  , abs (head (0:_)) :: Int
+  , abs (_ + id 0) :: Int
+  , abs (0 + id _) :: Int
+  , abs (id _ + 0) :: Int
+  , abs (id 0 + _) :: Int
+  , id (abs (negate (ord _))) :: Int
+  , id (abs (negate (head _))) :: Int
+  , id (abs (head (tail _))) :: Int
+  , id (abs (_ * 0)) :: Int
+  , id (abs (0 * _)) :: Int
+  , id (abs (_ + 0)) :: Int
+  , id (abs (_ + 1)) :: Int
+  , id (abs (x + 0)) :: Int
+  , id (abs (0 + _)) :: Int
+  , id (abs (0 + x)) :: Int
+  , id (abs (1 + _)) :: Int
+  , id (negate (abs (ord _))) :: Int
+  , id (negate (abs (head _))) :: Int
+  , id (negate (head (tail _))) :: Int
+  , id (negate (_ * 0)) :: Int
+  , id (negate (0 * _)) :: Int
+  , id (negate (_ + 0)) :: Int
+  , id (negate (_ + 1)) :: Int
+  , id (negate (x + 0)) :: Int
+  , id (negate (0 + _)) :: Int
+  , id (negate (0 + x)) :: Int
+  , id (negate (1 + _)) :: Int
+  , id (head [_,0,0]) :: Int
+  , id (head [_,0]) :: Int
+  , id (head [_,1]) :: Int
+  , id (head [_]) :: Int
+  , id (head [x,0]) :: Int
+  , id (head [x]) :: Int
+  , id (head [y]) :: Int
+  , id (head ((-1):_)) :: Int
+  , id (head (0:_)) :: Int
+  , id (head (0:xs)) :: Int
+  , id (head (0:ys)) :: Int
+  , id (head (1:_)) :: Int
+  , id (head (1:xs)) :: Int
+  , id (head (_ ++ [0])) :: Int
+  , id (head (_ ++ [])) :: Int
+  , id (head (xs ++ [])) :: Int
+  , id (head ([0] ++ _)) :: Int
+  , id (head ([] ++ _)) :: Int
+  , id (head ([] ++ xs)) :: Int
+  , id (_ * ord 'a') :: Int
+  , id (_ * abs 0) :: Int
+  , id (_ * negate 0) :: Int
+  , id (_ * head []) :: Int
+  , id (0 * ord _) :: Int
+  , id (0 * abs _) :: Int
+  , id (0 * negate _) :: Int
+  , id (0 * head _) :: Int
+  , id (ord _ * 0) :: Int
+  , id (ord 'a' * _) :: Int
+  , id (abs _ * 0) :: Int
+  , id (abs 0 * _) :: Int
+  , id (negate _ * 0) :: Int
+  , id (negate 0 * _) :: Int
+  , id (head _ * 0) :: Int
+  , id (head [] * _) :: Int
+  , id (_ + ord ' ') :: Int
+  , id (_ + ord 'a') :: Int
+  , id (_ + abs 0) :: Int
+  , id (_ + abs 1) :: Int
+  , id (_ + negate 0) :: Int
+  , id (_ + negate 1) :: Int
+  , id (_ + head [0]) :: Int
+  , id (_ + head []) :: Int
+  , id (x + ord 'a') :: Int
+  , id (x + abs 0) :: Int
+  , id (x + negate 0) :: Int
+  , id (x + head []) :: Int
+  , id (0 + ord _) :: Int
+  , id (0 + ord c) :: Int
+  , id (0 + abs _) :: Int
+  , id (0 + abs x) :: Int
+  , id (0 + negate _) :: Int
+  , id (0 + negate x) :: Int
+  , id (0 + head _) :: Int
+  , id (0 + head xs) :: Int
+  , id (1 + ord _) :: Int
+  , id (1 + abs _) :: Int
+  , id (1 + negate _) :: Int
+  , id (1 + head _) :: Int
+  , id (ord _ + 0) :: Int
+  , id (ord _ + 1) :: Int
+  , id (ord c + 0) :: Int
+  , id (ord ' ' + _) :: Int
+  , id (ord 'a' + _) :: Int
+  , id (ord 'a' + x) :: Int
+  , id (abs _ + 0) :: Int
+  , id (abs _ + 1) :: Int
+  , id (abs x + 0) :: Int
+  , id (abs 0 + _) :: Int
+  , id (abs 0 + x) :: Int
+  , id (abs 1 + _) :: Int
+  , id (negate _ + 0) :: Int
+  , id (negate _ + 1) :: Int
+  , id (negate x + 0) :: Int
+  , id (negate 0 + _) :: Int
+  , id (negate 0 + x) :: Int
+  , id (negate 1 + _) :: Int
+  , id (head _ + 0) :: Int
+  , id (head _ + 1) :: Int
+  , id (head xs + 0) :: Int
+  , id (head [0] + _) :: Int
+  , id (head [] + _) :: Int
+  , id (head [] + x) :: Int
+  , negate (id (_ + 0)) :: Int
+  , negate (id (0 + _)) :: Int
+  , negate (head [_]) :: Int
+  , negate (head (0:_)) :: Int
+  , negate (_ + id 0) :: Int
+  , negate (0 + id _) :: Int
+  , negate (id _ + 0) :: Int
+  , negate (id 0 + _) :: Int
+  , head (tail [_]) :: Int
+  , head (tail (0:_)) :: Int
+  , head (_:tail []) :: Int
+  , head (0:tail _) :: Int
+  , head [ord _] :: Int
+  , head (ord 'a':_) :: Int
+  , head [abs _] :: Int
+  , head (abs 0:_) :: Int
+  , head [id _,0] :: Int
+  , head [id _] :: Int
+  , head [id x] :: Int
+  , head (id 0:_) :: Int
+  , head (id 0:xs) :: Int
+  , head (id 1:_) :: Int
+  , head [negate _] :: Int
+  , head (negate 0:_) :: Int
+  , tail [id _] :: [Int]
+  , tail (id 0:_) :: [Int]
+  , _ + abs (id 0) :: Int
+  , _ + id (ord 'a') :: Int
+  , _ + id (abs 0) :: Int
+  , _ + id (negate 0) :: Int
+  , _ + id (head []) :: Int
+  , _ + negate (id 0) :: Int
+  , 0 + abs (id _) :: Int
+  , 0 + id (ord _) :: Int
+  , 0 + id (abs _) :: Int
+  , 0 + id (negate _) :: Int
+  , 0 + id (head _) :: Int
+  , 0 + negate (id _) :: Int
+  , ord _ + id 0 :: Int
+  , ord 'a' + id _ :: Int
+  , abs _ + id 0 :: Int
+  , abs 0 + id _ :: Int
+  , abs (id _) + 0 :: Int
+  , abs (id 0) + _ :: Int
+  , id _ + ord 'a' :: Int
+  , id _ + abs 0 :: Int
+  , id _ + negate 0 :: Int
+  , id _ + head [] :: Int
+  , id 0 + ord _ :: Int
+  , id 0 + abs _ :: Int
+  , id 0 + negate _ :: Int
+  , id 0 + head _ :: Int
+  , id (ord _) + 0 :: Int
+  , id (ord 'a') + _ :: Int
+  , id (abs _) + 0 :: Int
+  , id (abs 0) + _ :: Int
+  , id (negate _) + 0 :: Int
+  , id (negate 0) + _ :: Int
+  , id (head _) + 0 :: Int
+  , id (head []) + _ :: Int
+  , negate _ + id 0 :: Int
+  , negate 0 + id _ :: Int
+  , negate (id _) + 0 :: Int
+  , negate (id 0) + _ :: Int
+  , head _ + id 0 :: Int
+  , head [] + id _ :: Int
+  , 0:(_ ++ []) :: [Int]
+  , 0:([] ++ _) :: [Int]
+  , [abs (id _)] :: [Int]
+  , abs (id 0):_ :: [Int]
+  , id _:tail [] :: [Int]
+  , id 0:tail _ :: [Int]
+  , [id (ord _)] :: [Int]
+  , id (ord 'a'):_ :: [Int]
+  , [id (abs _)] :: [Int]
+  , id (abs 0):_ :: [Int]
+  , [id (negate _)] :: [Int]
+  , id (negate 0):_ :: [Int]
+  , [id (head _)] :: [Int]
+  , id (head []):_ :: [Int]
+  , [negate (id _)] :: [Int]
+  , negate (id 0):_ :: [Int]
+  , [_ + 0] :: [Int]
+  , [0 + _] :: [Int]
+  , _ ++ [0] :: [Int]
+  , [] ++ (0:_) :: [Int]
+  , (0:_) ++ [] :: [Int]
+  , [0] ++ _ :: [Int]
+  , not (not (not (not False))) :: Bool
+  , not (not (not (not True))) :: Bool
+  , id (id (id (id (-1)))) :: Int
+  , id (id (id (id 0))) :: Int
+  , id (id (id (id 1))) :: Int
+  , abs (id (id (id 0))) :: Int
+  , id (abs (abs (id 0))) :: Int
+  , id (abs (id (abs 0))) :: Int
+  , id (abs (id (id 0))) :: Int
+  , id (abs (id (id 1))) :: Int
+  , id (id (abs (abs 0))) :: Int
+  , id (id (abs (id 0))) :: Int
+  , id (id (abs (id 1))) :: Int
+  , id (id (id (ord ' '))) :: Int
+  , id (id (id (ord 'a'))) :: Int
+  , id (id (id (abs 0))) :: Int
+  , id (id (id (abs 1))) :: Int
+  , id (id (id (negate 0))) :: Int
+  , id (id (id (negate 1))) :: Int
+  , id (id (id (head [0]))) :: Int
+  , id (id (id (head []))) :: Int
+  , id (id (negate (id 0))) :: Int
+  , id (id (negate (id 1))) :: Int
+  , id (id (negate (negate 0))) :: Int
+  , id (id (0 * 0)) :: Int
+  , id (id (0 + 0)) :: Int
+  , id (negate (id (id 0))) :: Int
+  , id (negate (id (id 1))) :: Int
+  , id (negate (id (negate 0))) :: Int
+  , id (negate (negate (id 0))) :: Int
+  , id (0 * id 0) :: Int
+  , id (id 0 * 0) :: Int
+  , id (0 + id 0) :: Int
+  , id (id 0 + 0) :: Int
+  , negate (id (id (id 0))) :: Int
+  , 0 + id (id 0) :: Int
+  , id 0 + id 0 :: Int
+  , id (id 0) + 0 :: Int
+  , [0,0] :: [Int]
+  , id (abs (id (ord 'a'))) :: Int
+  , id (abs (id (negate 0))) :: Int
+  , id (abs (id (head []))) :: Int
+  , id (abs (negate (id 0))) :: Int
+  , id (abs (0 + 0)) :: Int
+  , id (id (abs (ord 'a'))) :: Int
+  , id (id (abs (negate 0))) :: Int
+  , id (id (abs (head []))) :: Int
+  , id (id (negate (ord 'a'))) :: Int
+  , id (id (negate (abs 0))) :: Int
+  , id (id (negate (head []))) :: Int
+  , id (id (head (tail []))) :: Int
+  , id (id (0 + 1)) :: Int
+  , id (id (1 + 0)) :: Int
+  , id (negate (abs (id 0))) :: Int
+  , id (negate (id (ord 'a'))) :: Int
+  , id (negate (id (abs 0))) :: Int
+  , id (negate (id (head []))) :: Int
+  , id (negate (0 + 0)) :: Int
+  , id (head ([] ++ [])) :: Int
+  , id (0 + abs 0) :: Int
+  , id (0 + id 1) :: Int
+  , id (0 + negate 0) :: Int
+  , id (1 + id 0) :: Int
+  , id (abs 0 + 0) :: Int
+  , id (id 0 + 1) :: Int
+  , id (id 1 + 0) :: Int
+  , id (negate 0 + 0) :: Int
+  , [id (id 0)] :: [Int]
+  , id (head [0,0]) :: Int
+  , id (head [0]) :: Int
+  , id (head [1]) :: Int
+  , id (0 + ord 'a') :: Int
+  , id (0 + head []) :: Int
+  , id (ord 'a' + 0) :: Int
+  , id (head [] + 0) :: Int
+  , head [id 0] :: Int
+  , _:f _:_ :: [Int]
+  , f _:_:_ :: [Int]
+  , head (_:x:_) :: Int
+  , head (_:x:xs) :: Int
+  , head (_:y:_) :: Int
+  , head (x:_:_) :: Int
+  , head (x:_:xs) :: Int
+  , head (y:_:_) :: Int
+  , tail (_:x:_) :: [Int]
+  , tail (x:_:_) :: [Int]
+  , _:tail (x:_) :: [Int]
+  , _:x:tail _ :: [Int]
+  , _:ord _:_ :: [Int]
+  , _:ord _:xs :: [Int]
+  , _:ord c:_ :: [Int]
+  , _:abs x:_ :: [Int]
+  , _:id x:_ :: [Int]
+  , _:id x:xs :: [Int]
+  , _:id y:_ :: [Int]
+  , _:negate x:_ :: [Int]
+  , _:head _:xs :: [Int]
+  , _:head xs:_ :: [Int]
+  , x:tail (_:_) :: [Int]
+  , x:_:tail _ :: [Int]
+  , x:ord _:_ :: [Int]
+  , x:abs _:_ :: [Int]
+  , x:id _:_ :: [Int]
+  , x:id _:xs :: [Int]
+  , x:negate _:_ :: [Int]
+  , y:id _:_ :: [Int]
+  , ord _:_:_ :: [Int]
+  , ord _:_:xs :: [Int]
+  , ord _:x:_ :: [Int]
+  , ord c:_:_ :: [Int]
+  , abs _:x:_ :: [Int]
+  , abs x:_:_ :: [Int]
+  , id _:x:_ :: [Int]
+  , id _:x:xs :: [Int]
+  , id _:y:_ :: [Int]
+  , id x:_:_ :: [Int]
+  , id x:_:xs :: [Int]
+  , id y:_:_ :: [Int]
+  , negate _:x:_ :: [Int]
+  , negate x:_:_ :: [Int]
+  , head _:_:xs :: [Int]
+  , head xs:_:_ :: [Int]
+  , head (_:_):xs :: [Int]
+  , head (_:xs):_ :: [Int]
+  , id (f (head (_:_))) :: Int
+  , id (head (f _:_)) :: Int
+  , head (_:(_ ++ xs)) :: Int
+  , head (_:(xs ++ _)) :: Int
+  , head (_ + x:_) :: Int
+  , head (x + _:_) :: Int
+  , head (_ ++ (_:xs)) :: Int
+  , head (xs ++ (_:_)) :: Int
+  , head ((_:_) ++ xs) :: Int
+  , head ((_:xs) ++ _) :: Int
+  , _ + head (x:_) :: Int
+  , x + head (_:_) :: Int
+  , head (_:_) + x :: Int
+  , head (x:_) + _ :: Int
+  , id _:(_ ++ xs) :: [Int]
+  , id _:(xs ++ _) :: [Int]
+  , id (_ + x):_ :: [Int]
+  , id (x + _):_ :: [Int]
+  , _ + ord _:_ :: [Int]
+  , _ + id x:_ :: [Int]
+  , x + id _:_ :: [Int]
+  , ord _ + _:_ :: [Int]
+  , id _ + x:_ :: [Int]
+  , id x + _:_ :: [Int]
+  , _ ++ (id _:xs) :: [Int]
+  , xs ++ (id _:_) :: [Int]
+  , (id _:_) ++ xs :: [Int]
+  , (id _:xs) ++ _ :: [Int]
+  , id (f (id (_ + _))) :: Int
+  , id (f (_ + id _)) :: Int
+  , id (f (id _ + _)) :: Int
+  , id (id (f (_ + _))) :: Int
+  , id (id (_ + f _)) :: Int
+  , id (id (f _ + _)) :: Int
+  , id (_ + f (id _)) :: Int
+  , id (_ + id (f _)) :: Int
+  , id (_ + (_ + x)) :: Int
+  , id (_ + (_ + y)) :: Int
+  , id (_ + (x + _)) :: Int
+  , id (_ + (x + x)) :: Int
+  , id (_ + (y + _)) :: Int
+  , id (x + (_ + _)) :: Int
+  , id (x + (_ + x)) :: Int
+  , id (x + (x + _)) :: Int
+  , id (y + (_ + _)) :: Int
+  , id (f _ + id _) :: Int
+  , id (f (id _) + _) :: Int
+  , id (id _ + f _) :: Int
+  , id (id (f _) + _) :: Int
+  , id ((_ + _) + x) :: Int
+  , id ((_ + _) + y) :: Int
+  , id ((_ + x) + _) :: Int
+  , id ((_ + x) + x) :: Int
+  , id ((_ + y) + _) :: Int
+  , id ((x + _) + _) :: Int
+  , id ((x + _) + x) :: Int
+  , id ((x + x) + _) :: Int
+  , id ((y + _) + _) :: Int
+  , head (_:_:_) :: Int
+  , head (_:_:xs) :: Int
+  , head (_:_:ys) :: Int
+  , head (x:x:_) :: Int
+  , sort (_:_:_) :: [Int]
+  , tail (_:_:_) :: [Int]
+  , tail (_:_:xs) :: [Int]
+  , _ + id (_ + x) :: Int
+  , _ + id (x + _) :: Int
+  , _ + (_ + ord _) :: Int
+  , _ + (_ + id x) :: Int
+  , _ + (_ + head _) :: Int
+  , _ + (x + id _) :: Int
+  , _ + (ord _ + _) :: Int
+  , _ + (id _ + x) :: Int
+  , _ + (id x + _) :: Int
+  , _ + (head _ + _) :: Int
+  , x + id (_ + _) :: Int
+  , x + (_ + id _) :: Int
+  , x + (id _ + _) :: Int
+  , ord _ + (_ + _) :: Int
+  , id _ + (_ + x) :: Int
+  , id _ + (x + _) :: Int
+  , id x + (_ + _) :: Int
+  , id (_ + _) + x :: Int
+  , id (_ + x) + _ :: Int
+  , id (x + _) + _ :: Int
+  , head _ + (_ + _) :: Int
+  , (_ + _) + ord _ :: Int
+  , (_ + _) + id x :: Int
+  , (_ + _) + head _ :: Int
+  , (_ + x) + id _ :: Int
+  , (_ + ord _) + _ :: Int
+  , (_ + id _) + x :: Int
+  , (_ + id x) + _ :: Int
+  , (_ + head _) + _ :: Int
+  , (x + _) + id _ :: Int
+  , (x + id _) + _ :: Int
+  , (ord _ + _) + _ :: Int
+  , (id _ + _) + x :: Int
+  , (id _ + x) + _ :: Int
+  , (id x + _) + _ :: Int
+  , (head _ + _) + _ :: Int
+  , _:sort (_:_) :: [Int]
+  , _:tail (_:_) :: [Int]
+  , _:tail (_:xs) :: [Int]
+  , _:_:sort _ :: [Int]
+  , _:_:tail _ :: [Int]
+  , _:_:tail xs :: [Int]
+  , _:abs _:_ :: [Int]
+  , _:abs _:xs :: [Int]
+  , _:id _:_ :: [Int]
+  , _:id _:xs :: [Int]
+  , _:id _:ys :: [Int]
+  , _:negate _:_ :: [Int]
+  , _:negate _:xs :: [Int]
+  , _:head _:_ :: [Int]
+  , x:id x:_ :: [Int]
+  , x:head _:_ :: [Int]
+  , abs _:_:_ :: [Int]
+  , abs _:_:xs :: [Int]
+  , id _:_:_ :: [Int]
+  , id _:_:xs :: [Int]
+  , id _:_:ys :: [Int]
+  , id x:x:_ :: [Int]
+  , negate _:_:_ :: [Int]
+  , negate _:_:xs :: [Int]
+  , head _:_:_ :: [Int]
+  , head _:x:_ :: [Int]
+  , head (_:_):_ :: [Int]
+  , head (x:_):_ :: [Int]
+  , not (elem _ (_:_)) :: Bool
+  , id (_ * (_ + x)) :: Int
+  , id (_ * (x + _)) :: Int
+  , id (x * (_ + _)) :: Int
+  , id ((_ + _) * x) :: Int
+  , id ((_ + x) * _) :: Int
+  , id ((x + _) * _) :: Int
+  , id (_ + _ * x) :: Int
+  , id (_ + x * _) :: Int
+  , id (x + _ * _) :: Int
+  , id (_ * _ + x) :: Int
+  , id (_ * x + _) :: Int
+  , id (x * _ + _) :: Int
+  , head (_:insert _ _) :: Int
+  , head (_:(_ ++ _)) :: Int
+  , head (x:(_ ++ _)) :: Int
+  , head (_ * _:_) :: Int
+  , head (_ + _:_) :: Int
+  , head (_ + _:xs) :: Int
+  , head (insert _ (_:_)) :: Int
+  , head (_ ++ (_:_)) :: Int
+  , head (_ ++ (x:_)) :: Int
+  , head ((_:_) ++ _) :: Int
+  , head ((x:_) ++ _) :: Int
+  , tail (_:(_ ++ _)) :: [Int]
+  , tail (_ + _:_) :: [Int]
+  , tail (_ ++ (_:_)) :: [Int]
+  , tail ((_:_) ++ _) :: [Int]
+  , _ * head (_:_) :: Int
+  , head (_:_) * _ :: Int
+  , _ + head (_:_) :: Int
+  , _ + head (_:xs) :: Int
+  , _ + head (_ ++ _) :: Int
+  , head (_:_) + _ :: Int
+  , head (_:xs) + _ :: Int
+  , head (_ ++ _) + _ :: Int
+  , elem _ (id _:_) :: Bool
+  , elem (id _) (_:_) :: Bool
+  , _:tail (_ ++ _) :: [Int]
+  , _:insert (id _) _ :: [Int]
+  , _:(_ ++ tail _) :: [Int]
+  , _:(tail _ ++ _) :: [Int]
+  , ord _:(_ ++ _) :: [Int]
+  , abs _:(_ ++ _) :: [Int]
+  , abs (_ + _):_ :: [Int]
+  , id _:insert _ _ :: [Int]
+  , id _:(_ ++ _) :: [Int]
+  , id x:(_ ++ _) :: [Int]
+  , id (_ * _):_ :: [Int]
+  , id (_ + _):_ :: [Int]
+  , id (_ + _):xs :: [Int]
+  , negate _:(_ ++ _) :: [Int]
+  , negate (_ + _):_ :: [Int]
+  , _ * id _:_ :: [Int]
+  , id _ * _:_ :: [Int]
+  , _ + _:tail _ :: [Int]
+  , _ + abs _:_ :: [Int]
+  , _ + id _:_ :: [Int]
+  , _ + id _:xs :: [Int]
+  , _ + negate _:_ :: [Int]
+  , _ + head _:_ :: [Int]
+  , abs _ + _:_ :: [Int]
+  , id _ + _:_ :: [Int]
+  , id _ + _:xs :: [Int]
+  , negate _ + _:_ :: [Int]
+  , head _ + _:_ :: [Int]
+  , insert _ (id _:_) :: [Int]
+  , insert (id _) (_:_) :: [Int]
+  , _ ++ tail (_:_) :: [Int]
+  , _ ++ (_:tail _) :: [Int]
+  , _ ++ (ord _:_) :: [Int]
+  , _ ++ (abs _:_) :: [Int]
+  , _ ++ (id _:_) :: [Int]
+  , _ ++ (id x:_) :: [Int]
+  , _ ++ (negate _:_) :: [Int]
+  , tail _ ++ (_:_) :: [Int]
+  , tail (_:_) ++ _ :: [Int]
+  , (_:_) ++ tail _ :: [Int]
+  , (_:tail _) ++ _ :: [Int]
+  , (ord _:_) ++ _ :: [Int]
+  , (abs _:_) ++ _ :: [Int]
+  , (id _:_) ++ _ :: [Int]
+  , (id x:_) ++ _ :: [Int]
+  , (negate _:_) ++ _ :: [Int]
+  , id (f (id (id (id _)))) :: Int
+  , id (id (f (id (id _)))) :: Int
+  , id (id (id (f (id _)))) :: Int
+  , id (id (id (id (f _)))) :: Int
+  , id (id (id (_ * x))) :: Int
+  , id (id (id (x * _))) :: Int
+  , id (id (id (_ + x))) :: Int
+  , id (id (id (_ + y))) :: Int
+  , id (id (id (x + _))) :: Int
+  , id (id (id (y + _))) :: Int
+  , id (id (_ * id x)) :: Int
+  , id (id (x * id _)) :: Int
+  , id (id (id _ * x)) :: Int
+  , id (id (id x * _)) :: Int
+  , id (id (_ + id x)) :: Int
+  , id (id (_ + id y)) :: Int
+  , id (id (x + id _)) :: Int
+  , id (id (y + id _)) :: Int
+  , id (id (id _ + x)) :: Int
+  , id (id (id _ + y)) :: Int
+  , id (id (id x + _)) :: Int
+  , id (id (id y + _)) :: Int
+  , id (_ * id (id x)) :: Int
+  , id (x * id (id _)) :: Int
+  , id (id _ * id x) :: Int
+  , id (id x * id _) :: Int
+  , id (id (id _) * x) :: Int
+  , id (id (id x) * _) :: Int
+  , id (_ + id (id x)) :: Int
+  , id (_ + id (id y)) :: Int
+  , id (x + id (id _)) :: Int
+  , id (y + id (id _)) :: Int
+  , id (id _ + id x) :: Int
+  , id (id _ + id y) :: Int
+  , id (id x + id _) :: Int
+  , id (id y + id _) :: Int
+  , id (id (id _) + x) :: Int
+  , id (id (id _) + y) :: Int
+  , id (id (id x) + _) :: Int
+  , id (id (id y) + _) :: Int
+  , _ + id (id (id x)) :: Int
+  , x + id (id (id _)) :: Int
+  , id _ + id (id x) :: Int
+  , id x + id (id _) :: Int
+  , id (id _) + id x :: Int
+  , id (id x) + id _ :: Int
+  , id (id (id _)) + x :: Int
+  , id (id (id x)) + _ :: Int
+  , id (id (id _)):_ :: [Int]
+  , id (id (id _)):xs :: [Int]
+  , id (id (id x)):_ :: [Int]
+  , id (abs (id (_ + x))) :: Int
+  , id (abs (id (x + _))) :: Int
+  , id (abs (_ + id x)) :: Int
+  , id (abs (x + id _)) :: Int
+  , id (abs (id _ + x)) :: Int
+  , id (abs (id x + _)) :: Int
+  , id (id (abs (_ + x))) :: Int
+  , id (id (abs (x + _))) :: Int
+  , id (id (negate (_ + x))) :: Int
+  , id (id (negate (x + _))) :: Int
+  , id (id (head (_:_))) :: Int
+  , id (id (head (_:xs))) :: Int
+  , id (id (head (_:ys))) :: Int
+  , id (id (head (x:_))) :: Int
+  , id (id (head (x:xs))) :: Int
+  , id (id (head (y:_))) :: Int
+  , id (id (head (insert _ _))) :: Int
+  , id (id (head (_ ++ xs))) :: Int
+  , id (id (head (xs ++ _))) :: Int
+  , id (id (_ * ord _)) :: Int
+  , id (id (_ * head _)) :: Int
+  , id (id (ord _ * _)) :: Int
+  , id (id (head _ * _)) :: Int
+  , id (id (_ + ord _)) :: Int
+  , id (id (_ + ord c)) :: Int
+  , id (id (_ + abs x)) :: Int
+  , id (id (_ + negate x)) :: Int
+  , id (id (_ + head _)) :: Int
+  , id (id (_ + head xs)) :: Int
+  , id (id (x + ord _)) :: Int
+  , id (id (x + abs _)) :: Int
+  , id (id (x + negate _)) :: Int
+  , id (id (x + head _)) :: Int
+  , id (id (ord _ + _)) :: Int
+  , id (id (ord _ + x)) :: Int
+  , id (id (ord c + _)) :: Int
+  , id (id (abs _ + x)) :: Int
+  , id (id (abs x + _)) :: Int
+  , id (id (negate _ + x)) :: Int
+  , id (id (negate x + _)) :: Int
+  , id (id (head _ + _)) :: Int
+  , id (id (head _ + x)) :: Int
+  , id (id (head xs + _)) :: Int
+  , id (negate (id (_ + x))) :: Int
+  , id (negate (id (x + _))) :: Int
+  , id (negate (_ + id x)) :: Int
+  , id (negate (x + id _)) :: Int
+  , id (negate (id _ + x)) :: Int
+  , id (negate (id x + _)) :: Int
+  , id (head (id _:_)) :: Int
+  , id (head (id _:xs)) :: Int
+  , id (head (id _:ys)) :: Int
+  , id (head (id x:_)) :: Int
+  , id (head (id x:xs)) :: Int
+  , id (head (id y:_)) :: Int
+  , id (head (head _:xs)) :: Int
+  , id (head (head xs:_)) :: Int
+  , id (_ * id (ord _)) :: Int
+  , id (_ * id (head _)) :: Int
+  , id (ord _ * id _) :: Int
+  , id (id _ * ord _) :: Int
+  , id (id _ * head _) :: Int
+  , id (id (ord _) * _) :: Int
+  , id (id (head _) * _) :: Int
+  , id (head _ * id _) :: Int
+  , id (_ + abs (id x)) :: Int
+  , id (_ + id (ord _)) :: Int
+  , id (_ + id (ord c)) :: Int
+  , id (_ + id (abs x)) :: Int
+  , id (_ + id (negate x)) :: Int
+  , id (_ + id (head _)) :: Int
+  , id (_ + id (head xs)) :: Int
+  , id (_ + negate (id x)) :: Int
+  , id (_ + (x + 0)) :: Int
+  , id (_ + (0 + x)) :: Int
+  , id (x + abs (id _)) :: Int
+  , id (x + id (ord _)) :: Int
+  , id (x + id (abs _)) :: Int
+  , id (x + id (negate _)) :: Int
+  , id (x + id (head _)) :: Int
+  , id (x + negate (id _)) :: Int
+  , id (x + (_ + 0)) :: Int
+  , id (x + (0 + _)) :: Int
+  , id (0 + (_ + x)) :: Int
+  , id (0 + (x + _)) :: Int
+  , id (ord _ + id _) :: Int
+  , id (ord _ + id x) :: Int
+  , id (ord c + id _) :: Int
+  , id (abs _ + id x) :: Int
+  , id (abs x + id _) :: Int
+  , id (abs (id _) + x) :: Int
+  , id (abs (id x) + _) :: Int
+  , id (id _ + ord _) :: Int
+  , id (id _ + ord c) :: Int
+  , id (id _ + abs x) :: Int
+  , id (id _ + negate x) :: Int
+  , id (id _ + head _) :: Int
+  , id (id _ + head xs) :: Int
+  , id (id x + ord _) :: Int
+  , id (id x + abs _) :: Int
+  , id (id x + negate _) :: Int
+  , id (id x + head _) :: Int
+  , id (id (ord _) + _) :: Int
+  , id (id (ord _) + x) :: Int
+  , id (id (ord c) + _) :: Int
+  , id (id (abs _) + x) :: Int
+  , id (id (abs x) + _) :: Int
+  , id (id (negate _) + x) :: Int
+  , id (id (negate x) + _) :: Int
+  , id (id (head _) + _) :: Int
+  , id (id (head _) + x) :: Int
+  , id (id (head xs) + _) :: Int
+  , id (negate _ + id x) :: Int
+  , id (negate x + id _) :: Int
+  , id (negate (id _) + x) :: Int
+  , id (negate (id x) + _) :: Int
+  , id (head _ + id _) :: Int
+  , id (head _ + id x) :: Int
+  , id (head xs + id _) :: Int
+  , id ((_ + x) + 0) :: Int
+  , id ((_ + 0) + x) :: Int
+  , id ((x + _) + 0) :: Int
+  , id ((x + 0) + _) :: Int
+  , id ((0 + _) + x) :: Int
+  , id ((0 + x) + _) :: Int
+  , head [_,x] :: Int
+  , head (_:0:_) :: Int
+  , head (_:0:xs) :: Int
+  , head (_:1:_) :: Int
+  , head [x,_] :: Int
+  , head (x:0:_) :: Int
+  , head (0:_:_) :: Int
+  , head (0:_:xs) :: Int
+  , head (0:x:_) :: Int
+  , head (1:_:_) :: Int
+  , head (id (id _):_) :: Int
+  , head (id (id _):xs) :: Int
+  , head (id (id x):_) :: Int
+  , tail (_:0:_) :: [Int]
+  , tail (0:_:_) :: [Int]
+  , tail (id (id _):_) :: [Int]
+  , _ + id (id (ord _)) :: Int
+  , _ + id (id (head _)) :: Int
+  , ord _ + id (id _) :: Int
+  , id _ + id (ord _) :: Int
+  , id _ + id (head _) :: Int
+  , id (ord _) + id _ :: Int
+  , id (id _) + ord _ :: Int
+  , id (id _) + head _ :: Int
+  , id (id (ord _)) + _ :: Int
+  , id (id (head _)) + _ :: Int
+  , id (head _) + id _ :: Int
+  , head _ + id (id _) :: Int
+  , _:tail (0:_) :: [Int]
+  , _:0:tail _ :: [Int]
+  , [_,ord _] :: [Int]
+  , _:ord 'a':_ :: [Int]
+  , _:abs 0:_ :: [Int]
+  , [_,id x] :: [Int]
+  , _:id 0:_ :: [Int]
+  , _:id 0:xs :: [Int]
+  , _:id 1:_ :: [Int]
+  , _:negate 0:_ :: [Int]
+  , [_,head _] :: [Int]
+  , _:head []:_ :: [Int]
+  , [x,id _] :: [Int]
+  , x:id 0:_ :: [Int]
+  , 0:tail (_:_) :: [Int]
+  , 0:_:tail _ :: [Int]
+  , 0:ord _:_ :: [Int]
+  , 0:abs _:_ :: [Int]
+  , 0:id _:_ :: [Int]
+  , 0:id _:xs :: [Int]
+  , 0:id x:_ :: [Int]
+  , 0:negate _:_ :: [Int]
+  , 1:id _:_ :: [Int]
+  , [ord _,_] :: [Int]
+  , ord _:0:_ :: [Int]
+  , ord 'a':_:_ :: [Int]
+  , abs _:0:_ :: [Int]
+  , abs 0:_:_ :: [Int]
+  , abs (id (id _)):_ :: [Int]
+  , [id _,x] :: [Int]
+  , id _:0:_ :: [Int]
+  , id _:0:xs :: [Int]
+  , id _:1:_ :: [Int]
+  , [id x,_] :: [Int]
+  , id x:0:_ :: [Int]
+  , id 0:_:_ :: [Int]
+  , id 0:_:xs :: [Int]
+  , id 0:x:_ :: [Int]
+  , id 1:_:_ :: [Int]
+  , id (abs (id _)):_ :: [Int]
+  , id (id _):tail _ :: [Int]
+  , id (id (ord _)):_ :: [Int]
+  , id (id (abs _)):_ :: [Int]
+  , id (id (negate _)):_ :: [Int]
+  , id (negate (id _)):_ :: [Int]
+  , negate _:0:_ :: [Int]
+  , negate 0:_:_ :: [Int]
+  , negate (id (id _)):_ :: [Int]
+  , [head _,_] :: [Int]
+  , head []:_:_ :: [Int]
+  , [head (_:_)] :: [Int]
+  , head [_]:_ :: [Int]
+  , abs (id (head (_:_))) :: Int
+  , abs (head (id _:_)) :: Int
+  , id (abs (head (_:_))) :: Int
+  , id (abs (head (_:xs))) :: Int
+  , id (abs (head (x:_))) :: Int
+  , id (abs (_ + ord _)) :: Int
+  , id (abs (_ + head _)) :: Int
+  , id (abs (ord _ + _)) :: Int
+  , id (abs (head _ + _)) :: Int
+  , id (negate (head (_:_))) :: Int
+  , id (negate (head (_:xs))) :: Int
+  , id (negate (head (x:_))) :: Int
+  , id (negate (_ + ord _)) :: Int
+  , id (negate (_ + head _)) :: Int
+  , id (negate (ord _ + _)) :: Int
+  , id (negate (head _ + _)) :: Int
+  , id (head (tail (_:_))) :: Int
+  , id (head (tail (_:xs))) :: Int
+  , id (head (tail (x:_))) :: Int
+  , id (head (_:sort _)) :: Int
+  , id (head (_:tail _)) :: Int
+  , id (head (_:tail xs)) :: Int
+  , id (head (x:tail _)) :: Int
+  , id (head (ord _:_)) :: Int
+  , id (head (ord _:xs)) :: Int
+  , id (head (ord c:_)) :: Int
+  , id (head (abs _:_)) :: Int
+  , id (head (abs _:xs)) :: Int
+  , id (head (abs x:_)) :: Int
+  , id (head (negate _:_)) :: Int
+  , id (head (negate _:xs)) :: Int
+  , id (head (negate x:_)) :: Int
+  , id (_ + abs (ord _)) :: Int
+  , id (_ + abs (head _)) :: Int
+  , id (_ + negate (ord _)) :: Int
+  , id (_ + negate (head _)) :: Int
+  , id (_ + head (tail _)) :: Int
+  , id (ord _ + abs _) :: Int
+  , id (ord _ + negate _) :: Int
+  , id (ord _ + head _) :: Int
+  , id (abs _ + ord _) :: Int
+  , id (abs _ + head _) :: Int
+  , id (abs (ord _) + _) :: Int
+  , id (abs (head _) + _) :: Int
+  , id (negate _ + ord _) :: Int
+  , id (negate _ + head _) :: Int
+  , id (negate (ord _) + _) :: Int
+  , id (negate (head _) + _) :: Int
+  , id (head _ + ord _) :: Int
+  , id (head _ + abs _) :: Int
+  , id (head _ + negate _) :: Int
+  , id (head (tail _) + _) :: Int
+  , negate (id (head (_:_))) :: Int
+  , negate (head (id _:_)) :: Int
+  , head (tail (id _:_)) :: Int
+  , head (_:(_ ++ [])) :: Int
+  , head (_:([] ++ _)) :: Int
+  , head (abs (id _):_) :: Int
+  , head (id _:tail _) :: Int
+  , head (id (ord _):_) :: Int
+  , head (id (abs _):_) :: Int
+  , head (id (negate _):_) :: Int
+  , head (negate (id _):_) :: Int
+  , head (_ + 0:_) :: Int
+  , head (0 + _:_) :: Int
+  , head (_ ++ [_]) :: Int
+  , head ([] ++ (_:_)) :: Int
+  , head ((_:_) ++ []) :: Int
+  , head ([_] ++ _) :: Int
+  , _ + head (0:_) :: Int
+  , 0 + head (_:_) :: Int
+  , head (_:_) + 0 :: Int
+  , head (0:_) + _ :: Int
+  , id _:(_ ++ []) :: [Int]
+  , id _:([] ++ _) :: [Int]
+  , id (_ + 0):_ :: [Int]
+  , id (0 + _):_ :: [Int]
+  , _ + id 0:_ :: [Int]
+  , 0 + id _:_ :: [Int]
+  , id _ + 0:_ :: [Int]
+  , id 0 + _:_ :: [Int]
+  , _ ++ [id _] :: [Int]
+  , [] ++ (id _:_) :: [Int]
+  , (id _:_) ++ [] :: [Int]
+  , [id _] ++ _ :: [Int]
+  , not (_ || (_ || _)) :: Bool
+  , not ((_ || _) || _) :: Bool
+  , abs (_ + (_ + _)) :: Int
+  , abs ((_ + _) + _) :: Int
+  , id (_ * (_ * _)) :: Int
+  , id ((_ * _) * _) :: Int
+  , id (_ + (_ + _)) :: Int
+  , id ((_ + _) + _) :: Int
+  , negate (_ + (_ + _)) :: Int
+  , negate ((_ + _) + _) :: Int
+  , head (_ ++ (_ ++ _)) :: Int
+  , head ((_ ++ _) ++ _) :: Int
+  , _ || not (_ || _) :: Bool
+  , _ || (_ || not _) :: Bool
+  , _ || (not _ || _) :: Bool
+  , not _ || (_ || _) :: Bool
+  , not (_ || _) || _ :: Bool
+  , (_ || _) || not _ :: Bool
+  , (_ || not _) || _ :: Bool
+  , (not _ || _) || _ :: Bool
+  , _ + abs (_ + _) :: Int
+  , _ + id (_ + _) :: Int
+  , _ + negate (_ + _) :: Int
+  , _ + (_ + abs _) :: Int
+  , _ + (_ + id _) :: Int
+  , _ + (_ + negate _) :: Int
+  , _ + (abs _ + _) :: Int
+  , _ + (id _ + _) :: Int
+  , _ + (negate _ + _) :: Int
+  , abs _ + (_ + _) :: Int
+  , abs (_ + _) + _ :: Int
+  , id _ + (_ + _) :: Int
+  , id (_ + _) + _ :: Int
+  , negate _ + (_ + _) :: Int
+  , negate (_ + _) + _ :: Int
+  , (_ + _) + abs _ :: Int
+  , (_ + _) + id _ :: Int
+  , (_ + _) + negate _ :: Int
+  , (_ + abs _) + _ :: Int
+  , (_ + id _) + _ :: Int
+  , (_ + negate _) + _ :: Int
+  , (abs _ + _) + _ :: Int
+  , (id _ + _) + _ :: Int
+  , (negate _ + _) + _ :: Int
+  , id (_ * (_ + _)) :: Int
+  , id ((_ + _) * _) :: Int
+  , id (_ + _ * _) :: Int
+  , id (_ * _ + _) :: Int
+  , _ * id (_ + _) :: Int
+  , _ * (_ + id _) :: Int
+  , _ * (id _ + _) :: Int
+  , id _ * (_ + _) :: Int
+  , id (_ + _) * _ :: Int
+  , (_ + _) * id _ :: Int
+  , (_ + id _) * _ :: Int
+  , (id _ + _) * _ :: Int
+  , _ + id (_ * _) :: Int
+  , _ + _ * id _ :: Int
+  , _ + id _ * _ :: Int
+  , id _ + _ * _ :: Int
+  , id (_ * _) + _ :: Int
+  , _ * _ + id _ :: Int
+  , _ * id _ + _ :: Int
+  , id _ * _ + _ :: Int
+  , head _:(_ ++ _) :: [Int]
+  , head (_ ++ _):_ :: [Int]
+  , _ ++ (head _:_) :: [Int]
+  , (head _:_) ++ _ :: [Int]
+  , not (not (not (_ || _))) :: Bool
+  , not (not (_ || not _)) :: Bool
+  , not (not (not _ || _)) :: Bool
+  , not (_ || not (not _)) :: Bool
+  , not (not _ || not _) :: Bool
+  , not (not (not _) || _) :: Bool
+  , id (id (id (_ * _))) :: Int
+  , id (id (id (_ + _))) :: Int
+  , id (id (id (x + x))) :: Int
+  , id (id (_ * id _)) :: Int
+  , id (id (id _ * _)) :: Int
+  , id (id (_ + id _)) :: Int
+  , id (id (x + id x)) :: Int
+  , id (id (id _ + _)) :: Int
+  , id (id (id x + x)) :: Int
+  , id (_ * id (id _)) :: Int
+  , id (id _ * id _) :: Int
+  , id (id (id _) * _) :: Int
+  , id (_ + id (id _)) :: Int
+  , id (x + id (id x)) :: Int
+  , id (id _ + id _) :: Int
+  , id (id x + id x) :: Int
+  , id (id (id _) + _) :: Int
+  , id (id (id x) + x) :: Int
+  , _ || not (not (not _)) :: Bool
+  , not _ || not (not _) :: Bool
+  , not (not _) || not _ :: Bool
+  , not (not (not _)) || _ :: Bool
+  , _ * id (id (id _)) :: Int
+  , id _ * id (id _) :: Int
+  , id (id _) * id _ :: Int
+  , id (id (id _)) * _ :: Int
+  , _ + id (id (id _)) :: Int
+  , id _ + id (id _) :: Int
+  , id (id _) + id _ :: Int
+  , id (id (id _)) + _ :: Int
+  , abs (id (id (_ + _))) :: Int
+  , abs (id (_ + id _)) :: Int
+  , abs (id (id _ + _)) :: Int
+  , abs (_ + id (id _)) :: Int
+  , abs (id _ + id _) :: Int
+  , abs (id (id _) + _) :: Int
+  , id (abs (abs (_ + _))) :: Int
+  , id (abs (id (_ * _))) :: Int
+  , id (abs (id (_ + _))) :: Int
+  , id (abs (_ * id _)) :: Int
+  , id (abs (id _ * _)) :: Int
+  , id (abs (_ + abs _)) :: Int
+  , id (abs (_ + id _)) :: Int
+  , id (abs (abs _ + _)) :: Int
+  , id (abs (id _ + _)) :: Int
+  , id (id (abs (_ * _))) :: Int
+  , id (id (abs (_ + _))) :: Int
+  , id (id (negate (_ * _))) :: Int
+  , id (id (negate (_ + _))) :: Int
+  , id (id (head (_ ++ _))) :: Int
+  , id (id (_ * abs _)) :: Int
+  , id (id (_ * negate _)) :: Int
+  , id (id (abs _ * _)) :: Int
+  , id (id (negate _ * _)) :: Int
+  , id (id (_ + abs _)) :: Int
+  , id (id (_ + negate _)) :: Int
+  , id (id (abs _ + _)) :: Int
+  , id (id (negate _ + _)) :: Int
+  , id (negate (id (_ * _))) :: Int
+  , id (negate (id (_ + _))) :: Int
+  , id (negate (negate (_ + _))) :: Int
+  , id (negate (_ * id _)) :: Int
+  , id (negate (id _ * _)) :: Int
+  , id (negate (_ + id _)) :: Int
+  , id (negate (_ + negate _)) :: Int
+  , id (negate (id _ + _)) :: Int
+  , id (negate (negate _ + _)) :: Int
+  , id (head (head _:_)) :: Int
+  , id (_ * abs (id _)) :: Int
+  , id (_ * id (abs _)) :: Int
+  , id (_ * id (negate _)) :: Int
+  , id (_ * negate (id _)) :: Int
+  , id (abs _ * id _) :: Int
+  , id (abs (id _) * _) :: Int
+  , id (id _ * abs _) :: Int
+  , id (id _ * negate _) :: Int
+  , id (id (abs _) * _) :: Int
+  , id (id (negate _) * _) :: Int
+  , id (negate _ * id _) :: Int
+  , id (negate (id _) * _) :: Int
+  , id (_ + abs (abs _)) :: Int
+  , id (_ + abs (id _)) :: Int
+  , id (_ + id (abs _)) :: Int
+  , id (_ + id (negate _)) :: Int
+  , id (_ + negate (id _)) :: Int
+  , id (_ + negate (negate _)) :: Int
+  , id (_ + (_ + 0)) :: Int
+  , id (_ + (_ + 1)) :: Int
+  , id (_ + (0 + _)) :: Int
+  , id (_ + (1 + _)) :: Int
+  , id (0 + (_ + _)) :: Int
+  , id (1 + (_ + _)) :: Int
+  , id (ord _ + ord _) :: Int
+  , id (abs _ + abs _) :: Int
+  , id (abs _ + id _) :: Int
+  , id (abs (abs _) + _) :: Int
+  , id (abs (id _) + _) :: Int
+  , id (id _ + abs _) :: Int
+  , id (id _ + negate _) :: Int
+  , id (id (abs _) + _) :: Int
+  , id (id (negate _) + _) :: Int
+  , id (negate _ + id _) :: Int
+  , id (negate _ + negate _) :: Int
+  , id (negate (id _) + _) :: Int
+  , id (negate (negate _) + _) :: Int
+  , id (head _ + head _) :: Int
+  , id ((_ + _) + 0) :: Int
+  , id ((_ + _) + 1) :: Int
+  , id ((_ + 0) + _) :: Int
+  , id ((_ + 1) + _) :: Int
+  , id ((0 + _) + _) :: Int
+  , id ((1 + _) + _) :: Int
+  , negate (id (id (_ + _))) :: Int
+  , negate (id (_ + id _)) :: Int
+  , negate (id (id _ + _)) :: Int
+  , negate (_ + id (id _)) :: Int
+  , negate (id _ + id _) :: Int
+  , negate (id (id _) + _) :: Int
+  , head [_,_,0] :: Int
+  , head [_,_] :: Int
+  , head (id (head _):_) :: Int
+  , tail [_,_] :: [Int]
+  , _ + abs (id (id _)) :: Int
+  , _ + id (abs (id _)) :: Int
+  , _ + id (id (abs _)) :: Int
+  , _ + id (id (negate _)) :: Int
+  , _ + id (negate (id _)) :: Int
+  , _ + id (_ + 0) :: Int
+  , _ + id (0 + _) :: Int
+  , _ + negate (id (id _)) :: Int
+  , _ + (_ + id 0) :: Int
+  , _ + (0 + id _) :: Int
+  , _ + (id _ + 0) :: Int
+  , _ + (id 0 + _) :: Int
+  , 0 + id (_ + _) :: Int
+  , 0 + (_ + id _) :: Int
+  , 0 + (id _ + _) :: Int
+  , abs _ + id (id _) :: Int
+  , abs (id _) + id _ :: Int
+  , abs (id (id _)) + _ :: Int
+  , id _ + abs (id _) :: Int
+  , id _ + id (abs _) :: Int
+  , id _ + id (negate _) :: Int
+  , id _ + negate (id _) :: Int
+  , id _ + (_ + 0) :: Int
+  , id _ + (0 + _) :: Int
+  , id 0 + (_ + _) :: Int
+  , id (abs _) + id _ :: Int
+  , id (abs (id _)) + _ :: Int
+  , id (id _) + abs _ :: Int
+  , id (id _) + negate _ :: Int
+  , id (id (abs _)) + _ :: Int
+  , id (id (negate _)) + _ :: Int
+  , id (negate _) + id _ :: Int
+  , id (negate (id _)) + _ :: Int
+  , id (_ + _) + 0 :: Int
+  , id (_ + 0) + _ :: Int
+  , id (0 + _) + _ :: Int
+  , negate _ + id (id _) :: Int
+  , negate (id _) + id _ :: Int
+  , negate (id (id _)) + _ :: Int
+  , (_ + _) + id 0 :: Int
+  , (_ + 0) + id _ :: Int
+  , (_ + id _) + 0 :: Int
+  , (_ + id 0) + _ :: Int
+  , (0 + _) + id _ :: Int
+  , (0 + id _) + _ :: Int
+  , (id _ + _) + 0 :: Int
+  , (id _ + 0) + _ :: Int
+  , (id 0 + _) + _ :: Int
+  , _:tail [_] :: [Int]
+  , _:_:tail [] :: [Int]
+  , [_,abs _] :: [Int]
+  , [_,id _,0] :: [Int]
+  , [_,id _] :: [Int]
+  , [_,negate _] :: [Int]
+  , 0:head _:_ :: [Int]
+  , [abs _,_] :: [Int]
+  , [id _,_,0] :: [Int]
+  , [id _,_] :: [Int]
+  , id (id (head _)):_ :: [Int]
+  , [negate _,_] :: [Int]
+  , head _:0:_ :: [Int]
+  , head (0:_):_ :: [Int]
+  , id (abs (negate (_ + _))) :: Int
+  , id (abs (head (_ ++ _))) :: Int
+  , id (abs (_ + negate _)) :: Int
+  , id (abs (negate _ + _)) :: Int
+  , id (negate (abs (_ + _))) :: Int
+  , id (negate (head (_ ++ _))) :: Int
+  , id (negate (_ + abs _)) :: Int
+  , id (negate (abs _ + _)) :: Int
+  , id (head (tail (_ ++ _))) :: Int
+  , id (head (_ ++ tail _)) :: Int
+  , id (_ * (_ + 0)) :: Int
+  , id (_ * (0 + _)) :: Int
+  , id (0 * (_ + _)) :: Int
+  , id ((_ + _) * 0) :: Int
+  , id ((_ + 0) * _) :: Int
+  , id ((0 + _) * _) :: Int
+  , id (_ + abs (negate _)) :: Int
+  , id (_ + negate (abs _)) :: Int
+  , id (_ + _ * 0) :: Int
+  , id (_ + 0 * _) :: Int
+  , id (0 + _ * _) :: Int
+  , id (abs _ + negate _) :: Int
+  , id (abs (negate _) + _) :: Int
+  , id (negate _ + abs _) :: Int
+  , id (negate (abs _) + _) :: Int
+  , id (_ * _ + 0) :: Int
+  , id (_ * 0 + _) :: Int
+  , id (0 * _ + _) :: Int
+  , head (0:(_ ++ _)) :: Int
+  , head [_ + _] :: Int
+  , head (_ ++ (0:_)) :: Int
+  , head ((0:_) ++ _) :: Int
+  , _ + head [_] :: Int
+  , head [_] + _ :: Int
+  , id 0:(_ ++ _) :: [Int]
+  , [id (_ + _)] :: [Int]
+  , [_ + id _] :: [Int]
+  , [id _ + _] :: [Int]
+  , _ ++ (id 0:_) :: [Int]
+  , (id 0:_) ++ _ :: [Int]
+  , not (not (not (not (not _)))) :: Bool
+  , id (id (id (id (id _)))) :: Int
+  , id (id (id (id (id x)))) :: Int
+  , id (id (id (id (id y)))) :: Int
+  , abs (id (id (id (id _)))) :: Int
+  , id (abs (abs (id (id _)))) :: Int
+  , id (abs (id (abs (id _)))) :: Int
+  , id (abs (id (id (abs _)))) :: Int
+  , id (abs (id (id (id _)))) :: Int
+  , id (abs (id (id (id x)))) :: Int
+  , id (id (abs (abs (id _)))) :: Int
+  , id (id (abs (id (abs _)))) :: Int
+  , id (id (abs (id (id _)))) :: Int
+  , id (id (abs (id (id x)))) :: Int
+  , id (id (id (abs (abs _)))) :: Int
+  , id (id (id (abs (id _)))) :: Int
+  , id (id (id (abs (id x)))) :: Int
+  , id (id (id (id (ord _)))) :: Int
+  , id (id (id (id (ord c)))) :: Int
+  , id (id (id (id (abs _)))) :: Int
+  , id (id (id (id (abs x)))) :: Int
+  , id (id (id (id (negate _)))) :: Int
+  , id (id (id (id (negate x)))) :: Int
+  , id (id (id (id (head _)))) :: Int
+  , id (id (id (id (head xs)))) :: Int
+  , id (id (id (negate (id _)))) :: Int
+  , id (id (id (negate (id x)))) :: Int
+  , id (id (id (negate (negate _)))) :: Int
+  , id (id (negate (id (id _)))) :: Int
+  , id (id (negate (id (id x)))) :: Int
+  , id (id (negate (id (negate _)))) :: Int
+  , id (id (negate (negate (id _)))) :: Int
+  , id (negate (id (id (id _)))) :: Int
+  , id (negate (id (id (id x)))) :: Int
+  , id (negate (id (id (negate _)))) :: Int
+  , id (negate (id (negate (id _)))) :: Int
+  , id (negate (negate (id (id _)))) :: Int
+  , negate (id (id (id (id _)))) :: Int
+  , id (abs (id (id (ord _)))) :: Int
+  , id (abs (id (id (negate _)))) :: Int
+  , id (abs (id (id (head _)))) :: Int
+  , id (abs (id (negate (id _)))) :: Int
+  , id (abs (negate (id (id _)))) :: Int
+  , id (id (abs (id (ord _)))) :: Int
+  , id (id (abs (id (negate _)))) :: Int
+  , id (id (abs (id (head _)))) :: Int
+  , id (id (abs (negate (id _)))) :: Int
+  , id (id (id (abs (ord _)))) :: Int
+  , id (id (id (abs (negate _)))) :: Int
+  , id (id (id (abs (head _)))) :: Int
+  , id (id (id (negate (ord _)))) :: Int
+  , id (id (id (negate (abs _)))) :: Int
+  , id (id (id (negate (head _)))) :: Int
+  , id (id (id (head (tail _)))) :: Int
+  , id (id (id (_ * 0))) :: Int
+  , id (id (id (0 * _))) :: Int
+  , id (id (id (_ + 0))) :: Int
+  , id (id (id (_ + 1))) :: Int
+  , id (id (id (x + 0))) :: Int
+  , id (id (id (0 + _))) :: Int
+  , id (id (id (0 + x))) :: Int
+  , id (id (id (1 + _))) :: Int
+  , id (id (negate (abs (id _)))) :: Int
+  , id (id (negate (id (ord _)))) :: Int
+  , id (id (negate (id (abs _)))) :: Int
+  , id (id (negate (id (head _)))) :: Int
+  , id (id (_ * id 0)) :: Int
+  , id (id (0 * id _)) :: Int
+  , id (id (id _ * 0)) :: Int
+  , id (id (id 0 * _)) :: Int
+  , id (id (_ + id 0)) :: Int
+  , id (id (_ + id 1)) :: Int
+  , id (id (x + id 0)) :: Int
+  , id (id (0 + id _)) :: Int
+  , id (id (0 + id x)) :: Int
+  , id (id (1 + id _)) :: Int
+  , id (id (id _ + 0)) :: Int
+  , id (id (id _ + 1)) :: Int
+  , id (id (id x + 0)) :: Int
+  , id (id (id 0 + _)) :: Int
+  , id (id (id 0 + x)) :: Int
+  , id (id (id 1 + _)) :: Int
+  , id (negate (abs (id (id _)))) :: Int
+  , id (negate (id (abs (id _)))) :: Int
+  , id (negate (id (id (ord _)))) :: Int
+  , id (negate (id (id (abs _)))) :: Int
+  , id (negate (id (id (head _)))) :: Int
+  , id (_ * id (id 0)) :: Int
+  , id (0 * id (id _)) :: Int
+  , id (id _ * id 0) :: Int
+  , id (id 0 * id _) :: Int
+  , id (id (id _) * 0) :: Int
+  , id (id (id 0) * _) :: Int
+  , id (_ + id (id 0)) :: Int
+  , id (_ + id (id 1)) :: Int
+  , id (_ + (0 + 0)) :: Int
+  , id (x + id (id 0)) :: Int
+  , id (0 + id (id _)) :: Int
+  , id (0 + id (id x)) :: Int
+  , id (0 + (_ + 0)) :: Int
+  , id (0 + (0 + _)) :: Int
+  , id (1 + id (id _)) :: Int
+  , id (id _ + id 0) :: Int
+  , id (id _ + id 1) :: Int
+  , id (id x + id 0) :: Int
+  , id (id 0 + id _) :: Int
+  , id (id 0 + id x) :: Int
+  , id (id 1 + id _) :: Int
+  , id (id (id _) + 0) :: Int
+  , id (id (id _) + 1) :: Int
+  , id (id (id x) + 0) :: Int
+  , id (id (id 0) + _) :: Int
+  , id (id (id 0) + x) :: Int
+  , id (id (id 1) + _) :: Int
+  , id ((_ + 0) + 0) :: Int
+  , id ((0 + _) + 0) :: Int
+  , id ((0 + 0) + _) :: Int
+  , head (0:0:_) :: Int
+  , _ + id (id (id 0)) :: Int
+  , 0 + id (id (id _)) :: Int
+  , id _ + id (id 0) :: Int
+  , id 0 + id (id _) :: Int
+  , id (id _) + id 0 :: Int
+  , id (id 0) + id _ :: Int
+  , id (id (id _)) + 0 :: Int
+  , id (id (id 0)) + _ :: Int
+  , 0:id 0:_ :: [Int]
+  , id 0:0:_ :: [Int]
+  , [id (id (id _))] :: [Int]
+  , id (id (id 0)):_ :: [Int]
+  , id (abs (id (_ + 0))) :: Int
+  , id (abs (id (0 + _))) :: Int
+  , id (abs (_ + id 0)) :: Int
+  , id (abs (0 + id _)) :: Int
+  , id (abs (id _ + 0)) :: Int
+  , id (abs (id 0 + _)) :: Int
+  , id (id (abs (_ + 0))) :: Int
+  , id (id (abs (0 + _))) :: Int
+  , id (id (negate (_ + 0))) :: Int
+  , id (id (negate (0 + _))) :: Int
+  , id (id (head [_,0])) :: Int
+  , id (id (head [_])) :: Int
+  , id (id (head [x])) :: Int
+  , id (id (head (0:_))) :: Int
+  , id (id (head (0:xs))) :: Int
+  , id (id (head (1:_))) :: Int
+  , id (id (head (_ ++ []))) :: Int
+  , id (id (head ([] ++ _))) :: Int
+  , id (id (_ + ord 'a')) :: Int
+  , id (id (_ + abs 0)) :: Int
+  , id (id (_ + negate 0)) :: Int
+  , id (id (_ + head [])) :: Int
+  , id (id (0 + ord _)) :: Int
+  , id (id (0 + abs _)) :: Int
+  , id (id (0 + negate _)) :: Int
+  , id (id (0 + head _)) :: Int
+  , id (id (ord _ + 0)) :: Int
+  , id (id (ord 'a' + _)) :: Int
+  , id (id (abs _ + 0)) :: Int
+  , id (id (abs 0 + _)) :: Int
+  , id (id (negate _ + 0)) :: Int
+  , id (id (negate 0 + _)) :: Int
+  , id (id (head _ + 0)) :: Int
+  , id (id (head [] + _)) :: Int
+  , id (negate (id (_ + 0))) :: Int
+  , id (negate (id (0 + _))) :: Int
+  , id (negate (_ + id 0)) :: Int
+  , id (negate (0 + id _)) :: Int
+  , id (negate (id _ + 0)) :: Int
+  , id (negate (id 0 + _)) :: Int
+  , id (head [id _,0]) :: Int
+  , id (head [id _]) :: Int
+  , id (head [id x]) :: Int
+  , id (head (id 0:_)) :: Int
+  , id (head (id 0:xs)) :: Int
+  , id (head (id 1:_)) :: Int
+  , id (head [head _]) :: Int
+  , id (head (head []:_)) :: Int
+  , id (_ + abs (id 0)) :: Int
+  , id (_ + id (ord 'a')) :: Int
+  , id (_ + id (abs 0)) :: Int
+  , id (_ + id (negate 0)) :: Int
+  , id (_ + id (head [])) :: Int
+  , id (_ + negate (id 0)) :: Int
+  , id (0 + abs (id _)) :: Int
+  , id (0 + id (ord _)) :: Int
+  , id (0 + id (abs _)) :: Int
+  , id (0 + id (negate _)) :: Int
+  , id (0 + id (head _)) :: Int
+  , id (0 + negate (id _)) :: Int
+  , id (ord _ + id 0) :: Int
+  , id (ord 'a' + id _) :: Int
+  , id (abs _ + id 0) :: Int
+  , id (abs 0 + id _) :: Int
+  , id (abs (id _) + 0) :: Int
+  , id (abs (id 0) + _) :: Int
+  , id (id _ + ord 'a') :: Int
+  , id (id _ + abs 0) :: Int
+  , id (id _ + negate 0) :: Int
+  , id (id _ + head []) :: Int
+  , id (id 0 + ord _) :: Int
+  , id (id 0 + abs _) :: Int
+  , id (id 0 + negate _) :: Int
+  , id (id 0 + head _) :: Int
+  , id (id (ord _) + 0) :: Int
+  , id (id (ord 'a') + _) :: Int
+  , id (id (abs _) + 0) :: Int
+  , id (id (abs 0) + _) :: Int
+  , id (id (negate _) + 0) :: Int
+  , id (id (negate 0) + _) :: Int
+  , id (id (head _) + 0) :: Int
+  , id (id (head []) + _) :: Int
+  , id (negate _ + id 0) :: Int
+  , id (negate 0 + id _) :: Int
+  , id (negate (id _) + 0) :: Int
+  , id (negate (id 0) + _) :: Int
+  , id (head _ + id 0) :: Int
+  , id (head [] + id _) :: Int
+  , head [_,0] :: Int
+  , head [0,_] :: Int
+  , head [id (id _)] :: Int
+  , head (id (id 0):_) :: Int
+  , [_,id 0] :: [Int]
+  , [0,id _] :: [Int]
+  , [id _,0] :: [Int]
+  , [id 0,_] :: [Int]
+  , id (abs (head [_])) :: Int
+  , id (abs (head (0:_))) :: Int
+  , id (negate (head [_])) :: Int
+  , id (negate (head (0:_))) :: Int
+  , id (head (tail [_])) :: Int
+  , id (head (tail (0:_))) :: Int
+  , id (head (_:tail [])) :: Int
+  , id (head (0:tail _)) :: Int
+  , id (head [ord _]) :: Int
+  , id (head (ord 'a':_)) :: Int
+  , id (head [abs _]) :: Int
+  , id (head (abs 0:_)) :: Int
+  , id (head [negate _]) :: Int
+  , id (head (negate 0:_)) :: Int
+  , id (id (id (id (id 0)))) :: Int
+  , id (id (id (id (id 1)))) :: Int
+  , id (abs (id (id (id 0)))) :: Int
+  , id (id (abs (id (id 0)))) :: Int
+  , id (id (id (abs (id 0)))) :: Int
+  , id (id (id (id (ord 'a')))) :: Int
+  , id (id (id (id (abs 0)))) :: Int
+  , id (id (id (id (negate 0)))) :: Int
+  , id (id (id (id (head [])))) :: Int
+  , id (id (id (negate (id 0)))) :: Int
+  , id (id (id (0 + 0))) :: Int
+  , id (id (negate (id (id 0)))) :: Int
+  , id (id (0 + id 0)) :: Int
+  , id (id (id 0 + 0)) :: Int
+  , id (negate (id (id (id 0)))) :: Int
+  , id (0 + id (id 0)) :: Int
+  , id (id 0 + id 0) :: Int
+  , id (id (id 0) + 0) :: Int
+  , id (id (head [0])) :: Int
+  , id (head [id 0]) :: Int
+  , _:_:x:_ :: [Int]
+  , _:_:x:xs :: [Int]
+  , _:_:y:_ :: [Int]
+  , _:x:_:_ :: [Int]
+  , _:x:_:xs :: [Int]
+  , _:x:x:_ :: [Int]
+  , _:y:_:_ :: [Int]
+  , x:_:_:_ :: [Int]
+  , x:_:_:xs :: [Int]
+  , x:_:x:_ :: [Int]
+  , x:x:_:_ :: [Int]
+  , y:_:_:_ :: [Int]
+  , _:_:(_ ++ xs) :: [Int]
+  , _:_:(xs ++ _) :: [Int]
+  , _:x:(_ ++ _) :: [Int]
+  , _:_ + x:_ :: [Int]
+  , _:x + _:_ :: [Int]
+  , _:(_ ++ (_:xs)) :: [Int]
+  , _:(_ ++ (x:_)) :: [Int]
+  , _:(xs ++ (_:_)) :: [Int]
+  , _:((_:_) ++ xs) :: [Int]
+  , _:((_:xs) ++ _) :: [Int]
+  , _:((x:_) ++ _) :: [Int]
+  , x:_:(_ ++ _) :: [Int]
+  , x:_ + _:_ :: [Int]
+  , x:(_ ++ (_:_)) :: [Int]
+  , x:((_:_) ++ _) :: [Int]
+  , _ + _:x:_ :: [Int]
+  , _ + x:_:_ :: [Int]
+  , x + _:_:_ :: [Int]
+  , _ ++ (_:_:xs) :: [Int]
+  , _ ++ (_:x:_) :: [Int]
+  , _ ++ (x:_:_) :: [Int]
+  , xs ++ (_:_:_) :: [Int]
+  , (_:_) ++ (_:xs) :: [Int]
+  , (_:_) ++ (x:_) :: [Int]
+  , (_:xs) ++ (_:_) :: [Int]
+  , (_:_:_) ++ xs :: [Int]
+  , (_:_:xs) ++ _ :: [Int]
+  , (_:x:_) ++ _ :: [Int]
+  , (x:_) ++ (_:_) :: [Int]
+  , (x:_:_) ++ _ :: [Int]
+  , _:x:0:_ :: [Int]
+  , _:0:x:_ :: [Int]
+  , _:id (id x):_ :: [Int]
+  , x:_:0:_ :: [Int]
+  , x:0:_:_ :: [Int]
+  , x:id (id _):_ :: [Int]
+  , 0:_:x:_ :: [Int]
+  , 0:x:_:_ :: [Int]
+  , id _:id x:_ :: [Int]
+  , id x:id _:_ :: [Int]
+  , id (id _):x:_ :: [Int]
+  , id (id x):_:_ :: [Int]
+  , id (head (_:x:_)) :: Int
+  , id (head (_:x:xs)) :: Int
+  , id (head (_:y:_)) :: Int
+  , id (head (x:_:_)) :: Int
+  , id (head (x:_:xs)) :: Int
+  , id (head (y:_:_)) :: Int
+  , head (_:ord _:_) :: Int
+  , head (_:id x:_) :: Int
+  , head (x:id _:_) :: Int
+  , head (ord _:_:_) :: Int
+  , head (id _:x:_) :: Int
+  , head (id x:_:_) :: Int
+  , _:id (ord _):_ :: [Int]
+  , ord _:id _:_ :: [Int]
+  , id _:ord _:_ :: [Int]
+  , id (ord _):_:_ :: [Int]
+  , id (head (_:(_ ++ xs))) :: Int
+  , id (head (_:(xs ++ _))) :: Int
+  , id (head (_ + x:_)) :: Int
+  , id (head (x + _:_)) :: Int
+  , id (head (_ ++ (_:xs))) :: Int
+  , id (head (xs ++ (_:_))) :: Int
+  , id (head ((_:_) ++ xs)) :: Int
+  , id (head ((_:xs) ++ _)) :: Int
+  , id (_ + head (x:_)) :: Int
+  , id (x + head (_:_)) :: Int
+  , id (head (_:_) + x) :: Int
+  , id (head (x:_) + _) :: Int
+  , _:_:_:_ :: [Int]
+  , _:_:_:xs :: [Int]
+  , _:_:_:ys :: [Int]
+  , elem _ (_:_:_) :: Bool
+  , _:_:insert _ _ :: [Int]
+  , _:_:(_ ++ _) :: [Int]
+  , _:_ * _:_ :: [Int]
+  , _:_ + _:_ :: [Int]
+  , _:_ + _:xs :: [Int]
+  , _:insert _ (_:_) :: [Int]
+  , _:(_ ++ (_:_)) :: [Int]
+  , _:(_ ++ (_ ++ _)) :: [Int]
+  , _:((_:_) ++ _) :: [Int]
+  , _:((_ ++ _) ++ _) :: [Int]
+  , _ * _:_:_ :: [Int]
+  , _ + _:_:_ :: [Int]
+  , _ + _:_:xs :: [Int]
+  , _ + (_ + _):_ :: [Int]
+  , (_ + _) + _:_ :: [Int]
+  , insert _ (_:_:_) :: [Int]
+  , _ ++ (_:_:_) :: [Int]
+  , _ ++ (_:(_ ++ _)) :: [Int]
+  , _ ++ (_ ++ (_:_)) :: [Int]
+  , _ ++ ((_:_) ++ _) :: [Int]
+  , (_:_) ++ (_:_) :: [Int]
+  , (_:_) ++ (_ ++ _) :: [Int]
+  , (_:_:_) ++ _ :: [Int]
+  , (_:(_ ++ _)) ++ _ :: [Int]
+  , (_ ++ _) ++ (_:_) :: [Int]
+  , (_ ++ (_:_)) ++ _ :: [Int]
+  , ((_:_) ++ _) ++ _ :: [Int]
+  , _ + _:(_ ++ _) :: [Int]
+  , _ ++ (_ + _:_) :: [Int]
+  , (_ + _:_) ++ _ :: [Int]
+  , id (id (_ + (_ + x))) :: Int
+  , id (id (_ + (x + _))) :: Int
+  , id (id (x + (_ + _))) :: Int
+  , id (id ((_ + _) + x)) :: Int
+  , id (id ((_ + x) + _)) :: Int
+  , id (id ((x + _) + _)) :: Int
+  , id (_ + id (_ + x)) :: Int
+  , id (_ + id (x + _)) :: Int
+  , id (_ + (_ + id x)) :: Int
+  , id (_ + (x + id _)) :: Int
+  , id (_ + (id _ + x)) :: Int
+  , id (_ + (id x + _)) :: Int
+  , id (x + id (_ + _)) :: Int
+  , id (x + (_ + id _)) :: Int
+  , id (x + (id _ + _)) :: Int
+  , id (id _ + (_ + x)) :: Int
+  , id (id _ + (x + _)) :: Int
+  , id (id x + (_ + _)) :: Int
+  , id (id (_ + _) + x) :: Int
+  , id (id (_ + x) + _) :: Int
+  , id (id (x + _) + _) :: Int
+  , id ((_ + _) + id x) :: Int
+  , id ((_ + x) + id _) :: Int
+  , id ((_ + id _) + x) :: Int
+  , id ((_ + id x) + _) :: Int
+  , id ((x + _) + id _) :: Int
+  , id ((x + id _) + _) :: Int
+  , id ((id _ + _) + x) :: Int
+  , id ((id _ + x) + _) :: Int
+  , id ((id x + _) + _) :: Int
+  , head (_:head _:_) :: Int
+  , head (head _:_:_) :: Int
+  , head (head (_:_):_) :: Int
+  , [_,_,x] :: [Int]
+  , _:_:0:_ :: [Int]
+  , _:_:0:xs :: [Int]
+  , _:_:1:_ :: [Int]
+  , [_,x,_] :: [Int]
+  , _:0:_:_ :: [Int]
+  , _:0:_:xs :: [Int]
+  , _:1:_:_ :: [Int]
+  , _:id (id _):_ :: [Int]
+  , _:id (id _):xs :: [Int]
+  , [x,_,_] :: [Int]
+  , 0:_:_:_ :: [Int]
+  , 0:_:_:xs :: [Int]
+  , 1:_:_:_ :: [Int]
+  , id _:id _:_ :: [Int]
+  , id _:id _:xs :: [Int]
+  , id (id _):_:_ :: [Int]
+  , id (id _):_:xs :: [Int]
+  , abs (head (_:_:_)) :: Int
+  , id (head (_:_:_)) :: Int
+  , id (head (_:_:xs)) :: Int
+  , id (head (_:_:ys)) :: Int
+  , id (head (x:x:_)) :: Int
+  , id (_ + (_ + ord _)) :: Int
+  , id (_ + (_ + head _)) :: Int
+  , id (_ + (ord _ + _)) :: Int
+  , id (_ + (head _ + _)) :: Int
+  , id (ord _ + (_ + _)) :: Int
+  , id (head _ + (_ + _)) :: Int
+  , id ((_ + _) + ord _) :: Int
+  , id ((_ + _) + head _) :: Int
+  , id ((_ + ord _) + _) :: Int
+  , id ((_ + head _) + _) :: Int
+  , id ((ord _ + _) + _) :: Int
+  , id ((head _ + _) + _) :: Int
+  , negate (head (_:_:_)) :: Int
+  , head (tail (_:_:_)) :: Int
+  , head (_:tail (_:_)) :: Int
+  , head (_:_:tail _) :: Int
+  , head (_:abs _:_) :: Int
+  , head (_:id _:_) :: Int
+  , head (_:id _:xs) :: Int
+  , head (_:negate _:_) :: Int
+  , head (abs _:_:_) :: Int
+  , head (id _:_:_) :: Int
+  , head (id _:_:xs) :: Int
+  , head (negate _:_:_) :: Int
+  , tail (_:id _:_) :: [Int]
+  , tail (id _:_:_) :: [Int]
+  , _:tail (id _:_) :: [Int]
+  , _:_:(_ ++ []) :: [Int]
+  , [_,_,] ++ _ :: [Int]
+  , _:0:(_ ++ _) :: [Int]
+  , _:abs (id _):_ :: [Int]
+  , _:id _:tail _ :: [Int]
+  , _:id (abs _):_ :: [Int]
+  , _:id (negate _):_ :: [Int]
+  , _:id (head _):_ :: [Int]
+  , _:negate (id _):_ :: [Int]
+  , _:_ + 0:_ :: [Int]
+  , _:0 + _:_ :: [Int]
+  , _:(_ ++ [_]) :: [Int]
+  , _:(_ ++ (0:_)) :: [Int]
+  , _:([] ++ (_:_)) :: [Int]
+  , _:((_:_) ++ []) :: [Int]
+  , _:([_] ++ _) :: [Int]
+  , _:((0:_) ++ _) :: [Int]
+  , 0:_:(_ ++ _) :: [Int]
+  , 0:_ + _:_ :: [Int]
+  , 0:(_ ++ (_:_)) :: [Int]
+  , 0:((_:_) ++ _) :: [Int]
+  , abs _:id _:_ :: [Int]
+  , abs (id _):_:_ :: [Int]
+  , id _:tail (_:_) :: [Int]
+  , id _:_:tail _ :: [Int]
+  , id _:abs _:_ :: [Int]
+  , id _:negate _:_ :: [Int]
+  , id _:head _:_ :: [Int]
+  , id (abs _):_:_ :: [Int]
+  , id (id _):(_ ++ _) :: [Int]
+  , id (id (_ + _)):_ :: [Int]
+  , id (negate _):_:_ :: [Int]
+  , id (head _):_:_ :: [Int]
+  , id (head (_:_)):_ :: [Int]
+  , id (_ + id _):_ :: [Int]
+  , id (id _ + _):_ :: [Int]
+  , negate _:id _:_ :: [Int]
+  , negate (id _):_:_ :: [Int]
+  , head _:id _:_ :: [Int]
+  , head (id _:_):_ :: [Int]
+  , _ + _:0:_ :: [Int]
+  , _ + 0:_:_ :: [Int]
+  , _ + id (id _):_ :: [Int]
+  , 0 + _:_:_ :: [Int]
+  , id _ + id _:_ :: [Int]
+  , id (id _) + _:_ :: [Int]
+  , _ ++ [_,_] :: [Int]
+  , _ ++ (_:0:_) :: [Int]
+  , _ ++ (0:_:_) :: [Int]
+  , _ ++ (id (id _):_) :: [Int]
+  , [] ++ (_:_:_) :: [Int]
+  , (_:_) ++ [_] :: [Int]
+  , (_:_) ++ (0:_) :: [Int]
+  , [_] ++ (_:_) :: [Int]
+  , (_:_:_) ++ [] :: [Int]
+  , [_,_] ++ _ :: [Int]
+  , (_:0:_) ++ _ :: [Int]
+  , (0:_) ++ (_:_) :: [Int]
+  , (0:_:_) ++ _ :: [Int]
+  , (id (id _):_) ++ _ :: [Int]
+  , id (head (_:insert _ _)) :: Int
+  , id (head (_:(_ ++ _))) :: Int
+  , id (head (x:(_ ++ _))) :: Int
+  , id (head (_ * _:_)) :: Int
+  , id (head (_ + _:_)) :: Int
+  , id (head (_ + _:xs)) :: Int
+  , id (head (_ ++ (_:_))) :: Int
+  , id (head (_ ++ (x:_))) :: Int
+  , id (head ((_:_) ++ _)) :: Int
+  , id (head ((x:_) ++ _)) :: Int
+  , id (_ * head (_:_)) :: Int
+  , id (head (_:_) * _) :: Int
+  , id (_ + head (_:_)) :: Int
+  , id (_ + head (_:xs)) :: Int
+  , id (_ + head (_ ++ _)) :: Int
+  , id (head (_:_) + _) :: Int
+  , id (head (_:xs) + _) :: Int
+  , id (head (_ ++ _) + _) :: Int
+  , head (id _:(_ ++ _)) :: Int
+  , head (id (_ + _):_) :: Int
+  , head (_ + id _:_) :: Int
+  , head (id _ + _:_) :: Int
+  , head (_ ++ (id _:_)) :: Int
+  , head ((id _:_) ++ _) :: Int
+  , _ + id (head (_:_)) :: Int
+  , _ + head (id _:_) :: Int
+  , id _ + head (_:_) :: Int
+  , id (head (_:_)) + _ :: Int
+  , head (_:_) + id _ :: Int
+  , head (id _:_) + _ :: Int
+  , id (id (id (id (_ + x)))) :: Int
+  , id (id (id (id (x + _)))) :: Int
+  , id (id (id (_ + id x))) :: Int
+  , id (id (id (x + id _))) :: Int
+  , id (id (id (id _ + x))) :: Int
+  , id (id (id (id x + _))) :: Int
+  , id (id (_ + id (id x))) :: Int
+  , id (id (x + id (id _))) :: Int
+  , id (id (id _ + id x)) :: Int
+  , id (id (id x + id _)) :: Int
+  , id (id (id (id _) + x)) :: Int
+  , id (id (id (id x) + _)) :: Int
+  , id (_ + id (id (id x))) :: Int
+  , id (x + id (id (id _))) :: Int
+  , id (id _ + id (id x)) :: Int
+  , id (id x + id (id _)) :: Int
+  , id (id (id _) + id x) :: Int
+  , id (id (id x) + id _) :: Int
+  , id (id (id (id _)) + x) :: Int
+  , id (id (id (id x)) + _) :: Int
+  , _:0:0:_ :: [Int]
+  , 0:_:0:_ :: [Int]
+  , 0:0:_:_ :: [Int]
+  , id (id (id (id _))):_ :: [Int]
+  , id (id (id (head (_:_)))) :: Int
+  , id (id (id (head (_:xs)))) :: Int
+  , id (id (id (head (x:_)))) :: Int
+  , id (id (id (_ + ord _))) :: Int
+  , id (id (id (_ + head _))) :: Int
+  , id (id (id (ord _ + _))) :: Int
+  , id (id (id (head _ + _))) :: Int
+  , id (id (head (id _:_))) :: Int
+  , id (id (head (id _:xs))) :: Int
+  , id (id (head (id x:_))) :: Int
+  , id (id (_ + id (ord _))) :: Int
+  , id (id (_ + id (head _))) :: Int
+  , id (id (ord _ + id _)) :: Int
+  , id (id (id _ + ord _)) :: Int
+  , id (id (id _ + head _)) :: Int
+  , id (id (id (ord _) + _)) :: Int
+  , id (id (id (head _) + _)) :: Int
+  , id (id (head _ + id _)) :: Int
+  , id (head (id (id _):_)) :: Int
+  , id (head (id (id _):xs)) :: Int
+  , id (head (id (id x):_)) :: Int
+  , id (_ + id (id (ord _))) :: Int
+  , id (_ + id (id (head _))) :: Int
+  , id (ord _ + id (id _)) :: Int
+  , id (id _ + id (ord _)) :: Int
+  , id (id _ + id (head _)) :: Int
+  , id (id (ord _) + id _) :: Int
+  , id (id (id _) + ord _) :: Int
+  , id (id (id _) + head _) :: Int
+  , id (id (id (ord _)) + _) :: Int
+  , id (id (id (head _)) + _) :: Int
+  , id (id (head _) + id _) :: Int
+  , id (head _ + id (id _)) :: Int
+  , head (id (id (id _)):_) :: Int
+  , _:id (id 0):_ :: [Int]
+  , 0:id (id _):_ :: [Int]
+  , id _:id 0:_ :: [Int]
+  , id 0:id _:_ :: [Int]
+  , id (id _):0:_ :: [Int]
+  , id (id 0):_:_ :: [Int]
+  , id (abs (id (head (_:_)))) :: Int
+  , id (abs (head (id _:_))) :: Int
+  , id (id (abs (head (_:_)))) :: Int
+  , id (id (negate (head (_:_)))) :: Int
+  , id (id (head (tail (_:_)))) :: Int
+  , id (id (head (_:tail _))) :: Int
+  , id (id (head (ord _:_))) :: Int
+  , id (id (head (abs _:_))) :: Int
+  , id (id (head (negate _:_))) :: Int
+  , id (negate (id (head (_:_)))) :: Int
+  , id (negate (head (id _:_))) :: Int
+  , id (head (tail (id _:_))) :: Int
+  , id (head [_,x]) :: Int
+  , id (head (_:0:_)) :: Int
+  , id (head (_:0:xs)) :: Int
+  , id (head (_:1:_)) :: Int
+  , id (head [x,_]) :: Int
+  , id (head (x:0:_)) :: Int
+  , id (head (0:_:_)) :: Int
+  , id (head (0:_:xs)) :: Int
+  , id (head (0:x:_)) :: Int
+  , id (head (1:_:_)) :: Int
+  , id (head (abs (id _):_)) :: Int
+  , id (head (id _:tail _)) :: Int
+  , id (head (id (ord _):_)) :: Int
+  , id (head (id (abs _):_)) :: Int
+  , id (head (id (negate _):_)) :: Int
+  , id (head (negate (id _):_)) :: Int
+  , head (_:id 0:_) :: Int
+  , head (0:id _:_) :: Int
+  , head (id _:0:_) :: Int
+  , head (id 0:_:_) :: Int
+  , id (head (_:(_ ++ []))) :: Int
+  , id (head (_:([] ++ _))) :: Int
+  , id (head (_ + 0:_)) :: Int
+  , id (head (0 + _:_)) :: Int
+  , id (head (_ ++ [_])) :: Int
+  , id (head ([] ++ (_:_))) :: Int
+  , id (head ((_:_) ++ [])) :: Int
+  , id (head ([_] ++ _)) :: Int
+  , id (_ + head (0:_)) :: Int
+  , id (0 + head (_:_)) :: Int
+  , id (head (_:_) + 0) :: Int
+  , id (head (0:_) + _) :: Int
+  , _ + (_ + (_ + _)) :: Int
+  , _ + ((_ + _) + _) :: Int
+  , (_ + _) + (_ + _) :: Int
+  , (_ + (_ + _)) + _ :: Int
+  , ((_ + _) + _) + _ :: Int
+  , id (id (_ + (_ + _))) :: Int
+  , id (id ((_ + _) + _)) :: Int
+  , id (_ + id (_ + _)) :: Int
+  , id (_ + (_ + id _)) :: Int
+  , id (_ + (id _ + _)) :: Int
+  , id (id _ + (_ + _)) :: Int
+  , id (id (_ + _) + _) :: Int
+  , id ((_ + _) + id _) :: Int
+  , id ((_ + id _) + _) :: Int
+  , id ((id _ + _) + _) :: Int
+  , _ + id (id (_ + _)) :: Int
+  , _ + id (_ + id _) :: Int
+  , _ + id (id _ + _) :: Int
+  , _ + (_ + id (id _)) :: Int
+  , _ + (id _ + id _) :: Int
+  , _ + (id (id _) + _) :: Int
+  , id _ + id (_ + _) :: Int
+  , id _ + (_ + id _) :: Int
+  , id _ + (id _ + _) :: Int
+  , id (id _) + (_ + _) :: Int
+  , id (id (_ + _)) + _ :: Int
+  , id (_ + _) + id _ :: Int
+  , id (_ + id _) + _ :: Int
+  , id (id _ + _) + _ :: Int
+  , (_ + _) + id (id _) :: Int
+  , (_ + id _) + id _ :: Int
+  , (_ + id (id _)) + _ :: Int
+  , (id _ + _) + id _ :: Int
+  , (id _ + id _) + _ :: Int
+  , (id (id _) + _) + _ :: Int
+  , [_,_,_,0] :: [Int]
+  , [_,_,_] :: [Int]
+  , id (abs (_ + (_ + _))) :: Int
+  , id (abs ((_ + _) + _)) :: Int
+  , id (id (_ * (_ + _))) :: Int
+  , id (id ((_ + _) * _)) :: Int
+  , id (id (_ + _ * _)) :: Int
+  , id (id (_ * _ + _)) :: Int
+  , id (negate (_ + (_ + _))) :: Int
+  , id (negate ((_ + _) + _)) :: Int
+  , id (head (_ ++ (_ ++ _))) :: Int
+  , id (_ * id (_ + _)) :: Int
+  , id (_ * (_ + id _)) :: Int
+  , id (_ * (id _ + _)) :: Int
+  , id (id _ * (_ + _)) :: Int
+  , id (id (_ + _) * _) :: Int
+  , id ((_ + _) * id _) :: Int
+  , id ((_ + id _) * _) :: Int
+  , id ((id _ + _) * _) :: Int
+  , id (_ + abs (_ + _)) :: Int
+  , id (_ + id (_ * _)) :: Int
+  , id (_ + negate (_ + _)) :: Int
+  , id (_ + _ * id _) :: Int
+  , id (_ + id _ * _) :: Int
+  , id (_ + (_ + abs _)) :: Int
+  , id (_ + (_ + negate _)) :: Int
+  , id (_ + (abs _ + _)) :: Int
+  , id (_ + (negate _ + _)) :: Int
+  , id (abs _ + (_ + _)) :: Int
+  , id (abs (_ + _) + _) :: Int
+  , id (id _ + _ * _) :: Int
+  , id (id (_ * _) + _) :: Int
+  , id (negate _ + (_ + _)) :: Int
+  , id (negate (_ + _) + _) :: Int
+  , id (_ * _ + id _) :: Int
+  , id (_ * id _ + _) :: Int
+  , id (id _ * _ + _) :: Int
+  , id ((_ + _) + abs _) :: Int
+  , id ((_ + _) + negate _) :: Int
+  , id ((_ + abs _) + _) :: Int
+  , id ((_ + negate _) + _) :: Int
+  , id ((abs _ + _) + _) :: Int
+  , id ((negate _ + _) + _) :: Int
+  , [_,_ + _] :: [Int]
+  , [_ + _,_] :: [Int]
+  , id (id (id (id (_ * _)))) :: Int
+  , id (id (id (id (_ + _)))) :: Int
+  , id (id (id (_ * id _))) :: Int
+  , id (id (id (id _ * _))) :: Int
+  , id (id (id (_ + id _))) :: Int
+  , id (id (id (id _ + _))) :: Int
+  , id (id (_ * id (id _))) :: Int
+  , id (id (id _ * id _)) :: Int
+  , id (id (id (id _) * _)) :: Int
+  , id (id (_ + id (id _))) :: Int
+  , id (id (id _ + id _)) :: Int
+  , id (id (id (id _) + _)) :: Int
+  , id (_ * id (id (id _))) :: Int
+  , id (id _ * id (id _)) :: Int
+  , id (id (id _) * id _) :: Int
+  , id (id (id (id _)) * _) :: Int
+  , id (_ + id (id (id _))) :: Int
+  , id (id _ + id (id _)) :: Int
+  , id (id (id _) + id _) :: Int
+  , id (id (id (id _)) + _) :: Int
+  , _ + id (id (id (id _))) :: Int
+  , id _ + id (id (id _)) :: Int
+  , id (id _) + id (id _) :: Int
+  , id (id (id _)) + id _ :: Int
+  , id (id (id (id _))) + _ :: Int
+  , id (abs (id (id (_ + _)))) :: Int
+  , id (abs (id (_ + id _))) :: Int
+  , id (abs (id (id _ + _))) :: Int
+  , id (abs (_ + id (id _))) :: Int
+  , id (abs (id _ + id _)) :: Int
+  , id (abs (id (id _) + _)) :: Int
+  , id (id (abs (id (_ + _)))) :: Int
+  , id (id (abs (_ + id _))) :: Int
+  , id (id (abs (id _ + _))) :: Int
+  , id (id (id (abs (_ + _)))) :: Int
+  , id (id (id (negate (_ + _)))) :: Int
+  , id (id (id (head (_ ++ _)))) :: Int
+  , id (id (id (_ + abs _))) :: Int
+  , id (id (id (_ + negate _))) :: Int
+  , id (id (id (abs _ + _))) :: Int
+  , id (id (id (negate _ + _))) :: Int
+  , id (id (negate (id (_ + _)))) :: Int
+  , id (id (negate (_ + id _))) :: Int
+  , id (id (negate (id _ + _))) :: Int
+  , id (id (head (head _:_))) :: Int
+  , id (id (_ + abs (id _))) :: Int
+  , id (id (_ + id (abs _))) :: Int
+  , id (id (_ + id (negate _))) :: Int
+  , id (id (_ + negate (id _))) :: Int
+  , id (id (_ + (_ + 0))) :: Int
+  , id (id (_ + (0 + _))) :: Int
+  , id (id (0 + (_ + _))) :: Int
+  , id (id (abs _ + id _)) :: Int
+  , id (id (abs (id _) + _)) :: Int
+  , id (id (id _ + abs _)) :: Int
+  , id (id (id _ + negate _)) :: Int
+  , id (id (id (abs _) + _)) :: Int
+  , id (id (id (negate _) + _)) :: Int
+  , id (id (negate _ + id _)) :: Int
+  , id (id (negate (id _) + _)) :: Int
+  , id (id ((_ + _) + 0)) :: Int
+  , id (id ((_ + 0) + _)) :: Int
+  , id (id ((0 + _) + _)) :: Int
+  , id (negate (id (id (_ + _)))) :: Int
+  , id (negate (id (_ + id _))) :: Int
+  , id (negate (id (id _ + _))) :: Int
+  , id (negate (_ + id (id _))) :: Int
+  , id (negate (id _ + id _)) :: Int
+  , id (negate (id (id _) + _)) :: Int
+  , id (head (id (head _):_)) :: Int
+  , id (_ + abs (id (id _))) :: Int
+  , id (_ + id (abs (id _))) :: Int
+  , id (_ + id (id (abs _))) :: Int
+  , id (_ + id (id (negate _))) :: Int
+  , id (_ + id (negate (id _))) :: Int
+  , id (_ + id (_ + 0)) :: Int
+  , id (_ + id (0 + _)) :: Int
+  , id (_ + negate (id (id _))) :: Int
+  , id (_ + (_ + id 0)) :: Int
+  , id (_ + (0 + id _)) :: Int
+  , id (_ + (id _ + 0)) :: Int
+  , id (_ + (id 0 + _)) :: Int
+  , id (0 + id (_ + _)) :: Int
+  , id (0 + (_ + id _)) :: Int
+  , id (0 + (id _ + _)) :: Int
+  , id (abs _ + id (id _)) :: Int
+  , id (abs (id _) + id _) :: Int
+  , id (abs (id (id _)) + _) :: Int
+  , id (id _ + abs (id _)) :: Int
+  , id (id _ + id (abs _)) :: Int
+  , id (id _ + id (negate _)) :: Int
+  , id (id _ + negate (id _)) :: Int
+  , id (id _ + (_ + 0)) :: Int
+  , id (id _ + (0 + _)) :: Int
+  , id (id 0 + (_ + _)) :: Int
+  , id (id (abs _) + id _) :: Int
+  , id (id (abs (id _)) + _) :: Int
+  , id (id (id _) + abs _) :: Int
+  , id (id (id _) + negate _) :: Int
+  , id (id (id (abs _)) + _) :: Int
+  , id (id (id (negate _)) + _) :: Int
+  , id (id (negate _) + id _) :: Int
+  , id (id (negate (id _)) + _) :: Int
+  , id (id (_ + _) + 0) :: Int
+  , id (id (_ + 0) + _) :: Int
+  , id (id (0 + _) + _) :: Int
+  , id (negate _ + id (id _)) :: Int
+  , id (negate (id _) + id _) :: Int
+  , id (negate (id (id _)) + _) :: Int
+  , id ((_ + _) + id 0) :: Int
+  , id ((_ + 0) + id _) :: Int
+  , id ((_ + id _) + 0) :: Int
+  , id ((_ + id 0) + _) :: Int
+  , id ((0 + _) + id _) :: Int
+  , id ((0 + id _) + _) :: Int
+  , id ((id _ + _) + 0) :: Int
+  , id ((id _ + 0) + _) :: Int
+  , id ((id 0 + _) + _) :: Int
+  , [_,_,0] :: [Int]
+  , [_,0,_] :: [Int]
+  , [_,id (id _)] :: [Int]
+  , [0,_,_] :: [Int]
+  , [id _,id _] :: [Int]
+  , [id (id _),_] :: [Int]
+  , id (head [_,_,0]) :: Int
+  , id (head [_,_]) :: Int
+  , head [_,id _] :: Int
+  , head [id _,_] :: Int
+  , id (head (0:(_ ++ _))) :: Int
+  , id (head [_ + _]) :: Int
+  , id (head (_ ++ (0:_))) :: Int
+  , id (head ((0:_) ++ _)) :: Int
+  , id (_ + head [_]) :: Int
+  , id (head [_] + _) :: Int
+  , id (id (id (id (id (id _))))) :: Int
+  , id (id (id (id (id (id x))))) :: Int
+  , id (abs (id (id (id (id _))))) :: Int
+  , id (id (abs (id (id (id _))))) :: Int
+  , id (id (id (abs (id (id _))))) :: Int
+  , id (id (id (id (abs (id _))))) :: Int
+  , id (id (id (id (id (ord _))))) :: Int
+  , id (id (id (id (id (abs _))))) :: Int
+  , id (id (id (id (id (negate _))))) :: Int
+  , id (id (id (id (id (head _))))) :: Int
+  , id (id (id (id (negate (id _))))) :: Int
+  , id (id (id (negate (id (id _))))) :: Int
+  , id (id (negate (id (id (id _))))) :: Int
+  , id (negate (id (id (id (id _))))) :: Int
+  , id (id (id (id (_ + 0)))) :: Int
+  , id (id (id (id (0 + _)))) :: Int
+  , id (id (id (_ + id 0))) :: Int
+  , id (id (id (0 + id _))) :: Int
+  , id (id (id (id _ + 0))) :: Int
+  , id (id (id (id 0 + _))) :: Int
+  , id (id (_ + id (id 0))) :: Int
+  , id (id (0 + id (id _))) :: Int
+  , id (id (id _ + id 0)) :: Int
+  , id (id (id 0 + id _)) :: Int
+  , id (id (id (id _) + 0)) :: Int
+  , id (id (id (id 0) + _)) :: Int
+  , id (_ + id (id (id 0))) :: Int
+  , id (0 + id (id (id _))) :: Int
+  , id (id _ + id (id 0)) :: Int
+  , id (id 0 + id (id _)) :: Int
+  , id (id (id _) + id 0) :: Int
+  , id (id (id 0) + id _) :: Int
+  , id (id (id (id _)) + 0) :: Int
+  , id (id (id (id 0)) + _) :: Int
+  , id (id (id (head [_]))) :: Int
+  , id (id (id (head (0:_)))) :: Int
+  , id (id (head [id _])) :: Int
+  , id (id (head (id 0:_))) :: Int
+  , id (head (0:0:_)) :: Int
+  , id (head [id (id _)]) :: Int
+  , id (head (id (id 0):_)) :: Int
+  , id (head [_,0]) :: Int
+  , id (head [0,_]) :: Int
+  , id (id (id (id (id (id 0))))) :: Int
+  , head (_:_:x:_) :: Int
+  , head (_:x:_:_) :: Int
+  , head (x:_:_:_) :: Int
+  , _:_:ord _:_ :: [Int]
+  , _:_:id x:_ :: [Int]
+  , _:x:id _:_ :: [Int]
+  , _:ord _:_:_ :: [Int]
+  , _:id _:x:_ :: [Int]
+  , _:id x:_:_ :: [Int]
+  , x:_:id _:_ :: [Int]
+  , x:id _:_:_ :: [Int]
+  , ord _:_:_:_ :: [Int]
+  , id _:_:x:_ :: [Int]
+  , id _:x:_:_ :: [Int]
+  , id x:_:_:_ :: [Int]
+  , id (id (head (_:x:_))) :: Int
+  , id (id (head (x:_:_))) :: Int
+  , id (head (_:id x:_)) :: Int
+  , id (head (x:id _:_)) :: Int
+  , id (head (id _:x:_)) :: Int
+  , id (head (id x:_:_)) :: Int
+  , id (head (_:ord _:_)) :: Int
+  , id (head (ord _:_:_)) :: Int
+  , head (_:_:_:_) :: Int
+  , head (_:_:_:xs) :: Int
+  , tail (_:_:_:_) :: [Int]
+  , _:tail (_:_:_) :: [Int]
+  , _:_:tail (_:_) :: [Int]
+  , _:_:_:tail _ :: [Int]
+  , _:_:abs _:_ :: [Int]
+  , _:_:id _:_ :: [Int]
+  , _:_:id _:xs :: [Int]
+  , _:_:negate _:_ :: [Int]
+  , _:_:head _:_ :: [Int]
+  , _:abs _:_:_ :: [Int]
+  , _:id _:_:_ :: [Int]
+  , _:id _:_:xs :: [Int]
+  , _:negate _:_:_ :: [Int]
+  , _:head _:_:_ :: [Int]
+  , _:head (_:_):_ :: [Int]
+  , abs _:_:_:_ :: [Int]
+  , id _:_:_:_ :: [Int]
+  , id _:_:_:xs :: [Int]
+  , negate _:_:_:_ :: [Int]
+  , head _:_:_:_ :: [Int]
+  , head (_:_):_:_ :: [Int]
+  , head (_:_:_):_ :: [Int]
+  , head (_:_:(_ ++ _)) :: Int
+  , head (_:_ + _:_) :: Int
+  , head (_:(_ ++ (_:_))) :: Int
+  , head (_:((_:_) ++ _)) :: Int
+  , head (_ + _:_:_) :: Int
+  , head (_ ++ (_:_:_)) :: Int
+  , head ((_:_) ++ (_:_)) :: Int
+  , head ((_:_:_) ++ _) :: Int
+  , _ + head (_:_:_) :: Int
+  , head (_:_:_) + _ :: Int
+  , _:id _:(_ ++ _) :: [Int]
+  , _:id (_ + _):_ :: [Int]
+  , _:_ + id _:_ :: [Int]
+  , _:id _ + _:_ :: [Int]
+  , _:(_ ++ (id _:_)) :: [Int]
+  , _:((id _:_) ++ _) :: [Int]
+  , id _:_:(_ ++ _) :: [Int]
+  , id _:_ + _:_ :: [Int]
+  , id _:(_ ++ (_:_)) :: [Int]
+  , id _:((_:_) ++ _) :: [Int]
+  , id (_ + _):_:_ :: [Int]
+  , _ + _:id _:_ :: [Int]
+  , _ + id _:_:_ :: [Int]
+  , id _ + _:_:_ :: [Int]
+  , _ ++ (_:id _:_) :: [Int]
+  , _ ++ (id _:_:_) :: [Int]
+  , (_:_) ++ (id _:_) :: [Int]
+  , (_:id _:_) ++ _ :: [Int]
+  , (id _:_) ++ (_:_) :: [Int]
+  , (id _:_:_) ++ _ :: [Int]
+  , _:id (id (id _)):_ :: [Int]
+  , id _:id (id _):_ :: [Int]
+  , id (id _):id _:_ :: [Int]
+  , id (id (id _)):_:_ :: [Int]
+  , id (id (head (_:_:_))) :: Int
+  , id (id (head (_:_:xs))) :: Int
+  , id (head (_:id _:_)) :: Int
+  , id (head (_:id _:xs)) :: Int
+  , id (head (_:head _:_)) :: Int
+  , id (head (id _:_:_)) :: Int
+  , id (head (id _:_:xs)) :: Int
+  , id (head (head _:_:_)) :: Int
+  , id (head (head (_:_):_)) :: Int
+  , head (_:_:0:_) :: Int
+  , head (_:0:_:_) :: Int
+  , head (_:id (id _):_) :: Int
+  , head (0:_:_:_) :: Int
+  , head (id _:id _:_) :: Int
+  , head (id (id _):_:_) :: Int
+  , _:_:id 0:_ :: [Int]
+  , _:0:id _:_ :: [Int]
+  , _:id _:0:_ :: [Int]
+  , _:id 0:_:_ :: [Int]
+  , 0:_:id _:_ :: [Int]
+  , 0:id _:_:_ :: [Int]
+  , id _:_:0:_ :: [Int]
+  , id _:0:_:_ :: [Int]
+  , id 0:_:_:_ :: [Int]
+  , id (abs (head (_:_:_))) :: Int
+  , id (id (head (_:(_ ++ _)))) :: Int
+  , id (id (head (_ + _:_))) :: Int
+  , id (id (head (_ ++ (_:_)))) :: Int
+  , id (id (head ((_:_) ++ _))) :: Int
+  , id (id (_ + head (_:_))) :: Int
+  , id (id (head (_:_) + _)) :: Int
+  , id (negate (head (_:_:_))) :: Int
+  , id (head (tail (_:_:_))) :: Int
+  , id (head (_:tail (_:_))) :: Int
+  , id (head (_:_:tail _)) :: Int
+  , id (head (_:abs _:_)) :: Int
+  , id (head (_:negate _:_)) :: Int
+  , id (head (abs _:_:_)) :: Int
+  , id (head (id _:(_ ++ _))) :: Int
+  , id (head (id (_ + _):_)) :: Int
+  , id (head (negate _:_:_)) :: Int
+  , id (head (_ + id _:_)) :: Int
+  , id (head (id _ + _:_)) :: Int
+  , id (head (_ ++ (id _:_))) :: Int
+  , id (head ((id _:_) ++ _)) :: Int
+  , id (_ + id (head (_:_))) :: Int
+  , id (_ + head (id _:_)) :: Int
+  , id (id _ + head (_:_)) :: Int
+  , id (id (head (_:_)) + _) :: Int
+  , id (head (_:_) + id _) :: Int
+  , id (head (id _:_) + _) :: Int
+  , id (id (id (id (head (_:_))))) :: Int
+  , id (id (id (head (id _:_)))) :: Int
+  , id (id (head (id (id _):_))) :: Int
+  , id (head (id (id (id _)):_)) :: Int
+  , id (id (head (_:0:_))) :: Int
+  , id (id (head (0:_:_))) :: Int
+  , id (head (_:id 0:_)) :: Int
+  , id (head (0:id _:_)) :: Int
+  , id (head (id _:0:_)) :: Int
+  , id (head (id 0:_:_)) :: Int
+  , id (_ + (_ + (_ + _))) :: Int
+  , id (_ + ((_ + _) + _)) :: Int
+  , id ((_ + _) + (_ + _)) :: Int
+  , id ((_ + (_ + _)) + _) :: Int
+  , id (((_ + _) + _) + _) :: Int
+  , id (id (id (_ + (_ + _)))) :: Int
+  , id (id (id ((_ + _) + _))) :: Int
+  , id (id (_ + id (_ + _))) :: Int
+  , id (id (_ + (_ + id _))) :: Int
+  , id (id (_ + (id _ + _))) :: Int
+  , id (id (id _ + (_ + _))) :: Int
+  , id (id (id (_ + _) + _)) :: Int
+  , id (id ((_ + _) + id _)) :: Int
+  , id (id ((_ + id _) + _)) :: Int
+  , id (id ((id _ + _) + _)) :: Int
+  , id (_ + id (id (_ + _))) :: Int
+  , id (_ + id (_ + id _)) :: Int
+  , id (_ + id (id _ + _)) :: Int
+  , id (_ + (_ + id (id _))) :: Int
+  , id (_ + (id _ + id _)) :: Int
+  , id (_ + (id (id _) + _)) :: Int
+  , id (id _ + id (_ + _)) :: Int
+  , id (id _ + (_ + id _)) :: Int
+  , id (id _ + (id _ + _)) :: Int
+  , id (id (id _) + (_ + _)) :: Int
+  , id (id (id (_ + _)) + _) :: Int
+  , id (id (_ + _) + id _) :: Int
+  , id (id (_ + id _) + _) :: Int
+  , id (id (id _ + _) + _) :: Int
+  , id ((_ + _) + id (id _)) :: Int
+  , id ((_ + id _) + id _) :: Int
+  , id ((_ + id (id _)) + _) :: Int
+  , id ((id _ + _) + id _) :: Int
+  , id ((id _ + id _) + _) :: Int
+  , id ((id (id _) + _) + _) :: Int
+  , head [_,_,_] :: Int
+  , [_,_,id _] :: [Int]
+  , [_,id _,_] :: [Int]
+  , [id _,_,_] :: [Int]
+  , id (id (id (id (id (_ + _))))) :: Int
+  , id (id (id (id (_ + id _)))) :: Int
+  , id (id (id (id (id _ + _)))) :: Int
+  , id (id (id (_ + id (id _)))) :: Int
+  , id (id (id (id _ + id _))) :: Int
+  , id (id (id (id (id _) + _))) :: Int
+  , id (id (_ + id (id (id _)))) :: Int
+  , id (id (id _ + id (id _))) :: Int
+  , id (id (id (id _) + id _)) :: Int
+  , id (id (id (id (id _)) + _)) :: Int
+  , id (_ + id (id (id (id _)))) :: Int
+  , id (id _ + id (id (id _))) :: Int
+  , id (id (id _) + id (id _)) :: Int
+  , id (id (id (id _)) + id _) :: Int
+  , id (id (id (id (id _))) + _) :: Int
+  , id (id (head [_,_])) :: Int
+  , id (head [_,id _]) :: Int
+  , id (head [id _,_]) :: Int
+  , id (id (id (id (id (id (id _)))))) :: Int
+  , _:_:_:x:_ :: [Int]
+  , _:_:x:_:_ :: [Int]
+  , _:x:_:_:_ :: [Int]
+  , x:_:_:_:_ :: [Int]
+  , id (head (_:_:x:_)) :: Int
+  , id (head (_:x:_:_)) :: Int
+  , id (head (x:_:_:_)) :: Int
+  , _:_:_:_:_ :: [Int]
+  , _:_:_:_:xs :: [Int]
+  , _:_:_:(_ ++ _) :: [Int]
+  , _:_:_ + _:_ :: [Int]
+  , _:_:(_ ++ (_:_)) :: [Int]
+  , _:_:((_:_) ++ _) :: [Int]
+  , _:_ + _:_:_ :: [Int]
+  , _:(_ ++ (_:_:_)) :: [Int]
+  , _:((_:_) ++ (_:_)) :: [Int]
+  , _:((_:_:_) ++ _) :: [Int]
+  , _ + _:_:_:_ :: [Int]
+  , _ ++ (_:_:_:_) :: [Int]
+  , (_:_) ++ (_:_:_) :: [Int]
+  , (_:_:_) ++ (_:_) :: [Int]
+  , (_:_:_:_) ++ _ :: [Int]
+  , _:_:_:0:_ :: [Int]
+  , _:_:0:_:_ :: [Int]
+  , _:_:id (id _):_ :: [Int]
+  , _:0:_:_:_ :: [Int]
+  , _:id _:id _:_ :: [Int]
+  , _:id (id _):_:_ :: [Int]
+  , 0:_:_:_:_ :: [Int]
+  , id _:_:id _:_ :: [Int]
+  , id _:id _:_:_ :: [Int]
+  , id (id _):_:_:_ :: [Int]
+  , id (head (_:_:_:_)) :: Int
+  , id (head (_:_:_:xs)) :: Int
+  , head (_:_:id _:_) :: Int
+  , head (_:id _:_:_) :: Int
+  , head (id _:_:_:_) :: Int
+  , id (head (_:_:(_ ++ _))) :: Int
+  , id (head (_:_ + _:_)) :: Int
+  , id (head (_:(_ ++ (_:_)))) :: Int
+  , id (head (_:((_:_) ++ _))) :: Int
+  , id (head (_ + _:_:_)) :: Int
+  , id (head (_ ++ (_:_:_))) :: Int
+  , id (head ((_:_) ++ (_:_))) :: Int
+  , id (head ((_:_:_) ++ _)) :: Int
+  , id (_ + head (_:_:_)) :: Int
+  , id (head (_:_:_) + _) :: Int
+  , id (id (id (head (_:_:_)))) :: Int
+  , id (id (head (_:id _:_))) :: Int
+  , id (id (head (id _:_:_))) :: Int
+  , id (head (_:id (id _):_)) :: Int
+  , id (head (id _:id _:_)) :: Int
+  , id (head (id (id _):_:_)) :: Int
+  , id (head (_:_:0:_)) :: Int
+  , id (head (_:0:_:_)) :: Int
+  , id (head (0:_:_:_)) :: Int
+  , [_,_,_,_] :: [Int]
+  , id (head [_,_,_]) :: Int
+  , head (_:_:_:_:_) :: Int
+  , _:_:_:id _:_ :: [Int]
+  , _:_:id _:_:_ :: [Int]
+  , _:id _:_:_:_ :: [Int]
+  , id _:_:_:_:_ :: [Int]
+  , id (id (head (_:_:_:_))) :: Int
+  , id (head (_:_:id _:_)) :: Int
+  , id (head (_:id _:_:_)) :: Int
+  , id (head (id _:_:_:_)) :: Int
+  , _:_:_:_:_:_ :: [Int]
+  , id (head (_:_:_:_:_)) :: Int
+  ]
+
