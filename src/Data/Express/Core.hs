@@ -48,7 +48,7 @@ module Data.Express.Core
 
   -- * Comparison
   , compareComplexity
-  , lexicompare
+  , compareLexicographically
 
   -- * Properties
   , arity
@@ -549,7 +549,7 @@ instance Eq Expr where
 -- when they have smaller complexity ('compareComplexity')
 -- or when they come first lexicographically.
 instance Ord Expr where
-  compare = compareComplexity <> lexicompare
+  compare = compareComplexity <> compareLexicographically
 
 -- | /O(n)/.
 -- Compares the complexity of two 'Expr's.
@@ -599,18 +599,18 @@ compareComplexity  =  (compare      `on` length . values)
 -- where variables < constants < applications
 -- then types are compared before string representations.
 --
--- > > lexicompare one (one -+- one)
+-- > > compareLexicographically one (one -+- one)
 -- > LT
--- > > lexicompare one zero
+-- > > compareLexicographically one zero
 -- > GT
--- > > lexicompare (xx -+- zero) (zero -+- xx)
+-- > > compareLexicographically (xx -+- zero) (zero -+- xx)
 -- > LT
--- > > lexicompare (zero -+- xx) (zero -+- xx)
+-- > > compareLexicographically (zero -+- xx) (zero -+- xx)
 -- > EQ
 --
 -- (cf. 'compareTy')
-lexicompare :: Expr -> Expr -> Ordering
-lexicompare  =  cmp
+compareLexicographically :: Expr -> Expr -> Ordering
+compareLexicographically  =  cmp
   where
   (f :$ x) `cmp` (g :$ y)  =  f  `cmp` g <> x `cmp` y
   (_ :$ _) `cmp` _         =  GT

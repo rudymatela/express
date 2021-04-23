@@ -18,5 +18,5 @@ main  =  do
   putStrLn $ "sort $ take 5040 $ list  ::  [ Expr ]  ="
   printL (sort $ take 5040 $ list :: [Expr])
 
-  putStrLn $ "sortBy lexicompare $ take 5040 $ list  ::  [ Expr ]  ="
-  printL (sortBy lexicompare $ take 5040 $ list :: [Expr])
+  putStrLn $ "sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  ="
+  printL (sortBy compareLexicographically $ take 5040 $ list :: [Expr])

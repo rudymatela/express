@@ -5041,7 +5041,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (_:_:_:_:_)) :: Int
   ]
 
-sortBy lexicompare $ take 5040 $ list  ::  [ Expr ]  =
+sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   [ _ :: Bool
   , p :: Bool
   , p' :: Bool

@@ -146,7 +146,7 @@ module Data.Express
 
   -- ** Comparing Exprs
   , compareComplexity
-  , lexicompare
+  , compareLexicographically
 
   -- ** Properties of Exprs
   , arity
