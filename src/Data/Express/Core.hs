@@ -547,7 +547,7 @@ instance Eq Expr where
 --
 -- Expressions come first
 -- when they have smaller complexity ('compareComplexity')
--- or when they come first lexicographically.
+-- or when they come first lexicographically ('compareLexicographically').
 instance Ord Expr where
   compare = compareComplexity <> compareLexicographically
 
