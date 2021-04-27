@@ -36,7 +36,6 @@ HUGSIMPORTDIRS = .:./src:./test:./etc/hugs-backports:/usr/lib/hugs/packages/*
 HUGSFLAGS = -98 -h32M
 RUNPARAMETERS =
 LIB_DEPS = base template-haskell
-CABAL_INSTALL = $(shell cabal --version | grep -q "version [0-2]\." && echo 'cabal install' || echo 'cabal v1-install')
 
 all: mk/toplibs
 
@@ -111,9 +110,6 @@ legacy-test-via-cabal: # needs similarly named cabal wrappers
 	cabal clean  &&  cabal-ghc-7.10 configure  &&  cabal-ghc-7.10 test
 	cabal clean  &&  cabal-ghc-7.8  configure  &&  cabal-ghc-7.8  test
 	cabal clean  &&  cabal test
-
-install-dependencies:
-	cabal install $(ALL_DEPS)
 
 prepare:
 	cabal update
