@@ -78,7 +78,7 @@ test-via-cabal:
 	cabal test main
 
 test-via-stack:
-	stack test leancheck:test:main --ghc-options="$(GHCFLAGS) -O0" --system-ghc --no-install-ghc --no-terminal
+	stack test express:test:main --ghc-options="$(GHCFLAGS) -O0" --system-ghc --no-install-ghc --no-terminal
 
 diff-test: $(patsubst %,%.diff-test,$(BENCHS))
 
