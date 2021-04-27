@@ -92,6 +92,9 @@ update-diff-test: $(patsubst %,%.update-diff-test,$(BENCHS))
 
 test-via-everything: test test-via-cabal test-via-stack
 
+hugs-test:
+	echo 'TBA'
+
 legacy-test: # needs ghc-8.8 .. ghc-7.8 installed as such
 	make clean  &&  make test -j GHC=ghc-8.8
 	make clean  &&  make test -j GHC=ghc-8.6
