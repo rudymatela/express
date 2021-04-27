@@ -36,6 +36,7 @@ HUGSIMPORTDIRS = .:./src:./test:./etc/hugs-backports:/usr/lib/hugs/packages/*
 HUGSFLAGS = -98 -h32M
 RUNPARAMETERS =
 LIB_DEPS = base template-haskell
+ALL_DEPS = $(LIB_DEPS) leancheck
 
 all: mk/toplibs
 
