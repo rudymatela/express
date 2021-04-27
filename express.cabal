@@ -26,6 +26,7 @@ extra-doc-files: README.md
                , doc/express.svg
 extra-source-files: .gitignore
                   , .travis.yml
+                  , .github/workflows/build.yml
                   , Makefile
                   , mk/depend.mk
                   , mk/haskell.mk

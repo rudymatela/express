@@ -36,6 +36,7 @@ HUGSIMPORTDIRS = .:./src:./test:./etc/hugs-backports:/usr/lib/hugs/packages/*
 HUGSFLAGS = -98 -h32M
 RUNPARAMETERS =
 LIB_DEPS = base template-haskell
+CABAL_INSTALL = $(shell cabal --version | grep -q "version [0-2]\." && echo 'cabal install' || echo 'cabal v1-install')
 
 all: mk/toplibs
 
@@ -72,10 +73,12 @@ test-sdist:
 	./test/sdist
 
 test-via-cabal:
-	cabal test
+	cabal configure --enable-tests --enable-benchmarks --ghc-options="$(GHCFLAGS) -O0"
+	cabal build
+	cabal test main
 
 test-via-stack:
-	stack test
+	stack test leancheck:test:main --ghc-options="$(GHCFLAGS) -O0" --system-ghc --no-install-ghc --no-terminal
 
 diff-test: $(patsubst %,%.diff-test,$(BENCHS))
 
@@ -108,6 +111,9 @@ legacy-test-via-cabal: # needs similarly named cabal wrappers
 	cabal clean  &&  cabal-ghc-7.10 configure  &&  cabal-ghc-7.10 test
 	cabal clean  &&  cabal-ghc-7.8  configure  &&  cabal-ghc-7.8  test
 	cabal clean  &&  cabal test
+
+install-dependencies:
+	cabal install $(ALL_DEPS)
 
 prepare:
 	cabal update
