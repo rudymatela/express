@@ -366,8 +366,8 @@ For more examples, see the [eg](eg) and [bench](bench) folders.
 
 [express-logo]: https://github.com/rudymatela/express/raw/master/doc/express.svg?sanitize=true
 
-[build-status]: https://travis-ci.org/rudymatela/express.svg?branch=master
-[build-log]:    https://travis-ci.org/rudymatela/express
+[build-log]:    https://github.com/rudymatela/express/actions/workflows/build.yml
+[build-status]: https://github.com/rudymatela/express/actions/workflows/build.yml/badge.svg
 [hackage-version]: https://img.shields.io/hackage/v/express.svg
 [express-on-hackage]: https://hackage.haskell.org/package/express
 [stackage-lts-badge]:          https://stackage.org/package/express/badge/lts
