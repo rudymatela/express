@@ -88,8 +88,11 @@ tests n  =
        , xx -+- xx -+- xx -+- xx
        ]
   , canonicalVariations (i_ -+- ii -+- jj -+- i_)
-    == [ xx -+- yy -+- zz -+- xx'
-       , xx -+- yy -+- zz -+- xx ]
+    == [ xx -+- ii -+- jj -+- yy
+       , xx -+- ii -+- jj -+- xx ]
+  , canonicalVariations (i_ -+- xx -+- yy -+- i_)
+    == [ zz -+- xx -+- yy -+- xx'
+       , zz -+- xx -+- yy -+- zz ]
 
 
   , holds n $ \e -> let xs = map (length . nubVars) $ canonicalVariations e

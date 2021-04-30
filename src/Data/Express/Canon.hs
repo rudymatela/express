@@ -171,23 +171,24 @@ names' = lookupNames preludeNameInstances
 -- > [ord 'b' :: Int]
 --
 -- When applying this to expressions already containing variables
--- new variables are introduced so name clashes are avoided:
+-- clashes are avoided and these variables are not touched:
 --
 -- > > canonicalVariations $ i_ -+- ii -+- jj -+- i_
--- > [ x + y + z + x' :: Int
--- > , x + y + z + x :: Int ]
+-- > [ x + i + j + y :: Int
+-- > , x + i + j + y :: Int ]
 --
 -- > > canonicalVariations $ ii -+- jj
--- > [x + y :: Int]
+-- > [i + j :: Int]
 --
 -- > > canonicalVariations $ xx -+- i_ -+- i_ -+- length' (c_ -:- unit c_) -+- yy
--- > [ (((x + y) + z) + length (c:d:"")) + x' :: Int
--- > , (((x + y) + z) + length (c:c:"")) + x' :: Int
--- > , (((x + y) + y) + length (c:d:"")) + z :: Int
--- > , (((x + y) + y) + length (c:c:"")) + z :: Int
+-- > [ (((x + z) + x') + length (c:d:"")) + y :: Int
+-- > , (((x + z) + x') + length (c:c:"")) + y :: Int
+-- > , (((x + z) + z) + length (c:d:"")) + y :: Int
+-- > , (((x + z) + z) + length (c:c:"")) + y :: Int
 -- > ]
 canonicalVariations :: Expr -> [Expr]
-canonicalVariations = map canonicalize . fastCanonicalVariations
+canonicalVariations e  =  map (canonicalizeKeeping (nonHoleVars e))
+                       $  fastCanonicalVariations e
 
 -- |
 -- Returns the most general canonical variation of an 'Expr'
@@ -223,7 +224,8 @@ canonicalVariations = map canonicalize . fastCanonicalVariations
 -- This function is the same as taking the 'head' of 'canonicalVariations'
 -- but a bit faster.
 mostGeneralCanonicalVariation :: Expr -> Expr
-mostGeneralCanonicalVariation  =  canonicalize . fastMostGeneralVariation
+mostGeneralCanonicalVariation e  =  canonicalizeKeeping (nonHoleVars e)
+                                 $  fastMostGeneralVariation e
 
 -- |
 -- Returns the most specific canonical variation of an 'Expr'
@@ -259,7 +261,8 @@ mostGeneralCanonicalVariation  =  canonicalize . fastMostGeneralVariation
 -- This function is the same as taking the 'last' of 'canonicalVariations'
 -- but a bit faster.
 mostSpecificCanonicalVariation :: Expr -> Expr
-mostSpecificCanonicalVariation  =  canonicalize . fastMostSpecificVariation
+mostSpecificCanonicalVariation e  =  canonicalizeKeeping (nonHoleVars e)
+                                  $  fastMostSpecificVariation e
 
 -- |
 -- A faster version of 'canonicalVariations' that
@@ -327,6 +330,31 @@ fastMostSpecificVariation e  =  fill e (map (name `varAsTypeOf`) (holes e))
 
 -- |
 -- Variable names existing in a given Expr.
+--
 -- This function is not exported.
 varnames :: Expr -> [String]
 varnames e  =  [n | Value ('_':n) _ <- vars e]
+
+-- |
+-- Variables that are not holes.
+--
+-- This function is not exported.
+nonHoleVars :: Expr -> [Expr]
+nonHoleVars  =  filter (not . isHole) . nubVars
+
+-- | Canonicalizes an 'Expr' while keeping the given variables untouched.
+--
+-- > > canonicalizeKeeping [zz] (zz -+- ii -+- jj)
+-- > z + x + y :: Int
+--
+-- > > canonicalizeKeeping [ii,jj] (zz -+- ii -+- jj)
+-- > x + i + j :: Int
+--
+-- This function is not exported.
+canonicalizeKeeping :: [Expr] -> Expr -> Expr
+canonicalizeKeeping vs e  =  canonicalizeWith namesFor e
+  where
+  nm (Value ('_':n) _)  =  n
+  namesFor v | v `elem` vs  =  nm v : err
+             | otherwise    =  names' v \\ map nm vs
+  err  =  error "Data.Express.canonicalizeKeeping: the impossible happened.  This is definitely a bug."
