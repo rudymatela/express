@@ -115,6 +115,7 @@ module Data.Express.Fixtures
   -- ** Integers
   , i_, xx, yy, zz, xx'
   , ii, jj, kk, ii'
+  , ll, mm, nn
   , zero, one, two, three, minusOne, minusTwo
   , idE, negateE, absE
   , idInt
@@ -164,6 +165,9 @@ module Data.Express.Fixtures
   , elem'
   , sort'
   , insert'
+  , bs_, pps, qqs
+  , and', or'
+  , sum', product'
 
   -- ** Maybes
   , nothing
@@ -359,17 +363,55 @@ zz  =  var "z" int
 xx' :: Expr
 xx'  =  var "x'" int
 
+
+-- | A variable @i@ of 'Int' type.
+--
+-- > > ii
+-- > i :: Int
 ii :: Expr
 ii  =  var "i" int
 
+-- | A variable @j@ of 'Int' type.
+--
+-- > > jj
+-- > j :: Int
 jj :: Expr
 jj  =  var "j" int
 
+-- | A variable @k@ of 'Int' type.
+--
+-- > > kk
+-- > k :: Int
 kk :: Expr
 kk  =  var "k" int
 
+-- | A variable @i'@ of 'Int' type.
+--
+-- > > ii'
+-- > i' :: Int
 ii' :: Expr
 ii'  =  var "i'" int
+
+-- | A variable @l@ of 'Int' type.
+--
+-- > > ll
+-- > l :: Int
+ll :: Expr
+ll  =  var "l" int
+
+-- | A variable @m@ of 'Int' type.
+--
+-- > > mm
+-- > m :: Int
+mm :: Expr
+mm  =  var "m" int
+
+-- | A variable @n@ of 'Int' type.
+--
+-- > > nn
+-- > n :: Int
+nn :: Expr
+nn  =  var "n" int
 
 -- | The value @0@ bound to the 'Int' type encoded as an 'Expr'.
 --
@@ -1098,6 +1140,75 @@ sixtuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr -> Expr
 sixtuple e1 e2 e3 e4 e5 e6 = cccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5 :$ e6
   where
   cccccE = value ",,,,," ((,,,,,) :: Int -> Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int,Int))
+
+-- | A typed hole of @[Bool]@ type encoded as an 'Expr'.
+--
+-- > > bs_
+-- > _ :: [Bool]
+bs_ :: Expr
+bs_  =  hole [bool]
+
+-- | 'Expr' representing a variable @p' :: `[Bool]`@.
+--
+-- > > pps
+-- > ps :: [Bool]
+pps :: Expr
+pps  =  var "ps" [bool]
+
+-- | A typed hole of '[Bool]' type
+--
+-- > > qqs
+-- > qs :: [Bool]
+qqs :: Expr
+qqs  =  var "qs" [bool]
+
+-- | 'and' lifted over the 'Expr' type.
+--
+-- > > and' pps
+-- > and ps :: Bool
+--
+-- > > evl (and' $ expr [False,True]) :: Bool
+-- > False
+and' :: Expr -> Expr
+and' e  =  andE :$ e
+  where
+  andE  =  value "and" (and :: [Bool] -> Bool)
+
+-- | 'or' lifted over the 'Expr' type.
+--
+-- > > or' pps
+-- > or ps :: Bool
+--
+-- > > evl (or' $ expr [False,True]) :: Bool
+-- > True
+or' :: Expr -> Expr
+or' e  =  orE :$ e
+  where
+  orE  =  value "or" (or :: [Bool] -> Bool)
+
+-- | 'sum' of 'Int' elements lifted over the 'Expr' type.
+--
+-- > > sum' xxs
+-- > sum xs :: Int
+--
+-- > > evl (sum' $ expr [1,2,3::Int]) :: Int
+-- > 6
+sum' :: Expr -> Expr
+sum' e  =  sumE :$ e
+  where
+  sumE  =  value "sum" (sum :: [Int] -> Int)
+
+-- | 'product' of 'Int' elements lifted over the 'Expr' type.
+--
+-- > > product' xxs
+-- > product xs :: Int
+--
+-- > > evl (product' $ expr [1,2,3::Int]) :: Int
+-- > 6
+product' :: Expr -> Expr
+product' e  =  productE :$ e
+  where
+  productE  =  value "product" (product :: [Int] -> Int)
 
 headOr :: a -> [a] -> a
 headOr x []     =  x
