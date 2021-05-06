@@ -51,6 +51,7 @@ main  =  do
     , value "sort" (sort :: [Int] -> [Int])
     ]
 
+  {-
   printEquationsAbout
     [ hole (undefined :: Bool)
     , hole (undefined :: [Bool])
@@ -60,6 +61,7 @@ main  =  do
     , value "&&" (&&)
     , value "and" (and :: [Bool] -> Bool)
     ]
+  -}
 
 printEquationsAbout :: [Expr] -> IO ()
 printEquationsAbout es  =  do
