@@ -104,8 +104,7 @@ isTrue :: Expr -> Bool
 isTrue  =  all (eval False) . take 60 . grounds
 
 grounds :: Expr -> [Expr]
-grounds e  =  map (e //-)  .  concat
-           $  products [mapT ((,) v) (tiersFor v) | v <- nubVars e]
+grounds e  =  map (e //-) . concat $ products [mapT ((,) v) (tiersFor v) | v <- nubVars e]
 
 tiersFor :: Expr -> [[Expr]]
 tiersFor e  =  case show (typ e) of
