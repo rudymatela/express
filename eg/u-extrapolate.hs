@@ -68,7 +68,7 @@ counterExamples maxTests prop  =  [expr x | x <- take maxTests list, not (prop x
 counterExampleGeneralizations :: Express a => Int -> (a -> Bool) -> Expr -> [Expr]
 counterExampleGeneralizations maxTests prop e  =
   nubBy encompasses [ g | g <- candidateGeneralizations e
-                    , all (not . prop . evl) (take maxTests $ grounds g) ]
+                        , all (not . prop . evl) (take maxTests $ grounds g) ]
 
 
 candidateGeneralizations :: Expr -> [Expr]
