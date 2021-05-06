@@ -43,3 +43,35 @@ sort (sort xs ++ ys)  =  sort (xs ++ ys)
 (x:xs) ++ ys  =  x:(xs ++ ys)
 (xs ++ ys) ++ zs  =  xs ++ (ys ++ zs)
 
+Equations about _, _, True, [], foldr, (&&), and:
+and []  =  True
+p && p  =  p
+p && True  =  p
+True && p  =  p
+foldr (&&) p []  =  p
+p && q  =  q && p
+foldr (&&) True ps  =  and ps
+foldr (&&) (and ps) ps  =  and ps
+foldr (&&) p ps  =  p && and ps
+foldr (&&) p ps  =  and ps && p
+p && (q && p)  =  p && q
+p && (p && q)  =  p && q
+(p && q) && p  =  p && q
+(p && q) && q  =  p && q
+p && (q && r)  =  p && (r && q)
+p && (q && r)  =  q && (p && r)
+p && (q && r)  =  q && (r && p)
+p && (q && r)  =  r && (p && q)
+p && (q && r)  =  r && (q && p)
+(p && q) && r  =  p && (q && r)
+(p && q) && r  =  p && (r && q)
+(p && q) && r  =  q && (p && r)
+(p && q) && r  =  q && (r && p)
+(p && q) && r  =  r && (q && p)
+(p && q) && r  =  (p && r) && q
+(p && q) && r  =  (q && p) && r
+(p && q) && r  =  (q && r) && p
+(p && q) && r  =  (r && p) && q
+(p && q) && r  =  (r && q) && p
+foldr (&&) (and ps) qs  =  foldr (&&) (and qs) ps
+
