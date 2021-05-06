@@ -13,7 +13,7 @@
 --
 -- Limitations:
 --
--- * even with pruning, this program still prints some redundant rules;
+-- * this program prints redundant equations;
 -- * there is no way to configure maximum number of tests to consider an
 --   equation true;
 -- * runtime is exponential as you add more symbols to speculate about.
