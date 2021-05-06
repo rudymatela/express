@@ -135,8 +135,4 @@ isntIdentity eq  =  lhs eq /= rhs eq
 isRule       eq  =  size (lhs eq) > size (rhs eq)
 
 discardLater :: (a -> a -> Bool) -> [a] -> [a]
-discardLater (?)  =  d
-  where
-  d []      =  []
-  d (x:xs)  =  x : d (discard (? x) xs)
-  discard p  =  filter (not . p)
+discardLater  =  nubBy . flip
