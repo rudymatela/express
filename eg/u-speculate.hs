@@ -70,9 +70,9 @@ printEquationsAbout es  =  do
 
 speculateAbout :: [Expr] -> [Expr]
 speculateAbout  =  nubBy simplifies
-                .  discardLaterInstances
+                .  nubInstances
                 .  concatMap trueCanonicalVariations
-                .  discardLaterInstances
+                .  nubInstances
                 .  sort
                 .  filter isTrue
                 .  candidateEquationsFrom
@@ -80,13 +80,13 @@ speculateAbout  =  nubBy simplifies
   e1 `simplifies` e2  =  isRule e1 && e2 `hasInstanceOf` lhs e1
 
 trueCanonicalVariations :: Expr -> [Expr]
-trueCanonicalVariations  =  discardLaterInstances
+trueCanonicalVariations  =  nubInstances
                          .  filter isTrue
                          .  filter isntIdentity
                          .  canonicalVariations
 
-discardLaterInstances :: [Expr] -> [Expr]
-discardLaterInstances =  nubBy (\e1 e2 -> isntIdentity e1 && e2 `isInstanceOf` e1)
+nubInstances :: [Expr] -> [Expr]
+nubInstances  =  nubBy (\e1 e2 -> isntIdentity e1 && e2 `isInstanceOf` e1)
 
 candidateEquationsFrom :: [Expr] -> [Expr]
 candidateEquationsFrom es'  =  [e1 -==- e2 | e1 <- es, e2 <- es, e1 >= e2]
