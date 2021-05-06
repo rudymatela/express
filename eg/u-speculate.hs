@@ -113,7 +113,6 @@ tiersFor e  =  case show (typ e) of
   "Bool"   ->  mapT val (tiers `asTypeOf` [[undefined :: Bool]])
   "[Int]"  ->  mapT val (tiers `asTypeOf` [[undefined :: [Int]]])
   "[Bool]" ->  mapT val (tiers `asTypeOf` [[undefined :: [Bool]]])
-  _        ->  []
 
 (-==-) :: Expr -> Expr -> Expr
 ex -==- ey  =  headOr (val False) . map (:$ ey) $ mapMaybe ($$ ex)
