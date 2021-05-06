@@ -239,6 +239,7 @@ module Data.Express
   , isInstanceOf
   , hasInstanceOf
   , isSubexprOf
+  , encompasses
 
   -- -- -- Data.Express.Express exports -- -- --
 

@@ -11,6 +11,7 @@ module Data.Express.Match
   , isInstanceOf
   , hasInstanceOf
   , isSubexprOf
+  , encompasses
   )
 where
 
@@ -76,7 +77,7 @@ updateAssignments (e,e') = \bs ->
 -- checks if the first expression
 -- is an instance of the second
 -- in terms of variables.
--- (cf. 'hasInstanceOf')
+-- (cf. 'encompasses', 'hasInstanceOf')
 --
 -- > > let zero = val (0::Int)
 -- > > let one  = val (1::Int)
@@ -96,6 +97,20 @@ updateAssignments (e,e') = \bs ->
 -- >  (one -+- (yy -+- xx)) `isInstanceOf` (zero -+- yy)  =  False
 isInstanceOf :: Expr -> Expr -> Bool
 e1 `isInstanceOf` e2 = isJust $ e1 `match` e2
+
+
+-- |
+-- Given two 'Expr's,
+-- checks if the first expression
+-- encompasses the second expression
+-- in terms of variables.
+--
+-- This is equivalent to flipping the arguments of 'isInstanceOf'.
+--
+-- > zero `encompasses` xx    =  False
+-- >   xx `encompasses` zero  =  True
+encompasses :: Expr -> Expr -> Bool
+encompasses  =  flip isInstanceOf
 
 -- |
 -- Checks if any of the subexpressions of the first argument 'Expr'

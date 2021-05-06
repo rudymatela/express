@@ -15,6 +15,7 @@ tests n =
   , holds n $ \(IntE e1) (IntE e2) -> (e1 -+- e2) `isInstanceOf` (xx -+- yy)
   , holds n $ \(IntE e1) (IntE e2) -> e1 /= e2 ==> not ((e1 -+- e2) `isInstanceOf` (xx -+- xx))
   , holds n $ \e                   -> e /= zero ==> not (e `isInstanceOf` zero)
+  , holds n $ \e1 e2 -> e1 `encompasses` e2 == e2 `isInstanceOf` e1
 
   ,       (zero -+- one)       `isInstanceOf` (xx -+- yy)
   ,       (zero -+- zero)      `isInstanceOf` (xx -+- yy)
