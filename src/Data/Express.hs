@@ -240,6 +240,7 @@ module Data.Express
   , hasInstanceOf
   , isSubexprOf
   , encompasses
+  , ins
 
   -- -- -- Data.Express.Express exports -- -- --
 
