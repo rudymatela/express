@@ -69,7 +69,7 @@ printEquationsAbout es  =  do
   showEq eq  =  showExpr (lhs eq) ++ "  =  " ++ showExpr (rhs eq)
 
 speculateAbout :: [Expr] -> [Expr]
-speculateAbout  =  discardLater hasRewrite
+speculateAbout  =  nubBy simplifies
                 .  discardLaterInstances
                 .  concatMap trueCanonicalVariations
                 .  discardLaterInstances
@@ -77,7 +77,7 @@ speculateAbout  =  discardLater hasRewrite
                 .  filter isTrue
                 .  candidateEquationsFrom
   where
-  hasRewrite e1 e2  =  isRule e2 && e1 `hasInstanceOf` lhs e2
+  e1 `simplifies` e2  =  isRule e1 && e2 `hasInstanceOf` lhs e1
 
 trueCanonicalVariations :: Expr -> [Expr]
 trueCanonicalVariations  =  discardLaterInstances
@@ -86,7 +86,7 @@ trueCanonicalVariations  =  discardLaterInstances
                          .  canonicalVariations
 
 discardLaterInstances :: [Expr] -> [Expr]
-discardLaterInstances =  discardLater (\e1 e2 -> isntIdentity e2 && e1 `isInstanceOf` e2)
+discardLaterInstances =  nubBy (\e1 e2 -> isntIdentity e1 && e2 `isInstanceOf` e1)
 
 candidateEquationsFrom :: [Expr] -> [Expr]
 candidateEquationsFrom es'  =  [e1 -==- e2 | e1 <- es, e2 <- es, e1 >= e2]
@@ -133,6 +133,3 @@ rhs (((Value "==" _) :$ _) :$ e)  =  e
 isntIdentity, isRule :: Expr -> Bool
 isntIdentity eq  =  lhs eq /= rhs eq
 isRule       eq  =  size (lhs eq) > size (rhs eq)
-
-discardLater :: (a -> a -> Bool) -> [a] -> [a]
-discardLater  =  nubBy . flip
