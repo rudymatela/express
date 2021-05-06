@@ -29,7 +29,7 @@
 import Data.List
 import Data.Maybe
 import Data.Express
-import Test.LeanCheck hiding (counterExample, check)
+import Test.LeanCheck hiding (counterExamples, check)
 
 main :: IO ()
 main  =  do
@@ -38,6 +38,9 @@ main  =  do
 
   putStrLn "length . nub = length  (incorrect when there are repeated elements)"
   check $ \xs -> length (nub xs :: [Int]) == length xs
+
+  putStrLn "xs `union` ys == ys `union` xs"
+  check $ \(xs,ys) -> xs `union` ys == ys `union` (xs :: [Int])
 
   putStrLn "\\(x,y) -> x + y == y + x"
   check $ \(x,y) -> x + y == y + (x :: Int)
@@ -53,23 +56,19 @@ main  =  do
 
 
 check :: (Listable a, Express a) => (a -> Bool) -> IO ()
-check prop  =  putStrLn $ case counterExample 500 prop of
-  Nothing -> "+++ Tests passed.\n"
-  Just ce -> "*** Falsified, counterexample:  " ++ show ce
-          ++ case counterExampleGeneralization 500 prop ce of
-             Nothing -> ""
-             Just g -> "\n               generalization:  " ++ show g
-          ++ "\n"
+check prop  =  putStrLn $ case counterExamples 500 prop of
+  []     -> "+++ Tests passed.\n"
+  (ce:_) -> unlines $ ("*** Falsified, counterexample:  " ++ showExpr ce)
+                    : ["               generalization:  " ++ showExpr g
+                      | g <- counterExampleGeneralizations 500 prop ce ]
 
+counterExamples :: (Listable a, Express a) => Int -> (a -> Bool) -> [Expr]
+counterExamples maxTests prop  =  [expr x | x <- take maxTests list, not (prop x)]
 
-counterExample :: (Listable a, Express a) => Int -> (a -> Bool) -> Maybe Expr
-counterExample maxTests prop  =  listToMaybe
-  [expr x | x <- take maxTests list, not (prop x)]
-
-counterExampleGeneralization :: Express a => Int -> (a -> Bool) -> Expr -> Maybe Expr
-counterExampleGeneralization maxTests prop e  =  listToMaybe
-  [g | g <- candidateGeneralizations e
-     , all (not . prop . evl) (take maxTests $ grounds g)]
+counterExampleGeneralizations :: Express a => Int -> (a -> Bool) -> Expr -> [Expr]
+counterExampleGeneralizations maxTests prop e  =
+  nubBy encompasses [ g | g <- candidateGeneralizations e
+                    , all (not . prop . evl) (take maxTests $ grounds g) ]
 
 
 candidateGeneralizations :: Expr -> [Expr]
