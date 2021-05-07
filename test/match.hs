@@ -61,7 +61,7 @@ tests n =
   -- so is no order
   , holds n $ isReflexive     isInstanceOf
   , holds n $ isTransitive    isInstanceOf
-  , fails n $ isAntisymmetric isInstanceOf
+  , fails n $ isAntisymmetric isInstanceOf -- structural equality
   , fails n $ isAsymmetric    isInstanceOf
   , fails n $ isTotalOrder    isInstanceOf
   , fails n $ isPartialOrder  isInstanceOf
@@ -73,4 +73,12 @@ tests n =
   , fails n $ isAsymmetric    hasInstanceOf
   , fails n $ isTotalOrder    hasInstanceOf
   , fails n $ isPartialOrder  hasInstanceOf
+
+  -- one can construct the following equivalence
+  , holds n $ isEquivalence (isInstanceOf &&&& flip isInstanceOf)
+
+  -- the following is not an equivalence
+  , fails n $ isEquivalence (isInstanceOf |||| flip isInstanceOf)
+  -- so it cannot be used as an argument to nubBy
+  -- which requires equivalence according to the Haskell 2010 Report.
   ]
