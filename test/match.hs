@@ -55,4 +55,22 @@ tests n =
                        == ((ef :$ ex) `isInstanceOf` e || ef `hasInstanceOf` e
                                                        || ex `hasInstanceOf` e)
   , holds n $ \e1 e2 -> e1 `hasInstanceOf` e2 == any (`isInstanceOf` e2) (subexprs e1)
+
+  -- isInstanceOf is reflexive and transitive
+  -- but not antisymmetric nor asymmetric
+  -- so is no order
+  , holds n $ isReflexive     isInstanceOf
+  , holds n $ isTransitive    isInstanceOf
+  , fails n $ isAntisymmetric isInstanceOf
+  , fails n $ isAsymmetric    isInstanceOf
+  , fails n $ isTotalOrder    isInstanceOf
+  , fails n $ isPartialOrder  isInstanceOf
+
+  -- the same goes for hasInstanceOf
+  , holds n $ isReflexive     hasInstanceOf
+  , holds n $ isTransitive    hasInstanceOf
+  , fails n $ isAntisymmetric hasInstanceOf
+  , fails n $ isAsymmetric    hasInstanceOf
+  , fails n $ isTotalOrder    hasInstanceOf
+  , fails n $ isPartialOrder  hasInstanceOf
   ]
