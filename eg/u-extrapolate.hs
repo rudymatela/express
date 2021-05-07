@@ -57,14 +57,16 @@ main  =  do
 
 check :: (Listable a, Express a) => (a -> Bool) -> IO ()
 check prop  =  putStrLn $ case counterExampleAndGeneralizations 500 prop of
-  []     -> "+++ Tests passed.\n"
-  (ce:gs) -> unlines $ ("*** Falsified, counterexample:  " ++ showExpr ce)
-                     : ["               generalization:  " ++ showExpr g | g <- gs ]
+  []      ->  "+++ Tests passed.\n"
+  (ce:gs) -> unlines
+           $ ("*** Falsified, counterexample:  " ++ showExpr ce)
+           : ["               generalization:  " ++ showExpr g | g <- gs ]
 
 counterExamples :: (Listable a, Express a) => Int -> (a -> Bool) -> [Expr]
 counterExamples maxTests prop  =  [expr x | x <- take maxTests list, not (prop x)]
 
-counterExampleAndGeneralizations :: (Listable a, Express a) => Int -> (a -> Bool) -> [Expr]
+counterExampleAndGeneralizations :: (Listable a, Express a)
+                                 => Int -> (a -> Bool) -> [Expr]
 counterExampleAndGeneralizations maxTests prop  =
   case counterExamples maxTests prop of
   [] -> []
