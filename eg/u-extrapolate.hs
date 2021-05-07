@@ -70,7 +70,7 @@ counterExampleAndGeneralizations :: (Listable a, Express a)
 counterExampleAndGeneralizations maxTests prop  =
   case counterExamples maxTests prop of
   [] -> []
-  (ce:_) -> ce : discardLaterThat isInstanceOf
+  (ce:_) -> ce : discardLater isInstanceOf
                    [ g | g <- candidateGeneralizations ce
                        , all (not . prop . evl) (take maxTests $ grounds g) ]
 
@@ -102,8 +102,8 @@ tiersFor e  =  case show (typ e) of
   "[Bool]" ->  mapT val (tiers :: [[ [Bool] ]])
   _        ->  []
 
-discardLaterThat :: (a -> a -> Bool) -> [a] -> [a]
-discardLaterThat (?)  =  d
+discardLater :: (a -> a -> Bool) -> [a] -> [a]
+discardLater (?)  =  d
   where
   d []      =  []
   d (x:xs)  =  x : d (discard (? x) xs)
