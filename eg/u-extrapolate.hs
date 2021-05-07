@@ -66,9 +66,9 @@ counterExamples :: (Listable a, Express a) => Int -> (a -> Bool) -> [Expr]
 counterExamples maxTests prop  =  [expr x | x <- take maxTests list, not (prop x)]
 
 counterExampleGeneralizations :: Express a => Int -> (a -> Bool) -> Expr -> [Expr]
-counterExampleGeneralizations maxTests prop e  =
-  nubBy ins [ g | g <- candidateGeneralizations e
-            , all (not . prop . evl) (take maxTests $ grounds g) ]
+counterExampleGeneralizations maxTests prop e  =  discardLaterThat isInstanceOf
+  [ g | g <- candidateGeneralizations e
+      , all (not . prop . evl) (take maxTests $ grounds g) ]
 
 
 candidateGeneralizations :: Expr -> [Expr]
@@ -98,3 +98,10 @@ tiersFor e  =  case show (typ e) of
   "[Int]"  ->  mapT val (tiers `asTypeOf` [[undefined :: [Int]]])
   "[Bool]" ->  mapT val (tiers `asTypeOf` [[undefined :: [Bool]]])
   _        ->  []
+
+discardLaterThat :: (a -> a -> Bool) -> [a] -> [a]
+discardLaterThat (?)  =  d
+  where
+  d []      =  []
+  d (x:xs)  =  x : d (discard (? x) xs)
+  discard p  =  filter (not . p)
