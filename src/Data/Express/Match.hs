@@ -12,7 +12,6 @@ module Data.Express.Match
   , hasInstanceOf
   , isSubexprOf
   , encompasses
-  , ins
   )
 where
 
@@ -112,11 +111,6 @@ e1 `isInstanceOf` e2 = isJust $ e1 `match` e2
 -- >   xx `encompasses` zero  =  True
 encompasses :: Expr -> Expr -> Bool
 encompasses  =  flip isInstanceOf
-
-
--- TODO: find a name for this function
-ins :: Expr -> Expr -> Bool
-ins e1 e2  =  e1 `isInstanceOf` e2 || e2 `isInstanceOf` e1
 
 
 -- |
