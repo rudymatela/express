@@ -56,20 +56,21 @@ main  =  do
 
 
 check :: (Listable a, Express a) => (a -> Bool) -> IO ()
-check prop  =  putStrLn $ case counterExamples 500 prop of
+check prop  =  putStrLn $ case counterExampleAndGeneralizations 500 prop of
   []     -> "+++ Tests passed.\n"
-  (ce:_) -> unlines $ ("*** Falsified, counterexample:  " ++ showExpr ce)
-                    : ["               generalization:  " ++ showExpr g
-                      | g <- counterExampleGeneralizations 500 prop ce ]
+  (ce:gs) -> unlines $ ("*** Falsified, counterexample:  " ++ showExpr ce)
+                     : ["               generalization:  " ++ showExpr g | g <- gs ]
 
 counterExamples :: (Listable a, Express a) => Int -> (a -> Bool) -> [Expr]
 counterExamples maxTests prop  =  [expr x | x <- take maxTests list, not (prop x)]
 
-counterExampleGeneralizations :: Express a => Int -> (a -> Bool) -> Expr -> [Expr]
-counterExampleGeneralizations maxTests prop e  =  discardLaterThat isInstanceOf
-  [ g | g <- candidateGeneralizations e
-      , all (not . prop . evl) (take maxTests $ grounds g) ]
-
+counterExampleAndGeneralizations :: (Listable a, Express a) => Int -> (a -> Bool) -> [Expr]
+counterExampleAndGeneralizations maxTests prop  =
+  case counterExamples maxTests prop of
+  [] -> []
+  (ce:_) -> ce : discardLaterThat isInstanceOf
+                   [ g | g <- candidateGeneralizations ce
+                       , all (not . prop . evl) (take maxTests $ grounds g) ]
 
 candidateGeneralizations :: Expr -> [Expr]
 candidateGeneralizations  =  map canonicalize
