@@ -93,10 +93,10 @@ grounds e  =  map (e //-)
 
 tiersFor :: Expr -> [[Expr]]
 tiersFor e  =  case show (typ e) of
-  "Int"    ->  mapT val (tiers `asTypeOf` [[undefined :: Int]])
-  "Bool"   ->  mapT val (tiers `asTypeOf` [[undefined :: Bool]])
-  "[Int]"  ->  mapT val (tiers `asTypeOf` [[undefined :: [Int]]])
-  "[Bool]" ->  mapT val (tiers `asTypeOf` [[undefined :: [Bool]]])
+  "Int"    ->  mapT val (tiers :: [[Int]])
+  "Bool"   ->  mapT val (tiers :: [[Bool]])
+  "[Int]"  ->  mapT val (tiers :: [[ [Int] ]])
+  "[Bool]" ->  mapT val (tiers :: [[ [Bool] ]])
   _        ->  []
 
 discardLaterThat :: (a -> a -> Bool) -> [a] -> [a]
