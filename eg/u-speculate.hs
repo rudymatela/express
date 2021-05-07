@@ -71,18 +71,18 @@ printEquationsAbout es  =  do
   showEq eq  =  showExpr (lhs eq) ++ "  =  " ++ showExpr (rhs eq)
 
 speculateAbout :: [Expr] -> [Expr]
-speculateAbout  =  nubBy simplifies
-                .  nubBy encompasses
+speculateAbout  =  discardLaterThat canBeSimplifiedBy
+                .  discardLaterThat isInstanceOf
                 .  concatMap trueCanonicalVariations
-                .  nubBy (\e1 e2 -> isntIdentity e2 && e2 `isInstanceOf` e1)
+                .  discardLaterThat (\e1 e2 -> isntIdentity e2 && e2 `isInstanceOf` e1)
                 .  sort
                 .  filter isTrue
                 .  candidateEquationsFrom
   where
-  e1 `simplifies` e2  =  isRule e1 && e2 `hasInstanceOf` lhs e1
+  e1 `canBeSimplifiedBy` e2  =  isRule e2 && e1 `hasInstanceOf` lhs e2
 
 trueCanonicalVariations :: Expr -> [Expr]
-trueCanonicalVariations  =  nubBy encompasses
+trueCanonicalVariations  =  discardLaterThat isInstanceOf
                          .  filter isTrue
                          .  filter isntIdentity
                          .  canonicalVariations
@@ -130,3 +130,10 @@ rhs (((Value "==" _) :$ _) :$ e)  =  e
 isntIdentity, isRule :: Expr -> Bool
 isntIdentity eq  =  lhs eq /= rhs eq
 isRule       eq  =  size (lhs eq) > size (rhs eq)
+
+discardLaterThat :: (a -> a -> Bool) -> [a] -> [a]
+discardLaterThat (?)  =  d
+  where
+  d []      =  []
+  d (x:xs)  =  x : d (discard (? x) xs)
+  discard p  =  filter (not . p)
