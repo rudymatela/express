@@ -72,6 +72,10 @@ tests n =
   , expr ([0::Int,1])  == zero -:- one -:- nil
   , holds n $ \xs -> expr xs == foldr (-:-) nil (map expr (xs :: [Int]))
   , holds n $ \ps -> expr ps == foldr (-:-) nilBool (map expr (ps :: [Bool]))
+  , expr (""::String) == value "\"\"" ""
+  , expr (""::String) == val ""
+  , expr ("a"::String) == unit (val 'a')
+  , expr ("abc"::String) == val 'a' -:- val 'b' -:- unit (val 'c')
 
   -- Transforming Maybes into Exprs
   , expr (Nothing    :: Maybe Int)   ==  nothing
@@ -81,7 +85,7 @@ tests n =
   , holds n $ \x -> expr (Just x) == just (expr (x :: Int))
   , holds n $ \p -> expr (Just p) == just (expr (p :: Bool))
 
-  -- Transforming Tuples into Exprs
+  -- Transforming tuples into Exprs
   , expr ((0,False) :: (Int,Bool))  ==  pair zero false
   , expr ((True,1)  :: (Bool,Int))  ==  pair true one
 
@@ -89,6 +93,7 @@ tests n =
   , holds n $ \x -> show (expr x) == show (x :: ()) ++ " :: ()"
   , holds n $ \x -> show (expr x) == show (x :: Int) ++ " :: Int"
   , holds n $ \p -> show (expr p) == show (p :: Bool) ++ " :: Bool"
+  , holds n $ \s -> show (expr s) == show (s :: String) ++ " :: [Char]"
   , holds n $ \x -> show (expr x) == show (x :: ((),Maybe Int,[Bool]))
                                         ++ " :: ((),(Maybe Int),[Bool])"
   ]
