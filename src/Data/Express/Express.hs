@@ -90,11 +90,10 @@ instance (Express a, Express b, Express c, Express d) => Express (a,b,c,d) where
   expr (x,y,z,w)  =  value ",,," ((,,,) ->>>>: (x,y,z,w))
                   :$ expr x :$ expr y :$ expr z :$ expr w
 
-instance Express a => Express [a] where
-  expr xs@[]
-    | typeOf xs == typeOf ""  =  value "\"\"" ([] -: xs)
-    | otherwise               =  value "[]" ([] -: xs)
-  expr xs@(y:ys)              =  value ":"  ((:) ->>: xs) :$ expr y :$ expr ys
+instance (Show a, Express a) => Express [a] where
+  expr xs  =  case xs of
+              [] -> val xs
+              (y:ys) -> value ":" ((:) ->>: xs) :$ expr y :$ expr ys
 
 
 -- instances of further types and arities --
