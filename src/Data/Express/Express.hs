@@ -60,7 +60,7 @@ import Data.Ratio
 -- '-:', '->:', '->>:', '->>>:', '->>>>:', '->>>>>:', ...
 --
 -- For types with atomic values, just declare @ expr = val @
-class Typeable a => Express a where
+class (Show a, Typeable a) => Express a where
   expr :: a -> Expr
 
 instance Express ()        where  expr  =  val
@@ -90,7 +90,7 @@ instance (Express a, Express b, Express c, Express d) => Express (a,b,c,d) where
   expr (x,y,z,w)  =  value ",,," ((,,,) ->>>>: (x,y,z,w))
                   :$ expr x :$ expr y :$ expr z :$ expr w
 
-instance (Show a, Express a) => Express [a] where
+instance Express a => Express [a] where
   expr xs  =  case xs of
               [] -> val xs
               (y:ys) -> value ":" ((:) ->>: xs) :$ expr y :$ expr ys
@@ -98,7 +98,7 @@ instance (Show a, Express a) => Express [a] where
 
 -- instances of further types and arities --
 
-instance (Integral a, Show a, Express a) => Express (Ratio a) where
+instance (Integral a, Express a) => Express (Ratio a) where
   expr  =  val
 -- The following would allow zero denominators
 -- expr (n % d) = constant "%" ((%) -:> n) :$ expr n :$ expr d
