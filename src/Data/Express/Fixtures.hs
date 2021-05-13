@@ -168,6 +168,7 @@ module Data.Express.Fixtures
   , bs_, pps, qqs
   , and', or'
   , sum', product'
+  , appendInt
 
   -- ** Maybes
   , nothing
@@ -834,6 +835,9 @@ e1 -:- e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
   where
   err  =  error $ "(-:-): unhandled type " ++ show (typ e1)
 infixr 5 -:-
+
+appendInt :: Expr
+appendInt  =  value "++" ((++) :: [Int] -> [Int] -> [Int])
 
 -- | List concatenation lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
