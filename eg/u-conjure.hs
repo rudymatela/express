@@ -37,12 +37,12 @@ add 0 1  =  1
 add 1 0  =  1
 add 1 1  =  2
 
-fact :: Int -> Int
-fact 0  =  1
-fact 1  =  1
-fact 2  =  2
-fact 3  =  6
-fact 4  =  24
+factorial :: Int -> Int
+factorial 0  =  1
+factorial 1  =  1
+factorial 2  =  2
+factorial 3  =  6
+factorial 4  =  24
 
 second :: [Int] -> Int
 second [x,y]  =  y
@@ -56,9 +56,18 @@ reverse' [x,y,z]  =  [z,y,x]
 
 main :: IO ()
 main  =  do
-  conjure "square" square primitives
-  conjure "add"    add    primitives
-  conjure "fact"   fact   primitives
+  conjure "square"    square    primitives
+  conjure "add"       add       primitives
+  conjure "factorial" factorial primitives
+
+  conjure "factorial"   factorial
+    [ val (0 :: Int)
+    , val (1 :: Int)
+    , value "+" ((+) :: Int -> Int -> Int)
+    , value "*" ((*) :: Int -> Int -> Int)
+    , value "foldr" (foldr :: (Int -> Int -> Int) -> Int -> [Int] -> Int)
+    , value "enumFromTo" (enumFromTo :: Int -> Int -> [Int])
+    ]
 
   conjure "==>" (==>)
     [ val False

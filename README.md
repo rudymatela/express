@@ -337,6 +337,54 @@ Please see [Speculate] for a full-featured version without the above
 limitations.
 
 
+Example 5: u-Conjure
+--------------------
+
+Using Express, it takes less than 70 lines of code to define a function
+`conjure` that generates a function from a partial function definition
+and a list of primitives.
+
+__Example 5.1.__ Given:
+
+	factorial :: Int -> Int
+	factorial 0  =  1
+	factorial 1  =  1
+	factorial 2  =  2
+	factorial 3  =  6
+	factorial 4  =  24
+
+Running:
+
+  conjure "factorial" factorial
+    [ val (0 :: Int)
+    , val (1 :: Int)
+    , value "+" ((+) :: Int -> Int -> Int)
+    , value "*" ((*) :: Int -> Int -> Int)
+    , value "foldr" (foldr :: (Int -> Int -> Int) -> Int -> [Int] -> Int)
+    , value "enumFromTo" (enumFromTo :: Int -> Int -> [Int])
+    ]
+
+Prints:
+
+	factorial :: Int -> Int
+	factorial x  =  foldr (*) 1 (enumFromTo 1 x)
+
+Please see the [u-Conjure] example in the [eg](eg) folder for the full code.
+
+[u-Conjure] has some limitations:
+
+* the maximum function size (6) or number of tests (60) is not configurable;
+* the maximum function size has to be kept small (<=6)
+  for a reasonable runtime;
+* the number of primitive functions given has to be kept small (<12)
+  for a reasonable runtime;
+* there is no support for explicitly recursive functions
+  thought it is possible to pass `foldr` and similar functions as primitives.
+
+Please see [Conjure] library for an experimental version that addresses
+some the above limitations.
+
+
 Further reading
 ---------------
 
@@ -360,9 +408,11 @@ For more examples, see the [eg](eg) and [bench](bench) folders.
 [LeanCheck]:   https://hackage.haskell.org/package/leancheck
 [Extrapolate]: https://hackage.haskell.org/package/extrapolate
 [Speculate]:   https://hackage.haskell.org/package/speculate
+[Conjure]:     https://hackage.haskell.org/package/conjure
 
 [u-Speculate]:   eg/u-speculate.hs
 [u-Extrapolate]: eg/u-extrapolate.hs
+[u-Conjure]:     eg/u-conjure.hs
 
 [express-logo]: https://github.com/rudymatela/express/raw/master/doc/express.svg?sanitize=true
 
