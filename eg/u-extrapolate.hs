@@ -39,7 +39,7 @@ main  =  do
   putStrLn "length . nub = length  (incorrect when there are repeated elements)"
   check $ \xs -> length (nub xs :: [Int]) == length xs
 
-  putStrLn "xs `union` ys == ys `union` xs"
+  putStrLn "xs `union` ys == ys `union` xs  (incorrect for repeated elements)"
   check $ \(xs,ys) -> xs `union` ys == ys `union` (xs :: [Int])
 
   putStrLn "\\(x,y) -> x + y == y + x"
