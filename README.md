@@ -396,7 +396,7 @@ Please see the [u-Conjure] example in the [eg](eg) folder for the full code.
 
 [u-Conjure] has some limitations:
 
-* the maximum function size (7) or number of tests (60) is not configurable;
+* the maximum function size (7) or number of tests (60) are not configurable;
 * the maximum function size has to be kept small (<=7)
   for a reasonable runtime.
   Due to this, several simple functions are simply out-of-reach;
