@@ -4,15 +4,21 @@ square x  =  x * x
 add :: Int -> Int -> Int
 add x y  =  x + y
 
-fact :: Int -> Int
+factorial :: Int -> Int
 cannot conjure
 
-(==>) :: Bool -> Bool -> Bool
-p ==> q  =  q || not p
+factorial :: Int -> Int
+factorial x  =  foldr (*) 1 (enumFromTo 1 x)
 
 second :: [Int] -> Int
 second xs  =  head (tail xs)
 
+(++) :: [Int] -> [Int] -> [Int]
+xs ++ ys  =  foldr (:) ys xs
+
 reverse :: [Int] -> [Int]
 cannot conjure
+
+reverse :: [Int] -> [Int]
+reverse xs  =  foldr (foldr (:) . unit) [] xs
 

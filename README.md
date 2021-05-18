@@ -355,27 +355,51 @@ __Example 5.1.__ Given:
 
 Running:
 
-  conjure "factorial" factorial
-    [ val (0 :: Int)
-    , val (1 :: Int)
-    , value "+" ((+) :: Int -> Int -> Int)
-    , value "*" ((*) :: Int -> Int -> Int)
-    , value "foldr" (foldr :: (Int -> Int -> Int) -> Int -> [Int] -> Int)
-    , value "enumFromTo" (enumFromTo :: Int -> Int -> [Int])
-    ]
+	conjure "factorial" factorial
+	  [ val (0 :: Int)
+	  , val (1 :: Int)
+	  , value "+" ((+) :: Int -> Int -> Int)
+	  , value "*" ((*) :: Int -> Int -> Int)
+	  , value "foldr" (foldr :: (Int -> Int -> Int) -> Int -> [Int] -> Int)
+	  , value "enumFromTo" (enumFromTo :: Int -> Int -> [Int])
+	  ]
 
 Prints:
 
-	factorial :: Int -> Int
-	factorial x  =  foldr (*) 1 (enumFromTo 1 x)
+	  factorial :: Int -> Int
+	  factorial x  =  foldr (*) 1 (enumFromTo 1 x)
+
+__Example 5.2.__ Given:
+
+	(+++) :: [Int] -> [Int] -> [Int]
+	[x] +++ [y]  =  [x,y]
+	[x,y] +++ [z,w]  =  [x,y,z,w]
+
+Running:
+
+	conjure "++" (+++)
+      [ val (0 :: Int)
+      , val (1 :: Int)
+      , val ([] :: [Int])
+      , value "head" (head :: [Int] -> Int)
+      , value "tail" (tail :: [Int] -> [Int])
+      , value ":" ((:) :: Int -> [Int] -> [Int])
+      , value "foldr" (foldr :: (Int -> [Int] -> [Int]) -> [Int] -> [Int] -> [Int])
+      ]
+
+Prints:
+
+	(++) :: [Int] -> [Int] -> [Int]
+	xs ++ ys  =  foldr (:) ys xs
 
 Please see the [u-Conjure] example in the [eg](eg) folder for the full code.
 
 [u-Conjure] has some limitations:
 
-* the maximum function size (6) or number of tests (60) is not configurable;
-* the maximum function size has to be kept small (<=6)
-  for a reasonable runtime;
+* the maximum function size (7) or number of tests (60) is not configurable;
+* the maximum function size has to be kept small (<=7)
+  for a reasonable runtime.
+  Due to this, several simple functions are simply out-of-reach;
 * the number of primitive functions given has to be kept small (<12)
   for a reasonable runtime;
 * there is no support for explicitly recursive functions

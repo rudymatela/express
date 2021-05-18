@@ -75,31 +75,17 @@ main  =  do
     , value "enumFromTo" (enumFromTo :: Int -> Int -> [Int])
     ]
 
-  conjure "second"  second
-    [ val (0 :: Int)
-    , val (1 :: Int)
-    , val ([] :: [Int])
-    , value "head" (head :: [Int] -> Int)
-    , value "tail" (tail :: [Int] -> [Int])
-    , value ":" ((:) :: Int -> [Int] -> [Int])
-    , value "++" ((++) :: [Int] -> [Int] -> [Int])
-    ]
-
-  conjure "++" (+++)
-    [ val ([] :: [Int])
-    , value ":" ((:) :: Int -> [Int] -> [Int])
-    , value "foldr" (foldr :: (Int -> [Int] -> [Int]) -> [Int] -> [Int] -> [Int])
-    ]
+  conjure "second"  second   listPrimitives
+  conjure "++"      (+++)    listPrimitives
+  conjure "reverse" reverse' listPrimitives
 
   -- even by using fold and some cheating,
   -- this function is out of reach
   --  reverse xs  =  foldr (\x xs -> xs ++ [x]) [] xs
   --  reverse xs  =  foldr (flip (++) . unit) [] xs
-  conjure "reverse" reverse'
-    [ val ([] :: [Int])
-    , value "unit" ((:[]) :: Int -> [Int])
+  conjure "reverse" reverse' $ listPrimitives ++
+    [ value "unit" ((:[]) :: Int -> [Int])
     , value "++" ((++) :: [Int] -> [Int] -> [Int])
-    , value "foldr" (foldr :: (Int->[Int]->[Int]) -> [Int] -> [Int] -> [Int])
     -- these last two are cheats:
     , value "flip" (flip :: ([Int]->[Int]->[Int]) -> [Int] -> [Int] -> [Int])
     , value "." ((.) :: ([Int]->[Int]->[Int]) -> (Int->[Int]) -> Int -> [Int] -> [Int])
@@ -126,7 +112,7 @@ main  =  do
     , value "head" (head :: [Int] -> Int)
     , value "tail" (tail :: [Int] -> [Int])
     , value ":" ((:) :: Int -> [Int] -> [Int])
-    , value "++" ((++) :: [Int] -> [Int] -> [Int])
+    , value "foldr" (foldr :: (Int -> [Int] -> [Int]) -> [Int] -> [Int] -> [Int])
     ]
 
 
