@@ -1,0 +1,18 @@
+square :: Int -> Int
+square x  =  x * x
+
+add :: Int -> Int -> Int
+add x y  =  x + y
+
+fact :: Int -> Int
+cannot conjure
+
+(==>) :: Bool -> Bool -> Bool
+p ==> q  =  q || not p
+
+second :: [Int] -> Int
+second xs  =  head (tail xs)
+
+reverse :: [Int] -> [Int]
+cannot conjure
+

@@ -106,6 +106,28 @@ bench/tiers: \
   test/Test/ListableExpr.hs \
   bench/tiers.hs \
   mk/toplibs
+eg/u-conjure: \
+  eg/u-conjure.hs \
+  mk/toplibs
+eg/u-conjure.o: \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
+  eg/u-conjure.hs
 eg/u-extrapolate: \
   eg/u-extrapolate.hs \
   mk/toplibs

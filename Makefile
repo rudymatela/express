@@ -25,6 +25,7 @@ EGS =
 BENCHS = \
   eg/u-extrapolate \
   eg/u-speculate \
+  eg/u-conjure \
   bench/compare \
   bench/pairs \
   bench/sort \
