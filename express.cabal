@@ -23,6 +23,7 @@ cabal-version: 1.18
 
 extra-doc-files: README.md
                , TODO.md
+               , changelog.md
                , doc/express.svg
 extra-source-files: .gitignore
                   , .travis.yml
@@ -43,7 +44,9 @@ extra-source-files: .gitignore
                   , bench/runtime/zero/versions
                   , bench/runtime/zero/bench/*.runtime
                   , bench/runtime/zero/eg/*.runtime
-tested-with: GHC==8.8
+tested-with: GHC==9.0
+           , GHC==8.10
+           , GHC==8.8
            , GHC==8.6
            , GHC==8.4
            , GHC==8.2
