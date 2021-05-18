@@ -142,6 +142,7 @@ module Data.Express
   , isWellTyped
   , isFun
   , hasVar
+  , hasHole
   , isGround
 
   -- ** Comparing Exprs

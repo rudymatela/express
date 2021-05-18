@@ -16,6 +16,7 @@ module Data.Express.Hole
   -- * Typed holes
   , hole
   , isHole
+  , hasHole
   , holes
   , nubHoles
   , holeAsTypeOf
@@ -130,6 +131,20 @@ holes  =  filter isHole . values
 -- such as @f (g (h (f (g (h x)))))@.
 nubHoles :: Expr -> [Expr]
 nubHoles  =  nubSort . holes
+
+-- | /O(n)/.
+-- Returns whether an expression contains a hole
+--
+-- > > hasHole $ hole (undefined :: Bool)
+-- > True
+--
+-- > > hasHole $ value "not" not :$ val True
+-- > False
+--
+-- > > hasHole $ value "not" not :$ hole (undefined :: Bool)
+-- > True
+hasHole :: Expr -> Bool
+hasHole  =  any isHole . values
 
 -- |
 -- Generate an infinite list of variables

@@ -18,6 +18,9 @@ tests n =
 
   , holds n $ \e -> isHole e ==> isVar e
   , holds n $ \e1 e2 -> isHole (e1 :$ e2) == False
+  , holds n $ \e -> isHole e ==> hasHole e
+  , holds n $ \e1 e2 -> (hasHole e1 || hasHole e2) == hasHole (e1 :$ e2)
+  , holds n $ \e -> hasHole e == (not . null . holes) e
 
   , holds n $ \e -> holes e `isSubsequenceOf` vars e
   , holds n $ \e -> nubHoles e `isSubsetOf` holes e
