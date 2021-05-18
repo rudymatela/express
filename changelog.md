@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v0.1.10
+-------
 
 * add the `hasHole` and `isComplete` functions
 * add the `encompasses` function
