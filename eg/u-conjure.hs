@@ -49,9 +49,15 @@ second [x,y]  =  y
 second [x,y,z]  =  y
 second [x,y,z,w]  =  y
 
+-- reverse
 reverse' :: [Int] -> [Int]
 reverse' [x,y]  =  [y,x]
 reverse' [x,y,z]  =  [z,y,x]
+
+-- ++
+(+++) :: [Int] -> [Int] -> [Int]
+[x] +++ [y]  =  [x,y]
+[x,y] +++ [z,w]  =  [x,y,z,w]
 
 
 main :: IO ()
@@ -69,16 +75,35 @@ main  =  do
     , value "enumFromTo" (enumFromTo :: Int -> Int -> [Int])
     ]
 
-  conjure "==>" (==>)
-    [ val False
-    , val True
-    , value "not" not
-    , value "&&" (&&)
-    , value "||" (||)
+  conjure "second"  second
+    [ val (0 :: Int)
+    , val (1 :: Int)
+    , val ([] :: [Int])
+    , value "head" (head :: [Int] -> Int)
+    , value "tail" (tail :: [Int] -> [Int])
+    , value ":" ((:) :: Int -> [Int] -> [Int])
+    , value "++" ((++) :: [Int] -> [Int] -> [Int])
     ]
 
-  conjure "second"  second   listPrimitives
-  conjure "reverse" reverse' listPrimitives
+  conjure "++" (+++)
+    [ val ([] :: [Int])
+    , value ":" ((:) :: Int -> [Int] -> [Int])
+    , value "foldr" (foldr :: (Int -> [Int] -> [Int]) -> [Int] -> [Int] -> [Int])
+    ]
+
+  -- even by using fold and some cheating,
+  -- this function is out of reach
+  --  reverse xs  =  foldr (\x xs -> xs ++ [x]) [] xs
+  --  reverse xs  =  foldr (flip (++) . unit) [] xs
+  conjure "reverse" reverse'
+    [ val ([] :: [Int])
+    , value "unit" ((:[]) :: Int -> [Int])
+    , value "++" ((++) :: [Int] -> [Int] -> [Int])
+    , value "foldr" (foldr :: (Int->[Int]->[Int]) -> [Int] -> [Int] -> [Int])
+    -- these last two are cheats:
+    , value "flip" (flip :: ([Int]->[Int]->[Int]) -> [Int] -> [Int] -> [Int])
+    , value "." ((.) :: ([Int]->[Int]->[Int]) -> (Int->[Int]) -> Int -> [Int] -> [Int])
+    ]
 
   where
 
@@ -146,7 +171,7 @@ application nm f es  =  mostGeneralCanonicalVariation $ appn (value nm f)
 
 
 candidateExprsFrom :: [Expr] -> [Expr]
-candidateExprsFrom  =  concat . take 6 . expressionsT
+candidateExprsFrom  =  concat . take 7 . expressionsT
   where
   expressionsT ds  =  [ds] \/ (delay $ productMaybeWith ($$) es es)
     where
