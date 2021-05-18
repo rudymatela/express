@@ -5,7 +5,7 @@ length . nub = length  (incorrect when there are repeated elements)
 *** Falsified, counterexample:  [0,0]
                generalization:  x:x:xs
 
-xs `union` ys == ys `union` xs
+xs `union` ys == ys `union` xs  (incorrect for repeated elements)
 *** Falsified, counterexample:  ([],[0,0])
                generalization:  (xs,x:x:xs)
                generalization:  ([],x:x:xs)
