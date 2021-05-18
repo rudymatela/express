@@ -144,6 +144,7 @@ module Data.Express
   , hasVar
   , hasHole
   , isGround
+  , isComplete
 
   -- ** Comparing Exprs
   , compareComplexity

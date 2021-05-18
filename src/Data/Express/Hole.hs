@@ -17,6 +17,7 @@ module Data.Express.Hole
   , hole
   , isHole
   , hasHole
+  , isComplete
   , holes
   , nubHoles
   , holeAsTypeOf
@@ -145,6 +146,28 @@ nubHoles  =  nubSort . holes
 -- > True
 hasHole :: Expr -> Bool
 hasHole  =  any isHole . values
+
+-- | /O(n)/.
+-- Returns whether an expression is complete.
+-- A complete expression is one without holes.
+--
+-- > > isComplete $ hole (undefined :: Bool)
+-- > False
+--
+-- > > isComplete $ value "not" not :$ val True
+-- > True
+--
+-- > > isComplete $ value "not" not :$ hole (undefined :: Bool)
+-- > False
+--
+-- 'isComplete' is the negation of 'hasHole'.
+--
+-- > isComplete  =  not . hasHole
+--
+-- 'isComplete' is to 'hasHole' what
+-- 'isGround' is to 'hasVar'.
+isComplete :: Expr -> Bool
+isComplete  =  not . hasHole
 
 -- |
 -- Generate an infinite list of variables
