@@ -114,15 +114,14 @@ tiersFor e  =  case show (typ e) of
   _        ->  []
 
 (-==-) :: Expr -> Expr -> Expr
-ex -==- ey  =  headOr (val False) . map (:$ ey) $ mapMaybe ($$ ex)
-  [ value "==" ((==) :: Int -> Int -> Bool)
-  , value "==" ((==) :: Bool -> Bool -> Bool)
-  , value "==" ((==) :: [Int] -> [Int] -> Bool)
-  , value "==" ((==) :: [Bool] -> [Bool] -> Bool)
-  ]
+ex -==- ey  =  head $
+  [eqn | eq <- eqs, let eqn = eq :$ ex :$ ey, isWellTyped eqn] ++ [val False]
   where
-  headOr x []     =  x
-  headOr _ (x:_)  =  x
+  eqs = [ value "==" ((==) :: Int -> Int -> Bool)
+        , value "==" ((==) :: Bool -> Bool -> Bool)
+        , value "==" ((==) :: [Int] -> [Int] -> Bool)
+        , value "==" ((==) :: [Bool] -> [Bool] -> Bool)
+        ]
 
 lhs, rhs :: Expr -> Expr
 lhs (((Value "==" _) :$ e) :$ _)  =  e

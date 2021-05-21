@@ -75,18 +75,14 @@ counterExampleAndGeneralizations maxTests prop  =
                        , all (not . prop . evl) (take maxTests $ grounds g) ]
 
 candidateGeneralizations :: Expr -> [Expr]
-candidateGeneralizations  =  map canonicalize
-                          .  concatMap canonicalVariations
-                          .  gen
+candidateGeneralizations  =  concatMap canonicalVariations . gen
   where
-  gen e@(e1 :$ e2)  =
-    [holeAsTypeOf e | isListable e]
-    ++ [g1 :$ g2 | g1 <- gen e1, g2 <- gen e2]
-    ++ map (:$ e2) (gen e1)
-    ++ map (e1 :$) (gen e2)
-  gen e
-    | isVar e    =  []
-    | otherwise  =  [holeAsTypeOf e | isListable e]
+  gen e@(e1 :$ e2)  =  [holeAsTypeOf e | isListable e]
+                    ++ [g1 :$ g2 | g1 <- gen e1, g2 <- gen e2]
+                    ++ map (:$ e2) (gen e1)
+                    ++ map (e1 :$) (gen e2)
+  gen e | isVar e    =  []
+        | otherwise  =  [holeAsTypeOf e | isListable e]
   isListable  =  not . null . tiersFor
 
 grounds :: Expr -> [Expr]
