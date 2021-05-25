@@ -129,6 +129,7 @@ module Data.Express.Fixtures
   , (-+-), (-*-)
   , ff, ffE
   , gg, ggE
+  , hh, hhE
   , (-?-)
   , (-$-)
   , odd'
@@ -187,6 +188,12 @@ module Data.Express.Fixtures
   , quadruple
   , quintuple
   , sixtuple
+
+  -- ** Higher order
+  , compose
+  , mapE
+  , (-.-)
+  , map'
   )
 where
 
@@ -484,6 +491,27 @@ ffE = var "f" (undefined :: Int -> Int)
 gg :: Expr -> Expr
 gg = (ggE :$)
 
+-- | A variable @g@ of 'Int -> Int' type encoded as an 'Expr'.
+--
+-- > > ggE
+-- > g :: Int -> Int
+ggE :: Expr
+ggE = var "g" (undefined :: Int -> Int)
+
+-- | A variable function @h@ of 'Int -> Int' type lifted over the 'Expr' type.
+--
+-- > > hh zz
+-- > h z :: Int
+hh :: Expr -> Expr
+hh = (hhE :$)
+
+-- | A variable @h@ of 'Int -> Int' type encoded as an 'Expr'.
+--
+-- > > hhE
+-- > h :: Int -> Int
+hhE :: Expr
+hhE = var "h" (undefined :: Int -> Int)
+
 -- | A variable binary operator @?@ lifted over the 'Expr' type.
 --   Works for 'Int', 'Bool', 'Char', @[Int]@ and 'String'.
 --
@@ -506,13 +534,6 @@ ex -?- ey  =  fromMaybe err $ ($$ ey) $ headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "(-?-): cannot apply `(?) :: * -> * -> *` to `"
                ++ show ex ++ "' and `" ++ show ey ++ "'.  Unhandled types?"
-
--- | A variable @g@ of 'Int -> Int' type encoded as an 'Expr'.
---
--- > > ggE
--- > g :: Int -> Int
-ggE :: Expr
-ggE = var "g" (undefined :: Int -> Int)
 
 -- | The operator '+' for the 'Int' type for use on 'Expr's.  (See also 'plus'.)
 --
@@ -1225,3 +1246,37 @@ product' e  =  productE :$ e
 headOr :: a -> [a] -> a
 headOr x []     =  x
 headOr _ (x:_)  =  x
+
+compose :: Expr
+compose  =  value "." ((.) :: Compose Int)
+
+(-.-) :: Expr -> Expr -> Expr
+ex -.- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "." ((.) :: Compose ())
+  , value "." ((.) :: Compose Int)
+  , value "." ((.) :: Compose Bool)
+  , value "." ((.) :: Compose Char)
+  , value "." ((.) :: Compose [Int])
+  , value "." ((.) :: Compose [Bool])
+  , value "." ((.) :: Compose [Char])
+  ]
+  where
+  err  =  error $ "(-.-): unhandled type " ++ show (typ ex)
+type Compose a = (a -> a) -> (a -> a) -> (a -> a)
+
+mapE :: Expr
+mapE  =  value "map" (map :: Map Int)
+
+map' :: Expr -> Expr -> Expr
+map' ef exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ef)
+  [ value "map" (map :: Map ())
+  , value "map" (map :: Map Int)
+  , value "map" (map :: Map Bool)
+  , value "map" (map :: Map Char)
+  , value "map" (map :: Map [Int])
+  , value "map" (map :: Map [Bool])
+  , value "map" (map :: Map [Char])
+  ]
+  where
+  err  =  error $ "map': unhandled type " ++ show (typ ef)
+type Map a = (a -> a) -> [a] -> [a]
