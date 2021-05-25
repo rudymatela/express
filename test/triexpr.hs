@@ -60,7 +60,4 @@ tests n =
 
   , holds n $ \e -> [(ms,e2) | (e1,e2) <- allRules, ms <- maybeToList (e `match` e1)]
                  =$ sort $= T.lookup e trie
-
-  -- TODO: test performance, lookup should be much faster than several
-  --       `match`es
   ]
