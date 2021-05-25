@@ -264,25 +264,25 @@ benchmark tiers
   build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.4
   default-language:    Haskell2010
 
-benchmark bench-exprs
+benchmark match-list
   type:                exitcode-stdio-1.0
-  main-is:             exprs.hs
+  main-is:             match-list.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
   build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.4
   default-language:    Haskell2010
 
-benchmark bench-match
+benchmark match-noop
   type:                exitcode-stdio-1.0
-  main-is:             match.hs
+  main-is:             match-noop.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
   build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.4
   default-language:    Haskell2010
 
-benchmark bench-triexpr
+benchmark match-triexpr
   type:                exitcode-stdio-1.0
-  main-is:             triexpr.hs
+  main-is:             match-triexpr.hs
   hs-source-dirs:      bench, test
   other-modules:       Test, Test.ListableExpr
   build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.4

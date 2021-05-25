@@ -28,12 +28,12 @@ BENCHS = \
   eg/u-speculate \
   eg/u-conjure \
   bench/compare \
-  bench/exprs \
-  bench/match \
+  bench/match-list \
+  bench/match-noop \
+  bench/match-triexpr \
   bench/pairs \
   bench/sort \
   bench/tiers \
-  bench/triexpr \
   $(EGS)
 GHCIMPORTDIRS = src:test
 GHCFLAGS = -O2 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)
@@ -63,7 +63,7 @@ bench: $(patsubst %,%.bench,$(BENCHS))
 .PHONY: %.bench
 %.bench: %
 	@mkdir -p bench/runtime/$$HOSTNAME/$<
-	@printf "%-18s " $<
+	@printf "%-20s " $<
 	@/usr/bin/time -f%e ./$< 2>&1 >/dev/null | tee bench/runtime/$$HOSTNAME/$<.runtime
 
 clean: clean-hi-o clean-haddock

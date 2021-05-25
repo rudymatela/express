@@ -19,12 +19,12 @@ eg/u-extrapolate
 eg/u-speculate
 eg/u-conjure
 bench/compare
-bench/exprs
+bench/match-noop
+bench/match-list
+bench/match-triexpr
 bench/pairs
 bench/sort
 bench/tiers
-bench/match
-bench/triexpr
 test/canon
 test/core
 test/express

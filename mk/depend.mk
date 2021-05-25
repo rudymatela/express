@@ -25,7 +25,7 @@ bench/compare: \
   test/Test/ListableExpr.hs \
   bench/compare.hs \
   mk/toplibs
-bench/exprs.o: \
+bench/match-list.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Express/Utils/Typeable.hs \
@@ -46,13 +46,13 @@ bench/exprs.o: \
   src/Data/Express/Core.hs \
   src/Data/Express/Canon.hs \
   src/Data/Express/Basic.hs \
-  bench/exprs.hs
-bench/exprs: \
+  bench/match-list.hs
+bench/match-list: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  bench/exprs.hs \
+  bench/match-list.hs \
   mk/toplibs
-bench/match.o: \
+bench/match-noop.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   src/Data/Express/Utils/Typeable.hs \
@@ -73,11 +73,39 @@ bench/match.o: \
   src/Data/Express/Core.hs \
   src/Data/Express/Canon.hs \
   src/Data/Express/Basic.hs \
-  bench/match.hs
-bench/match: \
+  bench/match-noop.hs
+bench/match-noop: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
-  bench/match.hs \
+  bench/match-noop.hs \
+  mk/toplibs
+bench/match-triexpr.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Triexpr.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
+  bench/match-triexpr.hs
+bench/match-triexpr: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  bench/match-triexpr.hs \
   mk/toplibs
 bench/pairs.o: \
   test/Test.hs \
@@ -159,34 +187,6 @@ bench/tiers: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
   bench/tiers.hs \
-  mk/toplibs
-bench/triexpr.o: \
-  test/Test.hs \
-  test/Test/ListableExpr.hs \
-  src/Data/Express/Utils/Typeable.hs \
-  src/Data/Express/Utils/TH.hs \
-  src/Data/Express/Utils/String.hs \
-  src/Data/Express/Utils/List.hs \
-  src/Data/Express/Triexpr.hs \
-  src/Data/Express.hs \
-  src/Data/Express/Name.hs \
-  src/Data/Express/Name/Derive.hs \
-  src/Data/Express/Match.hs \
-  src/Data/Express/Map.hs \
-  src/Data/Express/Instances.hs \
-  src/Data/Express/Hole.hs \
-  src/Data/Express/Fold.hs \
-  src/Data/Express/Fixtures.hs \
-  src/Data/Express/Express.hs \
-  src/Data/Express/Express/Derive.hs \
-  src/Data/Express/Core.hs \
-  src/Data/Express/Canon.hs \
-  src/Data/Express/Basic.hs \
-  bench/triexpr.hs
-bench/triexpr: \
-  test/Test.hs \
-  test/Test/ListableExpr.hs \
-  bench/triexpr.hs \
   mk/toplibs
 eg/u-conjure: \
   eg/u-conjure.hs \

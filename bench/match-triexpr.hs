@@ -1,11 +1,9 @@
--- triexpr.hs -- how long it takes to query on Triexprs?
+-- triexpr.hs -- how long it takes to match expressions in a Triexpr?
 --
 -- Copyright (c) 2021 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 --
--- This program intentionally has the same parameters as:
--- * bench/exprs.hs
--- * bench/match.hs
+-- This program has the same parameters as other match*.hs benchmarks.
 import Test
 import Data.Express.Triexpr (Triexpr)
 import qualified Data.Express.Triexpr as T

@@ -3,9 +3,7 @@
 -- Copyright (c) 2021 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 --
--- This program intentionally has the same parameters as:
--- * bench/match.hs
--- * bench/triexpr.hs
+-- This program has the same parameters as other match*.hs benchmarks.
 import Test
 
 
