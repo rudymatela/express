@@ -1,4 +1,4 @@
-import Test hiding (unit)
+import Test
 import Data.Express.Triexpr (Triexpr)
 import qualified Data.Express.Triexpr as T
 
@@ -11,9 +11,11 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , T.lookup zero (T.fromList allRules) == []
-  , T.lookup one  (T.fromList allRules) == []
-  , T.lookup two  (T.fromList allRules) == []
+  , T.lookup zero  (T.fromList allRules) == []
+  , T.lookup one   (T.fromList allRules) == []
+  , T.lookup two   (T.fromList allRules) == []
+  , T.lookup false (T.fromList allRules) == []
+  , T.lookup true  (T.fromList allRules) == []
 
   , T.lookup (one -+- two) (T.fromList allRules)
     == [ ([(yy, two), (xx, one)], yy -+- xx)
@@ -36,38 +38,52 @@ tests n =
 
 
 allRules :: [(Expr,Expr)]
-allRules  =  intRules ++ boolRules
+allRules  =  intRules ++ boolRules ++ listRules
 
 intRules :: [(Expr,Expr)]
 intRules  =
-  [ abs' (abs' xx)       -=- abs' xx
-  , negate' (negate' xx) -=- xx
-  , xx -+- zero          -=- xx
-  , xx -*- one           -=- xx
-  , xx -*- zero          -=- zero
-  , xx -+- yy            -=- yy -+- xx
-  , (xx -+- yy) -+- zz   -=- xx -+- (yy -+- zz)
-  , (xx -*- yy) -*- zz   -=- xx -*- (yy -*- zz)
-  , (xx -+- xx) -*- yy   -=- xx -*- (yy -+- yy)
-  , xx -*- (yy -+- one)  -=- xx -+- xx -*- yy
-  , xx -*- (yy -+- zz)   -=- xx -*- yy -+- xx -*- zz
+  [ abs' (abs' xx)        -=-  abs' xx
+  , xx -+- zero           -=-  xx
+  , xx -*- one            -=-  xx
+  , xx -*- zero           -=-  zero
+  , xx -+- yy             -=-  yy -+- xx
+  , (xx -+- yy) -+- zz    -=-  xx -+- (yy -+- zz)
+  , (xx -*- yy) -*- zz    -=-  xx -*- (yy -*- zz)
+  , (xx -+- xx) -*- yy    -=-  xx -*- (yy -+- yy)
+  , xx -*- (yy -+- one)   -=-  xx -+- xx -*- yy
+  , xx -*- (yy -+- zz)    -=-  xx -*- yy -+- xx -*- zz
+  , negate' (negate' xx)  -=-  xx
+  , xx -+- negate' xx     -=-  zero
 --, xx -=- xx
   ]
 
 boolRules :: [(Expr,Expr)]
 boolRules  =
-  [ pp -&&- qq           -=- qq -&&- pp
-  , pp -||- qq           -=- qq -||- pp
-  , not' (not' pp)       -=- pp
-  , pp -&&- true         -=- pp
-  , pp -&&- false        -=- false
-  , pp -||- true         -=- true
-  , pp -||- false        -=- pp
-  , (pp -&&- qq) -&&- rr -=- pp -&&- (qq -&&- rr)
-  , (pp -||- qq) -||- rr -=- pp -||- (qq -||- rr)
-  , not' (pp -&&- qq)    -=- not' pp -||- not' qq
-  , not' (pp -||- qq)    -=- not' pp -&&- not' qq
+  [ pp -&&- pp            -=-  pp
+  , pp -||- pp            -=-  pp
+  , pp -&&- qq            -=-  qq -&&- pp
+  , pp -||- qq            -=-  qq -||- pp
+  , not' (not' pp)        -=-  pp
+  , pp -&&- true          -=-  pp
+  , pp -&&- false         -=-  false
+  , pp -||- true          -=-  true
+  , pp -||- false         -=-  pp
+  , (pp -&&- qq) -&&- rr  -=-  pp -&&- (qq -&&- rr)
+  , (pp -||- qq) -||- rr  -=-  pp -||- (qq -||- rr)
+  , not' (pp -&&- qq)     -=-  not' pp -||- not' qq
+  , not' (pp -||- qq)     -=-  not' pp -&&- not' qq
 --, pp -=- pp
+  ]
+
+listRules :: [(Expr,Expr)]
+listRules  =
+  [ head' (xx -:- xxs)       -=-  xx
+  , tail' (xx -:- xxs)       -=-  xxs
+  , xxs -++- nil             -=-  xxs
+  , nil -++- xxs             -=-  xxs
+  , unit xx -++- xxs         -=-  xx -:- xxs
+  , (xx -:- xxs) -++- yys    -=-  xx -:- (xxs -++- yys)
+  , (xxs -++- yys) -++- zzs  -=-  xxs -++- (yys -++- zzs)
   ]
 
 (-=-) :: Expr -> Expr -> (Expr,Expr)

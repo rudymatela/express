@@ -146,6 +146,7 @@ module Data.Express.Fixtures
   , is_
   , xxs
   , yys
+  , zzs
   , nil
   , emptyString
   , nilInt
@@ -759,6 +760,13 @@ xxs  =  var "xs" [int]
 -- > ys :: [Int]
 yys :: Expr
 yys  =  var "ys" [int]
+
+-- | A variable named @zs@ of type @[Int]@ encoded as an 'Expr'.
+--
+-- > > yys
+-- > ys :: [Int]
+zzs :: Expr
+zzs  =  var "zs" [int]
 
 -- | An empty list of type @[Int]@ encoded as an 'Expr'.
 --
