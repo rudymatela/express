@@ -49,6 +49,9 @@ tests n =
   , holds n $ \e eus -> [(ms,()) | (e1,()) <- sort eus, ms <- maybeToList (e `match` e1)]
                      == (T.lookup e (T.fromList eus) :: [([(Expr,Expr)],())])
 
+  , holds n $ \e -> [(ms,e2) | (e1,e2) <- allRules, ms <- maybeToList (e `match` e1)]
+                 =$ sort $= T.lookup e (T.fromList allRules)
+
   -- TODO: test performance, lookup should be much faster than several
   --       `match`es
   ]
