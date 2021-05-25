@@ -178,6 +178,16 @@ boolintRules  =
   , not' (even' xx) -=- odd' xx
   ]
 
+funRules :: [(Expr,Expr)]
+funRules  =
+  [ ff (gg xx)  -=-  (ffE -.- ggE) :$ xx
+  , map' idE xxs  -=-  xxs
+  , map' (ffE -.- ggE) xxs  -=-  map' ffE (map' ggE xxs)
+  , ffE -.- idE  -=-  ffE
+  , idE -.- ffE  -=-  ffE
+  , (ffE -.- ggE) -.- hhE  -=-  ffE -.- (ggE -.- hhE)
+  ]
+
 (-=-) :: Expr -> Expr -> (Expr,Expr)
 e1 -=- e2 = (e1, e2)
 infix 0 -=-
