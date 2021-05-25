@@ -36,8 +36,8 @@ tests n =
 
   , T.lookup (true -||- true) (T.fromList allRules)
     == [ ([(pp,true)], pp)
-       , ([(qq,true),(pp,true)],qq -||- pp)
-       , ([(pp,true)],true)
+       , ([(qq,true),(pp,true)], qq -||- pp)
+       , ([(pp,true)], true)
        ]
 
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Int)])
