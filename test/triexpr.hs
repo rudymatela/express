@@ -36,21 +36,27 @@ tests n =
 
 
 allRules :: [(Expr,Expr)]
-allRules  =
-  [ abs' (abs' xx)      -=- abs' xx
-  , xx -+- zero         -=- xx
-  , xx -*- one          -=- xx
-  , xx -*- zero         -=- zero
-  , xx -+- yy           -=- yy -+- xx
-  , (xx -+- yy) -+- zz  -=- xx -+- (yy -+- zz)
-  , (xx -*- yy) -*- zz  -=- xx -*- (yy -*- zz)
-  , (xx -+- xx) -*- yy  -=- xx -*- (yy -+- yy)
-  , xx -*- (yy -+- one) -=- xx -+- xx -*- yy
-  , xx -*- (yy -+- zz)  -=- xx -*- yy -+- xx -*- zz
---, xx -=- xx
+allRules  =  intRules ++ boolRules
 
-  -- bool rules --
-  , pp -&&- qq           -=- qq -&&- pp
+intRules :: [(Expr,Expr)]
+intRules  =
+  [ abs' (abs' xx)       -=- abs' xx
+  , negate' (negate' xx) -=- xx
+  , xx -+- zero          -=- xx
+  , xx -*- one           -=- xx
+  , xx -*- zero          -=- zero
+  , xx -+- yy            -=- yy -+- xx
+  , (xx -+- yy) -+- zz   -=- xx -+- (yy -+- zz)
+  , (xx -*- yy) -*- zz   -=- xx -*- (yy -*- zz)
+  , (xx -+- xx) -*- yy   -=- xx -*- (yy -+- yy)
+  , xx -*- (yy -+- one)  -=- xx -+- xx -*- yy
+  , xx -*- (yy -+- zz)   -=- xx -*- yy -+- xx -*- zz
+--, xx -=- xx
+  ]
+
+boolRules :: [(Expr,Expr)]
+boolRules  =
+  [ pp -&&- qq           -=- qq -&&- pp
   , pp -||- qq           -=- qq -||- pp
   , not' (not' pp)       -=- pp
   , pp -&&- true         -=- pp
