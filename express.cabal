@@ -79,6 +79,7 @@ library
                      , Data.Express.Name.Derive
                      , Data.Express.Canon
                      , Data.Express.Match
+                     , Data.Express.Triexpr
                      , Data.Express.Utils.List
                      , Data.Express.Utils.String
                      , Data.Express.Utils.Typeable
@@ -210,6 +211,14 @@ test-suite fold
 test-suite show
   type:                exitcode-stdio-1.0
   main-is:             show.hs
+  hs-source-dirs:      test
+  other-modules:       Test, Test.ListableExpr
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.4
+  default-language:    Haskell2010
+
+test-suite triexpr
+  type:                exitcode-stdio-1.0
+  main-is:             triexpr.hs
   hs-source-dirs:      test
   other-modules:       Test, Test.ListableExpr
   build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.4

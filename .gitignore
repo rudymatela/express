@@ -39,6 +39,7 @@ test/utils
 test/fold
 test/ord
 test/show
+test/triexpr
 doc/**/*.html
 doc/**/*.css
 doc/**/*.js

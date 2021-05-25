@@ -20,6 +20,7 @@ TESTS = \
   test/fold \
   test/show \
   test/ord \
+  test/triexpr \
   test/listable
 EGS =
 BENCHS = \
