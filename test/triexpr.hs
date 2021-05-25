@@ -36,34 +36,33 @@ tests n =
 
 arithRules :: [(Expr,Expr)]
 arithRules =
-  [ abs' (abs' xx)      >> abs' xx
-  , xx -+- zero         >> xx
-  , xx -*- one          >> xx
-  , xx -*- zero         >> zero
-  , xx -+- yy           >> yy -+- xx
-  , (xx -+- yy) -+- zz  >> xx -+- (yy -+- zz)
-  , (xx -*- yy) -*- zz  >> xx -*- (yy -*- zz)
-  , (xx -+- xx) -*- yy  >> xx -*- (yy -+- yy)
-  , xx -*- (yy -+- one) >> xx -+- xx -*- yy
-  , xx -*- (yy -+- zz)  >> xx -*- yy -+- xx -*- zz
+  [ abs' (abs' xx)      -=- abs' xx
+  , xx -+- zero         -=- xx
+  , xx -*- one          -=- xx
+  , xx -*- zero         -=- zero
+  , xx -+- yy           -=- yy -+- xx
+  , (xx -+- yy) -+- zz  -=- xx -+- (yy -+- zz)
+  , (xx -*- yy) -*- zz  -=- xx -*- (yy -*- zz)
+  , (xx -+- xx) -*- yy  -=- xx -*- (yy -+- yy)
+  , xx -*- (yy -+- one) -=- xx -+- xx -*- yy
+  , xx -*- (yy -+- zz)  -=- xx -*- yy -+- xx -*- zz
+--, xx -=- xx
 
   -- bool rules --
-  , pp -&&- qq           >> qq -&&- pp
-  , pp -||- qq           >> qq -||- pp
-  , not' (not' pp)       >> pp
-  , pp -&&- true         >> pp
-  , pp -&&- false        >> false
-  , pp -||- true         >> true
-  , pp -||- false        >> pp
-  , (pp -&&- qq) -&&- rr >> pp -&&- (qq -&&- rr)
-  , (pp -||- qq) -||- rr >> pp -||- (qq -||- rr)
-  , not' (pp -&&- qq)    >> not' pp -||- not' qq
-  , not' (pp -||- qq)    >> not' pp -&&- not' qq
-
-  -- identities --
---, x                 >> x
---, p                 >> p
+  , pp -&&- qq           -=- qq -&&- pp
+  , pp -||- qq           -=- qq -||- pp
+  , not' (not' pp)       -=- pp
+  , pp -&&- true         -=- pp
+  , pp -&&- false        -=- false
+  , pp -||- true         -=- true
+  , pp -||- false        -=- pp
+  , (pp -&&- qq) -&&- rr -=- pp -&&- (qq -&&- rr)
+  , (pp -||- qq) -||- rr -=- pp -||- (qq -||- rr)
+  , not' (pp -&&- qq)    -=- not' pp -||- not' qq
+  , not' (pp -||- qq)    -=- not' pp -&&- not' qq
+--, pp -=- pp
   ]
-  where
-  e1 >> e2 = (e1, e2)
-  infix 0 >>
+
+(-=-) :: Expr -> Expr -> (Expr,Expr)
+e1 -=- e2 = (e1, e2)
+infix 0 -=-
