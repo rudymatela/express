@@ -28,9 +28,11 @@ BENCHS = \
   eg/u-speculate \
   eg/u-conjure \
   bench/compare \
+  bench/match \
   bench/pairs \
   bench/sort \
   bench/tiers \
+  bench/triexpr \
   $(EGS)
 GHCIMPORTDIRS = src:test
 GHCFLAGS = -O2 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)

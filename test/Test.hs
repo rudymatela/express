@@ -91,7 +91,8 @@ allRules  =  boolRules ++ intRules ++ listRules ++ boolintRules
 
 boolRules :: [(Expr,Expr)]
 boolRules  =
-  [ pp -&&- pp            -=-  pp
+  [               id' pp  -=-  pp
+  , pp -&&- pp            -=-  pp
   , pp -||- pp            -=-  pp
   , pp -&&- qq            -=-  qq -&&- pp
   , pp -||- qq            -=-  qq -||- pp
@@ -111,7 +112,8 @@ boolRules  =
 
 intRules :: [(Expr,Expr)]
 intRules  =
-  [ abs' (abs' xx)        -=-  abs' xx
+  [               id' xx  -=-  xx
+  , abs' (abs' xx)        -=-  abs' xx
   , xx -+- zero           -=-  xx
   , xx -*- one            -=-  xx
   , xx -*- zero           -=-  zero
@@ -128,7 +130,8 @@ intRules  =
 
 listRules :: [(Expr,Expr)]
 listRules  =
-  [ head' (xx -:- xxs)       -=-  xx
+  [                 id' xxs  -=-  xxs
+  , head' (xx -:- xxs)       -=-  xx
   , tail' (xx -:- xxs)       -=-  xxs
   , xxs -++- nil             -=-  xxs
   , nil -++- xxs             -=-  xxs

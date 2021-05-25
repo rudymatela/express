@@ -22,6 +22,8 @@ bench/compare
 bench/pairs
 bench/sort
 bench/tiers
+bench/match
+bench/triexpr
 test/canon
 test/core
 test/express
