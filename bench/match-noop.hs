@@ -14,11 +14,11 @@ showEq (lhs, rhs)  =  showExpr lhs ++ "  =  " ++ showExpr rhs
 exprs :: [Expr]
 exprs  =  take 720720 list
 
-
-
+query :: Expr -> Maybe Expr
+query e  =  Just e
 
 main :: IO ()
 main  =  do
   putStrLn $ unlines $ map showEq $ allRules
-  putStrLn $ unlines $ map show $ take 1080 $ exprs
-  print $ (== ']') $ last $ show exprs
+  putStrLn $ unlines $ map show $ mapMaybe query $ take 1080 $ exprs
+  print $ (== ']') $ last $ show $ mapMaybe query exprs
