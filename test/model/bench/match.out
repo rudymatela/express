@@ -49,6 +49,11 @@ sort (xs ++ sort ys)  =  sort (xs ++ ys)
 insert x (insert y xs)  =  insert y (insert x xs)
 insert x (x:xs)  =  x:x:xs
 insert x [y]  =  insert y [x]
+length (x:xs)  =  length (y:xs)
+length (xs ++ ys)  =  length (ys ++ xs)
+length (x:y:xs)  =  length (z:x':xs)
+length (x:(xs ++ ys))  =  length (y:(ys ++ xs))
+length (xs ++ (ys ++ zs))  =  length (xs ++ (zs ++ ys))
 not (odd x)  =  even x
 not (even x)  =  odd x
 

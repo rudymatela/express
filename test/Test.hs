@@ -154,6 +154,14 @@ listRules  =
   , insert' xx (insert' yy xxs)  -=-  insert' yy (insert' xx xxs)
   ,     insert' xx (xx -:- xxs)  -=-  xx -:- xx -:- xxs
   ,        insert' xx (unit yy)  -=-  insert' yy (unit xx)
+
+  -- length stuff
+  ,              length' (xx -:- xxs)  -=-  length' (yy -:- xxs)
+  ,            length' (xxs -++- yys)  -=-  length' (yys -++- xxs)
+  ,       length' (xx -:- yy -:- xxs)  -=-  length' (zz -:- xx' -:- xxs)
+  ,   length' (xx -:- (xxs -++- yys))  -=-  length' (yy -:- (yys -++- xxs))
+  , length' (xxs -++- (yys -++- zzs))  -=-  length' (xxs -++- (zzs -++- yys))
+
   ]
 
 boolintRules :: [(Expr,Expr)]
