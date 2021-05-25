@@ -32,10 +32,6 @@ import Data.Express
 import Data.Maybe
 import Prelude hiding (map, lookup)
 
--- TODO: group by type?
--- TODO: tag applications with types?  data Tygged  =  App TypeRep e1 e2 | Atom Expr
---       tag :: Expr -> Tygged
-
 -- "Nothing" should match an App, "Just Expr" an expression
 data Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) a)]
   deriving (Eq, Ord, Show)
