@@ -14,7 +14,7 @@ showEq :: (Expr, Expr) -> String
 showEq (lhs, rhs)  =  showExpr lhs ++ "  =  " ++ showExpr rhs
 
 exprs :: [Expr]
-exprs  =  take 110880 $ filter isComplete list
+exprs  =  take 110880 list
 
 query :: Expr -> Maybe ([(Expr,Expr)],Expr)
 query e  =  listToMaybe $ T.lookup e trie
