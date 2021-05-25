@@ -30,7 +30,7 @@ where
 
 import Data.Express
 import Data.Maybe
-import Data.Typeable (TypeRep)
+import Data.Express.Utils.Typeable
 import Prelude hiding (map, lookup)
 
 -- TODO: tag applications with types?  data Tygged  =  App TypeRep e1 e2 | Atom Expr
@@ -58,10 +58,10 @@ merge (Triexpr tms1) (Triexpr tms2)  =  Triexpr $ mer tms1 tms2
       -> [(TypeRep,[(Maybe Expr, Either (Triexpr a) a)])]
   mer [] tms2  =  tms2
   mer tms1 []  =  tms1
-  mer tms1@((t1,ms1):etc1) tms2@((t2,ms2):etc2)
-    |  t1 < t2   =  (t1,ms1) : mer etc1 tms2
-    |  t1 > t2   =  (t2,ms2) : mer tms1 etc2
-    | otherwise  =  (t1,m ms1 ms2) : mer etc1 etc2
+  mer tms1@((t1,ms1):etc1) tms2@((t2,ms2):etc2) = case compareTy t1 t2 of
+    LT  ->  (t1,ms1) : mer etc1 tms2
+    GT  ->  (t2,ms2) : mer tms1 etc2
+    EQ  ->  (t1,m ms1 ms2) : mer etc1 etc2
   m [] ms  =  ms
   m ms []  =  ms
   m ((e1,mt1):ms1) ((e2,mt2):ms2)
