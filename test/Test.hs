@@ -104,6 +104,8 @@ boolRules  =
   , (pp -||- qq) -||- rr  -=-  pp -||- (qq -||- rr)
   , not' (pp -&&- qq)     -=-  not' pp -||- not' qq
   , not' (pp -||- qq)     -=-  not' pp -&&- not' qq
+  , not' false            -=-  true
+  , not' true             -=-  false
 --, pp -=- pp
   ]
 

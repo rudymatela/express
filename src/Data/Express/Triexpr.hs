@@ -81,6 +81,7 @@ map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) f eth) | (ex, eth) <- ms]
   mapEither f g (Left x)   =  Left (f x)
   mapEither f g (Right y)  =  Right (g y)
 
+-- TODO: -> [ (Expr,[(Expr,Expr)],a) ]
 lookup :: Expr -> Triexpr a -> [ ([(Expr,Expr)], a) ]
 lookup e t  =  [(bs, x) | (bs, Right x) <- look (Just e) t []]
   where
