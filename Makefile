@@ -28,6 +28,7 @@ BENCHS = \
   eg/u-speculate \
   eg/u-conjure \
   bench/compare \
+  bench/exprs \
   bench/match \
   bench/pairs \
   bench/sort \

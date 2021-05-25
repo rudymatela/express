@@ -19,6 +19,7 @@ eg/u-extrapolate
 eg/u-speculate
 eg/u-conjure
 bench/compare
+bench/exprs
 bench/pairs
 bench/sort
 bench/tiers
