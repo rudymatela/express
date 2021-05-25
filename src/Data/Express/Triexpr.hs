@@ -30,14 +30,14 @@ where
 
 import Data.Express
 import Data.Maybe
+import Data.Typeable (TypeRep)
 import Prelude hiding (map, lookup)
 
--- TODO: group by type?
 -- TODO: tag applications with types?  data Tygged  =  App TypeRep e1 e2 | Atom Expr
 --       tag :: Expr -> Tygged
 
 -- "Nothing" should match an App, "Just Expr" an expression
-data Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) a)]
+data Triexpr a = Triexpr [(TypeRep,[(Maybe Expr, Either (Triexpr a) a)])]
   deriving (Eq, Ord, Show)
 
 empty :: Triexpr a
@@ -47,12 +47,21 @@ unit :: Expr -> a -> Triexpr a
 unit e x  =  u e (Right x)
   where
   u :: Expr -> (Either (Triexpr a) a) -> Triexpr a
-  u (e1 :$ e2) et  =  Triexpr [(Nothing, Left $ u e1 $ Left $ u e2 et)]
-  u e          et  =  Triexpr [(Just e,  et)]
+  u e@(e1 :$ e2) et  =  Triexpr [(typ e, [(Nothing, Left $ u e1 $ Left $ u e2 et)])]
+  u e            et  =  Triexpr [(typ e, [(Just e,  et)])]
 
 merge :: Triexpr a -> Triexpr a -> Triexpr a
-merge (Triexpr ms1) (Triexpr ms2)  =  Triexpr $ m ms1 ms2
+merge (Triexpr tms1) (Triexpr tms2)  =  Triexpr $ mer tms1 tms2
   where
+  mer :: [(TypeRep,[(Maybe Expr, Either (Triexpr a) a)])]
+      -> [(TypeRep,[(Maybe Expr, Either (Triexpr a) a)])]
+      -> [(TypeRep,[(Maybe Expr, Either (Triexpr a) a)])]
+  mer [] tms2  =  tms2
+  mer tms1 []  =  tms1
+  mer tms1@((t1,ms1):etc1) tms2@((t2,ms2):etc2)
+    |  t1 < t2   =  (t1,ms1) : mer etc1 tms2
+    |  t1 > t2   =  (t2,ms2) : mer tms1 etc2
+    | otherwise  =  (t1,m ms1 ms2) : mer etc1 etc2
   m [] ms  =  ms
   m ms []  =  ms
   m ((e1,mt1):ms1) ((e2,mt2):ms2)
@@ -70,16 +79,18 @@ toList :: Triexpr a -> [(Expr, a)]
 toList t  =  [(e,x) | (e, Right x) <- to t]
   where
   to :: Triexpr a -> [(Expr, Either (Triexpr a) a)]
-  to (Triexpr ms)  =  [ (e,et) | (Just e, et) <- ms ]
-                   ++ [ (e1 :$ e2, et) | (Nothing, Left t) <- ms
-                                       , (e1, Left t')     <- to t
-                                       , (e2, et)          <- to t' ]
+  to (Triexpr tms)  =  [ (e,et) | (_,ms) <- tms
+                                , (Just e, et) <- ms ]
+                    ++ [ (e1 :$ e2, et) | (_,ms)            <- tms
+                                        , (Nothing, Left t) <- ms
+                                        , (e1, Left t')     <- to t
+                                        , (e2, et)          <- to t' ]
 
 fromList :: [(Expr, a)] -> Triexpr a
 fromList  =  foldr (uncurry insert) empty
 
 map :: (a -> b) -> Triexpr a -> Triexpr b
-map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) f eth) | (ex, eth) <- ms]
+map f (Triexpr tms)  =  Triexpr [(t,[(ex, mapEither (map f) f eth) | (ex, eth) <- ms]) | (t,ms) <- tms]
   where
   mapEither :: (a -> c) -> (b -> d) -> Either a b -> Either c d
   mapEither f g (Left x)   =  Left (f x)
@@ -87,12 +98,15 @@ map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) f eth) | (ex, eth) <- ms]
 
 -- TODO: -> [ (Expr,[(Expr,Expr)],a) ]
 lookup :: Expr -> Triexpr a -> [ ([(Expr,Expr)], a) ]
-lookup e t  =  [(bs, x) | (bs, Right x) <- look (Just e) t []]
+lookup e t  =  [(bs, x) | (bs, Right x) <- look (Right e) t []]
   where
-  look :: Maybe Expr -> Triexpr a -> [(Expr, Expr)] -> [([(Expr,Expr)], Either (Triexpr a) a)]
-  look Nothing  t@(Triexpr ms) bs  =  [(bs, mt) | (Nothing, mt) <- ms]
-  look (Just e) t@(Triexpr ms) bs  =  [(bs', mt) | (Just e', mt) <- ms, bs' <- maybeToList (matchWith bs e e')]
-                                   ++ [r | e1 :$ e2 <- [e]
-                                         , (bs1, Left t1) <- look Nothing t bs
-                                         , (bs2, Left t2) <- look (Just e1) t1 bs1
-                                         , r              <- look (Just e2) t2 bs2]
+  look :: Either TypeRep Expr -> Triexpr a -> [(Expr, Expr)] -> [([(Expr,Expr)], Either (Triexpr a) a)]
+  look (Left ty) t@(Triexpr tyms) bs  =  [(bs, mt) | (ty',ms) <- tyms, ty == ty', (Nothing, mt) <- ms]
+  look (Right e) t@(Triexpr tyms) bs  =  [(bs', mt) | (ty',ms) <- tyms, ty == ty', (Just e', mt) <- ms
+                                                    , bs' <- maybeToList (matchWith bs e e')]
+                                      ++ [r | e1 :$ e2 <- [e]
+                                            , (bs1, Left t1) <- look (Left ty) t bs
+                                            , (bs2, Left t2) <- look (Right e1) t1 bs1
+                                            , r              <- look (Right e2) t2 bs2]
+    where
+    ty  =  typ e
