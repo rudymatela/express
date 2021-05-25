@@ -31,8 +31,11 @@ tests n =
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Int)])
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Expr)])
 
-  , holds n $ \e ees -> [e2 | (e1,e2) <- ees, _ <- maybeToList (e `match` e1)]
-                     =$ sort $= map snd (T.lookup e (T.fromList ees) :: [([(Expr,Expr)],Expr)])
+  , holds n $ \e ees -> [(ms,e2) | (e1,e2) <- ees, ms <- maybeToList (e `match` e1)]
+                     =$ sort $= (T.lookup e (T.fromList ees) :: [([(Expr,Expr)],Expr)])
+
+  , holds n $ \e eus -> [(ms,()) | (e1,()) <- eus, ms <- maybeToList (e `match` e1)]
+                     =$ sort $= (T.lookup e (T.fromList eus) :: [([(Expr,Expr)],())])
 
   -- TODO: test performance, lookup should be much faster than several
   --       `match`es
