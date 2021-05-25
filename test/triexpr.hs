@@ -15,7 +15,7 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , length allRules == 50
+  , length allRules == 53
 
   , T.lookup zero  trie == []
   , T.lookup one   trie == []
