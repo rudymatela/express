@@ -14,7 +14,7 @@ showEq :: (Expr, Expr) -> String
 showEq (lhs, rhs)  =  showExpr lhs ++ "  =  " ++ showExpr rhs
 
 exprs :: [Expr]
-exprs  =  take 110880 list
+exprs  =  take 720720 list
 
 
 
