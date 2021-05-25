@@ -11,14 +11,15 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , T.lookup one (T.fromList arithRules)
-    == []
+  , T.lookup zero (T.fromList allRules) == []
+  , T.lookup one  (T.fromList allRules) == []
+  , T.lookup two  (T.fromList allRules) == []
 
-  , T.lookup (one -+- two) (T.fromList arithRules)
+  , T.lookup (one -+- two) (T.fromList allRules)
     == [ ([(yy, two), (xx, one)], yy -+- xx)
        ]
 
-  , T.lookup ((one -+- two) -+- three) (T.fromList arithRules)
+  , T.lookup ((one -+- two) -+- three) (T.fromList allRules)
     == [ ([(yy, three), (xx, one -+- two)], yy -+- xx)
        , ([(zz, three), (yy, two), (xx, one)], xx -+- (yy -+- zz))
        ]
@@ -34,8 +35,8 @@ tests n =
   ]
 
 
-arithRules :: [(Expr,Expr)]
-arithRules =
+allRules :: [(Expr,Expr)]
+allRules  =
   [ abs' (abs' xx)      -=- abs' xx
   , xx -+- zero         -=- xx
   , xx -*- one          -=- xx
