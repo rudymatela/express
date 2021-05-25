@@ -34,6 +34,9 @@ tests n =
        , ([(rr,true),(qq,false),(pp,false)], pp -&&- (qq -&&- rr))
        ]
 
+  , T.lookup (not' true) (T.fromList allRules)
+    == [ ([], false) ]
+
   , T.lookup (true -||- true) (T.fromList allRules)
     == [ ([(pp,true)], pp)
        , ([(qq,true),(pp,true)], qq -||- pp)
