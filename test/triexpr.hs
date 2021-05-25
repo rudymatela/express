@@ -28,6 +28,18 @@ tests n =
        , ([(zz, three), (yy, two), (xx, one)], xx -+- (yy -+- zz))
        ]
 
+  , T.lookup ((false -&&- false) -&&- true) (T.fromList allRules)
+    == [ ([(qq,true),(pp,false -&&- false)], qq -&&- pp)
+       , ([(pp,false -&&- false)], pp)
+       , ([(rr,true),(qq,false),(pp,false)], pp -&&- (qq -&&- rr))
+       ]
+
+  , T.lookup (true -||- true) (T.fromList allRules)
+    == [ ([(pp,true)], pp)
+       , ([(qq,true),(pp,true)],qq -||- pp)
+       , ([(pp,true)],true)
+       ]
+
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Int)])
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Expr)])
 
