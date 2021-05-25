@@ -6,3 +6,4 @@ where
 
 import Data.Express
 import Data.Express.Fixtures
+import Data.Express.Triexpr ()

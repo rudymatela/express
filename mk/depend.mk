@@ -259,6 +259,7 @@ mk/All.o: \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
   src/Data/Express/Utils/List.hs \
+  src/Data/Express/Triexpr.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
   src/Data/Express/Name/Derive.hs \
