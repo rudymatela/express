@@ -121,6 +121,7 @@ intRules  =
   , xx -*- one            -=-  xx
   , xx -*- zero           -=-  zero
   , xx -+- yy             -=-  yy -+- xx
+  , xx -*- yy             -=-  yy -*- xx
   , (xx -+- yy) -+- zz    -=-  xx -+- (yy -+- zz)
   , (xx -*- yy) -*- zz    -=-  xx -*- (yy -*- zz)
   , (xx -+- xx) -*- yy    -=-  xx -*- (yy -+- yy)
@@ -128,6 +129,13 @@ intRules  =
   , xx -*- (yy -+- zz)    -=-  xx -*- yy -+- xx -*- zz
   , negate' (negate' xx)  -=-  xx
   , xx -+- negate' xx     -=-  zero
+  ,          abs' (negate' xx)  -=-  abs' xx
+  ,                 two -*- xx  -=-  xx -+- xx
+  ,           abs' (xx -*- xx)  -=-  xx -*- xx
+  ,        abs' xx -*- abs' yy  -=-  abs' (xx -*- yy)
+  ,        abs' xx -*- abs' xx  -=-  abs' (xx -+- xx)
+  , abs' (abs' xx -+- abs' yy)  -=-  abs' xx -+- abs' yy
+  ,    abs' (xx -+- xx) -*- yy  -=- abs' xx -*- yy -+- abs' xx -*- yy
 --, xx -=- xx
   ]
 

@@ -23,6 +23,7 @@ x + 0  =  x
 x * 1  =  x
 x * 0  =  0
 x + y  =  y + x
+x * y  =  y * x
 (x + y) + z  =  x + (y + z)
 (x * y) * z  =  x * (y * z)
 (x + x) * y  =  x * (y + y)
@@ -30,6 +31,13 @@ x * (y + 1)  =  x + x * y
 x * (y + z)  =  x * y + x * z
 negate (negate x)  =  x
 x + negate x  =  0
+abs (negate x)  =  abs x
+2 * x  =  x + x
+abs (x * x)  =  x * x
+abs x * abs y  =  abs (x * y)
+abs x * abs x  =  abs (x + x)
+abs (abs x + abs y)  =  abs x + abs y
+abs (x + x) * y  =  abs x * y + abs x * y
 id xs  =  xs
 head (x:xs)  =  x
 tail (x:xs)  =  xs
@@ -78,6 +86,7 @@ not (even x)  =  odd x
 ([(y :: Int,_ :: Int),(x :: Int,x :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,0 :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,id _ :: Int)],y + x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,_ :: Int)],y * x :: Int)
 ([(xs :: [Int],_ :: [Int]),(x :: Int,_ :: Int)],x :: Int)
 ([],True :: Bool)
 ([],False :: Bool)
@@ -116,6 +125,7 @@ not (even x)  =  odd x
 ([(x :: Int,ord 'a' :: Int)],x :: Int)
 ([(x :: Int,_ :: Int)],x :: Int)
 ([(x :: Int,_ :: Int)],abs x :: Int)
+([(x :: Int,_ :: Int)],abs x :: Int)
 ([(y :: Int,y :: Int),(x :: Int,_ :: Int)],y + x :: Int)
 ([(y :: Int,1 :: Int),(x :: Int,_ :: Int)],y + x :: Int)
 ([(y :: Int,id x :: Int),(x :: Int,_ :: Int)],y + x :: Int)
@@ -135,7 +145,9 @@ not (even x)  =  odd x
 ([(y :: Int,x :: Int),(x :: Int,id _ :: Int)],y + x :: Int)
 ([(y :: Int,0 :: Int),(x :: Int,id _ :: Int)],y + x :: Int)
 ([(y :: Int,id _ :: Int),(x :: Int,id _ :: Int)],y + x :: Int)
-([(x :: Int,_ :: Int)],0 :: Int)
+([(y :: Int,x :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,0 :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,id _ :: Int),(x :: Int,_ :: Int)],y * x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,y :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,1 :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,id x :: Int)],y + x :: Int)
@@ -146,6 +158,9 @@ not (even x)  =  odd x
 ([(y :: Int,_ :: Int),(x :: Int,_ + _ :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,head _ :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,ord _ :: Int)],y + x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,x :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,0 :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,id _ :: Int)],y * x :: Int)
 ([(xs :: [Int],xs :: [Int]),(x :: Int,_ :: Int)],x :: Int)
 ([(xs :: [Int],[] :: [Int]),(x :: Int,_ :: Int)],x :: Int)
 ([(xs :: [Int],_:_ :: [Int]),(x :: Int,_ :: Int)],x :: Int)
@@ -280,6 +295,10 @@ not (even x)  =  odd x
 ([(x :: Int,x :: Int)],abs x :: Int)
 ([(x :: Int,0 :: Int)],abs x :: Int)
 ([(x :: Int,id _ :: Int)],abs x :: Int)
+([(x :: Int,x :: Int)],abs x :: Int)
+([(x :: Int,0 :: Int)],abs x :: Int)
+([(x :: Int,id _ :: Int)],abs x :: Int)
+([(x :: Int,_ :: Int)],x * x :: Int)
 ([(y :: Int,z :: Int),(x :: Int,_ :: Int)],y + x :: Int)
 ([(y :: Int,-1 :: Int),(x :: Int,_ :: Int)],y + x :: Int)
 ([(y :: Int,id y :: Int),(x :: Int,_ :: Int)],y + x :: Int)
@@ -341,8 +360,16 @@ not (even x)  =  odd x
 ([(y :: Int,_ + _ :: Int),(x :: Int,id _ :: Int)],y + x :: Int)
 ([(y :: Int,head _ :: Int),(x :: Int,id _ :: Int)],y + x :: Int)
 ([(y :: Int,ord _ :: Int),(x :: Int,id _ :: Int)],y + x :: Int)
-([(x :: Int,_ :: Int)],x :: Int)
-([(z :: Int,_ :: Int),(y :: Int,_ :: Int),(x :: Int,_ :: Int)],x * y + x * z :: Int)
+([(y :: Int,y :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,1 :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,id x :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,id 0 :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,id (id _) :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,negate _ :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,abs _ :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,_ + _ :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,head _ :: Int),(x :: Int,_ :: Int)],y * x :: Int)
+([(y :: Int,ord _ :: Int),(x :: Int,_ :: Int)],y * x :: Int)
 ([(y :: Int,x :: Int),(x :: Int,y :: Int)],y + x :: Int)
 ([(y :: Int,0 :: Int),(x :: Int,y :: Int)],y + x :: Int)
 ([(y :: Int,id _ :: Int),(x :: Int,y :: Int)],y + x :: Int)
@@ -373,9 +400,15 @@ not (even x)  =  odd x
 ([(y :: Int,x :: Int),(x :: Int,ord _ :: Int)],y + x :: Int)
 ([(y :: Int,0 :: Int),(x :: Int,ord _ :: Int)],y + x :: Int)
 ([(y :: Int,id _ :: Int),(x :: Int,ord _ :: Int)],y + x :: Int)
-([(x :: Int,x :: Int)],0 :: Int)
-([(x :: Int,0 :: Int)],0 :: Int)
-([(x :: Int,id _ :: Int)],0 :: Int)
+([(y :: Int,x :: Int),(x :: Int,x :: Int)],y * x :: Int)
+([(y :: Int,0 :: Int),(x :: Int,x :: Int)],y * x :: Int)
+([(y :: Int,id _ :: Int),(x :: Int,x :: Int)],y * x :: Int)
+([(y :: Int,x :: Int),(x :: Int,0 :: Int)],y * x :: Int)
+([(y :: Int,0 :: Int),(x :: Int,0 :: Int)],y * x :: Int)
+([(y :: Int,id _ :: Int),(x :: Int,0 :: Int)],y * x :: Int)
+([(y :: Int,x :: Int),(x :: Int,id _ :: Int)],y * x :: Int)
+([(y :: Int,0 :: Int),(x :: Int,id _ :: Int)],y * x :: Int)
+([(y :: Int,id _ :: Int),(x :: Int,id _ :: Int)],y * x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,z :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,-1 :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,id y :: Int)],y + x :: Int)
@@ -407,7 +440,16 @@ not (even x)  =  odd x
 ([(y :: Int,_ :: Int),(x :: Int,head (_:_) :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,ord c :: Int)],y + x :: Int)
 ([(y :: Int,_ :: Int),(x :: Int,ord 'a' :: Int)],y + x :: Int)
-([(y :: Int,_ :: Int),(x :: Int,_ :: Int)],x * (y + y) :: Int)
+([(y :: Int,_ :: Int),(x :: Int,y :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,1 :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,id x :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,id 0 :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,id (id _) :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,negate _ :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,abs _ :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,_ + _ :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,head _ :: Int)],y * x :: Int)
+([(y :: Int,_ :: Int),(x :: Int,ord _ :: Int)],y * x :: Int)
 ([(xs :: [Int],ys :: [Int]),(x :: Int,_ :: Int)],x :: Int)
 ([(xs :: [Int],[0] :: [Int]),(x :: Int,_ :: Int)],x :: Int)
 ([(xs :: [Int],_:xs :: [Int]),(x :: Int,_ :: Int)],x :: Int)
