@@ -64,6 +64,12 @@ length (x:(xs ++ ys))  =  length (y:(ys ++ xs))
 length (xs ++ (ys ++ zs))  =  length (xs ++ (zs ++ ys))
 not (odd x)  =  even x
 not (even x)  =  odd x
+f (g x)  =  (f . g) x
+map id xs  =  xs
+map (f . g) xs  =  map f (map g xs)
+f . id  =  f
+id . f  =  f
+(f . g) . h  =  f . (g . h)
 
 _ :: Int
 x :: Int

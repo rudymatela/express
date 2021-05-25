@@ -87,7 +87,7 @@ tyIntToInt  =  typeOf (undefined :: Int -> Int)
 -- |
 -- To be used when testing or benchmarking 'Triexpr'
 allRules :: [(Expr,Expr)]
-allRules  =  boolRules ++ intRules ++ listRules ++ boolintRules
+allRules  =  boolRules ++ intRules ++ listRules ++ boolintRules ++ funRules
 
 boolRules :: [(Expr,Expr)]
 boolRules  =
