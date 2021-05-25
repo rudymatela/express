@@ -11,6 +11,8 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
+  , length allRules == 43
+
   , T.lookup zero  (T.fromList allRules) == []
   , T.lookup one   (T.fromList allRules) == []
   , T.lookup two   (T.fromList allRules) == []
