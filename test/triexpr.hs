@@ -36,40 +36,34 @@ tests n =
 
 arithRules :: [(Expr,Expr)]
 arithRules =
-  [ abs' (abs' x)     >> abs' x
-  , x -+- zero        >> x
-  , x -*- one         >> x
-  , x -*- zero        >> zero
-  , x -+- y           >> y -+- x
-  , (x -+- y) -+- z   >> x -+- (y -+- z)
-  , (x -*- y) -*- z   >> x -*- (y -*- z)
-  , (x -+- x) -*- y   >> x -*- (y -+- y)
-  , x -*- (y -+- one) >> x -+- x -*- y
-  , x -*- (y -+- z)   >> x -*- y -+- x -*- z
+  [ abs' (abs' xx)      >> abs' xx
+  , xx -+- zero         >> xx
+  , xx -*- one          >> xx
+  , xx -*- zero         >> zero
+  , xx -+- yy           >> yy -+- xx
+  , (xx -+- yy) -+- zz  >> xx -+- (yy -+- zz)
+  , (xx -*- yy) -*- zz  >> xx -*- (yy -*- zz)
+  , (xx -+- xx) -*- yy  >> xx -*- (yy -+- yy)
+  , xx -*- (yy -+- one) >> xx -+- xx -*- yy
+  , xx -*- (yy -+- zz)  >> xx -*- yy -+- xx -*- zz
 
   -- bool rules --
-  , p -&&- q          >> q -&&- p
-  , p -||- q          >> q -||- p
-  , not' (not' p)     >> p
-  , p -&&- true       >> p
-  , p -&&- false      >> false
-  , p -||- true       >> true
-  , p -||- false      >> p
-  , (p -&&- q) -&&- r >> p -&&- (q -&&- r)
-  , (p -||- q) -||- r >> p -||- (q -||- r)
-  , not' (p -&&- q)   >> not' p -||- not' q
-  , not' (p -||- q)   >> not' p -&&- not' q
+  , pp -&&- qq           >> qq -&&- pp
+  , pp -||- qq           >> qq -||- pp
+  , not' (not' pp)       >> pp
+  , pp -&&- true         >> pp
+  , pp -&&- false        >> false
+  , pp -||- true         >> true
+  , pp -||- false        >> pp
+  , (pp -&&- qq) -&&- rr >> pp -&&- (qq -&&- rr)
+  , (pp -||- qq) -||- rr >> pp -||- (qq -||- rr)
+  , not' (pp -&&- qq)    >> not' pp -||- not' qq
+  , not' (pp -||- qq)    >> not' pp -&&- not' qq
 
   -- identities --
 --, x                 >> x
 --, p                 >> p
   ]
   where
-  x = xx
-  y = yy
-  z = zz
-  p = pp
-  q = qq
-  r = rr
   e1 >> e2 = (e1, e2)
   infix 0 >>
