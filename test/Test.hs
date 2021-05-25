@@ -133,6 +133,19 @@ listRules  =
   , unit xx -++- xxs         -=-  xx -:- xxs
   , (xx -:- xxs) -++- yys    -=-  xx -:- (xxs -++- yys)
   , (xxs -++- yys) -++- zzs  -=-  xxs -++- (yys -++- zzs)
+
+  -- insertsort stuff
+  ,        elem' xx (sort' xxs)  -=-  elem' xx xxs
+  ,   elem' xx (insert' yy xxs)  -=-  elem' xx (yy -:- xxs)
+  ,           sort' (sort' xxs)  -=-  sort' xxs
+  ,              insert' xx nil  -=-  unit xx
+  ,        sort' (xxs -++- yys)  -=-  sort' (yys -++- xxs)
+  ,      sort' (insert' xx xxs)  -=-  insert' xx (sort' xxs)
+  ,          sort' (xx -:- xxs)  -=-  insert' xx (sort' xxs)
+  ,  sort' (xxs -++- sort' yys)  -=-  sort' (xxs -++- yys)
+  , insert' xx (insert' yy xxs)  -=-  insert' yy (insert' xx xxs)
+  ,     insert' xx (xx -:- xxs)  -=-  xx -:- xx -:- xxs
+  ,        insert' xx (unit yy)  -=-  insert' yy (unit xx)
   ]
 
 (-=-) :: Expr -> Expr -> (Expr,Expr)
