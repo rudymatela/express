@@ -25,6 +25,11 @@ module Test
   , tyChar
   , tyInts
   , tyIntToInt
+
+  , allRules
+  , boolRules
+  , intRules
+  , listRules
   )
 where
 
@@ -77,3 +82,59 @@ tyInts =  typeOf (undefined :: [Int])
 
 tyIntToInt :: TypeRep
 tyIntToInt  =  typeOf (undefined :: Int -> Int)
+
+
+-- |
+-- To be used when testing or benchmarking 'Triexpr'
+allRules :: [(Expr,Expr)]
+allRules  =  boolRules ++ intRules ++ listRules
+
+boolRules :: [(Expr,Expr)]
+boolRules  =
+  [ pp -&&- pp            -=-  pp
+  , pp -||- pp            -=-  pp
+  , pp -&&- qq            -=-  qq -&&- pp
+  , pp -||- qq            -=-  qq -||- pp
+  , not' (not' pp)        -=-  pp
+  , pp -&&- true          -=-  pp
+  , pp -&&- false         -=-  false
+  , pp -||- true          -=-  true
+  , pp -||- false         -=-  pp
+  , (pp -&&- qq) -&&- rr  -=-  pp -&&- (qq -&&- rr)
+  , (pp -||- qq) -||- rr  -=-  pp -||- (qq -||- rr)
+  , not' (pp -&&- qq)     -=-  not' pp -||- not' qq
+  , not' (pp -||- qq)     -=-  not' pp -&&- not' qq
+--, pp -=- pp
+  ]
+
+intRules :: [(Expr,Expr)]
+intRules  =
+  [ abs' (abs' xx)        -=-  abs' xx
+  , xx -+- zero           -=-  xx
+  , xx -*- one            -=-  xx
+  , xx -*- zero           -=-  zero
+  , xx -+- yy             -=-  yy -+- xx
+  , (xx -+- yy) -+- zz    -=-  xx -+- (yy -+- zz)
+  , (xx -*- yy) -*- zz    -=-  xx -*- (yy -*- zz)
+  , (xx -+- xx) -*- yy    -=-  xx -*- (yy -+- yy)
+  , xx -*- (yy -+- one)   -=-  xx -+- xx -*- yy
+  , xx -*- (yy -+- zz)    -=-  xx -*- yy -+- xx -*- zz
+  , negate' (negate' xx)  -=-  xx
+  , xx -+- negate' xx     -=-  zero
+--, xx -=- xx
+  ]
+
+listRules :: [(Expr,Expr)]
+listRules  =
+  [ head' (xx -:- xxs)       -=-  xx
+  , tail' (xx -:- xxs)       -=-  xxs
+  , xxs -++- nil             -=-  xxs
+  , nil -++- xxs             -=-  xxs
+  , unit xx -++- xxs         -=-  xx -:- xxs
+  , (xx -:- xxs) -++- yys    -=-  xx -:- (xxs -++- yys)
+  , (xxs -++- yys) -++- zzs  -=-  xxs -++- (yys -++- zzs)
+  ]
+
+(-=-) :: Expr -> Expr -> (Expr,Expr)
+e1 -=- e2 = (e1, e2)
+infix 0 -=-
