@@ -2,6 +2,22 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* `Data.Express.Fixtures`, add several symbols:
+	- `hh` and `hhE`;
+	- `four` and `zzs`;
+	- `signum'` and `signumE`;
+	- `compose` and `-.-`;
+	- `mapE` and `map'`.
+
+* Add the experimental `Triexpr` module, including:
+	- the `Triexpr` type;
+	- tests;
+	- benchmarks.
+
+
 v0.1.10
 -------
 
