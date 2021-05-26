@@ -73,11 +73,13 @@ fromList :: [(Expr, a)] -> Triexpr a
 fromList  =  foldr (uncurry insert) empty
 
 map :: (a -> b) -> Triexpr a -> Triexpr b
-map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) (fmap f) eth) | (ex, eth) <- ms]
+map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) (mapSnd f) eth) | (ex, eth) <- ms]
   where
   mapEither :: (a -> c) -> (b -> d) -> Either a b -> Either c d
   mapEither f g (Left x)   =  Left (f x)
   mapEither f g (Right y)  =  Right (g y)
+  mapSnd :: (a -> b) -> (c,a) -> (c,b)
+  mapSnd f (x,y)  =  (x, f y)
 
 -- TODO: -> [ (Expr,[(Expr,Expr)],a) ]
 lookup :: Expr -> Triexpr a -> [ (Expr, [(Expr,Expr)], a) ]
