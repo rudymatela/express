@@ -12,7 +12,7 @@ showEq :: (Expr, Expr) -> String
 showEq (lhs, rhs)  =  showExpr lhs ++ "  =  " ++ showExpr rhs
 
 exprs :: [Expr]
-exprs  =  take 720720 list
+exprs  =  take 360360 list
 
 query :: Expr -> Maybe (Expr,[(Expr,Expr)],Expr)
 query e  =  listToMaybe [(e1,ms,e2) | (e1,e2) <- sort allRules, ms <- maybeToList (e `match` e1)]
