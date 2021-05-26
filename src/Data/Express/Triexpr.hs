@@ -6,15 +6,25 @@
 --
 -- This module is part of Express.
 --
--- An experimental data structure for matching 'Expr's.
+-- An __experimental__ data structure for matching 'Expr's.
 --
+-- __Warning (1):__
 -- Take care when importing this module,
 -- the interface is experimental
 -- and may change at every minor version.
 --
+-- __Warning (2):__
+-- YMMV:
+-- Do not expect this to be faster than manually matching in a list,
+-- provisional experiments show that it can be slower depending
+-- on the set of expressions being matched.
+--
 -- This module should be imported qualified
 -- as it exports definitions called
--- 'map', 'lookup', 'toList', 'fromList', 'insert' and 'empty'.
+-- 'map', 'lookup', 'toList', 'fromList', 'insert' and 'empty':
+--
+-- > import Data.Express.Triexpr (Triexpr)
+-- > import qualified Data.Express.Triexpr as T
 module Data.Express.Triexpr
   ( Triexpr (..)
   , empty
@@ -31,7 +41,6 @@ where
 import Data.Express
 import Data.Maybe
 import Prelude hiding (map, lookup)
-import qualified Prelude as P
 
 -- "Nothing" should match an App, "Just Expr" an expression
 data Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) (Expr,a))]
@@ -85,22 +94,8 @@ lookup e t  =  [(e, bs, x) | (bs, Right (e,x)) <- look (Just e) t []]
   where
   look :: Maybe Expr -> Triexpr a -> [(Expr, Expr)] -> [([(Expr,Expr)], Either (Triexpr a) (Expr,a))]
   look Nothing  t@(Triexpr ms) bs  =  [(bs, mt) | (Nothing, mt) <- ms]
-  look (Just e) t@(Triexpr ms) bs  =  [(bs', mt) | (Just e', mt) <- ms, bs' <- maybeToList (matchLeaf e e' bs)]
+  look (Just e) t@(Triexpr ms) bs  =  [(bs', mt) | (Just e', mt) <- ms, bs' <- maybeToList (matchWith bs e e')]
                                    ++ [r | e1 :$ e2 <- [e]
                                          , (bs1, Left t1) <- look Nothing t bs
                                          , (bs2, Left t2) <- look (Just e1) t1 bs1
                                          , r              <- look (Just e2) t2 bs2]
-
-matchLeaf :: Expr -> Expr -> [(Expr,Expr)] -> Maybe [(Expr,Expr)]
-matchLeaf e1 e2
-  | isVar e2 && mtyp e1 == mtyp e2  =  updateAssignments (e2,e1)
-  | e1 == e2                        =  Just
-  | otherwise                       =  const Nothing
-
-updateAssignments :: (Expr,Expr) -> [(Expr,Expr)] -> Maybe [(Expr,Expr)]
-updateAssignments (e,e') = \bs ->
-  case P.lookup e bs of
-    Nothing  -> Just ((e,e'):bs)
-    Just e'' -> if e'' == e'
-                then Just bs
-                else Nothing
