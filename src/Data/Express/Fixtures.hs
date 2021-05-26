@@ -117,14 +117,14 @@ module Data.Express.Fixtures
   , ii, jj, kk, ii'
   , ll, mm, nn
   , zero, one, two, three, minusOne, minusTwo
-  , idE, negateE, absE
+  , idE, negateE, absE, signumE
   , idInt
   , idBool
   , idChar
   , idInts
   , idBools
   , idString
-  , id', const', negate', abs'
+  , id', const', negate', abs', signum'
   , plus, times
   , (-+-), (-*-)
   , ff, ffE
@@ -692,6 +692,23 @@ abs' e  =  absE :$ e
 -- > abs :: Int -> Int
 absE :: Expr
 absE  =  value "abs" (abs :: Int -> Int)
+
+-- | 'signum' over the 'Int' type lifted over the 'Expr' type.
+--
+-- > > signum' xx'
+-- > signum x' :: Int
+--
+-- > > evl (signum' minusTwo) :: Int
+-- > -1
+signum' :: Expr -> Expr
+signum' e  =  signumE :$ e
+
+-- | 'signum' over the 'Int' type encoded as an 'Expr'.
+--
+-- > > signumE
+-- > signum :: Int -> Int
+signumE :: Expr
+signumE  =  value "signum" (signum :: Int -> Int)
 
 odd' :: Expr -> Expr
 odd' = (oddE :$) where oddE = value "odd" (odd :: Int -> Bool)

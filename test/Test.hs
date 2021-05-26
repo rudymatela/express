@@ -151,6 +151,8 @@ intRules  =
   ,        abs' xx -*- abs' xx  -=-  abs' (xx -+- xx)
   , abs' (abs' xx -+- abs' yy)  -=-  abs' xx -+- abs' yy
   ,    abs' (xx -+- xx) -*- yy  -=-  abs' xx -*- yy -+- abs' xx -*- yy
+  ,     abs' xx -*- signum' xx  -=-  xx
+  ,     signum' xx -*- abs' xx  -=-  xx
 --, xx -=- xx
   ]
 
