@@ -15,7 +15,7 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , length allRules == 72
+  , length allRules == 79
   , all isWellTyped $ map fst allRules
   , all isWellTyped $ map snd allRules
 
@@ -47,8 +47,8 @@ tests n =
     == [ (pp -||- pp, [(pp,true)], pp)
        , (pp -||- qq, [(qq,true),(pp,true)], qq -||- pp)
        , (pp -||- true, [(pp,true)], true)
+       , (true -||- pp, [(pp,true)], true)
        ]
-       -- TODO: add true -||- pp
 
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Int)])
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Expr)])
