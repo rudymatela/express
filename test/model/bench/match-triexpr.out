@@ -12,6 +12,10 @@ p || True  =  True
 True || p  =  True
 p || False  =  p
 False || p  =  p
+p && not p  =  False
+p || not p  =  True
+not p && p  =  False
+not p || p  =  True
 (p && q) && r  =  p && (q && r)
 (p || q) || r  =  p || (q || r)
 not (p && q)  =  not p || not q
@@ -77,6 +81,9 @@ length (xs ++ (ys ++ zs))  =  length (xs ++ (zs ++ ys))
 not (odd x)  =  even x
 not (even x)  =  odd x
 x == x  =  True
+x /= x  =  False
+p == p  =  True
+p /= p  =  False
 f (g x)  =  (f . g) x
 map id xs  =  xs
 map (f . g) xs  =  map f (map g xs)
@@ -213,6 +220,7 @@ id . f  =  f
 (p || q :: Bool,[(q :: Bool,_ :: Bool),(p :: Bool,not _ :: Bool)],q || p :: Bool)
 (p && p :: Bool,[(p :: Bool,_ :: Bool)],p :: Bool)
 (x == x :: Bool,[(x :: Int,_ :: Int)],True :: Bool)
+(p == p :: Bool,[(p :: Bool,_ :: Bool)],True :: Bool)
 (tail (x:xs) :: [Int],[(xs :: [Int],_ :: [Int]),(x :: Int,_ :: Int)],xs :: [Int])
 (xs ++ [] :: [Int],[(xs :: [Int],_ :: [Int])],xs :: [Int])
 ([] ++ xs :: [Int],[(xs :: [Int],_ :: [Int])],xs :: [Int])

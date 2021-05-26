@@ -105,6 +105,10 @@ boolRules  =
   , true -||- pp          -=-  true
   , pp -||- false         -=-  pp
   , false -||- pp         -=-  pp
+  , pp -&&- not' pp       -=-  false
+  , pp -||- not' pp       -=-  true
+  , not' pp -&&- pp       -=-  false
+  , not' pp -||- pp       -=-  true
   , (pp -&&- qq) -&&- rr  -=-  pp -&&- (qq -&&- rr)
   , (pp -||- qq) -||- rr  -=-  pp -||- (qq -||- rr)
   , not' (pp -&&- qq)     -=-  not' pp -||- not' qq
@@ -189,6 +193,9 @@ boolintRules  =
   [ not' (odd' xx) -=- even' xx
   , not' (even' xx) -=- odd' xx
   , (xx -==- xx) -=- true
+  , (xx -/=- xx) -=- false
+  , (pp -==- pp) -=- true
+  , (pp -/=- pp) -=- false
   ]
 
 funRules :: [(Expr,Expr)]
