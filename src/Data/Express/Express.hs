@@ -177,7 +177,7 @@ instance ( Express a, Express b, Express c, Express d, Express e, Express f
 
 -- type binding utilities --
 
--- | Type restricted version of const
+-- | Type restricted version of 'const'
 -- that forces its first argument
 -- to have the same type as the second.
 --
@@ -186,7 +186,7 @@ instance ( Express a, Express b, Express c, Express d, Express e, Express f
 (-:) = asTypeOf -- const
 infixl 1 -:
 
--- | Type restricted version of const
+-- | Type restricted version of 'const'
 -- that forces the result of its first argument
 -- to have the same type as the second.
 --
@@ -195,7 +195,7 @@ infixl 1 -:
 (->:) = const
 infixl 1 ->:
 
--- | Type restricted version of const
+-- | Type restricted version of 'const'
 -- that forces the result of the result of its first argument
 -- to have the same type as the second.
 --
@@ -204,7 +204,7 @@ infixl 1 ->:
 (->>:) = const
 infixl 1 ->>:
 
--- | Type restricted version of const
+-- | Type restricted version of 'const'
 -- that forces the result of the result of the result of its first argument
 -- to have the same type as the second.
 (->>>:) :: (a -> b -> c -> d) -> d -> (a -> b -> c -> d)
