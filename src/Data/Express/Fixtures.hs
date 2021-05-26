@@ -116,7 +116,7 @@ module Data.Express.Fixtures
   , i_, xx, yy, zz, xx'
   , ii, jj, kk, ii'
   , ll, mm, nn
-  , zero, one, two, three, minusOne, minusTwo
+  , zero, one, two, three, four, minusOne, minusTwo
   , idE, negateE, absE, signumE
   , idInt
   , idBool
@@ -449,6 +449,13 @@ two  =  val (2 :: Int)
 -- > 3 :: Int
 three :: Expr
 three  =  val (3 :: Int)
+
+-- | The value @4@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > four
+-- > 4 :: Int
+four :: Expr
+four  =  val (4 :: Int)
 
 -- | The value @-1@ bound to the 'Int' type encoded as an 'Expr'.
 --

@@ -48,6 +48,10 @@ negate x + x  =  0
 abs (negate x)  =  abs x
 2 * x  =  x + x
 x * 2  =  x + x
+3 * x  =  x + (x + x)
+x * 3  =  x + (x + x)
+4 * x  =  x + (x + (x + x))
+x * 4  =  x + (x + (x + x))
 abs (x * x)  =  x * x
 abs x * abs y  =  abs (x * y)
 abs x * abs x  =  abs (x + x)
@@ -92,6 +96,7 @@ map (f . g) xs  =  map f (map g xs)
 f . id  =  f
 id . f  =  f
 (f . g) . h  =  f . (g . h)
+not . not  =  id
 
 (_ :: Int,[],_ :: Int)
 (x :: Int,[],x :: Int)

@@ -15,7 +15,7 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , length allRules == 94
+  , length allRules == 99
   , all isWellTyped $ map fst allRules
   , all isWellTyped $ map snd allRules
 

@@ -146,6 +146,10 @@ intRules  =
   ,          abs' (negate' xx)  -=-  abs' xx
   ,                 two -*- xx  -=-  xx -+- xx
   ,                 xx -*- two  -=-  xx -+- xx
+  ,               three -*- xx  -=-  xx -+- (xx -+- xx)
+  ,               xx -*- three  -=-  xx -+- (xx -+- xx)
+  ,                four -*- xx  -=-  xx -+- (xx -+- (xx -+- xx))
+  ,                xx -*- four  -=-  xx -+- (xx -+- (xx -+- xx))
   ,           abs' (xx -*- xx)  -=-  xx -*- xx
   ,        abs' xx -*- abs' yy  -=-  abs' (xx -*- yy)
   ,        abs' xx -*- abs' xx  -=-  abs' (xx -+- xx)
@@ -208,6 +212,7 @@ funRules  =
   , ffE -.- idE  -=-  ffE
   , idE -.- ffE  -=-  ffE
   , (ffE -.- ggE) -.- hhE  -=-  ffE -.- (ggE -.- hhE)
+  , notE -.- notE  -=-  idBool
   ]
 
 (-=-) :: Expr -> Expr -> (Expr,Expr)
