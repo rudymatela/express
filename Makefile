@@ -63,6 +63,7 @@ bench: $(patsubst %,%.bench,$(BENCHS))
 .PHONY: %.bench
 %.bench: %
 	@mkdir -p bench/runtime/$$HOSTNAME/$<
+	@rmdir bench/runtime/$$HOSTNAME/$<
 	@printf "%-20s " $<
 	@/usr/bin/time -f%e ./$< 2>&1 >/dev/null | tee bench/runtime/$$HOSTNAME/$<.runtime
 
