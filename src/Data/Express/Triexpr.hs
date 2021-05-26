@@ -52,13 +52,12 @@ merge (Triexpr ms1) (Triexpr ms2)  =  Triexpr $ m ms1 ms2
   where
   m [] ms  =  ms
   m ms []  =  ms
-  m ((e1,mt1):ms1) ((e2,mt2):ms2)
-    | e1 == e2  =  case (mt1,mt2) of
-                   (Left t1, Left t2) -> (e1, Left $ t1 `merge` t2) : m ms1 ms2
-                   (_,_) -> (e1,mt1) : (e2,mt2) : m ms1 ms2
-    | e1 <  e2  =  (e1,mt1) : m ms1 ((e2,mt2):ms2)
-    | e1 >  e2  =  (e2,mt2) : m ((e1,mt1):ms1) ms2
-    | otherwise =  error "merge: the impossible happened"
+  m ((e1,mt1):ms1) ((e2,mt2):ms2)  =  case compare e1 e2 of
+    LT -> (e1,mt1) : m ms1 ((e2,mt2):ms2)
+    GT -> (e2,mt2) : m ((e1,mt1):ms1) ms2
+    EQ -> case (mt1,mt2) of
+          (Left t1, Left t2) -> (e1, Left $ t1 `merge` t2) : m ms1 ms2
+          (_,_) -> (e1,mt1) : (e2,mt2) : m ms1 ms2
 
 insert :: Expr -> a -> Triexpr a -> Triexpr a
 insert e x t  =  unit e x `merge` t
