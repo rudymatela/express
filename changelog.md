@@ -17,6 +17,8 @@ upcoming
 	- tests;
 	- benchmarks.
 
+* Retire Travis as the CI
+
 
 v0.1.10
 -------
