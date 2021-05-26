@@ -31,6 +31,7 @@ where
 import Data.Express
 import Data.Maybe
 import Prelude hiding (map, lookup)
+import qualified Prelude as P
 
 -- "Nothing" should match an App, "Just Expr" an expression
 data Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) (Expr,a))]
@@ -84,8 +85,22 @@ lookup e t  =  [(e, bs, x) | (bs, Right (e,x)) <- look (Just e) t []]
   where
   look :: Maybe Expr -> Triexpr a -> [(Expr, Expr)] -> [([(Expr,Expr)], Either (Triexpr a) (Expr,a))]
   look Nothing  t@(Triexpr ms) bs  =  [(bs, mt) | (Nothing, mt) <- ms]
-  look (Just e) t@(Triexpr ms) bs  =  [(bs', mt) | (Just e', mt) <- ms, bs' <- maybeToList (matchWith bs e e')]
+  look (Just e) t@(Triexpr ms) bs  =  [(bs', mt) | (Just e', mt) <- ms, bs' <- maybeToList (matchLeaf e e' bs)]
                                    ++ [r | e1 :$ e2 <- [e]
                                          , (bs1, Left t1) <- look Nothing t bs
                                          , (bs2, Left t2) <- look (Just e1) t1 bs1
                                          , r              <- look (Just e2) t2 bs2]
+
+matchLeaf :: Expr -> Expr -> [(Expr,Expr)] -> Maybe [(Expr,Expr)]
+matchLeaf e1 e2
+  | isVar e2 && mtyp e1 == mtyp e2  =  updateAssignments (e2,e1)
+  | e1 == e2                        =  Just
+  | otherwise                       =  const Nothing
+
+updateAssignments :: (Expr,Expr) -> [(Expr,Expr)] -> Maybe [(Expr,Expr)]
+updateAssignments (e,e') = \bs ->
+  case P.lookup e bs of
+    Nothing  -> Just ((e,e'):bs)
+    Just e'' -> if e'' == e'
+                then Just bs
+                else Nothing
