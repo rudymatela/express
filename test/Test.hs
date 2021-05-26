@@ -133,16 +133,20 @@ intRules  =
   , (xx -*- yy) -*- zz    -=-  xx -*- (yy -*- zz)
   , (xx -+- xx) -*- yy    -=-  xx -*- (yy -+- yy)
   , xx -*- (yy -+- one)   -=-  xx -+- xx -*- yy
+  , (xx -+- one) -*- yy   -=-  xx -+- xx -*- yy
   , xx -*- (yy -+- zz)    -=-  xx -*- yy -+- xx -*- zz
+  , (xx -+- yy) -*- zz    -=-  xx -*- zz -+- yy -*- zz
   , negate' (negate' xx)  -=-  xx
   , xx -+- negate' xx     -=-  zero
+  , negate' xx -+- xx     -=-  zero
   ,          abs' (negate' xx)  -=-  abs' xx
   ,                 two -*- xx  -=-  xx -+- xx
+  ,                 xx -*- two  -=-  xx -+- xx
   ,           abs' (xx -*- xx)  -=-  xx -*- xx
   ,        abs' xx -*- abs' yy  -=-  abs' (xx -*- yy)
   ,        abs' xx -*- abs' xx  -=-  abs' (xx -+- xx)
   , abs' (abs' xx -+- abs' yy)  -=-  abs' xx -+- abs' yy
-  ,    abs' (xx -+- xx) -*- yy  -=- abs' xx -*- yy -+- abs' xx -*- yy
+  ,    abs' (xx -+- xx) -*- yy  -=-  abs' xx -*- yy -+- abs' xx -*- yy
 --, xx -=- xx
   ]
 
@@ -166,6 +170,7 @@ listRules  =
   ,      sort' (insert' xx xxs)  -=-  insert' xx (sort' xxs)
   ,          sort' (xx -:- xxs)  -=-  insert' xx (sort' xxs)
   ,  sort' (xxs -++- sort' yys)  -=-  sort' (xxs -++- yys)
+  ,  sort' (sort' xxs -++- yys)  -=-  sort' (xxs -++- yys)
   , insert' xx (insert' yy xxs)  -=-  insert' yy (insert' xx xxs)
   ,     insert' xx (xx -:- xxs)  -=-  xx -:- xx -:- xxs
   ,        insert' xx (unit yy)  -=-  insert' yy (unit xx)
@@ -183,6 +188,7 @@ boolintRules :: [(Expr,Expr)]
 boolintRules  =
   [ not' (odd' xx) -=- even' xx
   , not' (even' xx) -=- odd' xx
+  , (xx -==- xx) -=- true
   ]
 
 funRules :: [(Expr,Expr)]

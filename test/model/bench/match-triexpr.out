@@ -35,11 +35,15 @@ x * y  =  y * x
 (x * y) * z  =  x * (y * z)
 (x + x) * y  =  x * (y + y)
 x * (y + 1)  =  x + x * y
+(x + 1) * y  =  x + x * y
 x * (y + z)  =  x * y + x * z
+(x + y) * z  =  x * z + y * z
 negate (negate x)  =  x
 x + negate x  =  0
+negate x + x  =  0
 abs (negate x)  =  abs x
 2 * x  =  x + x
+x * 2  =  x + x
 abs (x * x)  =  x * x
 abs x * abs y  =  abs (x * y)
 abs x * abs x  =  abs (x + x)
@@ -61,6 +65,7 @@ sort (xs ++ ys)  =  sort (ys ++ xs)
 sort (insert x xs)  =  insert x (sort xs)
 sort (x:xs)  =  insert x (sort xs)
 sort (xs ++ sort ys)  =  sort (xs ++ ys)
+sort (sort xs ++ ys)  =  sort (xs ++ ys)
 insert x (insert y xs)  =  insert y (insert x xs)
 insert x (x:xs)  =  x:x:xs
 insert x [y]  =  insert y [x]
@@ -71,6 +76,7 @@ length (x:(xs ++ ys))  =  length (y:(ys ++ xs))
 length (xs ++ (ys ++ zs))  =  length (xs ++ (zs ++ ys))
 not (odd x)  =  even x
 not (even x)  =  odd x
+x == x  =  True
 f (g x)  =  (f . g) x
 map id xs  =  xs
 map (f . g) xs  =  map f (map g xs)
@@ -206,6 +212,7 @@ id . f  =  f
 (p || q :: Bool,[(q :: Bool,_ :: Bool),(p :: Bool,True :: Bool)],q || p :: Bool)
 (p || q :: Bool,[(q :: Bool,_ :: Bool),(p :: Bool,not _ :: Bool)],q || p :: Bool)
 (p && p :: Bool,[(p :: Bool,_ :: Bool)],p :: Bool)
+(x == x :: Bool,[(x :: Int,_ :: Int)],True :: Bool)
 (tail (x:xs) :: [Int],[(xs :: [Int],_ :: [Int]),(x :: Int,_ :: Int)],xs :: [Int])
 (xs ++ [] :: [Int],[(xs :: [Int],_ :: [Int])],xs :: [Int])
 ([] ++ xs :: [Int],[(xs :: [Int],_ :: [Int])],xs :: [Int])
