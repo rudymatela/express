@@ -26,38 +26,39 @@ tests n =
   , T.lookup true  trie == []
 
   , T.lookup (one -+- two) trie
-    == [ ([(yy, two), (xx, one)], yy -+- xx)
+    == [ (xx -+- yy, [(yy, two), (xx, one)], yy -+- xx)
        ]
 
   , T.lookup ((one -+- two) -+- three) trie
-    == [ ([(yy, three), (xx, one -+- two)], yy -+- xx)
-       , ([(zz, three), (yy, two), (xx, one)], xx -+- (yy -+- zz))
+    == [ (xx -+- yy, [(yy, three), (xx, one -+- two)], yy -+- xx)
+       , ((xx -+- yy) -+- zz, [(zz, three), (yy, two), (xx, one)], xx -+- (yy -+- zz))
        ]
 
   , T.lookup ((false -&&- false) -&&- true) trie
-    == [ ([(qq,true),(pp,false -&&- false)], qq -&&- pp)
-       , ([(pp,false -&&- false)], pp)
-       , ([(rr,true),(qq,false),(pp,false)], pp -&&- (qq -&&- rr))
+    == [ (pp -&&- qq, [(qq,true),(pp,false -&&- false)], qq -&&- pp)
+       , (pp -&&- true, [(pp,false -&&- false)], pp)
+       , ((pp -&&- qq) -&&- rr, [(rr,true),(qq,false),(pp,false)], pp -&&- (qq -&&- rr))
        ]
 
   , T.lookup (not' true) trie
-    == [ ([], false) ]
+    == [ (not' true, [], false) ]
 
   , T.lookup (true -||- true) trie
-    == [ ([(pp,true)], pp)
-       , ([(qq,true),(pp,true)], qq -||- pp)
-       , ([(pp,true)], true)
+    == [ (pp -||- pp, [(pp,true)], pp)
+       , (pp -||- qq, [(qq,true),(pp,true)], qq -||- pp)
+       , (pp -||- true, [(pp,true)], true)
        ]
+       -- TODO: add true -||- pp
 
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Int)])
   , holds n $ \ees -> (sort . T.toList $ T.fromList ees) == sort (ees :: [(Expr,Expr)])
 
-  , holds n $ \e ees -> [(ms,e2) | (e1,e2) <- ees, ms <- maybeToList (e `match` e1)]
-                     =$ sort $= (T.lookup e (T.fromList ees) :: [([(Expr,Expr)],Expr)])
+  , holds n $ \e ees -> [(e1,ms,e2 :: Expr) | (e1,e2) <- ees, ms <- maybeToList (e `match` e1)]
+                     =$ sort $= T.lookup e (T.fromList ees)
 
-  , holds n $ \e eus -> [(ms,()) | (e1,()) <- sort eus, ms <- maybeToList (e `match` e1)]
-                     == (T.lookup e (T.fromList eus) :: [([(Expr,Expr)],())])
+  , holds n $ \e eus -> [(e1,ms,()) | (e1,()) <- sort eus, ms <- maybeToList (e `match` e1)]
+                     == (T.lookup e (T.fromList eus))
 
-  , holds n $ \e -> [(ms,e2) | (e1,e2) <- allRules, ms <- maybeToList (e `match` e1)]
+  , holds n $ \e -> [(e1,ms,e2) | (e1,e2) <- allRules, ms <- maybeToList (e `match` e1)]
                  =$ sort $= T.lookup e trie
   ]

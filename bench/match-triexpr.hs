@@ -14,7 +14,7 @@ showEq (lhs, rhs)  =  showExpr lhs ++ "  =  " ++ showExpr rhs
 exprs :: [Expr]
 exprs  =  take 720720 list
 
-query :: Expr -> Maybe ([(Expr,Expr)],Expr)
+query :: Expr -> Maybe (Expr,[(Expr,Expr)],Expr)
 query e  =  listToMaybe $ T.lookup e trie
 
 main :: IO ()

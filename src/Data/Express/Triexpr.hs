@@ -33,16 +33,16 @@ import Data.Maybe
 import Prelude hiding (map, lookup)
 
 -- "Nothing" should match an App, "Just Expr" an expression
-data Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) a)]
+data Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) (Expr,a))]
   deriving (Eq, Ord, Show)
 
 empty :: Triexpr a
 empty  =  Triexpr []
 
 unit :: Expr -> a -> Triexpr a
-unit e x  =  u e (Right x)
+unit e x  =  u e (Right (e,x))
   where
-  u :: Expr -> (Either (Triexpr a) a) -> Triexpr a
+  u :: Expr -> (Either (Triexpr a) (Expr,a)) -> Triexpr a
   u (e1 :$ e2) et  =  Triexpr [(Nothing, Left $ u e1 $ Left $ u e2 et)]
   u e          et  =  Triexpr [(Just e,  et)]
 
@@ -63,29 +63,26 @@ insert :: Expr -> a -> Triexpr a -> Triexpr a
 insert e x t  =  unit e x `merge` t
 
 toList :: Triexpr a -> [(Expr, a)]
-toList t  =  [(e,x) | (e, Right x) <- to t]
+toList (Triexpr ms)  =  concatMap to ms
   where
-  to :: Triexpr a -> [(Expr, Either (Triexpr a) a)]
-  to (Triexpr ms)  =  [ (e,et) | (Just e, et) <- ms ]
-                   ++ [ (e1 :$ e2, et) | (Nothing, Left t) <- ms
-                                       , (e1, Left t')     <- to t
-                                       , (e2, et)          <- to t' ]
+  to (_, Right ex)  =  [ex]
+  to (_, Left t)  =  toList t
 
 fromList :: [(Expr, a)] -> Triexpr a
 fromList  =  foldr (uncurry insert) empty
 
 map :: (a -> b) -> Triexpr a -> Triexpr b
-map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) f eth) | (ex, eth) <- ms]
+map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) (fmap f) eth) | (ex, eth) <- ms]
   where
   mapEither :: (a -> c) -> (b -> d) -> Either a b -> Either c d
   mapEither f g (Left x)   =  Left (f x)
   mapEither f g (Right y)  =  Right (g y)
 
 -- TODO: -> [ (Expr,[(Expr,Expr)],a) ]
-lookup :: Expr -> Triexpr a -> [ ([(Expr,Expr)], a) ]
-lookup e t  =  [(bs, x) | (bs, Right x) <- look (Just e) t []]
+lookup :: Expr -> Triexpr a -> [ (Expr, [(Expr,Expr)], a) ]
+lookup e t  =  [(e, bs, x) | (bs, Right (e,x)) <- look (Just e) t []]
   where
-  look :: Maybe Expr -> Triexpr a -> [(Expr, Expr)] -> [([(Expr,Expr)], Either (Triexpr a) a)]
+  look :: Maybe Expr -> Triexpr a -> [(Expr, Expr)] -> [([(Expr,Expr)], Either (Triexpr a) (Expr,a))]
   look Nothing  t@(Triexpr ms) bs  =  [(bs, mt) | (Nothing, mt) <- ms]
   look (Just e) t@(Triexpr ms) bs  =  [(bs', mt) | (Just e', mt) <- ms, bs' <- maybeToList (matchWith bs e e')]
                                    ++ [r | e1 :$ e2 <- [e]

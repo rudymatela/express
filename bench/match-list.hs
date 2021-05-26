@@ -14,8 +14,8 @@ showEq (lhs, rhs)  =  showExpr lhs ++ "  =  " ++ showExpr rhs
 exprs :: [Expr]
 exprs  =  take 720720 list
 
-query :: Expr -> Maybe ([(Expr,Expr)],Expr)
-query e  =  listToMaybe [(ms,e2) | (e1,e2) <- sort allRules, ms <- maybeToList (e `match` e1)]
+query :: Expr -> Maybe (Expr,[(Expr,Expr)],Expr)
+query e  =  listToMaybe [(e1,ms,e2) | (e1,e2) <- sort allRules, ms <- maybeToList (e `match` e1)]
 
 main :: IO ()
 main  =  do
