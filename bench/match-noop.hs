@@ -14,8 +14,8 @@ showEq (lhs, rhs)  =  showExpr lhs ++ "  =  " ++ showExpr rhs
 exprs :: [Expr]
 exprs  =  take 720720 list
 
-query :: Expr -> Maybe Expr
-query e  =  Just e
+query :: Expr -> Maybe (Expr,[(Expr,Expr)],Expr)
+query e  =  Just (e,[],e)
 
 main :: IO ()
 main  =  do
