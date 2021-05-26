@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v0.1.12
+-------
 
 * `Data.Express.Fixtures`, add several symbols:
 	- `hh` and `hhE`;
