@@ -470,6 +470,13 @@ showsPrecExpr d (Value "if" _ :$ ep :$ ex :$ ey) =
   showParen (d >= 0) $ showString "if "    . showsPrecExpr 0 ep
                      . showString " then " . showsPrecExpr 0 ex
                      . showString " else " . showsPrecExpr 0 ey
+showsPrecExpr d (Value ".." _ :$ ex :$ ey) =
+  showString "[" . showsPrecExpr 0 ex
+                 . showString ".."
+                 . showsPrecExpr 0 ey
+                 . showString "]"
+showsPrecExpr d (Value ".." _ :$ ex) =
+  showString "[" . showsPrecExpr 0 ex . showString "..]"
 showsPrecExpr d (Value f' _ :$ e1 :$ e2)
   | isInfix f = showParen (d > prec f)
               $ showsOpExpr f e1
