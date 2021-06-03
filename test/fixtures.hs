@@ -180,19 +180,19 @@ tests n =
   , show (enumFromTo' zero four) == "enumFromTo 0 4 :: [Int]"
   , evl  (enumFromTo' zero four) == [0,1,2,3,4 :: Int]
 
-  , show ((-..) false) == "[False..] :: [Bool]"
+  , show ((-..) false) == "[False ..] :: [Bool]"
   , evl  ((-..) false) == [False,True]
-  , show ((-..) true)  == "[True..] :: [Bool]"
+  , show ((-..) true)  == "[True ..] :: [Bool]"
   , evl  ((-..) true)  == [True]
-  , show (false -..- false) == "[False..False] :: [Bool]"
+  , show (false -..- false) == "[False .. False] :: [Bool]"
   , evl  (false -..- false) == [False]
-  , show (false -..- true)  == "[False..True] :: [Bool]"
+  , show (false -..- true)  == "[False .. True] :: [Bool]"
   , evl  (false -..- true)  == [False,True]
-  , show (true  -..- false) == "[True..False] :: [Bool]"
+  , show (true  -..- false) == "[True .. False] :: [Bool]"
   , evl  (true  -..- false) == ([] :: [Bool])
-  , show (true  -..- true)  == "[True..True] :: [Bool]"
+  , show (true  -..- true)  == "[True .. True] :: [Bool]"
   , evl  (true  -..- true)  == [True]
 
-  , show (zero -..- four) == "[0..4] :: [Int]"
+  , show (zero -..- four) == "[0 .. 4] :: [Int]"
   , evl  (zero -..- four) == [0,1,2,3,4 :: Int]
   ]
