@@ -1,5 +1,7 @@
 -- Copyright (c) 2017-2021 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
+{-# LANGUAGE AutoDeriveTypeable #-}
+{-# LANGUAGE DeriveDataTypeable, StandaloneDeriving #-} -- GHC <= 7.8
 import Test
 
 import Data.Express.Utils.List
@@ -121,3 +123,10 @@ tests n =
   , show (var "xs" (undefined :: [A])) == "xs :: [A]"
   , show (value "id" (id :: [A] -> [A]) :$ var "xs" (undefined :: [A])) == "id xs :: [A]"
   ]
+
+deriving instance Typeable A -- for GHC <= 7.8
+deriving instance Typeable B -- for GHC <= 7.8
+deriving instance Typeable C -- for GHC <= 7.8
+deriving instance Typeable D -- for GHC <= 7.8
+deriving instance Typeable E -- for GHC <= 7.8
+deriving instance Typeable F -- for GHC <= 7.8
