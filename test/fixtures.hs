@@ -195,4 +195,8 @@ tests n =
 
   , show (zero -..- four) == "[0 .. 4] :: [Int]"
   , evl  (zero -..- four) == [0,1,2,3,4 :: Int]
+  , show (minusTwo -..- minusOne) == "[-2 .. -1] :: [Int]"
+  , evl  (minusTwo -..- minusOne) == [-2,-1 :: Int]
+  , show (minusTwo -..- two) == "[-2 .. 2] :: [Int]"
+  , evl  (minusTwo -..- two) == [-2,-1,0,1,2 :: Int]
   ]
