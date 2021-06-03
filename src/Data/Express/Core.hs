@@ -472,11 +472,11 @@ showsPrecExpr d (Value "if" _ :$ ep :$ ex :$ ey) =
                      . showString " else " . showsPrecExpr 0 ey
 showsPrecExpr d (Value ".." _ :$ ex :$ ey) =
   showString "[" . showsPrecExpr 0 ex
-                 . showString " .. "
+                 . showString (if dotdot ex && dotdot ey then ".." else " .. ")
                  . showsPrecExpr 0 ey
                  . showString "]"
 showsPrecExpr d (Value ".." _ :$ ex) =
-  showString "[" . showsPrecExpr 0 ex . showString " ..]"
+  showString "[" . showsPrecExpr 0 ex . showString (if dotdot ex then "..]" else " ..]")
 showsPrecExpr d (Value f' _ :$ e1 :$ e2)
   | isInfix f = showParen (d > prec f)
               $ showsOpExpr f e1
@@ -500,6 +500,11 @@ showsPrecExpr d (e1 :$ e2) = showParen (d > prec " ")
                            $ showsPrecExpr (prec " ") e1
                            . showString " "
                            . showsPrecExpr (prec " " + 1) e2
+
+-- Can we avoid a space using @[<n>..<m>]@?
+dotdot :: Expr -> Bool
+dotdot (Value (c:_) _)  =  isNumber c || isLower c || c == '_' || c == '\''
+dotdot _  =  False
 
 -- bad smell here, repeated code!
 showsTailExpr :: Expr -> String -> String
