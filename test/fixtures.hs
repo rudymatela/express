@@ -174,4 +174,9 @@ tests n =
   -- if --
   , evl (if' false zero one) == (1 :: Int)
   , evl (if' true two three) == (2 :: Int)
+
+  , show (enumFrom' false) == "enumFrom False :: [Bool]"
+  , evl  (enumFrom' false) == [False,True]
+  , show (enumFromTo' zero four) == "enumFromTo 0 4 :: [Int]"
+  , evl  (enumFromTo' zero four) == [0,1,2,3,4 :: Int]
   ]

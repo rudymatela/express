@@ -194,6 +194,10 @@ module Data.Express.Fixtures
   , mapE
   , (-.-)
   , map'
+
+  -- ** Enum
+  , enumFrom'
+  , enumFromTo'
   )
 where
 
@@ -1304,3 +1308,23 @@ map' ef exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ef)
   where
   err  =  error $ "map': unhandled type " ++ show (typ ef)
 type Map a = (a -> a) -> [a] -> [a]
+
+enumFrom' :: Expr -> Expr
+enumFrom' ex  =  headOr err $ mapMaybe ($$ ex)
+  [ value "enumFrom" (enumFrom :: EnumFrom Int)
+  , value "enumFrom" (enumFrom :: EnumFrom Bool)
+  , value "enumFrom" (enumFrom :: EnumFrom Char)
+  ]
+  where
+  err  =  error $ "enumFrom': unhandled type " ++ show (typ ex)
+type EnumFrom a  =  (a -> [a])
+
+enumFromTo' :: Expr -> Expr -> Expr
+enumFromTo' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "enumFromTo" (enumFromTo :: EnumFromTo Int)
+  , value "enumFromTo" (enumFromTo :: EnumFromTo Bool)
+  , value "enumFromTo" (enumFromTo :: EnumFromTo Char)
+  ]
+  where
+  err  =  error $ "enumFromTo': unhandled type " ++ show (typ ex)
+type EnumFromTo a  =  (a -> a -> [a])
