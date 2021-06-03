@@ -96,4 +96,28 @@ tests n =
   , show (hole (undefined :: Int -> Int) :$ xx)               == "_ x :: Int"
   , show (hole (undefined :: Int -> Int -> Int) :$ one :$ xx) == "_ 1 x :: Int"
   , show (hole (undefined :: Int -> Int -> Int) :$ i_ :$ i_)  == "_ _ _ :: Int"
+
+  -- A type --
+  , show (hole (undefined :: A)) == "_ :: A"
+  , show (val (0 :: A)) == "0 :: A"
+  , show (val (1 :: A)) == "1 :: A"
+  , show (val (2 :: A)) == "2 :: A"
+  , show (var "x" (undefined :: A)) == "x :: A"
+  , show (value "id" (id :: A -> A) :$ var "x" (undefined :: A)) == "id x :: A"
+
+  -- B type --
+  , show (hole (undefined :: B)) == "_ :: B"
+  , show (val (0 :: B)) == "0 :: B"
+  , show (val (1 :: B)) == "1 :: B"
+  , show (val (2 :: B)) == "2 :: B"
+  , show (var "x" (undefined :: B)) == "x :: B"
+  , show (value "id" (id :: B -> B) :$ var "x" (undefined :: B)) == "id x :: B"
+
+  -- [A] type --
+  , show (hole (undefined :: [A])) == "_ :: [A]"
+  , show (val ([0] :: [A])) == "[0] :: [A]"
+  , show (val ([3,1] :: [A])) == "[3,1] :: [A]"
+  , show (val ([0,1,2] :: [A])) == "[0,1,2] :: [A]"
+  , show (var "xs" (undefined :: [A])) == "xs :: [A]"
+  , show (value "id" (id :: [A] -> [A]) :$ var "xs" (undefined :: [A])) == "id xs :: [A]"
   ]

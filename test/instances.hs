@@ -32,6 +32,34 @@ tests n =
   , eval undefined (nameFor (undefined :: Bool) :$ qq) == "p"
 
   , length (validApps functions one) == 5
+
+  -- when lookupName does not find a name instance,
+  -- it defaults to x, xs, xss, xsss, ...
+  -- depending on the number of list nestings
+  , lookupName [] (val (0::Int)) == "x"
+  , lookupName [] (val [0::Int]) == "xs"
+  , lookupName [] (val [[0::Int]]) == "xss"
+  , lookupName [] (val [[[0::Int]]]) == "xsss"
+
+  , lookupName [] (val False) == "x"
+  , lookupName [] (val [False]) == "xs"
+  , lookupName [] (val [[False]]) == "xss"
+  , lookupName [] (val [[[False]]]) == "xsss"
+
+  , lookupName [] (val (0::A)) == "x"
+  , lookupName [] (val [0::A]) == "xs"
+  , lookupName [] (val [[0::A]]) == "xss"
+  , lookupName [] (val [[[0::A]]]) == "xsss"
+
+  , lookupName preludeNameInstances (val False) == "p"
+  , lookupName preludeNameInstances (val [False]) == "ps"
+  , lookupName preludeNameInstances (val [[False]]) == "xss" -- XXX: caveat
+  , lookupName preludeNameInstances (val [[[False]]]) == "xsss" -- XXX: caveat
+
+  , lookupName preludeNameInstances (val (0::A)) == "x"
+  , lookupName preludeNameInstances (val [0::A]) == "xs"
+  , lookupName preludeNameInstances (val [[0::A]]) == "xss"
+  , lookupName preludeNameInstances (val [[[0::A]]]) == "xsss"
   ]
   where
   eqFor = head . reifyEq

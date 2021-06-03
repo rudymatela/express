@@ -24,6 +24,7 @@ module Data.Express.Utils.Typeable
   , elementTy
   , typesIn
   , typesInList
+  , countListTy
   , (->::)
   , module Data.Typeable
   )
@@ -111,6 +112,11 @@ isListTy :: TypeRep -> Bool
 isListTy t  =  case splitTyConApp t of
   (con,[_]) | con == listTyCon -> True
   _ -> False
+
+countListTy :: TypeRep -> Int
+countListTy t  =  case splitTyConApp t of
+  (con,[t']) | con == listTyCon -> 1 + countListTy t'
+  _ -> 0
 
 mkComparisonTy :: TypeRep -> TypeRep
 mkComparisonTy a = a ->:: a ->:: boolTy

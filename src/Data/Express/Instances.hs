@@ -273,8 +273,11 @@ mkComparisonLE :: [Expr] -> Expr -> Expr -> Expr
 mkComparisonLE  =  mkComparison "<="
 
 lookupName :: [Expr] -> Expr -> String
-lookupName is e  =  fromMaybe "x" $ eval "x" <$> findValidApp es e
+lookupName is e  =  fromMaybe d $ eval "x" <$> findValidApp es e
   where
+  t  =  typ e
+  d | isFunTy t  =  "f"
+    | otherwise  =  'x' : replicate (countListTy t) 's'
   es = [e | e@(Value "name" _) <- is]
 
 lookupNames :: [Expr] -> Expr -> [String]

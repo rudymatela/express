@@ -110,7 +110,37 @@ tests n  =
 
   , holds n $ \e -> head (canonicalVariations e) == mostGeneralCanonicalVariation e
   , holds n $ \e -> last (canonicalVariations e) == mostSpecificCanonicalVariation e
+
+
+  -- Behaviour on unhandled types --
+  , map show (canonicalVariations a_)
+    == ["x :: A"]
+
+  , map show (canonicalVariations (faa_ :$ a_ :$ a_))
+    == [ "f x y :: A"
+       , "f x x :: A"
+       ]
+
+  , map show (canonicalVariations as_)
+    == ["xs :: [A]"]
+
+  , map show (canonicalVariations (appendA :$ as_ :$ as_))
+    == [ "xs ++ ys :: [A]"
+       , "xs ++ xs :: [A]"
+       ]
   ]
+
+a_ :: Expr
+a_  =  hole (undefined :: A)
+
+as_ :: Expr
+as_  =  hole (undefined :: [A])
+
+faa_ :: Expr
+faa_  =  hole (undefined :: A -> A -> A)
+
+appendA :: Expr
+appendA  =  value "++" ((++) :: [A] -> [A] -> [A])
 
 -- O(1) bell number implementation
 -- only works up to 8
