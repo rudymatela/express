@@ -2,6 +2,15 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* improve default variable names when canonicalizing
+	- lists are named xs, ys, xss, yss, etc.
+	- functions are named f, g, h
+	- before they were simply x, y, z
+
+
 v0.1.12
 -------
 
