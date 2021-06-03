@@ -179,4 +179,9 @@ tests n =
   , evl  (enumFrom' false) == [False,True]
   , show (enumFromTo' zero four) == "enumFromTo 0 4 :: [Int]"
   , evl  (enumFromTo' zero four) == [0,1,2,3,4 :: Int]
+
+  , show ((-..) false) == "(False ..) :: [Bool]" -- TODO: FIXME: use correct notation
+  , evl  ((-..) false) == [False,True]
+  , show (zero -..- four) == "0 .. 4 :: [Int]"   -- TODO: FIXME: use correct notation
+  , evl  (zero -..- four) == [0,1,2,3,4 :: Int]
   ]
