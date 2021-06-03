@@ -198,6 +198,8 @@ module Data.Express.Fixtures
   -- ** Enum
   , enumFrom',   (-..)
   , enumFromTo', (-..-)
+  , enumFromThen', (-...)
+  , enumFromThenTo', (-...-)
   )
 where
 
@@ -1367,6 +1369,44 @@ ex -..- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value ".." (enumFromTo :: EnumFromTo Int)
   , value ".." (enumFromTo :: EnumFromTo Bool)
   , value ".." (enumFromTo :: EnumFromTo Char)
+  ]
+  where
+  err  =  error $ "-..-: unhandled type " ++ show (typ ex)
+
+enumFromThen' :: Expr -> Expr -> Expr
+enumFromThen' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "enumFromThen" (enumFromThen :: EnumFromThen Int)
+  , value "enumFromThen" (enumFromThen :: EnumFromThen Bool)
+  , value "enumFromThen" (enumFromThen :: EnumFromThen Char)
+  ]
+  where
+  err  =  error $ "enumFromThen': unhandled type " ++ show (typ ex)
+type EnumFromThen a  =  (a -> a -> [a])
+
+(-...) :: Expr -> Expr -> Expr
+ex -... ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value ",.." (enumFromThen :: EnumFromThen Int)
+  , value ",.." (enumFromThen :: EnumFromThen Bool)
+  , value ",.." (enumFromThen :: EnumFromThen Char)
+  ]
+  where
+  err  =  error $ "-..-: unhandled type " ++ show (typ ex)
+
+enumFromThenTo' :: Expr -> Expr -> Expr -> Expr
+enumFromThenTo' ex ey ez  =  (:$ ez) . (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value "enumFromThenTo" (enumFromThenTo :: EnumFromThenTo Int)
+  , value "enumFromThenTo" (enumFromThenTo :: EnumFromThenTo Bool)
+  , value "enumFromThenTo" (enumFromThenTo :: EnumFromThenTo Char)
+  ]
+  where
+  err  =  error $ "enumFromThenTo': unhandled type " ++ show (typ ex)
+type EnumFromThenTo a  =  (a -> a -> a -> [a])
+
+(-...-) :: Expr -> Expr -> Expr
+ex -...- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+  [ value ",.." (enumFromThenTo :: EnumFromThenTo Int)
+  , value ",.." (enumFromThenTo :: EnumFromThenTo Bool)
+  , value ",.." (enumFromThenTo :: EnumFromThenTo Char)
   ]
   where
   err  =  error $ "-..-: unhandled type " ++ show (typ ex)
