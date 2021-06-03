@@ -470,6 +470,18 @@ showsPrecExpr d (Value "if" _ :$ ep :$ ex :$ ey) =
   showParen (d >= 0) $ showString "if "    . showsPrecExpr 0 ep
                      . showString " then " . showsPrecExpr 0 ex
                      . showString " else " . showsPrecExpr 0 ey
+showsPrecExpr d (Value ",.." _ :$ ex :$ ey :$ ez) =
+  showString "[" . showsPrecExpr 0 ex
+                 . showString (if dotdot ex && dotdot ey && dotdot ez then "," else ", ")
+                 . showsPrecExpr 0 ey
+                 . showString (if dotdot ex && dotdot ey && dotdot ez then ".." else " .. ")
+                 . showsPrecExpr 0 ez
+                 . showString "]"
+showsPrecExpr d (Value ",.." _ :$ ex :$ ey) =
+  showString "[" . showsPrecExpr 0 ex
+                 . showString (if dotdot ex && dotdot ey then "," else ", ")
+                 . showsPrecExpr 0 ey
+                 . showString (if dotdot ex && dotdot ey then "..]" else " ..]")
 showsPrecExpr d (Value ".." _ :$ ex :$ ey) =
   showString "[" . showsPrecExpr 0 ex
                  . showString (if dotdot ex && dotdot ey then ".." else " .. ")

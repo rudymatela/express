@@ -1402,8 +1402,8 @@ enumFromThenTo' ex ey ez  =  (:$ ez) . (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "enumFromThenTo': unhandled type " ++ show (typ ex)
 type EnumFromThenTo a  =  (a -> a -> a -> [a])
 
-(-...-) :: Expr -> Expr -> Expr
-ex -...- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-...-) :: Expr -> Expr -> Expr -> Expr
+(ex -...- ey) ez  =  (:$ ez) . (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value ",.." (enumFromThenTo :: EnumFromThenTo Int)
   , value ",.." (enumFromThenTo :: EnumFromThenTo Bool)
   , value ",.." (enumFromThenTo :: EnumFromThenTo Char)

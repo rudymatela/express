@@ -216,9 +216,41 @@ tests n =
   , show (cc -..- zed) == "[c..'z'] :: [Char]"
   , show (ae -..- dd)  == "['a'..d] :: [Char]"
 
-  -- enumFrom and enumFromTo
+  -- enumFromThen and enumFromThenTo
   , show (enumFromThen' false true) == "enumFromThen False True :: [Bool]"
   , evl  (enumFromThen' false true) == [False,True]
   , show (enumFromThenTo' zero two four) == "enumFromThenTo 0 2 4 :: [Int]"
   , evl  (enumFromThenTo' zero two four) == [0,2,4 :: Int]
+
+  -- [<n>, <m> .. <o>] --
+  , show ((-...) false true) == "[False, True ..] :: [Bool]"
+  , evl  ((-...) false true) == [False,True]
+  , show ((-...) true false)  == "[True, False ..] :: [Bool]"
+  , evl  ((-...) true false)  == [True,False]
+  , show ((false -...- false) true) == "[False, False .. True] :: [Bool]"
+  , show ((false -...- true)  true) == "[False, True .. True] :: [Bool]"
+  , evl  ((false -...- true)  true) == [False,True]
+
+  , show ((-...) zero one) == "[0,1..] :: [Int]"
+  , show ((zero -...- two) four) == "[0,2..4] :: [Int]"
+  , evl  ((zero -...- two) four) == [0,2,4 :: Int]
+  , show ((minusTwo -...- one) minusOne)  == "[-2, 1 .. -1] :: [Int]"
+  , evl  ((minusTwo -...- one) minusOne) == [-2 :: Int]
+  , show ((minusTwo -...- zero) two) == "[-2, 0 .. 2] :: [Int]"
+  , evl  ((minusTwo -...- zero) two) == [-2,0,2 :: Int]
+
+  , show ((-...) ae bee) == "['a','b'..] :: [Char]"
+  , show ((ae -...- bee) dee) == "['a','b'..'d'] :: [Char]"
+  , evl  ((ae -...- bee) dee) == "abcd"
+  , show ((ae -...- dee) zed) == "['a','d'..'z'] :: [Char]"
+  , evl  ((ae -...- dee) zed) == "adgjmpsvy"
+
+  , show ((xx -...- yy) zz) == "[x,y..z] :: [Int]"
+  , show ((pp -...- qq) rr) == "[p,q..r] :: [Bool]"
+  , show ((cc -...- dd) cc) == "[c,d..c] :: [Char]"
+
+  , show ((zero -...- yy) zz) == "[0,y..z] :: [Int]"
+  , show ((pp -...- true) true) == "[p, True .. True] :: [Bool]"
+  , show ((cc -...- dd) zed) == "[c,d..'z'] :: [Char]"
+  , show ((ae -...- dd) cc)  == "['a',d..c] :: [Char]"
   ]
