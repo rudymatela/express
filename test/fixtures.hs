@@ -215,4 +215,10 @@ tests n =
   , show (pp -..- true) == "[p .. True] :: [Bool]"
   , show (cc -..- zed) == "[c..'z'] :: [Char]"
   , show (ae -..- dd)  == "['a'..d] :: [Char]"
+
+  -- enumFrom and enumFromTo
+  , show (enumFromThen' false true) == "enumFromThen False True :: [Bool]"
+  , evl  (enumFromThen' false true) == [False,True]
+  , show (enumFromThenTo' zero two four) == "enumFromThenTo 0 2 4 :: [Int]"
+  , evl  (enumFromThenTo' zero two four) == [0,2,4 :: Int]
   ]
