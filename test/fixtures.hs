@@ -180,6 +180,7 @@ tests n =
   , show (enumFromTo' zero four) == "enumFromTo 0 4 :: [Int]"
   , evl  (enumFromTo' zero four) == [0,1,2,3,4 :: Int]
 
+  -- [<n> .. <m>] --
   , show ((-..) false) == "[False ..] :: [Bool]"
   , evl  ((-..) false) == [False,True]
   , show ((-..) true)  == "[True ..] :: [Bool]"
@@ -193,10 +194,24 @@ tests n =
   , show (true  -..- true)  == "[True .. True] :: [Bool]"
   , evl  (true  -..- true)  == [True]
 
+  , show ((-..) zero) == "[0 ..] :: [Int]"
   , show (zero -..- four) == "[0 .. 4] :: [Int]"
   , evl  (zero -..- four) == [0,1,2,3,4 :: Int]
   , show (minusTwo -..- minusOne) == "[-2 .. -1] :: [Int]"
   , evl  (minusTwo -..- minusOne) == [-2,-1 :: Int]
   , show (minusTwo -..- two) == "[-2 .. 2] :: [Int]"
   , evl  (minusTwo -..- two) == [-2,-1,0,1,2 :: Int]
+
+  , show ((-..) ae) == "['a' ..] :: [Char]"
+  , show (ae -..- dee) == "['a' .. 'd'] :: [Char]"
+  , evl  (ae -..- dee) == "abcd"
+
+  , show (xx -..- yy) == "[x .. y] :: [Int]"
+  , show (pp -..- qq) == "[p .. q] :: [Bool]"
+  , show (cc -..- dd) == "[c .. d] :: [Char]"
+
+  , show (zero -..- yy) == "[0 .. y] :: [Int]"
+  , show (pp -..- true) == "[p .. True] :: [Bool]"
+  , show (cc -..- zed) == "[c .. 'z'] :: [Char]"
+  , show (ae -..- dd)  == "['a' .. d] :: [Char]"
   ]

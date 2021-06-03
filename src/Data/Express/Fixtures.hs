@@ -138,7 +138,7 @@ module Data.Express.Fixtures
   -- ** Chars
   , c_
   , cc, dd, ccs
-  , ae, bee, cee, dee
+  , ae, bee, cee, dee, zed, zee
   , space, lineBreak
   , ord'
   , ordE
@@ -776,6 +776,30 @@ cee  =  val 'c'
 -- > 'd'
 dee :: Expr
 dee  =  val 'd'
+
+-- | The character @\'z\'@ encoded as an 'Expr'
+--
+-- > > zed
+-- > 'z' :: Char
+--
+-- > > evl zed :: Char
+-- > 'z'
+--
+-- (cf. 'zee')
+zed :: Expr
+zed  =  val 'z'
+
+-- | The character @\'z\'@ encoded as an 'Expr'
+--
+-- > > zee
+-- > 'z' :: Char
+--
+-- > > evl zee :: Char
+-- > 'z'
+--
+-- (cf. 'zed')
+zee :: Expr
+zee  =  val 'z'
 
 space :: Expr
 space = val ' '
