@@ -1,7 +1,6 @@
 -- Copyright (c) 2017-2021 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 {-# LANGUAGE NoMonomorphismRestriction #-} -- ACK!
-{-# LANGUAGE DeriveDataTypeable, StandaloneDeriving #-} -- GHC <= 7.8
 import Test
 
 main :: IO ()
@@ -78,10 +77,3 @@ functions  =  concat
   , reifyName (undefined :: Int)
   , reifyName (undefined :: Bool)
   ]
-
-deriving instance Typeable A -- for GHC <= 7.8
-deriving instance Typeable B -- for GHC <= 7.8
-deriving instance Typeable C -- for GHC <= 7.8
-deriving instance Typeable D -- for GHC <= 7.8
-deriving instance Typeable E -- for GHC <= 7.8
-deriving instance Typeable F -- for GHC <= 7.8
