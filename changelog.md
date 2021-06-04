@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v0.1.14
+-------
 
 * permit and pretty-print `[<n>..<m>]` notations.
 
