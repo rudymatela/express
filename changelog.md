@@ -5,6 +5,8 @@ Changelog for Express
 upcoming
 --------
 
+* permit and pretty-print `[<n>..<m>]` notations.
+
 * improve default variable names when canonicalizing
 	- lists are named xs, ys, xss, yss, etc.
 	- functions are named f, g, h
