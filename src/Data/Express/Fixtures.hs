@@ -125,7 +125,7 @@ module Data.Express.Fixtures
   , idBools
   , idString
   , id', const', negate', abs', signum'
-  , plus, times
+  , plus, times, minus
   , (-+-), (-*-)
   , ff, ffE
   , gg, ggE
