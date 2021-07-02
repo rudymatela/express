@@ -1085,6 +1085,20 @@ length' exs = headOr err $ mapMaybe ($$ exs)
   where
   err  =  error $ "length': cannot apply `length :: [a] -> a` to `" ++ show exs ++ "'."
 
+-- | List 'sort' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > sort' $ unit one
+-- > sort [1] :: Int
+--
+-- > > sort' $ unit bee
+-- > sort "b" :: Int
+--
+-- > > sort' $ zero -:- unit two
+-- > sort [0,2] :: Int
+--
+-- > > evl $ sort' $ two -:- unit one :: [Int]
+-- > [1,2]
 sort' :: Expr -> Expr
 sort' exs = headOr err $ mapMaybe ($$ exs)
   [ value "sort" (sort :: [Int] -> [Int])
