@@ -85,9 +85,41 @@ unfoldPair _  =  error "unfoldPair: not an Expr pair"
 
 data ExprTrio = ExprTrio
 
+-- | /O(1)/.
+-- Folds a trio/triple of 'Expr' values into a single 'Expr'.
+-- (cf. 'unfoldTrio')
+--
+-- This /always/ generates an ill-typed expression.
+--
+-- > > foldTrio (val False, val (1::Int), val 'a')
+-- > (False,1,'a') :: ill-typed # ExprTrio $ Bool #
+--
+-- > > foldTrio (val (0::Int), val True, val 'b')
+-- > (0,True,'b') :: ill-typed # ExprTrio $ Int #
+--
+-- This is useful when applying transformations on pairs of 'Expr's, such as
+-- 'Data.Express.Canon.canonicalize',
+-- 'Data.Express.Map.mapValues' or
+-- 'Data.Express.Canon.canonicalVariations'.
+--
+-- > > let ii = var "i" (undefined::Int)
+-- > > let kk = var "k" (undefined::Int)
+-- > > let zz = var "z" (undefined::Int)
+-- > > unfoldPair $ canonicalize $ foldPair (ii,kk,zz)
+-- > (x :: Int,y :: Int,z :: Int)
 foldTrio :: (Expr,Expr,Expr) -> Expr
 foldTrio (e1,e2,e3)  =  value ",," (undefined :: ExprTrio) :$ e1 :$ e2 :$ e3
 
+-- | /O(1)/.
+-- Unfolds an 'Expr' representing a trio/triple.
+-- This reverses the effect of 'foldTrio'.
+--
+-- > > value ",," ((,,) :: Bool->Bool->Bool->(Bool,Bool,Bool)) :$ val True :$ val False :$ val True
+-- > (True,False,True) :: (Bool,Bool,Bool)
+-- > > unfoldTrio $ value ",," ((,,) :: Bool->Bool->Bool->(Bool,Bool,Bool)) :$ val True :$ val False :$ val True
+-- > (True :: Bool,False :: Bool,True :: Bool)
+--
+-- (cf. 'unfoldPair')
 unfoldTrio :: Expr -> (Expr,Expr,Expr)
 unfoldTrio (Value ",," _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
 unfoldTrio (Value "(,,)" _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)

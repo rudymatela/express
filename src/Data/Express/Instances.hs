@@ -175,6 +175,9 @@ mkNameWith n a  =  [value "name" (const n -:> a)]
 
 -- searching for functions --
 
+-- | /O(n)./
+-- Lookups for a comparison function (@:: a -> a -> Bool@)
+-- with the given name and argument type.
 lookupComparison :: String -> TypeRep -> [Expr] -> Maybe Expr
 lookupComparison n' t  =  find (\i@(Value n _) -> n == n' && typ i == mkComparisonTy t)
 
@@ -256,6 +259,11 @@ isOrd is  =  isOrdT is . typ
 isEqOrd :: [Expr] -> Expr -> Bool
 isEqOrd is e  =  isEq is e && isOrd is e
 
+-- | /O(n+m)./
+-- Like 'mkEquation', 'mkComparisonLE' and 'mkComparisonLT'
+-- but allows providing the binary operator name.
+--
+-- When not possible, this function returns 'False' encoded as an 'Expr'.
 mkComparison :: String -> [Expr] -> Expr -> Expr -> Expr
 mkComparison n' is e1 e2  =  fromMaybe (val False) $ do
   e1e <- findValidApp os e1
@@ -290,6 +298,19 @@ mkComparisonLT  =  mkComparison "<"
 mkComparisonLE :: [Expr] -> Expr -> Expr -> Expr
 mkComparisonLE  =  mkComparison "<="
 
+-- | /O(n+m)./
+-- Like 'name' but lifted over an instance list and an 'Expr'.
+--
+-- > > lookupName preludeNameInstances (val False)
+-- > "p"
+--
+-- > > lookupName preludeNameInstances (val (0::Int))
+-- > "x"
+--
+-- This function defaults to @"x"@ when no appropriate 'name' is found.
+--
+-- > > lookupName [] (val False)
+-- > "x"
 lookupName :: [Expr] -> Expr -> String
 lookupName is e  =  fromMaybe d $ eval "x" <$> findValidApp es e
   where
@@ -298,18 +319,29 @@ lookupName is e  =  fromMaybe d $ eval "x" <$> findValidApp es e
     | otherwise  =  'x' : replicate (countListTy t) 's'
   es = [e | e@(Value "name" _) <- is]
 
+-- | /O(n+m)./
+-- A mix between 'lookupName' and 'names':
+-- this returns an infinite list of names
+-- based on an instances list and an 'Expr'.
 lookupNames :: [Expr] -> Expr -> [String]
 lookupNames is  =  variableNamesFromTemplate . lookupName is
 
+-- | /O(n+m)./
+-- Like 'lookupNames' but returns a list of variables encoded as 'Expr's.
 listVarsWith :: [Expr] -> Expr -> [Expr]
 listVarsWith is e  =  lookupName is e `listVarsAsTypeOf` e
 
 
 -- helpers --
 
+-- |
+-- Given a list of functional expressions and another expression,
+-- returns a list of valid applications.
 validApps :: [Expr] -> Expr -> [Expr]
 validApps es e  =  mapMaybe ($$ e) es
 
+-- |
+-- Like 'validApps' but returns a 'Maybe' value.
 findValidApp :: [Expr] -> Expr -> Maybe Expr
 findValidApp es  =  listToMaybe . validApps es
 
@@ -320,6 +352,9 @@ infixl 1 -:>
 
 -- reified instances --
 
+-- |
+-- A list of reified 'Name' instances
+-- for an arbitrary selection of types from the Haskell "Prelude".
 preludeNameInstances :: [Expr]
 preludeNameInstances = concat
   [ reifyName (u :: ())
