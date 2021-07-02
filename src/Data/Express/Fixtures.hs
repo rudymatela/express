@@ -136,7 +136,7 @@ module Data.Express.Fixtures
   , even'
 
   -- ** Chars
-  , c_
+  , c_, cs_
   , cc, dd, ccs
   , ae, bee, cee, dee, zed, zee
   , space, lineBreak
@@ -723,9 +723,23 @@ signum' e  =  signumE :$ e
 signumE :: Expr
 signumE  =  value "signum" (signum :: Int -> Int)
 
+-- | 'odd' with an 'Int' argument lifted over the 'Expr' type.
+--
+-- > > odd' (xx -+- one)
+-- > odd (x + 1) :: Bool
+--
+-- > > evl (odd' two) :: Bool
+-- > False
 odd' :: Expr -> Expr
 odd' = (oddE :$) where oddE = value "odd" (odd :: Int -> Bool)
 
+-- | 'even' with an 'Int' argument lifted over the 'Expr' type.
+--
+-- > > even' (xx -+- two)
+-- > even (x + 2) :: Bool
+--
+-- > > evl (even' two) :: Bool
+-- > True
 even' :: Expr -> Expr
 even' = (evenE :$) where evenE = value "even" (even :: Int -> Bool)
 
@@ -736,18 +750,44 @@ even' = (evenE :$) where evenE = value "even" (even :: Int -> Bool)
 c_ :: Expr
 c_  =  hole char
 
+-- | A hole of 'String' type encoded as an 'Expr'.
+--
+-- > > cs_
+-- > _ :: [Char]
+cs_ :: Expr
+cs_  =  hole [char]
+
+-- | A variable named @c@ of type 'Char' encoded as an 'Expr'.
+--
+-- > > cc
+-- > c :: Char
 cc :: Expr
 cc  =  var "c" char
 
+-- | A variable named @c@ of type 'Char' encoded as an 'Expr'.
+--
+-- > > dd
+-- > d :: Char
 dd :: Expr
 dd  =  var "d" char
 
+-- | A variable named @cs@ of type 'String' encoded as an 'Expr'.
+--
+-- > > ccs
+-- > cs :: [Char]
 ccs :: Expr
 ccs  =  var "cs" [char]
 
--- The English name for letter 'a' is not really 'ae', but simply 'a'.
+-- | The character @\'a\'@ encoded as an 'Expr'.
+--
+-- > > ae
+-- > 'a' :: Char
+--
+-- > > evl ae :: Char
+-- > 'a'
 ae :: Expr
 ae  =  val 'a'
+-- The English name for letter 'a' is not really 'ae', but simply 'a'.
 
 -- | The character @\'b\'@ encoded as an 'Expr'
 --
@@ -803,15 +843,31 @@ zed  =  val 'z'
 zee :: Expr
 zee  =  val 'z'
 
+-- | The space character encoded as an 'Expr'
+--
+-- > > space
+-- > ' ' :: Char
 space :: Expr
 space = val ' '
 
+-- | The line break character encoded as an 'Expr'
+--
+-- > > lineBreak
+-- > '\n' :: Char
 lineBreak :: Expr
 lineBreak = val '\n'
 
+-- | The 'ord' function lifted over 'Expr'
+--
+-- > > ord' bee
+-- > ord 'b' :: Int
+--
+-- > > evl (ord' bee)
+-- > 98
 ord' :: Expr -> Expr
 ord' = (ordE :$)
 
+-- | The 'ord' function encoded as an 'Expr'
 ordE :: Expr
 ordE = value "ord" ord
 
