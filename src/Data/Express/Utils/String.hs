@@ -8,8 +8,7 @@
 --
 -- At some point, this file was part of the Speculate tool.
 module Data.Express.Utils.String
-  ( module Data.String
-  , module Data.Char
+  ( module Data.Char
   , unquote
   , atomic
   , outernmostPrec
@@ -22,9 +21,7 @@ module Data.Express.Utils.String
   )
 where
 
-import Data.String
 import Data.Char
-import Data.Functor ((<$>)) -- for GHC < 7.10
 
 -- | Unquotes a string if possible, otherwise, this is just an identity.
 --
@@ -165,7 +162,7 @@ variableNamesFromTemplate  =  primeCycle . f
   f "xyz"                        =  ["xyz", "uvw"]
   f cs    | isDigit (last cs)    =  map (\n -> init cs ++ show n) [digitToInt (last cs)..]
   f [c]   | c `elem` ['a'..'x']  =  let x = ord c in map ((:[]) . chr) [x,x+1,x+2]
-  f cs    | last cs == 's'       =  (++ "s") <$> f (init cs)
+  f cs    | last cs == 's'       =  (++ "s") `map` f (init cs)
   f [c,d] | ord d - ord c == 1   =  [[c,d], [chr $ ord c + 2, chr $ ord d + 2]]
   f cs | cs == "y" || cs == "z"  =  cs : map (\n -> cs ++ show n) [1..]
   f cs                           =  [cs]
