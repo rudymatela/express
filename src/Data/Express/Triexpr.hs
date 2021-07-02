@@ -43,13 +43,18 @@ import Data.Express.Match
 import Data.Maybe
 import Prelude hiding (map, lookup)
 
--- "Nothing" should match an App, "Just Expr" an expression
+-- | A trie of 'Expr's.
+--
+-- In the representation,
+-- 'Nothing' matches an App and 'Just' 'Expr' an expression.
 data Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) (Expr,a))]
   deriving (Eq, Ord, Show)
 
+-- | An empty 'Triexpr'.
 empty :: Triexpr a
 empty  =  Triexpr []
 
+-- | Constructs a 'Triexpr' encoding a single expression.
 unit :: Expr -> a -> Triexpr a
 unit e x  =  u e (Right (e,x))
   where
@@ -57,6 +62,7 @@ unit e x  =  u e (Right (e,x))
   u (e1 :$ e2) et  =  Triexpr [(Nothing, Left $ u e1 $ Left $ u e2 et)]
   u e          et  =  Triexpr [(Just e,  et)]
 
+-- | Merges two 'Triexpr's.
 merge :: Triexpr a -> Triexpr a -> Triexpr a
 merge (Triexpr ms1) (Triexpr ms2)  =  Triexpr $ m ms1 ms2
   where
@@ -69,18 +75,22 @@ merge (Triexpr ms1) (Triexpr ms2)  =  Triexpr $ m ms1 ms2
           (Left t1, Left t2) -> (e1, Left $ t1 `merge` t2) : m ms1 ms2
           (_,_) -> (e1,mt1) : (e2,mt2) : m ms1 ms2
 
+-- | Inserts an 'Expr' into a 'Triexpr'.
 insert :: Expr -> a -> Triexpr a -> Triexpr a
 insert e x t  =  unit e x `merge` t
 
+-- | List all 'Expr' stored in a 'Triexpr' along with their associated values.
 toList :: Triexpr a -> [(Expr, a)]
 toList (Triexpr ms)  =  concatMap to ms
   where
   to (_, Right ex)  =  [ex]
   to (_, Left t)  =  toList t
 
+-- | Constructs a 'Triexpr' form a list of key 'Expr's and associated values.
 fromList :: [(Expr, a)] -> Triexpr a
 fromList  =  foldr (uncurry insert) empty
 
+-- | Maps a function to the stored values in a 'Triexpr'.
 map :: (a -> b) -> Triexpr a -> Triexpr b
 map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) (mapSnd f) eth) | (ex, eth) <- ms]
   where
@@ -90,6 +100,7 @@ map f (Triexpr ms)  =  Triexpr [(ex, mapEither (map f) (mapSnd f) eth) | (ex, et
   mapSnd :: (a -> b) -> (c,a) -> (c,b)
   mapSnd f (x,y)  =  (x, f y)
 
+-- | Performs a lookup in a 'Triexpr'.
 lookup :: Expr -> Triexpr a -> [ (Expr, [(Expr,Expr)], a) ]
 lookup e t  =  [(e, bs, x) | (bs, Right (e,x)) <- look (Just e) t []]
   where
