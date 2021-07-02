@@ -263,12 +263,30 @@ mkComparison n' is e1 e2  =  fromMaybe (val False) $ do
   where
   os = [eq | eq@(Value n _) <- is, n == n']
 
+-- | /O(n+m)./
+-- Returns an equation between two expressions
+-- given that it is possible to do so from '==' operators
+-- given in the argument instances list.
+--
+-- When not possible, this function returns 'False' encoded as an 'Expr'.
 mkEquation :: [Expr] -> Expr -> Expr -> Expr
 mkEquation  =  mkComparison "=="
 
+-- | /O(n+m)./
+-- Returns a less-than inequation between two expressions
+-- given that it is possible to do so from '<' operators
+-- given in the argument instances list.
+--
+-- When not possible, this function returns 'False' encoded as an 'Expr'.
 mkComparisonLT :: [Expr] -> Expr -> Expr -> Expr
 mkComparisonLT  =  mkComparison "<"
 
+-- | /O(n+m)./
+-- Returns a less-than-or-equal-to inequation between two expressions
+-- given that it is possible to do so from '<=' operators
+-- given in the argument instances list.
+--
+-- When not possible, this function returns 'False' encoded as an 'Expr'.
 mkComparisonLE :: [Expr] -> Expr -> Expr -> Expr
 mkComparisonLE  =  mkComparison "<="
 
