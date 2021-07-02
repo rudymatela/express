@@ -27,6 +27,7 @@ import Data.Char
 --
 -- > > unquote "\"string\""
 -- > "string"
+--
 -- > > unquote "something else"
 -- > "something else"
 unquote :: String -> String
@@ -64,12 +65,28 @@ atomic ('[':s)  | last s == ']'  = True
 atomic ('(':s)  | last s == ')'  = True
 atomic _ = False
 
+-- |
+-- Returns the operator precedence of an infix string.
+--
+-- > > outernmostPrec "1 + 2"
+-- > Just 6
 outernmostPrec :: String -> Maybe Int
 outernmostPrec s =
   case words s of
     [l,o,r] | isInfix o -> Just (prec o)
     _                   -> Nothing
 
+-- |
+-- Returns whether the given 'String' represents a negative literal.
+--
+-- > > isNegativeLiteral "1"
+-- > False
+-- > > isNegativeLiteral "-1"
+-- > True
+-- > > isNegativeLiteral "-x"
+-- > False
+-- > > isNegativeLiteral "1 - 3"
+-- > False
 isNegativeLiteral :: String -> Bool
 isNegativeLiteral s | not (atomic s) = False
 isNegativeLiteral "-"                = False
@@ -121,6 +138,13 @@ prec "==>"     =   0
 prec "<==>"    =   0
 prec _         =   9
 
+-- | Is the given string a prefix function?
+--
+-- > > isPrefix "abs"
+-- > True
+--
+-- > > isPrefix "+"
+-- > False
 isPrefix :: String -> Bool
 isPrefix = not . isInfix
 
@@ -138,6 +162,12 @@ toPrefix :: String -> String
 toPrefix ('`':cs) = init cs
 toPrefix cs = '(':cs ++ ")"
 
+-- |
+-- Cycles through a list of variable names
+-- priming them at each iteration.
+--
+-- > primeCycle ["x","y","z"]
+-- ["x","y","z","x'","y'","z'","x''","y''","z''","x'''",...]
 primeCycle :: [String] -> [String]
 primeCycle []  =  []
 primeCycle ss  =  ss ++ map (++ "'") (primeCycle ss)

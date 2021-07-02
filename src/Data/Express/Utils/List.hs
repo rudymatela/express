@@ -49,6 +49,7 @@ nubSort  =  nnub . sort
   nnub [x] = [x]
   nnub (x:xs) = x : nnub (dropWhile (==x) xs)
 
+-- | Like 'nubSort' but allows providing a function to 'compare' values.
 nubSortBy :: (a -> a -> Ordering) -> [a] -> [a]
 nubSortBy cmp  =  nnub . sortBy cmp
   where
@@ -103,10 +104,17 @@ isNub xs  =  length (nubSort xs) == length xs
 lookupId :: Eq a => a -> [(a,a)] -> a
 lookupId x = fromMaybe x . lookup x
 
+-- | Merges two lists discarding repeated elements.
+--
+-- The argument lists need to be in order.
+--
+-- > > [1,10,100] +++ [9,10,11]
+-- > [1,9,10,11,100]
 (+++) :: Ord a => [a] -> [a] -> [a]
 (+++)  =  nubMerge
 infixr 5 +++
 
+-- | Like 'nubMerge' but allows providing a function to 'compare' values.
 nubMergeBy :: (a -> a -> Ordering) -> [a] -> [a] -> [a]
 nubMergeBy cmp (x:xs) (y:ys)  =  case x `cmp` y of
                                  LT -> x:nubMergeBy cmp xs (y:ys)
@@ -114,6 +122,9 @@ nubMergeBy cmp (x:xs) (y:ys)  =  case x `cmp` y of
                                  EQ -> x:nubMergeBy cmp xs ys
 nubMergeBy _ xs ys  =  xs ++ ys
 
+-- | Merges two lists discarding repeated elements.
+--
+-- The argument lists need to be in order.
 nubMerge :: Ord a => [a] -> [a] -> [a]
 nubMerge  =  nubMergeBy compare
 
