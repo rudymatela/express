@@ -72,6 +72,11 @@ clean: clean-hi-o clean-haddock
 
 ghci: mk/All.ghci
 
+hugs: src/Data/Express/Core.hugs
+
+hugs-test: \
+  test/typecheck.runhugs
+
 install:
 	@echo "use \`cabal install' instead"
 

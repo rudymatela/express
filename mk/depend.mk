@@ -422,11 +422,7 @@ src/Data/Express/Match.o: \
   src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Match.hs \
-  src/Data/Express/Map.hs \
-  src/Data/Express/Hole.hs \
-  src/Data/Express/Fold.hs \
-  src/Data/Express/Core.hs \
-  src/Data/Express/Basic.hs
+  src/Data/Express/Core.hs
 src/Data/Express/Name/Derive.o: \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
@@ -486,6 +482,8 @@ src/Data/Express/Utils/TH.o: \
   src/Data/Express/Utils/TH.hs
 src/Data/Express/Utils/Typeable.o: \
   src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs
 test/canon.o: \
   test/Test.hs \
@@ -1010,6 +1008,19 @@ test/triexpr: \
   test/triexpr.hs \
   test/Test.hs \
   test/Test/ListableExpr.hs \
+  mk/toplibs
+test/typecheck.o: \
+  test/typecheck.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Core.hs
+test/typecheck: \
+  test/typecheck.hs \
   mk/toplibs
 test/utils.o: \
   test/utils.hs \

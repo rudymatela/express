@@ -14,8 +14,12 @@ module Data.Express.Utils
   , module Data.Maybe
   , module Data.Either
   , module Data.Function
+  , module Control.Monad
 #if __GLASGOW_HASKELL__ < 704
   , (<>)
+#endif
+#if __HUGS__
+  , (>=>)
 #endif
   )
 where
@@ -26,6 +30,7 @@ import Data.Function
 import Data.Maybe
 import Data.Either
 import Data.Monoid
+import Control.Monad
 
 #if __GLASGOW_HASKELL__ < 704
 -- Data.Monoid exports <> since GHC 7.4 / base 4.5.0.0
@@ -33,4 +38,9 @@ import Data.Monoid
 (<>) :: Monoid m => m -> m -> m
 (<>)  =  mappend
 infixr 6 <>
+#endif
+
+#if __HUGS__
+(>=>) :: Monad m => (a -> m b) -> (b -> m c) -> (a -> m c)
+f >=> g  =  \x -> f x >>= g
 #endif

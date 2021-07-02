@@ -15,10 +15,8 @@ module Data.Express.Match
   )
 where
 
-import Data.Express.Basic
-import Data.Maybe
-import Data.Functor ((<$>))
-import Control.Monad ((>=>))
+import Data.Express.Core
+import Data.Express.Utils
 
 -- |
 -- Given two expressions, returns a 'Just' list of matches
