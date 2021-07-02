@@ -50,7 +50,8 @@ foldApp = foldl1 (:$)
 -- Folds a pair of 'Expr' values into a single 'Expr'.
 -- (cf. 'unfoldPair')
 --
--- This /always/ generates an ill-typed expression.
+-- This /always/ generates an ill-typed expression,
+-- as it uses a fake pair constructor.
 --
 -- > > foldPair (val False, val (1::Int))
 -- > (False,1) :: ill-typed # ExprPair $ Bool #
@@ -89,7 +90,8 @@ data ExprTrio = ExprTrio
 -- Folds a trio/triple of 'Expr' values into a single 'Expr'.
 -- (cf. 'unfoldTrio')
 --
--- This /always/ generates an ill-typed expression.
+-- This /always/ generates an ill-typed expression
+-- as it uses a fake trio/triple constructor.
 --
 -- > > foldTrio (val False, val (1::Int), val 'a')
 -- > (False,1,'a') :: ill-typed # ExprTrio $ Bool #

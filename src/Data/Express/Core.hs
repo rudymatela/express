@@ -534,9 +534,32 @@ showsTailExpr e = showsOpExpr ":" e
 showsOpExpr :: String -> Expr -> String -> String
 showsOpExpr op = showsPrecExpr (prec op + 1)
 
+-- | /O(n)/.
+-- Like 'showPrecExpr' but
+-- the precedence is taken from the given operator name.
+--
+-- > > showOpExpr "*" (two -*- three)
+-- > "(2 * 3)"
+--
+-- > > showOpExpr "+" (two -*- three)
+-- > "2 * 3"
+--
+-- To imply that the surrounding environment is a function application,
+-- use @" "@ as the given operator.
+--
+-- > > showOpExpr " " (two -*- three)
+-- > "(2 * 3)"
 showOpExpr :: String -> Expr -> String
 showOpExpr op = showPrecExpr (prec op + 1)
 
+-- | /O(n)/.
+-- Like 'showExpr' but allows specifying the surrounding precedence.
+--
+-- > > showPrecExpr 6 (one -+- two)
+-- > "1 + 2"
+--
+-- > > showPrecExpr 7 (one -+- two)
+-- > "(1 + 2)"
 showPrecExpr :: Int -> Expr -> String
 showPrecExpr n e = showsPrecExpr n e ""
 
