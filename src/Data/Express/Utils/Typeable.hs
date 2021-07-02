@@ -33,12 +33,21 @@ where
 import Data.Typeable
 import Data.Express.Utils
 
--- Different versions of Typeable/GHC provide different orderings for TypeReps.
--- The following is a version independent ordering, with the following
--- properties:
+-- | Compares two 'TypeRep's.
+--
+-- Different versions of Typeable/GHC
+-- provide different orderings for 'TypeRep's.
+-- The following is a version independent ordering,
+-- with the following properties:
 --
 -- * functional types with more arguments are larger;
 -- * type constructors with more arguments are larger.
+--
+-- > > typeOf (undefined :: Int -> Int) `compareTy` typeOf (undefined :: () -> () -> ())
+-- > LT
+--
+-- > > typeOf (undefined :: Int) `compareTy` typeOf (undefined :: ())
+-- > GT
 compareTy :: TypeRep -> TypeRep -> Ordering
 compareTy t1 t2 | t1 == t2 = EQ -- optional optimization
 compareTy t1 t2 = tyArity t1 `compare` tyArity t2
@@ -49,24 +58,71 @@ compareTy t1 t2 = tyArity t1 `compare` tyArity t2
   (c1,ts1) = splitTyConApp t1
   (c2,ts2) = splitTyConApp t2
 
+-- | Returns the functional arity of the given 'TypeRep'.
+--
+-- > > tyArity $ typeOf (undefined :: Int)
+-- > 0
+--
+-- > > tyArity $ typeOf (undefined :: Int -> Int)
+-- > 1
+--
+-- > > tyArity $ typeOf (undefined :: (Int,Int))
+-- > 0
 tyArity :: TypeRep -> Int
 tyArity t
   | isFunTy t = 1 + tyArity (resultTy t)
   | otherwise = 0
 
+-- | Returns the ultimate result type of the given 'TypeRep'.
+--
+-- > > finalResultTy (typeOf (undefined :: Int))
+-- > Int
+--
+-- > > finalResultTy (typeOf (undefined :: Int -> Char))
+-- > Char
+--
+-- > > finalResultTy (typeOf (undefined :: Int -> Char -> Bool))
+-- > Bool
 finalResultTy :: TypeRep -> TypeRep
 finalResultTy t
   | isFunTy t = finalResultTy (resultTy t)
   | otherwise = t
 
+-- | Deconstructs a functional 'TypeRep' into a pair of 'TypeRep's.
+--
+-- > > unFunTy $ typeOf (undefined :: Int -> Char -> Bool)
+-- > (Int,Char -> Bool)
+--
+-- This function raises an error on non-functional types.
+--
+-- (cf. 'argumentTy' and 'resultTy')
 unFunTy :: TypeRep -> (TypeRep,TypeRep)
 unFunTy t
   | isFunTy t = let (f,[a,b]) = splitTyConApp t in (a,b)
   | otherwise = error $ "error (unFunTy): `" ++ show t ++ "` is not a function type"
 
+-- | Returns the argument 'TypeRep' of a given functional 'TypeRep'.
+--
+-- > argumentTy $ typeOf (undefined :: Int -> Char)
+-- > Int
+--
+-- This function raises an error on non-functional types.
+--
+-- (cf. 'resultTy')
 argumentTy :: TypeRep -> TypeRep
 argumentTy = fst . unFunTy
 
+-- | Returns the result 'TypeRep' of a given functional 'TypeRep'.
+--
+-- > > resultTy $ typeOf (undefined :: Int -> Char)
+-- > Char
+--
+-- > > resultTy $ typeOf (undefined :: Int -> Char -> Bool)
+-- > Char -> Bool
+--
+-- This function raises an error on non-functional types.
+--
+-- (cf. 'argumentTy' and 'finalResultTy')
 resultTy :: TypeRep -> TypeRep
 resultTy = snd . unFunTy
 
@@ -86,21 +142,32 @@ elementTy t
   | isListTy t = let (_,[a]) = splitTyConApp t in a
   | otherwise = error $ "error (elementTy): `" ++ show t ++ "' is not a list type"
 
+-- | The 'Bool' type encoded as a 'TypeRep'.
 boolTy :: TypeRep
 boolTy = typeOf (undefined :: Bool)
 
+-- | The 'Int' type encoded as a 'TypeRep'.
 intTy :: TypeRep
 intTy = typeOf (undefined :: Int)
 
+-- | The 'Ordering' type encoded as a 'TypeRep'.
 orderingTy :: TypeRep
 orderingTy = typeOf (undefined :: Ordering)
 
+-- | The function type constructor as a 'TyCon'
 funTyCon :: TyCon
 funTyCon = typeRepTyCon $ typeOf (undefined :: () -> ())
 
+-- | The list type constructor as a 'TyCon'
 listTyCon :: TyCon
 listTyCon = typeRepTyCon $ typeOf (undefined :: [()])
 
+-- | Returns whether a 'TypeRep' is functional.
+--
+-- > > isFunTy $ typeOf (undefined :: Int -> Int)
+-- > True
+-- > > isFunTy $ typeOf (undefined :: Int)
+-- > False
 isFunTy :: TypeRep -> Bool
 isFunTy t =
   case splitTyConApp t of
@@ -112,13 +179,46 @@ isListTy t  =  case splitTyConApp t of
   (con,[_]) | con == listTyCon -> True
   _ -> False
 
+-- | Return the number of outer list nestings in a 'TypeRep'
+--
+-- > > countListTy $ typeOf (undefined :: Int)
+-- > 0
+--
+-- > > countListTy $ typeOf (undefined :: [Bool])
+-- > 1
+--
+-- > > countListTy $ typeOf (undefined :: [[()]])
+-- > 2
+--
+-- > > countListTy $ typeOf (undefined :: String)
+-- > 1
+--
+-- > > countListTy $ typeOf (undefined :: ([Int],[Bool]))
+-- > 0
 countListTy :: TypeRep -> Int
 countListTy t  =  case splitTyConApp t of
   (con,[t']) | con == listTyCon -> 1 + countListTy t'
   _ -> 0
 
+-- | Constructs a comparison type (@ a -> a -> Bool @)
+--   from the given argument type.
+--
+-- > > mkComparisonTy $ typeOf (undefined :: Int)
+-- > Int -> Int -> Bool
+--
+-- > > mkComparisonTy $ typeOf (undefined :: ())
+-- > () -> () -> Bool
 mkComparisonTy :: TypeRep -> TypeRep
 mkComparisonTy a = a ->:: a ->:: boolTy
+
+-- | Constructs a "compare" type (@ a -> a -> Ordering @)
+--   from the given argument type.
+--
+-- > > mkCompareTy $ typeOf (undefined :: Int)
+-- > Int -> Int -> Ordering
+--
+-- > > mkCompareTy $ typeOf (undefined :: ())
+-- > () -> () -> Ordering
 
 mkCompareTy :: TypeRep -> TypeRep
 mkCompareTy a = a ->:: a ->:: orderingTy
@@ -157,6 +257,13 @@ mkCompareTy a = a ->:: a ->:: orderingTy
 typesIn :: TypeRep -> [TypeRep]
 typesIn t  =  typesInList [t]
 
+-- | Returns types and subtypes from the given list of 'TypeRep's.
+--
+-- > > typesInList [typeOf (undefined :: () -> Int), typeOf (undefined :: String -> String -> Bool)]
+-- > [(),Bool,Char,Int,[Char],() -> Int,[Char] -> Bool,[Char] -> [Char] -> Bool]
+--
+-- > > typesInList [typeOf (undefined :: (Char,Int))]
+-- > [Char,Int,(Char,Int)]
 typesInList :: [TypeRep] -> [TypeRep]
 typesInList ts  =  nubSortBy compareTy $ tins ts []
   where
