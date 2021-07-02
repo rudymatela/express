@@ -5,7 +5,10 @@
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
 -- Defines utilities for folding and unfolding 'Expr's.
-{-# LANGUAGE DeriveDataTypeable #-} -- for GHC <= 7.8
+{-# LANGUAGE CPP #-}
+#if __GLASGOW_HASKELL__ == 708
+{-# LANGUAGE DeriveDataTypeable, StandaloneDeriving #-}
+#endif
 module Data.Express.Fold
   ( fold
   , unfold
@@ -19,10 +22,9 @@ module Data.Express.Fold
 where
 
 import Data.Express.Core
-import Data.Typeable (Typeable) -- for GHC <= 7.8
+import Data.Express.Utils.Typeable
 
 data ExprPair = ExprPair
-  deriving Typeable -- for GHC <= 7.8
 
 -- | /O(n)/.
 -- Folds a list of 'Expr' with function application (':$').
@@ -82,7 +84,6 @@ unfoldPair (Value "(,)" _ :$ e1 :$ e2) = (e1,e2)
 unfoldPair _  =  error "unfoldPair: not an Expr pair"
 
 data ExprTrio = ExprTrio
-  deriving Typeable -- for GHC <= 7.8
 
 foldTrio :: (Expr,Expr,Expr) -> Expr
 foldTrio (e1,e2,e3)  =  value ",," (undefined :: ExprTrio) :$ e1 :$ e2 :$ e3
@@ -93,7 +94,6 @@ unfoldTrio (Value "(,,)" _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
 unfoldTrio _  =  error "unfoldTrio: not an Expr trio"
 
 data ExprList = ExprList
-  deriving Typeable -- for GHC <= 7.8
 
 -- | /O(n)/.
 -- Folds a list of 'Expr's into a single 'Expr'.
@@ -131,3 +131,9 @@ unfold :: Expr -> [Expr]
 unfold (Value "[]" _)             =  []
 unfold (Value ":"  _ :$ e :$ es)  =  e : unfold es
 unfold e  =  error $ "unfold: cannot unfold expression: " ++ show e
+
+#if __GLASGOW_HASKELL__ == 708
+deriving instance Typeable ExprPair
+deriving instance Typeable ExprTrio
+deriving instance Typeable ExprList
+#endif

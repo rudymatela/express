@@ -19,6 +19,9 @@ module Data.Express.Utils.List
 #if __GLASGOW_HASKELL__ < 710
   , isSubsequenceOf
 #endif
+#ifdef __HUGS__
+  , intercalate
+#endif
   )
 where
 
@@ -113,3 +116,16 @@ nubMergeBy _ xs ys  =  xs ++ ys
 
 nubMerge :: Ord a => [a] -> [a] -> [a]
 nubMerge  =  nubMergeBy compare
+
+#ifdef __HUGS__
+intercalate :: [a] -> [[a]] -> [a]
+intercalate xs xss  =  concat (intersperse xs xss)
+  where
+  intersperse :: a -> [a] -> [a]
+  intersperse _ []        =  []
+  intersperse sep (x:xs)  =  x : prependToAll sep xs
+    where
+    prependToAll :: a -> [a] -> [a]
+    prependToAll _   []      =  []
+    prependToAll sep (x:xs)  =  sep : x : prependToAll sep xs
+#endif

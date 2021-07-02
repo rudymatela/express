@@ -31,8 +31,7 @@ module Data.Express.Utils.Typeable
 where
 
 import Data.Typeable
-import Data.Monoid ((<>))
-import Data.Express.Utils.List
+import Data.Express.Utils
 
 -- Different versions of Typeable/GHC provide different orderings for TypeReps.
 -- The following is a version independent ordering, with the following

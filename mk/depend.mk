@@ -4,6 +4,7 @@ bench/compare.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -31,6 +32,7 @@ bench/match-list.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -58,6 +60,7 @@ bench/match-noop.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -85,6 +88,7 @@ bench/match-triexpr.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Triexpr.hs \
   src/Data/Express.hs \
@@ -113,6 +117,7 @@ bench/pairs.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -140,6 +145,7 @@ bench/sort.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -167,6 +173,7 @@ bench/tiers.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -195,6 +202,7 @@ eg/u-conjure.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -217,6 +225,7 @@ eg/u-extrapolate.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -239,6 +248,7 @@ eg/u-speculate.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -254,10 +264,13 @@ eg/u-speculate.o: \
   src/Data/Express/Canon.hs \
   src/Data/Express/Basic.hs \
   eg/u-speculate.hs
+etc/hugs-backports/Data/Function.o: \
+  etc/hugs-backports/Data/Function.hs
 mk/All.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Triexpr.hs \
   src/Data/Express.hs \
@@ -281,6 +294,7 @@ mk/Toplibs.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Triexpr.hs \
   src/Data/Express.hs \
@@ -301,6 +315,7 @@ mk/Toplibs.o: \
 src/Data/Express/Basic.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Map.hs \
   src/Data/Express/Hole.hs \
@@ -310,6 +325,7 @@ src/Data/Express/Basic.o: \
 src/Data/Express/Canon.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Name.hs \
   src/Data/Express/Map.hs \
@@ -323,12 +339,14 @@ src/Data/Express/Canon.o: \
 src/Data/Express/Core.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Core.hs
 src/Data/Express/Express/Derive.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Express.hs \
   src/Data/Express/Express/Derive.hs \
@@ -336,6 +354,7 @@ src/Data/Express/Express/Derive.o: \
 src/Data/Express/Express.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Express.hs \
   src/Data/Express/Core.hs
@@ -345,6 +364,7 @@ src/Data/Express/Fixtures.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -363,6 +383,7 @@ src/Data/Express/Fixtures.o: \
 src/Data/Express/Fold.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Fold.hs \
   src/Data/Express/Core.hs
@@ -371,12 +392,14 @@ src/Data/Express/Hole: \
 src/Data/Express/Hole.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Hole.hs \
   src/Data/Express/Core.hs
 src/Data/Express/Instances.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Name.hs \
   src/Data/Express/Map.hs \
@@ -389,12 +412,14 @@ src/Data/Express/Instances.o: \
 src/Data/Express/Map.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Map.hs \
   src/Data/Express/Core.hs
 src/Data/Express/Match.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Match.hs \
   src/Data/Express/Map.hs \
@@ -414,6 +439,7 @@ src/Data/Express.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -432,6 +458,7 @@ src/Data/Express/Triexpr.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Triexpr.hs \
   src/Data/Express.hs \
@@ -449,6 +476,10 @@ src/Data/Express/Triexpr.o: \
   src/Data/Express/Basic.hs
 src/Data/Express/Utils/List.o: \
   src/Data/Express/Utils/List.hs
+src/Data/Express/Utils.o: \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
+  src/Data/Express/Utils/List.hs
 src/Data/Express/Utils/String.o: \
   src/Data/Express/Utils/String.hs
 src/Data/Express/Utils/TH.o: \
@@ -463,6 +494,7 @@ test/canon.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -490,6 +522,7 @@ test/core.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -517,6 +550,7 @@ test/express-derive.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -544,6 +578,7 @@ test/express.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -571,6 +606,7 @@ test/fixtures.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -598,6 +634,7 @@ test/fold.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -625,6 +662,7 @@ test/hole.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -652,6 +690,7 @@ test/instances.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -679,6 +718,7 @@ test/listable.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -706,6 +746,7 @@ test/main.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -733,6 +774,7 @@ test/map.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -760,6 +802,7 @@ test/match.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -787,6 +830,7 @@ test/name-derive.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -814,6 +858,7 @@ test/name.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -841,6 +886,7 @@ test/ord.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -868,6 +914,7 @@ test/show.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -893,6 +940,7 @@ test/Test/ListableExpr.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -914,6 +962,7 @@ test/Test.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
@@ -940,6 +989,7 @@ test/triexpr.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express/Triexpr.hs \
   src/Data/Express.hs \
@@ -968,6 +1018,7 @@ test/utils.o: \
   src/Data/Express/Utils/Typeable.hs \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs \
   src/Data/Express.hs \
   src/Data/Express/Name.hs \
