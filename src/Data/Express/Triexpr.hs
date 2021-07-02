@@ -38,7 +38,8 @@ module Data.Express.Triexpr
   )
 where
 
-import Data.Express
+import Data.Express.Core
+import Data.Express.Match
 import Data.Maybe
 import Prelude hiding (map, lookup)
 

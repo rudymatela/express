@@ -9,5 +9,11 @@ import Data.Express.Hole
 import Data.Express.Map
 import Data.Express.Match
 
+import Data.Express.Name
+import Data.Express.Triexpr
+
+import Data.Express.Utils
+import Data.Express.Utils.Typeable
+
 main :: IO ()
 main  =  return ()
