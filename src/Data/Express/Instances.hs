@@ -49,8 +49,6 @@ module Data.Express.Instances
   )
 where
 
--- TODO: document and test functions of the Instances module
-
 import Data.Express.Basic
 import Data.Express.Name
 import Data.Express.Express
@@ -117,8 +115,6 @@ reifyEqOrd a  =  reifyEq a ++ reifyOrd a
 -- > [name :: Bool -> [Char]]
 reifyName :: (Typeable a, Name a) => a -> [Expr]
 reifyName a  =  mkName (name -:> a)
-
--- todo: reifyExpr and related functions
 
 -- | /O(1)/.
 -- Builds a reified 'Eq' instance from the given '==' function.
