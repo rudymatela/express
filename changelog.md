@@ -2,6 +2,19 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* add `five`, `six`, ... `twelve` to `Data.Express.Fixtures`.
+
+* add `cs_` to `Data.Express.Fixtures`.
+
+* improve backwards compatibility:
+  `Data.Express.Core/Hole/Match/Map/Name/Triexpr/Utils` now work on Hugs.
+
+* 100% Haddock coverage on most modules including REPL examples.
+
+
 v0.1.14
 -------
 
