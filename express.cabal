@@ -1,11 +1,11 @@
 -- Cabal file for express
 name: express
 version: 0.1.15
-synopsis: Dynamically-typed expressions involving applications and variables.
+synopsis: Dynamically-typed expressions involving function application and variables.
 description:
   Express is a library for manipulating dynamically typed Haskell expressions.
-  It's like @ Data.Dynamic @ but with support for encoding applications and
-  variables.
+  It's like @ Data.Dynamic @ but
+  with support for encoding function aplication and variables.
   .
   It provides the @ Expr @ type and over a hundred functions for
   building, evaluating, comparing, folding, canonicalizing and matching
