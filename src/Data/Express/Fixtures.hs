@@ -1371,9 +1371,22 @@ headOr :: a -> [a] -> a
 headOr x []     =  x
 headOr _ (x:_)  =  x
 
+-- | Function composition encoded as an 'Expr':
+--
+-- > > compose
+-- > (.) :: (Int -> Int) -> (Int -> Int) -> Int -> Int
 compose :: Expr
 compose  =  value "." ((.) :: Compose Int)
 
+-- | Function composition '.' lifted over 'Expr'.
+--
+-- > > absE -.- negateE
+-- > abs . negate :: Int -> Int
+--
+-- > > absE -.- negateE :$ one
+-- > (abs . negate) 1 :: Int
+--
+-- This works for 'Int', 'Bool', 'Char' and their lists.
 (-.-) :: Expr -> Expr -> Expr
 ex -.- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "." ((.) :: Compose ())
@@ -1388,9 +1401,17 @@ ex -.- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "(-.-): unhandled type " ++ show (typ ex)
 type Compose a = (a -> a) -> (a -> a) -> (a -> a)
 
+-- | 'map' over the 'Int' element type encoded as an 'Expr'
+--
+-- > > mapE
+-- > map :: (Int -> Int) -> [Int] -> [Int]
 mapE :: Expr
 mapE  =  value "map" (map :: Map Int)
 
+-- | 'map' lifted over 'Expr's.
+--
+-- > > map' absE (unit one)
+-- > map abs [1] :: [Int]
 map' :: Expr -> Expr -> Expr
 map' ef exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ef)
   [ value "map" (map :: Map ())
@@ -1405,6 +1426,12 @@ map' ef exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ef)
   err  =  error $ "map': unhandled type " ++ show (typ ef)
 type Map a = (a -> a) -> [a] -> [a]
 
+-- | 'enumFrom' lifted over 'Expr's.
+--
+-- > > enumFrom' zero
+-- > enumFrom 0 :: [Int]
+--
+-- Works for 'Int's, 'Bool's and 'Char's.
 enumFrom' :: Expr -> Expr
 enumFrom' ex  =  headOr err $ mapMaybe ($$ ex)
   [ value "enumFrom" (enumFrom :: EnumFrom Int)
@@ -1415,6 +1442,12 @@ enumFrom' ex  =  headOr err $ mapMaybe ($$ ex)
   err  =  error $ "enumFrom': unhandled type " ++ show (typ ex)
 type EnumFrom a  =  (a -> [a])
 
+-- | 'enumFrom' lifted over 'Expr's named as @".."@ for pretty-printing.
+--
+-- > > (-..) one
+-- > [1..] :: [Int]
+--
+-- Works for 'Int's, 'Bool's and 'Char's.
 (-..) :: Expr -> Expr
 (-..) ex  =  headOr err $ mapMaybe ($$ ex)
   [ value ".." (enumFrom :: EnumFrom Int)
@@ -1424,6 +1457,10 @@ type EnumFrom a  =  (a -> [a])
   where
   err  =  error $ "(-..): unhandled type " ++ show (typ ex)
 
+-- | 'enumFromTo' lifted over 'Expr's
+--
+-- > > enumFromTo' zero four
+-- > enumFromTo 0 4 :: [Int]
 enumFromTo' :: Expr -> Expr -> Expr
 enumFromTo' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "enumFromTo" (enumFromTo :: EnumFromTo Int)
