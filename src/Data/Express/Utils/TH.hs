@@ -55,6 +55,18 @@ deriveWhenNeededX warnExisting cls reallyDerive t  =  do
   else
     reallyDerive t
 
+-- |
+-- Encodes a 'Name' as a 'String'.
+-- This is useful when generating error messages.
+--
+-- > > showJustName ''Int
+-- > "Int"
+--
+-- > > showJustName ''String
+-- > "String"
+--
+-- > > showJustName ''Maybe
+-- > "Maybe"
 showJustName :: Name -> String
 showJustName = reverse . takeWhile (/= '.') . reverse . show
 
@@ -99,17 +111,22 @@ t `typeConCascadingArgsThat` p = do
   tss <- mapM (`typeConCascadingArgsThat` p') ts
   return $ nubMerges (ts:tss)
 
--- Normalizes a type by applying it to necessary type variables, making it
--- accept "zero" parameters.  The normalized type is tupled with a list of
--- necessary type variables.
+-- |
+-- Normalizes a type by applying it to necessary type variables
+-- making it accept zero type parameters.
+-- The normalized type is paired with a list of necessary type variables.
 --
--- Suppose:
+-- > > putStrLn $(stringE . show =<< normalizeType ''Int)
+-- > (ConT ''Int, [])
 --
--- > data DT a b c ... = ...
+-- > > putStrLn $(stringE . show =<< normalizeType ''Maybe)
+-- > (AppT (ConT ''Maybe) (VarT ''a),[VarT ''a])
 --
--- Then, in pseudo-TH:
+-- > > putStrLn $(stringE . show =<< normalizeType ''Either)
+-- > (AppT (AppT (ConT ''Either) (VarT ''a)) (VarT ''b),[VarT ''a,VarT ''b])
 --
--- > normalizeType [t|DT|] == Q (DT a b c ..., [a, b, c, ...])
+-- > > putStrLn $(stringE . show =<< normalizeType ''[])
+-- > (AppT (ConT ''[]) (VarT a),[VarT a])
 normalizeType :: Name -> Q (Type, [Type])
 normalizeType t = do
   ar <- typeArity t
@@ -122,11 +139,9 @@ normalizeType t = do
     newVarTs n = liftM (map VarT)
                $ newNames (take n . map (:[]) $ cycle ['a'..'z'])
 
--- Normalizes a type by applying it to units (`()`) while possible.
---
--- > normalizeTypeUnits ''Int    === [t| Int |]
--- > normalizeTypeUnits ''Maybe  === [t| Maybe () |]
--- > normalizeTypeUnits ''Either === [t| Either () () |]
+-- |
+-- Normalizes a type by applying it to units to make it star-kinded.
+-- (cf. 'normalizeType')
 normalizeTypeUnits :: Name -> Q Type
 normalizeTypeUnits t = do
   ar <- typeArity t
@@ -253,6 +268,11 @@ isTypeSynonym t = do
     TyConI (TySynD _ _ _) -> True
     _                     -> False
 
+-- |
+-- Resolves a type synonym.
+--
+-- > > putStrLn $(stringE . show =<< typeSynonymType ''String)
+-- > AppT ListT (ConT ''Char)
 typeSynonymType :: Name -> Q Type
 typeSynonymType t = do
   ti <- reify t
@@ -331,6 +351,11 @@ typeConstructorsArgNames t = do
                 return (c,ns)
            | (c,ts) <- cs ]
 
+-- | Lookups the name of a value
+--   throwing an error when it is not found.
+--
+-- > > putStrLn $(stringE . show =<< lookupValN "show")
+-- > 'show
 lookupValN :: String -> Q Name
 lookupValN s = do
   mn <- lookupValueName s
