@@ -2,6 +2,14 @@ Changelog for Express
 =====================
 
 
+v0.2.0
+------
+
+This release indicates that the `Data.Express` API is stable.
+
+* no changes since v0.1.16
+
+
 v0.1.16
 -------
 
