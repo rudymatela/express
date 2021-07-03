@@ -668,6 +668,13 @@ infixl 7 -*-
 times :: Expr
 times  =  value "*" ((*) :: Int -> Int -> Int)
 
+-- | The subtraction '-' operator encoded as an 'Expr'.
+--
+-- > > minus :$ one
+-- > (1 -) :: Int -> Int
+--
+-- > > minus :$ one :$ zero
+-- > 1 - 0 :: Int
 minus :: Expr
 minus  =  value "-" ((-) :: Int -> Int -> Int)
 
@@ -726,6 +733,12 @@ idBools   =  value "id" (id :: Id [Bool])
 idString  =  value "id" (id :: Id String)
 type Id a = a -> a
 
+-- | The 'const' function lifted over the 'Expr' type.
+--
+-- > > const' zero one
+-- > const 0 1 :: Int
+--
+-- This works for the argument types 'Int', 'Char', 'Bool' and their lists.
 const' :: Expr -> Expr -> Expr
 const' e1 e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
   [ value "const" (const :: Int -> Int -> Int)
@@ -1041,6 +1054,7 @@ e1 -:- e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
   err  =  error $ "(-:-): unhandled type " ++ show (typ e1)
 infixr 5 -:-
 
+-- | Append for list of 'Int's encoded as an 'Expr'.
 appendInt :: Expr
 appendInt  =  value "++" ((++) :: [Int] -> [Int] -> [Int])
 
@@ -1174,6 +1188,14 @@ sort' exs = headOr err $ mapMaybe ($$ exs)
   where
   err  =  error $ "sort': unhandled type " ++ show (typ exs)
 
+-- | List 'insert' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > insert' zero nilInt
+-- > insert 0 [] :: [Int]
+--
+-- > > insert' false (false -:- unit true)
+-- > insert False [False,True] :: [Bool]
 insert' :: Expr -> Expr -> Expr
 insert' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
   [ value "insert" (insert :: Int -> [Int] -> [Int])
@@ -1183,6 +1205,14 @@ insert' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "insert': unhandled type " ++ show (typ ex)
 
+-- | List 'elem' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > elem' false (false -:- unit true)
+-- > elem False [False,True] :: Bool
+--
+-- > > evl $ elem' false (false -:- unit true) :: Bool
+-- > True
 elem' :: Expr -> Expr -> Expr
 elem' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
   [ value "elem" (elem :: Int -> [Int] -> Bool)
@@ -1212,6 +1242,15 @@ ef -$- ex = (:$ ex) . headOr err $ mapMaybe ($$ ef)
 infixl 6 -$-
 type Apply a = (a -> a) -> a -> a
 
+-- | Constructs an equation between two 'Expr's.
+--
+-- > > xx -==- zero
+-- > x == 0 :: Bool
+--
+-- > > cc -==- dee
+-- > c == 'd' :: Bool
+--
+-- This works for the 'Int', 'Bool', 'Char' argument types and their lists.
 (-==-) :: Expr -> Expr -> Expr
 ex -==- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "==" ((==) :: Comparison ())
@@ -1227,6 +1266,13 @@ ex -==- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
 infix 4 -==-
 type Comparison a = a -> a -> Bool
 
+-- | Constructs an inequation between two 'Expr's.
+--
+-- > > xx -/=- zero
+-- > x /= 0 :: Bool
+--
+-- > > cc -/=- ae
+-- > c /= 'a' :: Bool
 (-/=-) :: Expr -> Expr -> Expr
 ex -/=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "/=" ((/=) :: Comparison ())
@@ -1241,6 +1287,13 @@ ex -/=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "(-/=-): unhandled type " ++ show (typ ex)
 infix 4 -/=-
 
+-- | Constructs a less-than-or-equal inequation between two 'Expr's.
+--
+-- > > xx -<=- zero
+-- > x <= 0 :: Bool
+--
+-- > > cc -<=- ae
+-- > c <= 'a' :: Bool
 (-<=-) :: Expr -> Expr -> Expr
 ex -<=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "<=" ((<=) :: Comparison ())
@@ -1255,6 +1308,13 @@ ex -<=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "(-<=-): unhandled type " ++ show (typ ex)
 infix 4 -<=-
 
+-- | Constructs a less-than inequation between two 'Expr's.
+--
+-- > > xx -<- zero
+-- > x < 0 :: Bool
+--
+-- > > cc -<- bee
+-- > c < 'b' :: Bool
 (-<-) :: Expr -> Expr -> Expr
 ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "<" ((<) :: Comparison ())
@@ -1299,6 +1359,13 @@ if' ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
   iff p x y  =  if p then x else y
 type If a = Bool -> a -> a -> a
 
+-- | Constructs an 'Expr'-encoded 'compare' operation between two 'Expr's.
+--
+-- > > xx `compare'` zero
+-- > compare x 0 :: Ordering
+--
+-- > > compare' ae bee
+-- > compare 'a' 'b' :: Ordering
 compare' :: Expr -> Expr -> Expr
 compare' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "compare" (compare :: Compare ())
@@ -1313,18 +1380,36 @@ compare' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
 type Compare a = a -> a -> Ordering
 
+-- | 'Nothing' bound to the 'Maybe' 'Int' type encoded as an 'Expr'.
+--
+-- This is an alias to 'nothingInt'.
 nothing :: Expr
 nothing  =  nothingInt
 
-nothingInt, nothingBool :: Expr
+-- | 'Nothing' bound to the 'Maybe' 'Int' type encoded as an 'Expr'.
+nothingInt :: Expr
 nothingInt   =  val (Nothing :: Maybe Int)
+
+-- | 'Nothing' bound to the 'Maybe' 'Bool' type encoded as an 'Expr'.
+nothingBool :: Expr
 nothingBool  =  val (Nothing :: Maybe Bool)
 
-justInt, justBool :: Expr
-justInt      =  value "Just" (Just :: Just Int)
-justBool     =  value "Just" (Just :: Just Bool)
-type Just a  =  a -> Maybe a
+-- | The 'Just' constructor of the 'Int' element type encoded as an 'Expr'.
+justInt :: Expr
+justInt      =  value "Just" (Just :: Int -> Maybe Int)
 
+-- | The 'Just' constructor of the 'Bool' element type encoded as an 'Expr'.
+justBool :: Expr
+justBool     =  value "Just" (Just :: Bool -> Maybe Bool)
+
+-- | The 'Just' constructor lifted over the 'Expr' type.
+--
+-- This works for the 'Bool' and 'Int' argument types.
+--
+-- > > just zero
+-- > Just 0 :: Maybe Int
+-- > > just false
+-- > Just False :: Maybe Bool
 just :: Expr -> Expr
 just ex  =  headOr err $ mapMaybe ($$ ex)
   [ justInt
@@ -1333,9 +1418,14 @@ just ex  =  headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "just: unhandled type " ++ show (typ ex)
 
+-- | An infix synonym of 'pair'.
 (-|-) :: Expr -> Expr -> Expr
 (-|-) = pair
 
+-- | The pair constructor lifted over 'Expr's.
+--
+-- This works for the 'Int' and 'Bool' element types
+-- by differently from 'foldPair' by returning a well-typed expression.
 pair :: Expr -> Expr -> Expr
 pair x y  =  comma :$ x :$ y
   where
@@ -1347,24 +1437,37 @@ pair x y  =  comma :$ x :$ y
             (t,t')          -> error $ "(-:-): unhandled types " ++ t ++ " " ++ t'
 type Pair a b = a -> b -> (a,b)
 
+-- | The pair constructor (@ :: ... -> (Int,Int) @) encoded as an 'Expr'.
 comma :: Expr
 comma = value "," ((,) :: Pair Int Int)
 
+-- | The triple/trio constructor lifted over 'Expr's.
+--
+-- This only works for the 'Int' element type.
 triple :: Expr -> Expr -> Expr -> Expr
 triple e1 e2 e3 = ccE :$ e1 :$ e2 :$ e3
   where
   ccE = value ",," ((,,) :: Int -> Int -> Int -> (Int,Int,Int))
 
+-- | The quadruple constructor lifted over 'Expr's.
+--
+-- This only works for the 'Int' element type.
 quadruple :: Expr -> Expr -> Expr -> Expr -> Expr
 quadruple e1 e2 e3 e4 = cccE :$ e1 :$ e2 :$ e3 :$ e4
   where
   cccE = value ",,," ((,,,) :: Int -> Int -> Int -> Int -> (Int,Int,Int,Int))
 
+-- | The quintuple constructor lifted over 'Expr's.
+--
+-- This only works for the 'Int' element type.
 quintuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr
 quintuple e1 e2 e3 e4 e5 = ccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5
   where
   ccccE = value ",,,," ((,,,,) :: Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int))
 
+-- | The sixtuple constructor lifted over 'Expr's.
+--
+-- This only works for the 'Int' element type.
 sixtuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr -> Expr
 sixtuple e1 e2 e3 e4 e5 e6 = cccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5 :$ e6
   where
