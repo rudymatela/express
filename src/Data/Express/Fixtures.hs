@@ -294,10 +294,18 @@ andE  =  value "&&" (&&)
 orE :: Expr
 orE  =  value "||" (||)
 
+-- | The function @==>@ lifted over 'Expr's.
+--
+-- > > false -==>- true
+-- > False ==> True :: Bool
+--
+-- > > evl $ false -==>- true :: Bool
+-- > True
 (-==>-) :: Expr -> Expr -> Expr
 e1 -==>- e2  =  implies :$ e1 :$ e2
 infixr 0 -==>-
 
+-- | The @==>@ operator encoded as an 'Expr'
 implies :: Expr
 implies  =  value "==>" (==>)
   where
@@ -1184,6 +1192,12 @@ elem' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "elem': unhandled type " ++ show (typ ex)
 
+-- | '$' lifted over 'Expr's
+--
+-- > > absE -$- one
+-- > abs $ 1 :: Int
+--
+-- Works for 'Int', 'Bool', 'Char' argument types and their lists.
 (-$-) :: Expr -> Expr -> Expr
 ef -$- ex = (:$ ex) . headOr err $ mapMaybe ($$ ef)
   [ value "$" (($) :: Apply Int)
@@ -1529,6 +1543,10 @@ enumFromTo' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "enumFromTo': unhandled type " ++ show (typ ex)
 type EnumFromTo a  =  (a -> a -> [a])
 
+-- | 'enumFromTo' lifted over 'Expr's but named as @".."@ for pretty-printing.
+--
+-- > > zero -..- four
+-- > [0..4] :: [Int]
 (-..-) :: Expr -> Expr -> Expr
 ex -..- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value ".." (enumFromTo :: EnumFromTo Int)
@@ -1538,6 +1556,10 @@ ex -..- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "-..-: unhandled type " ++ show (typ ex)
 
+-- | 'enumFromThen' lifted over 'Expr's
+--
+-- > > enumFromThen' zero ten
+-- > enumFromThen 0 10 :: [Int]
 enumFromThen' :: Expr -> Expr -> Expr
 enumFromThen' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "enumFromThen" (enumFromThen :: EnumFromThen Int)
@@ -1548,6 +1570,10 @@ enumFromThen' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "enumFromThen': unhandled type " ++ show (typ ex)
 type EnumFromThen a  =  (a -> a -> [a])
 
+-- | 'enumFromThen' lifted over 'Expr's but named as @",.."@ for pretty printing.
+--
+-- > > zero -... ten
+-- > [0,10..] :: [Int]
 (-...) :: Expr -> Expr -> Expr
 ex -... ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value ",.." (enumFromThen :: EnumFromThen Int)
@@ -1557,6 +1583,10 @@ ex -... ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "-..-: unhandled type " ++ show (typ ex)
 
+-- | 'enumFromThenTo' lifted over 'Expr's.
+--
+-- > > enumFromThenTo' zero two ten
+-- > enumFromThenTo 0 2 10 :: [Int]
 enumFromThenTo' :: Expr -> Expr -> Expr -> Expr
 enumFromThenTo' ex ey ez  =  (:$ ez) . (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value "enumFromThenTo" (enumFromThenTo :: EnumFromThenTo Int)
@@ -1567,6 +1597,10 @@ enumFromThenTo' ex ey ez  =  (:$ ez) . (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "enumFromThenTo': unhandled type " ++ show (typ ex)
 type EnumFromThenTo a  =  (a -> a -> a -> [a])
 
+-- | 'enumFromThenTo' lifted over 'Expr's but named as @",.."@ for pretty-printing.
+--
+-- > > (zero -...- two) ten
+-- > [0,2..10] :: [Int]
 (-...-) :: Expr -> Expr -> Expr -> Expr
 (ex -...- ey) ez  =  (:$ ez) . (:$ ey) . headOr err $ mapMaybe ($$ ex)
   [ value ",.." (enumFromThenTo :: EnumFromThenTo Int)
