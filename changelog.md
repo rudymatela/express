@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v0.1.16
+-------
 
 * add `five`, `six`, ... `twelve` to `Data.Express.Fixtures`.
 
