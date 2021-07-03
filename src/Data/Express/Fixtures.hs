@@ -116,7 +116,9 @@ module Data.Express.Fixtures
   , i_, xx, yy, zz, xx'
   , ii, jj, kk, ii'
   , ll, mm, nn
-  , zero, one, two, three, four, minusOne, minusTwo
+  , zero, one, two, three, four, five, six
+  , seven, eight, nine, ten, eleven, twelve
+  , minusOne, minusTwo
   , idE, negateE, absE, signumE
   , idInt
   , idBool
@@ -462,6 +464,62 @@ three  =  val (3 :: Int)
 -- > 4 :: Int
 four :: Expr
 four  =  val (4 :: Int)
+
+-- | The value @5@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > five
+-- > 5 :: Int
+five :: Expr
+five  =  val (5 :: Int)
+
+-- | The value @6@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > six
+-- > 6 :: Int
+six :: Expr
+six  =  val (6 :: Int)
+
+-- | The value @7@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > seven
+-- > 7 :: Int
+seven :: Expr
+seven  =  val (7 :: Int)
+
+-- | The value @8@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > eight
+-- > 8 :: Int
+eight :: Expr
+eight  =  val (8 :: Int)
+
+-- | The value @9@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > nine
+-- > 9 :: Int
+nine :: Expr
+nine  =  val (9 :: Int)
+
+-- | The value @10@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > ten
+-- > 10 :: Int
+ten :: Expr
+ten  =  val (10 :: Int)
+
+-- | The value @11@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > eleven
+-- > 11 :: Int
+eleven :: Expr
+eleven  =  val (11 :: Int)
+
+-- | The value @12@ bound to the 'Int' type encoded as an 'Expr'.
+--
+-- > > twelve
+-- > 12 :: Int
+twelve :: Expr
+twelve  =  val (12 :: Int)
 
 -- | The value @-1@ bound to the 'Int' type encoded as an 'Expr'.
 --
