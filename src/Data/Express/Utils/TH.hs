@@ -132,24 +132,50 @@ normalizeTypeUnits t = do
   ar <- typeArity t
   return (foldl AppT (ConT t) (replicate ar (TupleT 0)))
 
+-- |
 -- Given a type name and a class name,
 -- returns whether the type is an instance of that class.
+-- The given type must be star-kinded (@ * @)
+-- and the given class double-star-kinded (@ * -> * @.
+--
+-- > > putStrLn $(stringE . show =<< ''Int `isInstanceOf` ''Num)
+-- > True
+--
+-- > > putStrLn $(stringE . show =<< ''Int `isInstanceOf` ''Fractional)
+-- > False
 isInstanceOf :: Name -> Name -> Q Bool
 isInstanceOf tn cl = do
   ty <- normalizeTypeUnits tn
   isInstance cl [ty]
 
+-- |
+-- The negation of 'isInstanceOf'.
 isntInstanceOf :: Name -> Name -> Q Bool
 isntInstanceOf tn cl = liftM not (isInstanceOf tn cl)
 
 -- | Given a type name, return the number of arguments taken by that type.
 -- Examples in partially broken TH:
 --
--- > arity ''Int        === Q 0
--- > arity ''Int->Int   === Q 0
--- > arity ''Maybe      === Q 1
--- > arity ''Either     === Q 2
--- > arity ''Int->      === Q 1
+-- > > putStrLn $(stringE . show =<< typeArity ''Int)
+-- > 0
+--
+-- > > putStrLn $(stringE . show =<< typeArity ''Maybe)
+-- > 1
+--
+-- > > putStrLn $(stringE . show =<< typeArity ''Either)
+-- > 2
+--
+-- > > putStrLn $(stringE . show =<< typeArity ''[])
+-- > 1
+--
+-- > > putStrLn $(stringE . show =<< typeArity ''(,))
+-- > 2
+--
+-- > > putStrLn $(stringE . show =<< typeArity ''(,,))
+-- > 3
+--
+-- > > putStrLn $(stringE . show =<< typeArity ''String)
+-- > 0
 --
 -- This works for Data's and Newtype's and it is useful when generating
 -- typeclass instances.
@@ -168,20 +194,28 @@ typeArity t = do
     _ -> error $ "error (typeArity): symbol " ++ show t
               ++ " is not a newtype, data or type synonym"
 
--- Given a type name, returns a list of its type constructor names paired with
+-- |
+-- Given a type 'Name',
+-- returns a list of its type constructor 'Name's
+-- paired with the type arguments they take.
 -- the type arguments they take.
 --
--- > typeConstructors ''()    === Q [('(),[])]
+-- > > putStrLn $(stringE . show =<< typeConstructors ''Bool)
+-- > [ ('False, [])
+-- > , ('True, [])
+-- > ]
 --
--- > typeConstructors ''(,)   === Q [('(,),[VarT a, VarT b])]
+-- > > putStrLn $(stringE . show =<< typeConstructors ''[])
+-- > [ ('[], [])
+-- > , ('(:), [VarT ''a, AppT ListT (VarT ''a)])
+-- > ]
 --
--- > typeConstructors ''[]    === Q [('[],[]),('(:),[VarT a,AppT ListT (VarT a)])]
+-- > > putStrLn $(stringE . show =<< typeConstructors ''(,))
+-- > [('(,), [VarT (mkName "a"), VarT (mkName "b")])]
 --
--- > data Pair a = P a a
--- > typeConstructors ''Pair  === Q [('P,[VarT a, VarT a])]
---
--- > data Point = Pt Int Int
--- > typeConstructors ''Point === Q [('Pt,[ConT Int, ConT Int])]
+-- > > data Point  =  Pt Int Int
+-- > > putStrLn $(stringE . show =<< typeConstructors ''Point)
+-- > [('Pt,[ConT ''Int, ConT ''Int])]
 typeConstructors :: Name -> Q [(Name,[Type])]
 typeConstructors t = do
   ti <- reify t
@@ -201,6 +235,17 @@ typeConstructors t = do
   simplify (InfixC  t1 n t2) = (n,[snd t1,snd t2])
   trd (x,y,z) = z
 
+-- |
+-- Is the given 'Name' a type synonym?
+--
+-- > > putStrLn $(stringE . show =<< isTypeSynonym 'show)
+-- > False
+--
+-- > > putStrLn $(stringE . show =<< isTypeSynonym ''Char)
+-- > False
+--
+-- > > putStrLn $(stringE . show =<< isTypeSynonym ''String)
+-- > True
 isTypeSynonym :: Name -> Q Bool
 isTypeSynonym t = do
   ti <- reify t
