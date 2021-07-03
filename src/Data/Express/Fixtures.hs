@@ -42,7 +42,7 @@
 -- or playing around on GHCi.
 --
 -- Since the 'Expr' type only allows monomorphic values,
--- encoded polimorphic values are monomorphized
+-- encoded polymorphic values are monomorphized
 -- usually to the 'Int' type.
 --
 -- /Beware:/ lifted 'Expr' functions sometimes work for different types.
