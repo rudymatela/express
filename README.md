@@ -32,7 +32,7 @@ To install the latest Express version from Hackage, just run:
 Starting from Cabal v3.0, you need to pass `--lib` as an argument to cabal
 install:
 
-	$ cabal install leancheck --lib
+	$ cabal install express --lib
 
 
 Basics
