@@ -133,10 +133,12 @@ instance ( Express a, Express b, Express c, Express d, Express e, Express f
 
 #if __GLASGOW_HASKELL__ < 710
 -- No 8-tuples for you:
--- On GHC 7.8, 8-tuples are not Typeable instances.  We could add a standalone
--- deriving clause, but that may cause trouble if some other library does the
--- same.  User should declare Generalizable 8-tuples manually when using GHC <=
--- 7.8.
+-- On GHC 7.8, 8-tuples are not Typeable instances.
+-- We could add a standalone deriving clause,
+-- but that may cause trouble
+-- if some other library does the same (orphan instance).
+-- User should declare Express 8-tuples manually
+-- when using GHC <= 7.8.
 #else
 instance ( Express a, Express b, Express c, Express d, Express e, Express f
          , Express g, Express h )
@@ -194,7 +196,17 @@ instance Express Word8    where  expr  =  val
 instance Express Word16   where  expr  =  val
 instance Express Word32   where  expr  =  val
 instance Express Word64   where  expr  =  val
+#if __GLASGOW_HASKELL__ < 710
+-- No GeneralCategory for you:
+-- On GHC 7.8, GeneralCategory is not a Typeable instance.
+-- We could add a standalone deriving clause,
+-- but that may cause trouble
+-- if some other library does the same (orphan instance).
+-- Users should declare their own Express GeneralCategory instance
+-- when using GHC <= 7.8.
+#else
 instance Express GeneralCategory  where  expr  =  val
+#endif
 
 
 -- type binding utilities --
