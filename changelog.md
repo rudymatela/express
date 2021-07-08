@@ -2,6 +2,18 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* more Express instances:
+	- `Double` & `Float`
+	- `Int*` types from `Data.Int`
+	- `Word*` types from `Data.Word`
+	- `GeneralCategory` from `Data.Char`
+
+* minor fix in README
+
+
 v1.0.0
 ------
 
