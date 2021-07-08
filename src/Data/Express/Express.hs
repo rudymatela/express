@@ -26,7 +26,12 @@ where
 
 import Data.Express.Core
 import Data.Typeable
+
+-- for instances
+import Data.Int
+import Data.Word
 import Data.Ratio
+import Data.Char
 
 -- |
 -- 'Express' typeclass instances provide an 'expr' function
@@ -177,6 +182,20 @@ instance ( Express a, Express b, Express c, Express d, Express e, Express f
       :$ expr v :$ expr u :$ expr t :$ expr s
       :$ expr r :$ expr q :$ expr p :$ expr o
 #endif
+
+instance Express Double   where  expr  =  val
+instance Express Float    where  expr  =  val
+instance Express Int8     where  expr  =  val
+instance Express Int16    where  expr  =  val
+instance Express Int32    where  expr  =  val
+instance Express Int64    where  expr  =  val
+instance Express Word     where  expr  =  val
+instance Express Word8    where  expr  =  val
+instance Express Word16   where  expr  =  val
+instance Express Word32   where  expr  =  val
+instance Express Word64   where  expr  =  val
+instance Express GeneralCategory  where  expr  =  val
+
 
 -- type binding utilities --
 
