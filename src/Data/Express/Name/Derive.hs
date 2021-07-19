@@ -40,13 +40,13 @@ deriveNameCascading  =  deriveWhenNeeded ''N.Name reallyDeriveNameCascading
 reallyDeriveName :: Name -> DecsQ
 reallyDeriveName t  =  do
   (nt,vs) <- normalizeType t
+  isNum <- t `isInstanceOf` ''Num
   [d| instance N.Name $(return nt) where
-        name _ = $(stringE vname) |]
+        name _  =  $(stringE $ vname isNum) |]
   where
-  showJustName = reverse . takeWhile (/= '.') . reverse . show
-  vname = map toLower . take 1 $ showJustName t
--- TODO: on deriveName, use full camelCase name?
--- TODO: on deriveName, use x for Num instances?
+  showJustName  =  reverse . takeWhile (/= '.') . reverse . show
+  vname True   =  "x"
+  vname False  =  map toLower . take 1 $ showJustName t
 
 -- Not only really derive Name instances,
 -- but cascade through argument types.

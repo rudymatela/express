@@ -55,7 +55,7 @@ tests :: Int -> [Bool]
 tests n =
   [ True
 
-  , name (undefined :: Peano) == "p"
+  , name (undefined :: Peano) == "x"
   , name (undefined :: List Int) == "l"
   , name (undefined :: Bush Int) == "b"
   , name (undefined :: Tree Int) == "t"
