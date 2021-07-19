@@ -15,11 +15,11 @@ instance Num Peano where
   Zero + n  =  n
   (Succ n) + m  =  Succ (n + m)
   Zero * n  =  Zero
-  (Succ n) * m  =  m + (n * m)
+  (Succ n) * m  =  m + n * m
   abs  =  id
   signum Zero  =  0
   signum (Succ n)  =  1
-  fromInteger n  =  iterate Succ Zero !! (fromInteger n)
+  fromInteger n  =  iterate Succ Zero !! fromInteger n
   Zero - m  =  Zero
   n - Zero  =  Zero
   Succ n - Succ m  =  n - m
