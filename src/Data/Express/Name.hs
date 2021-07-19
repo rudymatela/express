@@ -14,10 +14,14 @@ where
 
 import Data.Express.Utils.String
 
-import Data.Char
 import Data.List
-import Data.Ratio (Ratio)
-import Data.Word (Word) -- for GHC <= 7.8
+
+-- for instances:
+import Data.Int
+import Data.Word
+import Data.Ratio
+import Data.Complex
+import Data.Char
 
 -- |
 -- If we were to come up with a variable name for the given type
@@ -102,6 +106,11 @@ instance Name Ordering  where  name _  =  "o"
 -- > name (undefined :: Rational) = "q"
 -- > names (undefined :: Rational) = ["q", "r", "s", "q'", ...]
 instance Name (Ratio a) where  name _  =  "q"
+
+-- |
+-- > name (undefined :: Complex) = "x"
+-- > names (undefined :: Complex) = ["x", "y", "z", "x'", ...]
+instance Name (Complex a)  where  name _  =  "x"
 
 -- |
 -- > name (undefined :: Float) = "x"
@@ -189,6 +198,16 @@ names  =  variableNamesFromTemplate . name
 -- instances of further types and arities --
 
 instance Name Word where  name _  =  "x"
+
+instance Name Int8   where  name _  =  "x"
+instance Name Int16  where  name _  =  "x"
+instance Name Int32  where  name _  =  "x"
+instance Name Int64  where  name _  =  "x"
+instance Name Word8  where  name _  =  "x"
+instance Name Word16 where  name _  =  "x"
+instance Name Word32 where  name _  =  "x"
+instance Name Word64 where  name _  =  "x"
+instance Name GeneralCategory where  name _  =  "c"
 
 instance (Name a, Name b, Name c, Name d, Name e) => Name (a,b,c,d,e) where
   name xyzwv  =  name x ++ name y ++ name z ++ name w ++ name v
