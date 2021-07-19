@@ -1550,6 +1550,12 @@ headOr :: a -> [a] -> a
 headOr x []     =  x
 headOr _ (x:_)  =  x
 
+-- | The '%' constructor lifted over 'Expr's.
+--
+-- > > val (2 :: Integer) -%- val (3 :: Integer)
+-- > 2 % 3 :: Ratio Integer
+--
+--   This only accepts 'Expr's bound to the 'Integer' type.
 (-%-) :: Expr -> Expr -> Expr
 en -%- ed  =  value "%" ((%) :: Integer -> Integer -> Rational) :$ en :$ ed
 
