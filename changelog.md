@@ -2,6 +2,14 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* deeply encode `Ratio`s
+* add `Express (Complex a)` instance
+* add several missing `Name` instances
+
+
 v1.0.2
 ------
 
