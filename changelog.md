@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v1.0.4
+------
 
 * deeply encode `Ratio`s
 * add `Express (Complex a)` instance
