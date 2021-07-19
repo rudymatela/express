@@ -8,6 +8,7 @@ upcoming
 * deeply encode `Ratio`s
 * add `Express (Complex a)` instance
 * add several missing `Name` instances
+* `deriveName` now uses `x` for `Num` instances
 
 
 v1.0.2
