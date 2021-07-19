@@ -10,6 +10,7 @@ data Peano = Zero | Succ Peano deriving Show
 data List a = a :- List a | Nil deriving Show
 data Bush a = Bush a :-: Bush a | Leaf a deriving (Show, Eq)
 data Tree a = Node (Tree a) a (Tree a) | Null deriving (Show, Eq)
+
 deriveName ''Peano
 deriveName ''List
 deriveName ''Bush
@@ -33,6 +34,19 @@ deriveName ''Either
 deriveNameIfNeeded ''Bool
 deriveNameIfNeeded ''Maybe
 deriveNameIfNeeded ''Either
+
+instance Num Peano where
+  Zero + n  =  n
+  (Succ n) + m  =  Succ (n + m)
+  Zero * n  =  Zero
+  (Succ n) * m  =  m + (n * m)
+  abs  =  id
+  signum Zero  =  0
+  signum (Succ n)  =  1
+  fromInteger n  =  iterate Succ Zero !! (fromInteger n)
+  Zero - m  =  Zero
+  n - Zero  =  Zero
+  Succ n - Succ m  =  n - m
 
 main :: IO ()
 main = mainTest tests 5040
