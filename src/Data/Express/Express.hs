@@ -32,6 +32,7 @@ import Data.Int
 import Data.Word
 import Data.Ratio
 import Data.Char
+import Data.Complex
 
 -- |
 -- 'Express' typeclass instances provide an 'expr' function
@@ -113,6 +114,9 @@ instance (Integral a, Express a) => Express (Ratio a) where
 -- expr (n % d) = constant "%" ((%) -:> n) :$ expr n :$ expr d
 -- but that is not our problem here!
 -- Nevertheless, we should change and see the effect on Extrapolate first...
+
+instance (RealFloat a, Express a) => Express (Complex a) where
+  expr (x :+ y)  =  value ":+" ((:+) ->>: (x :+ y)) :$ expr x :$ expr y
 
 instance (Express a, Express b, Express c, Express d, Express e)
       => Express (a,b,c,d,e) where
