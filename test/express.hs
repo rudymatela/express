@@ -89,6 +89,11 @@ tests n =
   , expr ((0,False) :: (Int,Bool))  ==  pair zero false
   , expr ((True,1)  :: (Bool,Int))  ==  pair true one
 
+  -- Transforming ratios into Exprs
+  , expr (1 / 2 :: Rational)  ==  val (1::Integer) -%- val (2::Integer)
+  , expr (2 / 3 :: Rational)  ==  val (2::Integer) -%- val (3::Integer)
+  , expr (5 / 6 :: Rational)  ==  val (5::Integer) -%- val (6::Integer)
+
   -- Showing Exprs
   , holds n $ \x -> show (expr x) == show (x :: ()) ++ " :: ()"
   , holds n $ \x -> show (expr x) == show (x :: Int) ++ " :: Int"

@@ -191,6 +191,9 @@ module Data.Express.Fixtures
   , quintuple
   , sixtuple
 
+  -- ** Ratios
+  , (-%-)
+
   -- ** Higher order
   , compose
   , mapE
@@ -210,6 +213,7 @@ import Data.Maybe
 import Data.Typeable (Typeable, typeOf)
 import Data.Char
 import Data.List
+import Data.Ratio
 
 int :: Int
 int  =  undefined
@@ -1545,6 +1549,9 @@ product' e  =  productE :$ e
 headOr :: a -> [a] -> a
 headOr x []     =  x
 headOr _ (x:_)  =  x
+
+(-%-) :: Expr -> Expr -> Expr
+en -%- ed  =  value "%" ((%) :: Integer -> Integer -> Rational) :$ en :$ ed
 
 -- | Function composition encoded as an 'Expr':
 --

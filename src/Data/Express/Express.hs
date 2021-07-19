@@ -105,15 +105,8 @@ instance Express a => Express [a] where
 -- instances of further types and arities --
 
 instance (Integral a, Express a) => Express (Ratio a) where
-  expr  =  val
--- note that the "Integral a" restriction above is needed on GHC <= 7.10
-
--- TODO: deeply encode ratios
--- NOTE:
--- The following would allow zero denominators
--- expr (n % d) = constant "%" ((%) -:> n) :$ expr n :$ expr d
--- but that is not our problem here!
--- Nevertheless, we should change and see the effect on Extrapolate first...
+  expr q  =  value "%" ((%) ->>: q) :$ expr (numerator q) :$ expr (denominator q)
+-- the "Integral a" restriction above is required for compilation on GHC <= 7.10
 
 instance (RealFloat a, Express a) => Express (Complex a) where
   expr (x :+ y)  =  value ":+" ((:+) ->>: (x :+ y)) :$ expr x :$ expr y
