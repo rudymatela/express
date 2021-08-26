@@ -436,7 +436,7 @@ Express is subject to a paper
 [LeanCheck]:   https://hackage.haskell.org/package/leancheck
 [Extrapolate]: https://hackage.haskell.org/package/extrapolate
 [Speculate]:   https://hackage.haskell.org/package/speculate
-[Conjure]:     https://hackage.haskell.org/package/conjure
+[Conjure]:     https://hackage.haskell.org/package/code-conjure
 
 [u-Speculate]:   eg/u-speculate.hs
 [u-Extrapolate]: eg/u-extrapolate.hs
