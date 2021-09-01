@@ -134,6 +134,7 @@ module Data.Express.Fixtures
   , ff, ffE
   , gg, ggE
   , hh, hhE
+  , question
   , (-?-)
   , (-$-)
   , odd'
@@ -620,6 +621,16 @@ ex -?- ey  =  fromMaybe err $ ($$ ey) $ headOr err $ mapMaybe ($$ ex)
   where
   err  =  error $ "(-?-): cannot apply `(?) :: * -> * -> *` to `"
                ++ show ex ++ "' and `" ++ show ey ++ "'.  Unhandled types?"
+
+-- | A variable binary operator @?@ encoded as an 'Expr' (cf. '-?-')
+--
+-- > > question :$ xx :$ yy
+-- > x ? y :: Int
+--
+-- > > question :$ pp :$ qq
+-- > p ? q :: Bool
+question :: Expr
+question  =  var "?" (undefined :: Int -> Int -> Int)
 
 -- | The operator '+' for the 'Int' type for use on 'Expr's.  (See also 'plus'.)
 --

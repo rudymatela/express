@@ -112,6 +112,8 @@ tests n =
   , show (pp -?- qq) == "p ? q :: Bool"
   , show (xxs -?- yys) == "xs ? ys :: [Int]"
   , show (bee -?- cee) == "'b' ? 'c' :: Char"
+  , show question == "(?) :: Int -> Int -> Int"
+  , show (question :$ twelve) == "(12 ?) :: Int -> Int"
 
   -- Char --
 
