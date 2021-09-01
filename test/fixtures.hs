@@ -253,4 +253,17 @@ tests n =
   , show ((pp -...- true) true) == "[p, True .. True] :: [Bool]"
   , show ((cc -...- dd) zed) == "[c,d..'z'] :: [Char]"
   , show ((ae -...- dd) cc)  == "['a',d..c] :: [Char]"
+
+  , show (twelve `div'`  five) == "12 `div` 5 :: Int"
+  , show (twelve `mod'`  five) == "12 `mod` 5 :: Int"
+  , show (twelve `quot'` five) == "12 `quot` 5 :: Int"
+  , show (twelve `rem'`  five) == "12 `rem` 5 :: Int"
+  , evl (twelve `div'`  five) == (2 :: Int)
+  , evl (twelve `mod'`  five) == (2 :: Int)
+  , evl (twelve `quot'` five) == (2 :: Int)
+  , evl (twelve `rem'`  five) == (2 :: Int)
+  , evl (negate' twelve `div'`  seven) == (-2 :: Int)
+  , evl (negate' twelve `mod'`  seven) == (2 :: Int)
+  , evl (negate' twelve `quot'` seven) == (-1 :: Int)
+  , evl (negate' twelve `rem'`  seven) == (-5 :: Int)
   ]

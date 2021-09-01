@@ -129,6 +129,8 @@ module Data.Express.Fixtures
   , id', const', negate', abs', signum'
   , plus, times, minus
   , (-+-), (-*-)
+  , divE, modE, quotE, remE
+  , div', mod', quot', rem'
   , ff, ffE
   , gg, ggE
   , hh, hhE
@@ -648,7 +650,7 @@ plus = value "+" ((+) :: Int -> Int -> Int)
 -- | The operator '*' for the 'Int' type lifted over the 'Expr' type.  (See also 'times'.)
 --
 -- > > three -*- three
--- > 9 :: Int
+-- > 3 * 3 :: Int
 --
 -- > > one -*- two -*- three
 -- > (1 * 2) * 3 :: Int
@@ -681,6 +683,74 @@ times  =  value "*" ((*) :: Int -> Int -> Int)
 -- > 1 - 0 :: Int
 minus :: Expr
 minus  =  value "-" ((-) :: Int -> Int -> Int)
+
+-- | The function 'div' for the 'Int' type lifted over the 'Expr' type.  (See also 'mod'.)
+--
+-- > > six `div'` four
+-- > 6 `div` 4 :: Int
+div' :: Expr -> Expr -> Expr
+ex `div'` ey  =  divE :$ ex :$ ey
+
+-- | Integer division 'div' encoded as an 'Expr'.
+--
+-- > > divE :$ two
+-- > (2 `div`) :: Int -> Int
+--
+-- > > divE :$ two :$ three
+-- > 2 `div` 3 :: Int
+divE :: Expr
+divE  =  value "`div`" (div :: Int -> Int -> Int)
+
+-- | The function 'mod' for the 'Int' type lifted over the 'Expr' type.  (See also 'div'.)
+--
+-- > > six `mod'` four
+-- > 6 `mod` 4 :: Int
+mod' :: Expr -> Expr -> Expr
+ex `mod'` ey  =  modE :$ ex :$ ey
+
+-- | Integer modulo 'mod' encoded as an 'Expr'.
+--
+-- > > modE :$ two
+-- > (2 `mod`) :: Int -> Int
+--
+-- > > modE :$ two :$ three
+-- > 2 `mod` 3 :: Int
+modE :: Expr
+modE  =  value "`mod`" (mod :: Int -> Int -> Int)
+
+-- | The function 'quot' for the 'Int' type lifted over the 'Expr' type.  (See also 'rem'.)
+--
+-- > > six `quot'` four
+-- > 6 `quot` 4 :: Int
+quot' :: Expr -> Expr -> Expr
+ex `quot'` ey  =  quotE :$ ex :$ ey
+
+-- | Integer quotient 'quot' encoded as an 'Expr'.
+--
+-- > > quotE :$ two
+-- > (2 `quot`) :: Int -> Int
+--
+-- > > quotE :$ two :$ three
+-- > 2 `quot` 3 :: Int
+quotE :: Expr
+quotE  =  value "`quot`" (quot :: Int -> Int -> Int)
+
+-- | The function 'rem' for the 'Int' type lifted over the 'Expr' type.  (See also 'quot'.)
+--
+-- > > six `rem'` four
+-- > 6 `rem` 4 :: Int
+rem' :: Expr -> Expr -> Expr
+ex `rem'` ey  =  remE :$ ex :$ ey
+
+-- | Integer remainder 'rem' encoded as an 'Expr'.
+--
+-- > > remE :$ two
+-- > (2 `rem`) :: Int -> Int
+--
+-- > > remE :$ two :$ three
+-- > 2 `rem` 3 :: Int
+remE :: Expr
+remE  =  value "`rem`" (rem :: Int -> Int -> Int)
 
 -- | Constructs an application of 'id' as an 'Expr'.
 --   Only works for 'Int', 'Bool', 'Char', 'String', @[Int]@, @[Bool]@.
