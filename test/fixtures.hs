@@ -114,6 +114,12 @@ tests n =
   , show (bee -?- cee) == "'b' ? 'c' :: Char"
   , show question == "(?) :: Int -> Int -> Int"
   , show (question :$ twelve) == "(12 ?) :: Int -> Int"
+  , show (xx `oo` yy) == "x `o` y :: Int"
+  , show (pp `oo` qq) == "p `o` q :: Bool"
+  , show (false `oo` true) == "False `o` True :: Bool"
+  , show ooE == "(`o`) :: Int -> Int -> Int" -- TODO: FIXME: should be simply o
+  , show (ooE :$ xx) == "(x `o`) :: Int -> Int"
+  , show (ooE :$ xx :$ yy) == "x `o` y :: Int"
 
   -- Char --
 

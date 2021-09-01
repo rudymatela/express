@@ -134,6 +134,7 @@ module Data.Express.Fixtures
   , ff, ffE
   , gg, ggE
   , hh, hhE
+  , oo, ooE
   , question
   , (-?-)
   , (-$-)
@@ -631,6 +632,39 @@ ex -?- ey  =  fromMaybe err $ ($$ ey) $ headOr err $ mapMaybe ($$ ex)
 -- > p ? q :: Bool
 question :: Expr
 question  =  var "?" (undefined :: Int -> Int -> Int)
+
+-- | A variable binary operator @o@ lifted over the 'Expr' type.
+--   Works for 'Int', 'Bool', 'Char', @[Int]@ and 'String'.
+--
+-- > > xx `oo` yy
+-- > x `o` y :: Int
+--
+-- > > pp `oo` qq
+-- > p `o` q :: Bool
+--
+-- > > xx `oo` qq
+-- > *** Exception: (-?-): cannot apply `o :: * -> * -> *` to `x :: Int' and `q :: Bool'.  Unhandled types?
+oo :: Expr -> Expr -> Expr
+ex `oo` ey  =  fromMaybe err $ ($$ ey) $ headOr err $ mapMaybe ($$ ex)
+  [ var "`o`" (undefined :: Int -> Int -> Int)
+  , var "`o`" (undefined :: Bool -> Bool -> Bool)
+  , var "`o`" (undefined :: Char -> Char -> Char)
+  , var "`o`" (undefined :: [Int] -> [Int] -> [Int])
+  , var "`o`" (undefined :: String -> String -> String)
+  ]
+  where
+  err  =  error $ "oo: cannot apply `o :: * -> * -> *` to `"
+               ++ show ex ++ "' and `" ++ show ey ++ "'.  Unhandled types?"
+
+-- | A variable binary function @o@ encoded as an 'Expr' (cf. 'oo')
+--
+-- > > ooE :$ xx :$ yy
+-- > x `o` y :: Int
+--
+-- > > ooE :$ pp :$ qq
+-- > p `o` q :: Bool
+ooE :: Expr
+ooE  =  var "`o`" (undefined :: Int -> Int -> Int)
 
 -- | The operator '+' for the 'Int' type for use on 'Expr's.  (See also 'plus'.)
 --
