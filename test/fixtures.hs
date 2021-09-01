@@ -153,10 +153,12 @@ tests n =
   , show (tail' $ unit bee) == "tail \"b\" :: [Char]"
   , show (head' $ zero -:- unit two) == "head [0,2] :: Int"
   , show (tail' $ zero -:- unit two) == "tail [0,2] :: [Int]"
+  , show (init' $ zero -:- unit two) == "init [0,2] :: [Int]"
 
   , evl (unit one) == [1 :: Int]
   , evl (head' $ unit one) == (1 :: Int)
   , evl (tail' $ zero -:- unit two) == ([2] :: [Int])
+  , evl (init' $ zero -:- unit two) == ([0] :: [Int])
 
   -- String --
 

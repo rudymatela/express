@@ -168,6 +168,7 @@ module Data.Express.Fixtures
   , tail'
   , null'
   , length'
+  , init'
   , elem'
   , sort'
   , insert'
@@ -1238,6 +1239,29 @@ length' exs = headOr err $ mapMaybe ($$ exs)
   ]
   where
   err  =  error $ "length': cannot apply `length :: [a] -> a` to `" ++ show exs ++ "'."
+
+-- | List 'init' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > init' $ unit one
+-- > init [1] :: [Int]
+--
+-- > > init' $ unit bee
+-- > init "b" :: [Char]
+--
+-- > > init' $ zero -:- unit two
+-- > init [0,2] :: [Int]
+--
+-- > > evl $ init' $ zero -:- unit two :: [Int]
+-- > [0]
+init' :: Expr -> Expr
+init' exs = headOr err $ mapMaybe ($$ exs)
+  [ value "init" (init :: [Int] -> [Int])
+  , value "init" (init :: [Char] -> [Char])
+  , value "init" (init :: [Bool] -> [Bool])
+  ]
+  where
+  err  =  error $ "init': unhandled type " ++ show (typ exs)
 
 -- | List 'sort' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
