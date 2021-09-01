@@ -416,9 +416,8 @@ For a detailed documentation, please see [Express's Haddock documentation].
 
 For more examples, see the [eg](eg) and [bench](bench) folders.
 
-Express is subject to a paper
-"[Express: Applications of Dynamically Typed Haskell Expressions](https://matela.com.br/express.pdf)"
-(2021).
+Express is subject to a paper in the Haskell Symposium 2021 titled
+"[Express: Applications of Dynamically Typed Haskell Expressions](https://matela.com.br/express.pdf)".
 
 
 [Express's Haddock documentation]: https://hackage.haskell.org/package/express/docs/Data-Express.html
