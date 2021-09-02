@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v1.0.6
+------
 
 * fix pretty printing of unapplied infixed variable functions:
   use `f :: ...`  instead of ``(`f`) :: ...``
