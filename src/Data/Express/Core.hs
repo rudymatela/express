@@ -444,8 +444,10 @@ showsTypeExpr e = case etyp e of
   Right t -> shows t
 
 showsPrecExpr :: Int -> Expr -> String -> String
-showsPrecExpr d (Value "_" _)     = showString "_" -- a hole
-showsPrecExpr d (Value ('_':s) _) = showParen (isInfix s) $ showString s -- a variable
+showsPrecExpr d (Value "_" _) = showString "_" -- a hole
+showsPrecExpr d (Value ('_':s) _)  -- a variable
+  | isInfixedPrefix s = showString $ toPrefix s
+  | otherwise         = showParen (isInfix s) $ showString s
 showsPrecExpr d (Value s _) | isInfixedPrefix s = showString $ toPrefix s
 showsPrecExpr d (Value s _) | isNegativeLiteral s = showParen (d > 0) $ showString s
 showsPrecExpr d (Value s _) = showParen sp $ showString s

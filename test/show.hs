@@ -30,7 +30,7 @@ tests n =
   , show (var "f" (undefined :: Int -> Int -> Int)) == "f :: Int -> Int -> Int"
   , show (var "f" (undefined :: Int -> Int -> Int) :$ one) == "f 1 :: Int -> Int"
   , show (var "f" (undefined :: Int -> Int -> Int) :$ one :$ two) == "f 1 2 :: Int"
-  , show (var "`f`" (undefined :: Int -> Int -> Int)) == "(`f`) :: Int -> Int -> Int" -- TODO: FIXME: should be "f ::"
+  , show (var "`f`" (undefined :: Int -> Int -> Int)) == "f :: Int -> Int -> Int"
   , show (var "`f`" (undefined :: Int -> Int -> Int) :$ one) == "(1 `f`) :: Int -> Int"
   , show (var "`f`" (undefined :: Int -> Int -> Int) :$ one :$ two) == "1 `f` 2 :: Int"
   , show (one -?- two) == "1 ? 2 :: Int"
