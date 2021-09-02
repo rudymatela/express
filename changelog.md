@@ -2,6 +2,18 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* fix pretty printing of unapplied infixed variable functions:
+  use `f :: ...`  instead of ``(`f`) :: ...``
+
+* `Data.Express.Fixtures`:
+  add `init'`, `div'`, `mod'`, `quot'`, `rem'`, `question` and `oo`.
+
+* minor fixes in README
+
+
 v1.0.4
 ------
 
