@@ -29,6 +29,9 @@ module Data.Express.Utils.TH
   , (|=>|)
   , (|++|)
   , whereI
+  , unboundVars
+  , toBounded
+  , toBoundedQ
   , module Language.Haskell.TH
   )
 where
@@ -36,6 +39,7 @@ where
 import Control.Monad
 import Data.List
 import Language.Haskell.TH
+import Language.Haskell.TH.Lib
 
 deriveWhenNeeded :: Name -> (Name -> DecsQ) -> Name -> DecsQ
 deriveWhenNeeded  =  deriveWhenNeededX False
@@ -362,3 +366,24 @@ lookupValN s = do
   case mn of
     Just n -> return n
     Nothing -> fail $ "lookupValN: cannot find " ++ s
+
+
+-- | Lists all unbound variables in a type.
+--   This intentionally excludes the 'ForallT' constructor.
+unboundVars :: Type -> [Name]
+unboundVars (VarT n)      =  [n]
+unboundVars (AppT t1 t2)  =  nubMerge (unboundVars t1) (unboundVars t2)
+unboundVars (SigT t _)    =  unboundVars t
+unboundVars _             =  []
+-- TODO: add ForallT excluding the context
+
+
+-- | Binds all unbound variables using a 'ForallT' constructor.
+--   (cf. 'unboundVars')
+toBounded :: Type -> Type
+toBounded t  =  ForallT [PlainTV n | n <- unboundVars t] [] t
+
+
+-- | Same as toBounded but lifted over 'Q'
+toBoundedQ :: TypeQ -> TypeQ
+toBoundedQ  =  liftM toBounded

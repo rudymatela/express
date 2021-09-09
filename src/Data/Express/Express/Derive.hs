@@ -22,6 +22,7 @@ import Data.List
 import Data.Express.Utils.TH
 import Data.Express.Utils.List
 import Data.Express.Utils.String
+import Language.Haskell.TH.Lib
 
 -- | Derives an 'Express' instance for the given type 'Name'.
 --
@@ -94,8 +95,13 @@ reallyDeriveWithTheReturnTypeOf n  =  do
   vd <- [d| $(varP name) = const |]
   return $ td:vd
   where
-  theT  =  [t| $(theFunT) -> $(last vars) -> $(theFunT) |]
+  theT  =  bind [t| $(theFunT) -> $(last vars) -> $(theFunT) |]
   theFunT  =  foldr1 funT vars
   funT t1 t2  =  [t| $(t1) -> $(t2) |]
   vars  =  map (varT . mkName) . take (n+1) . primeCycle $ map (:"") ['a'..'z']
   name  =  mkName $ "-" ++ replicate n '>' ++ ":"
+#if __GLASGOW_HASKELL__ >= 800
+  bind  =  id -- unbound variables are automatically bound
+#else
+  bind  =  toBoundedQ
+#endif
