@@ -376,15 +376,24 @@ unboundVars (AppT t1 t2)      =  nubMerge (unboundVars t1) (unboundVars t2)
 unboundVars (SigT t _)        =  unboundVars t
 unboundVars (ForallT vs _ t)  =  unboundVars t \\ map nm vs
   where
+#if __GLASGOW_HASKELL__ < 900
   nm (PlainTV n)     =  n
   nm (KindedTV n _)  =  n
+#else
+  nm (PlainTV n _)     =  n
+  nm (KindedTV n _ _)  =  n
+#endif
 unboundVars _                 =  []
 
 
 -- | Binds all unbound variables using a 'ForallT' constructor.
 --   (cf. 'unboundVars')
 toBounded :: Type -> Type
+#if __GLASGOW_HASKELL__ < 900
 toBounded t  =  ForallT [PlainTV n | n <- unboundVars t] [] t
+#else
+toBounded t  =  ForallT [PlainTV n () | n <- unboundVars t] [] t
+#endif
 
 
 -- | Same as toBounded but lifted over 'Q'
