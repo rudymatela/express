@@ -371,11 +371,14 @@ lookupValN s = do
 -- | Lists all unbound variables in a type.
 --   This intentionally excludes the 'ForallT' constructor.
 unboundVars :: Type -> [Name]
-unboundVars (VarT n)      =  [n]
-unboundVars (AppT t1 t2)  =  nubMerge (unboundVars t1) (unboundVars t2)
-unboundVars (SigT t _)    =  unboundVars t
-unboundVars _             =  []
--- TODO: add ForallT excluding the context
+unboundVars (VarT n)          =  [n]
+unboundVars (AppT t1 t2)      =  nubMerge (unboundVars t1) (unboundVars t2)
+unboundVars (SigT t _)        =  unboundVars t
+unboundVars (ForallT vs _ t)  =  unboundVars t \\ map nm vs
+  where
+  nm (PlainTV n)     =  n
+  nm (KindedTV n _)  =  n
+unboundVars _                 =  []
 
 
 -- | Binds all unbound variables using a 'ForallT' constructor.
