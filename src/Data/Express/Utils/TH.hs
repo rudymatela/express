@@ -392,7 +392,7 @@ toBounded :: Type -> Type
 #if __GLASGOW_HASKELL__ < 900
 toBounded t  =  ForallT [PlainTV n | n <- unboundVars t] [] t
 #else
-toBounded t  =  ForallT [PlainTV n Specificity | n <- unboundVars t] [] t
+toBounded t  =  ForallT [PlainTV n SpecifiedSpec | n <- unboundVars t] [] t
 #endif
 
 
