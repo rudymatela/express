@@ -2,6 +2,16 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* `Data.Express.Express.Derive`:
+  fix generation of `-:` and `->:` in earlier GHC's.
+
+* `Data.Express.Utils.TH`:
+  add `unboundVars`, `toBounded` and `toBoundedQ`.
+
+
 v1.0.6
 ------
 
