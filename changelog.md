@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v1.0.8
+------
 
 * `Data.Express.Express.Derive`:
   fix generation of `-:` and `->:` in earlier GHC's.
