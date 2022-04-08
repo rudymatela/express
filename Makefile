@@ -36,7 +36,7 @@ BENCHS = \
   bench/tiers \
   $(EGS)
 GHCIMPORTDIRS = src:test
-GHCFLAGS = -O2 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)
+GHCFLAGS = -O2 -v0 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)
 HUGSIMPORTDIRS = .:./src:./test:./etc/hugs-backports:/usr/lib/hugs/packages/*:../leancheck/src
 HUGSFLAGS = -98 -h32M
 RUNPARAMETERS =
