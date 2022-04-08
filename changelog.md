@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v1.0.10
+-------
 
 * show function-encoded Ordering case expressions exceptionally
 
