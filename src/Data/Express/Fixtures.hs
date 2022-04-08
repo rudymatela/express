@@ -112,6 +112,7 @@ module Data.Express.Fixtures
   , compare'
   , if'
   , caseBool
+  , caseOrdering
 
   -- ** Integers
   , i_, xx, yy, zz, xx'
@@ -1525,7 +1526,7 @@ type If a = Bool -> a -> a -> a
 --
 -- When evaluating, this is equivalent to if with arguments reversed.
 -- Instead of using this, you are perhaps better of using if encoded as an
--- expression.
+-- expression.  This is just here to be consistent with 'caseOrdering'.
 caseBool :: Expr -> Expr -> Expr -> Expr
 caseBool ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
   [ value "case" (caseB :: CaseB ())
@@ -1543,6 +1544,38 @@ caseBool ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
                   False -> x
                   True -> y
 type CaseB a = Bool -> a -> a -> a
+
+-- | A function @case :: Ordering -> a -> a -> a -> a@ lifted over the 'Expr' type
+--   that encodes case-of-LT-EQ-GT functionality.
+--   This is properly displayed as a case-of-LT-EQ-GT expression.
+--   (cf. 'caseBool')
+--
+-- > > caseOrdering (xx `compare'` yy) zero one two
+-- > (case compare x y of LT -> 0; EQ -> 1; GT -> 2) :: Int
+--
+-- > > evl $ caseOrdering (val EQ) (val 'l') (val 'e') (val 'g') :: Char
+-- > 'e'
+--
+-- By convention cases are given in 'LT', 'EQ' and 'GT' order
+-- as @LT < EQ < GT@ and @data Ordering = LT | EQ | GT@.
+caseOrdering :: Expr -> Expr -> Expr -> Expr -> Expr
+caseOrdering eo ex ey ez  =  (:$ ez) . (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ eo)
+  [ value "case" (caseO :: CaseO ())
+  , value "case" (caseO :: CaseO Int)
+  , value "case" (caseO :: CaseO Bool)
+  , value "case" (caseO :: CaseO Char)
+  , value "case" (caseO :: CaseO [Int])
+  , value "case" (caseO :: CaseO [Bool])
+  , value "case" (caseO :: CaseO [Char])
+  ]
+  where
+  err  =  error $ "caseOrdering: unhandled type " ++ show (typ ex)
+  caseO :: Ordering -> a -> a -> a -> a
+  caseO o x y z  =  case o of
+                    LT -> x
+                    EQ -> y
+                    GT -> z
+type CaseO a = Ordering -> a -> a -> a -> a
 
 -- | Constructs an 'Expr'-encoded 'compare' operation between two 'Expr's.
 --

@@ -106,6 +106,14 @@ tests n =
   , showExpr (caseBool pp false true)        == "case p of False -> False; True -> True"
   , showExpr (caseBool pp true false)        == "case p of False -> True; True -> False"
 
+  , show (caseOrdering (compare' xx yy) xx zz yy) == "(case compare x y of LT -> x; EQ -> z; GT -> y) :: Int"
+  , show (caseOrdering (val LT) zero one two)     == "(case LT of LT -> 0; EQ -> 1; GT -> 2) :: Int"
+  , show (caseOrdering (val GT) three four five)  == "(case GT of LT -> 3; EQ -> 4; GT -> 5) :: Int"
+
+  , showExpr (caseOrdering (compare' xx yy) xx zz yy) == "case compare x y of LT -> x; EQ -> z; GT -> y"
+  , showExpr (caseOrdering (val LT) zero one two)     == "case LT of LT -> 0; EQ -> 1; GT -> 2"
+  , showExpr (caseOrdering (val GT) three four five)  == "case GT of LT -> 3; EQ -> 4; GT -> 5"
+
   -- showing holes --
   , show (hole (undefined :: Int -> Int) :$ one)              == "_ 1 :: Int"
   , show (hole (undefined :: Int -> Int) :$ xx)               == "_ x :: Int"

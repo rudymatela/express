@@ -475,6 +475,11 @@ showsPrecExpr d (Value "case" _ :$ ep :$ ex :$ ey) | typ ep == boolTy =
   showParen (d >= 0) $ showString "case "         . showsPrecExpr 0 ep
                      . showString " of False -> " . showsPrecExpr 0 ex
                      . showString "; True -> "    . showsPrecExpr 0 ey
+showsPrecExpr d (Value "case" _ :$ eo :$ ex :$ ey :$ ez) | typ eo == orderingTy =
+  showParen (d >= 0) $ showString "case "      . showsPrecExpr 0 eo
+                     . showString " of LT -> " . showsPrecExpr 0 ex
+                     . showString "; EQ -> "   . showsPrecExpr 0 ey
+                     . showString "; GT -> "   . showsPrecExpr 0 ez
 showsPrecExpr d (Value ",.." _ :$ ex :$ ey :$ ez) =
   showString "[" . showsPrecExpr 0 ex
                  . showString (if dotdot ex && dotdot ey && dotdot ez then "," else ", ")

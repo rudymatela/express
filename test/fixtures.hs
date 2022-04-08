@@ -189,6 +189,11 @@ tests n =
   , evl (caseBool false zero one) == (0 :: Int)
   , evl (caseBool true two three) == (3 :: Int)
 
+  -- caseOrdering --
+  , evl (caseOrdering (val LT) zero one two) == (0 :: Int)
+  , evl (caseOrdering (val EQ) three four five) == (4 :: Int)
+  , evl (caseOrdering (val GT) six seven eight) == (8 :: Int)
+
   -- enumFrom and enumFromTo
   , show (enumFrom' false) == "enumFrom False :: [Bool]"
   , evl  (enumFrom' false) == [False,True]
