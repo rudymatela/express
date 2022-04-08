@@ -111,6 +111,7 @@ module Data.Express.Fixtures
   , (-<-)
   , compare'
   , if'
+  , caseBool
 
   -- ** Integers
   , i_, xx, yy, zz, xx'
@@ -1472,8 +1473,9 @@ ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
 infix 4 -<-
 
--- | A virtual function @if :: Bool -> a -> a -> a@ lifted over the 'Expr' type.
---   This is displayed as an if-then-else.
+-- | A function @if :: Bool -> a -> a -> a@ lifted over the 'Expr' type
+--   that encodes if-then-else functionality.
+--   This is properly displayed as an if-then-else.
 --
 -- > > if' pp zero xx
 -- > (if p then 0 else x) :: Int
@@ -1501,6 +1503,46 @@ if' ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
   iff :: Bool -> a -> a -> a
   iff p x y  =  if p then x else y
 type If a = Bool -> a -> a -> a
+
+-- | A function @case :: Bool -> a -> a -> a@ lifted over the 'Expr' type
+--   that encodes case-of-False-True functionality.
+--   This is properly displayed as a case-of-False-True expression.
+--
+-- > > caseBool pp zero xx
+-- > (case p of False -> 0; True -> x) :: Int
+--
+-- > > zz -*- caseBool pp xx yy
+-- > z * (case p of False -> x; True -> y) :: Int
+--
+-- > > caseBool pp false true -||- caseBool qq true false
+-- > (caseBool p of False -> False; True -> True) || (caseBool q of False -> True; True -> False) :: Bool
+--
+-- > > evl $ caseBool true (val 'f') (val 't') :: Char
+-- > 't'
+--
+-- By convention, the 'False' case comes before 'True'
+-- as @False < True@ and @data Bool = False | True@.
+--
+-- When evaluating, this is equivalent to if with arguments reversed.
+-- Instead of using this, you are perhaps better of using if encoded as an
+-- expression.
+caseBool :: Expr -> Expr -> Expr -> Expr
+caseBool ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
+  [ value "case" (caseB :: CaseB ())
+  , value "case" (caseB :: CaseB Int)
+  , value "case" (caseB :: CaseB Bool)
+  , value "case" (caseB :: CaseB Char)
+  , value "case" (caseB :: CaseB [Int])
+  , value "case" (caseB :: CaseB [Bool])
+  , value "case" (caseB :: CaseB [Char])
+  ]
+  where
+  err  =  error $ "caseBool: unhandled type " ++ show (typ ex)
+  caseB :: Bool -> a -> a -> a
+  caseB p x y  =  case p of
+                  False -> x
+                  True -> y
+type CaseB a = Bool -> a -> a -> a
 
 -- | Constructs an 'Expr'-encoded 'compare' operation between two 'Expr's.
 --

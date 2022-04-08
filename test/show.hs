@@ -87,10 +87,24 @@ tests n =
   , show (if' (null' xxs) zero (head' xxs -+- value "sum" (sum :: [Int] -> Int) :$ tail' xxs))
     == "(if null xs then 0 else head xs + sum (tail xs)) :: Int"
 
+  , show (caseBool pp xx yy)             == "(case p of False -> x; True -> y) :: Int"
+  , show (caseBool false zero one)       == "(case False of False -> 0; True -> 1) :: Int"
+  , show (caseBool true two three)       == "(case True of False -> 2; True -> 3) :: Int"
+  , show (caseBool pp false true)        == "(case p of False -> False; True -> True) :: Bool"
+  , show (not' (caseBool pp false true)) == "not (case p of False -> False; True -> True) :: Bool"
+  , show (caseBool pp xx yy -*- zz)      == "(case p of False -> x; True -> y) * z :: Int"
+  , show (zz -*- caseBool pp xx yy)      == "z * (case p of False -> x; True -> y) :: Int"
+
   , showExpr (if' pp xx yy)             == "if p then x else y"
   , showExpr (if' false zero one)       == "if False then 0 else 1"
   , showExpr (if' true two three)       == "if True then 2 else 3"
   , showExpr (if' pp false true)        == "if p then False else True"
+
+  , showExpr (caseBool pp xx yy)             == "case p of False -> x; True -> y"
+  , showExpr (caseBool false zero one)       == "case False of False -> 0; True -> 1"
+  , showExpr (caseBool true two three)       == "case True of False -> 2; True -> 3"
+  , showExpr (caseBool pp false true)        == "case p of False -> False; True -> True"
+  , showExpr (caseBool pp true false)        == "case p of False -> True; True -> False"
 
   -- showing holes --
   , show (hole (undefined :: Int -> Int) :$ one)              == "_ 1 :: Int"
