@@ -2,6 +2,18 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* show function-encoded Ordering case expressions exceptionally
+
+* show function-encoded Bool case expressions exceptionally
+
+* add `caseBool` and `caseOrdering` to `Data.Express.Fixtures`
+
+* minor updates in Makefile and CI scripts
+
+
 v1.0.8
 ------
 
