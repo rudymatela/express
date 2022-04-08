@@ -86,6 +86,7 @@ tests n =
     == "(if p then False else True) || (if q then True else False) :: Bool"
   , show (if' (null' xxs) zero (head' xxs -+- value "sum" (sum :: [Int] -> Int) :$ tail' xxs))
     == "(if null xs then 0 else head xs + sum (tail xs)) :: Int"
+  , show (if' (xx -<- yy) (ff xx) (yy -*- zz)) == "(if x < y then f x else y * z) :: Int"
 
   , show (caseBool pp xx yy)             == "(case p of False -> x; True -> y) :: Int"
   , show (caseBool false zero one)       == "(case False of False -> 0; True -> 1) :: Int"
@@ -99,6 +100,7 @@ tests n =
   , showExpr (if' false zero one)       == "if False then 0 else 1"
   , showExpr (if' true two three)       == "if True then 2 else 3"
   , showExpr (if' pp false true)        == "if p then False else True"
+  , showExpr (if' (xx -<- yy) (ff xx) (yy -*- zz)) == "if x < y then f x else y * z"
 
   , showExpr (caseBool pp xx yy)             == "case p of False -> x; True -> y"
   , showExpr (caseBool false zero one)       == "case False of False -> 0; True -> 1"
@@ -109,10 +111,12 @@ tests n =
   , show (caseOrdering (compare' xx yy) xx zz yy) == "(case compare x y of LT -> x; EQ -> z; GT -> y) :: Int"
   , show (caseOrdering (val LT) zero one two)     == "(case LT of LT -> 0; EQ -> 1; GT -> 2) :: Int"
   , show (caseOrdering (val GT) three four five)  == "(case GT of LT -> 3; EQ -> 4; GT -> 5) :: Int"
+  , show (caseOrdering (compare' xx yy) (ff xx) zz (yy -+- zz)) == "(case compare x y of LT -> f x; EQ -> z; GT -> y + z) :: Int"
 
   , showExpr (caseOrdering (compare' xx yy) xx zz yy) == "case compare x y of LT -> x; EQ -> z; GT -> y"
   , showExpr (caseOrdering (val LT) zero one two)     == "case LT of LT -> 0; EQ -> 1; GT -> 2"
   , showExpr (caseOrdering (val GT) three four five)  == "case GT of LT -> 3; EQ -> 4; GT -> 5"
+  , showExpr (caseOrdering (compare' xx yy) (ff xx) zz (yy -+- zz)) == "case compare x y of LT -> f x; EQ -> z; GT -> y + z"
 
   -- showing holes --
   , show (hole (undefined :: Int -> Int) :$ one)              == "_ 1 :: Int"
