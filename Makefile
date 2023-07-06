@@ -86,7 +86,7 @@ test-sdist:
 test-via-cabal:
 	cabal configure --enable-tests --enable-benchmarks --ghc-options="$(GHCFLAGS) -O0"
 	cabal build
-	cabal test  # was cabal test main
+	cabal test main
 
 test-via-stack:
 	stack test express:test:main --ghc-options="$(GHCFLAGS) -O0" --system-ghc --no-install-ghc --no-terminal
