@@ -2,6 +2,21 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* make ordering of `typesIn` consistent between GHC 9.6 and earlier versions
+
+* fix a test failure on GHC 9.6 (previous GHC versions unaffected)
+
+* drop support for GHC 8.0, GHC 7.10 and GHC 7.8.
+  The current version will still work in these,
+  but these are not run on CI anymore
+  and future versions will no longer be tested.
+
+* miscellaneous improvements in build and CI scripts
+
+
 v1.0.10
 -------
 
