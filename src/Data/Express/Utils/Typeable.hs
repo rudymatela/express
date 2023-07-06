@@ -52,11 +52,36 @@ compareTy :: TypeRep -> TypeRep -> Ordering
 compareTy t1 t2 | t1 == t2 = EQ -- optional optimization
 compareTy t1 t2 = tyArity t1 `compare` tyArity t2
                <> length ts1 `compare` length ts2
-               <> show c1 `compare` show c2
+               <> showTyCon c1 `compare` showTyCon c2
                <> foldr (<>) EQ (zipWith compareTy ts1 ts2)
   where
   (c1,ts1) = splitTyConApp t1
   (c2,ts2) = splitTyConApp t2
+
+-- | Shows a 'TyCon' consistently across different GHC versions.
+--   This is needed in the implementation of `compareTy`.
+--
+-- On GHC <= 9.4:
+--
+-- > > show listTyCon
+-- > "[]"
+--
+-- On GHC >= 9.6:
+--
+-- > > show listTyCon
+-- > "List"
+--
+-- On all GHCs:
+--
+-- > > showTyCon listTyCon
+-- > "[]"
+--
+-- Further exceptions to `show :: TyCon -> String` may be added here
+-- on future versions.
+showTyCon :: TyCon -> String
+showTyCon con
+  | con == listTyCon  =  "[]"
+  | otherwise         =  show con
 
 -- | Returns the functional arity of the given 'TypeRep'.
 --
