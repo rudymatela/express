@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v1.0.12
+-------
 
 * make ordering of `typesIn` consistent between GHC 9.6 and earlier versions
 
