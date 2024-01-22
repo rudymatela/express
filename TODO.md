@@ -1,9 +1,11 @@
 TO DO list for Express
 ======================
 
-Nothing major planned at the moment.
-
 * Investigate the list pretty-printing bug described below.
+
+* Improve pretty-printing (see TODO items in `test/show.hs`)
+
+* Release new version
 
 
 ## List pretty-printing bug

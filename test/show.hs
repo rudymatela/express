@@ -43,6 +43,8 @@ tests n =
   , show (space -:- emptyString) == "\" \" :: [Char]"
   , show (space -:- ccs)         == "' ':cs :: [Char]"
   , show (ae -:- bee -:- emptyString) == "\"ab\" :: [Char]"
+  , show (ae -:- bee -:- nilChar) == "'a':'b':[] :: [Char]" -- TODO: change to ['a','b']
+  , show (ae -:- cc -:- nilChar) == "'a':[c] :: [Char]" -- TODO: change to ['a',c]
   , show (ae -:- bee -:- ccs)         == "'a':'b':cs :: [Char]"
   , show (ae -:- space -:- bee -:- lineBreak -:- emptyString) == "\"a b\\n\" :: [Char]"
   , show (cc -:- space -:- dd -:- lineBreak -:- emptyString)  == "c:' ':d:\"\\n\" :: [Char]"
