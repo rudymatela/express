@@ -43,6 +43,11 @@ RUNPARAMETERS =
 LIB_DEPS = base template-haskell
 INSTALL_DEPS = leancheck
 
+# to run a specific test suite under a specific GHC, do:
+# $ make clean
+# $ make GHC=ghc-9.6 GHCIMPORTDIRS=src:test:../leancheck/src test/utils.run
+# this is useful for troubleshooting CI failures
+
 all: mk/toplibs
 
 all-all: mk/All.o
