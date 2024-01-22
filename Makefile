@@ -41,7 +41,7 @@ HUGSIMPORTDIRS = .:./src:./test:./etc/hugs-backports:/usr/lib/hugs/packages/*:..
 HUGSFLAGS = -98 -h32M
 RUNPARAMETERS =
 LIB_DEPS = base template-haskell
-INSTALL_DEPS = leancheck
+INSTALL_DEPS = leancheck template-haskell
 
 # to run a specific test suite under a specific GHC, do:
 # $ make clean
