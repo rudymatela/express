@@ -76,11 +76,27 @@ compareTy t1 t2 = tyArity t1 `compare` tyArity t2
 -- > > showTyCon listTyCon
 -- > "[]"
 --
+-- On GHC <= 9.6:
+--
+-- > > show unitTyCon
+-- > "()"
+--
+-- On GHC >= 9.8:
+--
+-- > > show unitTyCon
+-- > "Unit"
+--
+-- On all GHCs:
+--
+-- > > showTyCon unitTyCon
+-- > "()"
+--
 -- Further exceptions to `show :: TyCon -> String` may be added here
 -- on future versions.
 showTyCon :: TyCon -> String
 showTyCon con
   | con == listTyCon  =  "[]"
+  | con == unitTyCon  =  "()"
   | otherwise         =  show con
 
 -- | Returns the functional arity of the given 'TypeRep'.
@@ -186,6 +202,10 @@ funTyCon = typeRepTyCon $ typeOf (undefined :: () -> ())
 -- | The list type constructor as a 'TyCon'
 listTyCon :: TyCon
 listTyCon = typeRepTyCon $ typeOf (undefined :: [()])
+
+-- | The unit type constructor as a 'TyCon'
+unitTyCon :: TyCon
+unitTyCon = typeRepTyCon $ typeOf (undefined :: ())
 
 -- | Returns whether a 'TypeRep' is functional.
 --
