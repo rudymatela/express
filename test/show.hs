@@ -147,4 +147,12 @@ tests n =
   , show (val ([0,1,2] :: [A])) == "[0,1,2] :: [A]"
   , show (var "xs" (undefined :: [A])) == "xs :: [A]"
   , show (value "id" (id :: [A] -> [A]) :$ var "xs" (undefined :: [A])) == "id xs :: [A]"
+
+  , show (xx -:- nil -++- is_) == "x:([] ++ _) :: [Int]"
+--, show (xx -:- yy -:- nil -++- is_) == "x:y:([] ++ _) :: [Int]" -- TODO: FIXME: failing test!
+
+  , show (cc -:- emptyString -++- cs_) == "c:(\"\" ++ _) :: [Char]"
+  , show (cc -:- dd -:- emptyString -++- cs_) == "c:d:(\"\" ++ _) :: [Char]"
+--, show (ae -:- bee -:- emptyString -++- cs_) == "'a':'b':(\"\" ++ _) :: [Char]" -- TODO: FIXME: failing test!
+
   ]
