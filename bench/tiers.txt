@@ -218,7 +218,7 @@ tiers :: [[ Expr ]]  =
     , [0,0] :: [Int]
     , [1] :: [Int]
     , _:ys :: [Int]
-    , [_,0] :: [Int]
+    , _:[0] :: [Int]
     , _:_:xs :: [Int]
     , [_,_] :: [Int]
     , _:_:_:_ :: [Int]
@@ -602,7 +602,7 @@ tiers :: [[ Expr ]]  =
     , head [0,0] :: Int
     , head [1] :: Int
     , head (_:ys) :: Int
-    , head [_,0] :: Int
+    , head (_:[0]) :: Int
     , head (_:_:xs) :: Int
     , head [_,_] :: Int
     , head (_:_:_:_) :: Int
@@ -738,10 +738,10 @@ tiers :: [[ Expr ]]  =
     , [1,0] :: [Int]
     , [-1] :: [Int]
     , _:zs :: [Int]
-    , [_,0,0] :: [Int]
-    , [_,1] :: [Int]
+    , _:[0,0] :: [Int]
+    , _:[1] :: [Int]
     , _:_:ys :: [Int]
-    , [_,_,0] :: [Int]
+    , _:_:[0] :: [Int]
     , _:_:_:xs :: [Int]
     , [_,_,_] :: [Int]
     , _:_:_:_:_ :: [Int]
@@ -781,7 +781,7 @@ tiers :: [[ Expr ]]  =
     , _:sort _ :: [Int]
     , _:insert _ _ :: [Int]
     , x:ys :: [Int]
-    , [x,0] :: [Int]
+    , x:[0] :: [Int]
     , x:_:xs :: [Int]
     , [x,_] :: [Int]
     , x:_:_:_ :: [Int]
@@ -791,7 +791,7 @@ tiers :: [[ Expr ]]  =
     , x:tail _ :: [Int]
     , x:(_ ++ _) :: [Int]
     , 0:ys :: [Int]
-    , [0,0] :: [Int]
+    , 0:[0] :: [Int]
     , 0:_:xs :: [Int]
     , [0,_] :: [Int]
     , 0:_:_:_ :: [Int]
@@ -801,7 +801,7 @@ tiers :: [[ Expr ]]  =
     , 0:tail _ :: [Int]
     , 0:(_ ++ _) :: [Int]
     , id _:ys :: [Int]
-    , [id _,0] :: [Int]
+    , id _:[0] :: [Int]
     , id _:_:xs :: [Int]
     , [id _,_] :: [Int]
     , id _:_:_:_ :: [Int]
@@ -1279,7 +1279,7 @@ tiers :: [[ Expr ]]  =
     , id (head [0,0]) :: Int
     , id (head [1]) :: Int
     , id (head (_:ys)) :: Int
-    , id (head [_,0]) :: Int
+    , id (head (_:[0])) :: Int
     , id (head (_:_:xs)) :: Int
     , id (head [_,_]) :: Int
     , id (head (_:_:_:_)) :: Int
@@ -2195,10 +2195,10 @@ tiers :: [[ Expr ]]  =
     , head [1,0] :: Int
     , head [-1] :: Int
     , head (_:zs) :: Int
-    , head [_,0,0] :: Int
-    , head [_,1] :: Int
+    , head (_:[0,0]) :: Int
+    , head (_:[1]) :: Int
     , head (_:_:ys) :: Int
-    , head [_,_,0] :: Int
+    , head (_:_:[0]) :: Int
     , head (_:_:_:xs) :: Int
     , head [_,_,_] :: Int
     , head (_:_:_:_:_) :: Int
@@ -2238,7 +2238,7 @@ tiers :: [[ Expr ]]  =
     , head (_:sort _) :: Int
     , head (_:insert _ _) :: Int
     , head (x:ys) :: Int
-    , head [x,0] :: Int
+    , head (x:[0]) :: Int
     , head (x:_:xs) :: Int
     , head [x,_] :: Int
     , head (x:_:_:_) :: Int
@@ -2248,7 +2248,7 @@ tiers :: [[ Expr ]]  =
     , head (x:tail _) :: Int
     , head (x:(_ ++ _)) :: Int
     , head (0:ys) :: Int
-    , head [0,0] :: Int
+    , head (0:[0]) :: Int
     , head (0:_:xs) :: Int
     , head [0,_] :: Int
     , head (0:_:_:_) :: Int
@@ -2258,7 +2258,7 @@ tiers :: [[ Expr ]]  =
     , head (0:tail _) :: Int
     , head (0:(_ ++ _)) :: Int
     , head (id _:ys) :: Int
-    , head [id _,0] :: Int
+    , head (id _:[0]) :: Int
     , head (id _:_:xs) :: Int
     , head [id _,_] :: Int
     , head (id _:_:_:_) :: Int
@@ -2726,15 +2726,15 @@ tiers :: [[ Expr ]]  =
     , [-1,0] :: [Int]
     , [2] :: [Int]
     , _:xs' :: [Int]
-    , [_,0,0,0] :: [Int]
-    , [_,0,1] :: [Int]
-    , [_,1,0] :: [Int]
-    , [_,-1] :: [Int]
+    , _:[0,0,0] :: [Int]
+    , _:[0,1] :: [Int]
+    , _:[1,0] :: [Int]
+    , _:[-1] :: [Int]
     , _:_:zs :: [Int]
-    , [_,_,0,0] :: [Int]
-    , [_,_,1] :: [Int]
+    , _:_:[0,0] :: [Int]
+    , _:_:[1] :: [Int]
     , _:_:_:ys :: [Int]
-    , [_,_,_,0] :: [Int]
+    , _:_:_:[0] :: [Int]
     , _:_:_:_:xs :: [Int]
     , [_,_,_,_] :: [Int]
     , _:_:_:_:_:_ :: [Int]
@@ -2774,7 +2774,7 @@ tiers :: [[ Expr ]]  =
     , _:_:sort _ :: [Int]
     , _:_:insert _ _ :: [Int]
     , _:x:ys :: [Int]
-    , [_,x,0] :: [Int]
+    , _:x:[0] :: [Int]
     , _:x:_:xs :: [Int]
     , [_,x,_] :: [Int]
     , _:x:_:_:_ :: [Int]
@@ -2784,7 +2784,7 @@ tiers :: [[ Expr ]]  =
     , _:x:tail _ :: [Int]
     , _:x:(_ ++ _) :: [Int]
     , _:0:ys :: [Int]
-    , [_,0,0] :: [Int]
+    , _:0:[0] :: [Int]
     , _:0:_:xs :: [Int]
     , [_,0,_] :: [Int]
     , _:0:_:_:_ :: [Int]
@@ -2794,7 +2794,7 @@ tiers :: [[ Expr ]]  =
     , _:0:tail _ :: [Int]
     , _:0:(_ ++ _) :: [Int]
     , _:id _:ys :: [Int]
-    , [_,id _,0] :: [Int]
+    , _:id _:[0] :: [Int]
     , _:id _:_:xs :: [Int]
     , [_,id _,_] :: [Int]
     , _:id _:_:_:_ :: [Int]
@@ -2913,10 +2913,10 @@ tiers :: [[ Expr ]]  =
     , _:insert 0 _ :: [Int]
     , _:insert (id _) _ :: [Int]
     , x:zs :: [Int]
-    , [x,0,0] :: [Int]
-    , [x,1] :: [Int]
+    , x:[0,0] :: [Int]
+    , x:[1] :: [Int]
     , x:_:ys :: [Int]
-    , [x,_,0] :: [Int]
+    , x:_:[0] :: [Int]
     , x:_:_:xs :: [Int]
     , [x,_,_] :: [Int]
     , x:_:_:_:_ :: [Int]
@@ -2956,10 +2956,10 @@ tiers :: [[ Expr ]]  =
     , x:sort _ :: [Int]
     , x:insert _ _ :: [Int]
     , 0:zs :: [Int]
-    , [0,0,0] :: [Int]
-    , [0,1] :: [Int]
+    , 0:[0,0] :: [Int]
+    , 0:[1] :: [Int]
     , 0:_:ys :: [Int]
-    , [0,_,0] :: [Int]
+    , 0:_:[0] :: [Int]
     , 0:_:_:xs :: [Int]
     , [0,_,_] :: [Int]
     , 0:_:_:_:_ :: [Int]
@@ -2999,10 +2999,10 @@ tiers :: [[ Expr ]]  =
     , 0:sort _ :: [Int]
     , 0:insert _ _ :: [Int]
     , id _:zs :: [Int]
-    , [id _,0,0] :: [Int]
-    , [id _,1] :: [Int]
+    , id _:[0,0] :: [Int]
+    , id _:[1] :: [Int]
     , id _:_:ys :: [Int]
-    , [id _,_,0] :: [Int]
+    , id _:_:[0] :: [Int]
     , id _:_:_:xs :: [Int]
     , [id _,_,_] :: [Int]
     , id _:_:_:_:_ :: [Int]
@@ -3042,7 +3042,7 @@ tiers :: [[ Expr ]]  =
     , id _:sort _ :: [Int]
     , id _:insert _ _ :: [Int]
     , y:ys :: [Int]
-    , [y,0] :: [Int]
+    , y:[0] :: [Int]
     , y:_:xs :: [Int]
     , [y,_] :: [Int]
     , y:_:_:_ :: [Int]
@@ -3052,7 +3052,7 @@ tiers :: [[ Expr ]]  =
     , y:tail _ :: [Int]
     , y:(_ ++ _) :: [Int]
     , 1:ys :: [Int]
-    , [1,0] :: [Int]
+    , 1:[0] :: [Int]
     , 1:_:xs :: [Int]
     , [1,_] :: [Int]
     , 1:_:_:_ :: [Int]
@@ -3062,7 +3062,7 @@ tiers :: [[ Expr ]]  =
     , 1:tail _ :: [Int]
     , 1:(_ ++ _) :: [Int]
     , id x:ys :: [Int]
-    , [id x,0] :: [Int]
+    , id x:[0] :: [Int]
     , id x:_:xs :: [Int]
     , [id x,_] :: [Int]
     , id x:_:_:_ :: [Int]
@@ -3072,7 +3072,7 @@ tiers :: [[ Expr ]]  =
     , id x:tail _ :: [Int]
     , id x:(_ ++ _) :: [Int]
     , id 0:ys :: [Int]
-    , [id 0,0] :: [Int]
+    , id 0:[0] :: [Int]
     , id 0:_:xs :: [Int]
     , [id 0,_] :: [Int]
     , id 0:_:_:_ :: [Int]
@@ -3082,7 +3082,7 @@ tiers :: [[ Expr ]]  =
     , id 0:tail _ :: [Int]
     , id 0:(_ ++ _) :: [Int]
     , id (id _):ys :: [Int]
-    , [id (id _),0] :: [Int]
+    , id (id _):[0] :: [Int]
     , id (id _):_:xs :: [Int]
     , [id (id _),_] :: [Int]
     , id (id _):_:_:_ :: [Int]
@@ -3092,7 +3092,7 @@ tiers :: [[ Expr ]]  =
     , id (id _):tail _ :: [Int]
     , id (id _):(_ ++ _) :: [Int]
     , negate _:ys :: [Int]
-    , [negate _,0] :: [Int]
+    , negate _:[0] :: [Int]
     , negate _:_:xs :: [Int]
     , [negate _,_] :: [Int]
     , negate _:_:_:_ :: [Int]
@@ -3102,7 +3102,7 @@ tiers :: [[ Expr ]]  =
     , negate _:tail _ :: [Int]
     , negate _:(_ ++ _) :: [Int]
     , abs _:ys :: [Int]
-    , [abs _,0] :: [Int]
+    , abs _:[0] :: [Int]
     , abs _:_:xs :: [Int]
     , [abs _,_] :: [Int]
     , abs _:_:_:_ :: [Int]
@@ -3112,7 +3112,7 @@ tiers :: [[ Expr ]]  =
     , abs _:tail _ :: [Int]
     , abs _:(_ ++ _) :: [Int]
     , _ + _:ys :: [Int]
-    , [_ + _,0] :: [Int]
+    , _ + _:[0] :: [Int]
     , _ + _:_:xs :: [Int]
     , [_ + _,_] :: [Int]
     , _ + _:_:_:_ :: [Int]
@@ -3122,7 +3122,7 @@ tiers :: [[ Expr ]]  =
     , _ + _:tail _ :: [Int]
     , _ + _:(_ ++ _) :: [Int]
     , head _:ys :: [Int]
-    , [head _,0] :: [Int]
+    , head _:[0] :: [Int]
     , head _:_:xs :: [Int]
     , [head _,_] :: [Int]
     , head _:_:_:_ :: [Int]
@@ -3132,7 +3132,7 @@ tiers :: [[ Expr ]]  =
     , head _:tail _ :: [Int]
     , head _:(_ ++ _) :: [Int]
     , ord _:ys :: [Int]
-    , [ord _,0] :: [Int]
+    , ord _:[0] :: [Int]
     , ord _:_:xs :: [Int]
     , [ord _,_] :: [Int]
     , ord _:_:_:_ :: [Int]
@@ -3342,7 +3342,7 @@ tiers :: [[ Expr ]]  =
     , tail [0,0] :: [Int]
     , tail [1] :: [Int]
     , tail (_:ys) :: [Int]
-    , tail [_,0] :: [Int]
+    , tail (_:[0]) :: [Int]
     , tail (_:_:xs) :: [Int]
     , tail [_,_] :: [Int]
     , tail (_:_:_:_) :: [Int]
@@ -3385,7 +3385,7 @@ tiers :: [[ Expr ]]  =
     , _ ++ [0,0] :: [Int]
     , _ ++ [1] :: [Int]
     , _ ++ (_:ys) :: [Int]
-    , _ ++ [_,0] :: [Int]
+    , _ ++ (_:[0]) :: [Int]
     , _ ++ (_:_:xs) :: [Int]
     , _ ++ [_,_] :: [Int]
     , _ ++ (_:_:_:_) :: [Int]
@@ -3488,7 +3488,7 @@ tiers :: [[ Expr ]]  =
     , [0,0] ++ _ :: [Int]
     , [1] ++ _ :: [Int]
     , (_:ys) ++ _ :: [Int]
-    , [_,0] ++ _ :: [Int]
+    , (_:[0]) ++ _ :: [Int]
     , (_:_:xs) ++ _ :: [Int]
     , [_,_] ++ _ :: [Int]
     , (_:_:_:_) ++ _ :: [Int]

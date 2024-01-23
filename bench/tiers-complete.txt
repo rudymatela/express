@@ -230,9 +230,9 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , [1,0] :: [Int]
     , [-1] :: [Int]
     , x:ys :: [Int]
-    , [x,0] :: [Int]
+    , x:[0] :: [Int]
     , 0:ys :: [Int]
-    , [0,0] :: [Int]
+    , 0:[0] :: [Int]
     , y:xs :: [Int]
     , [y] :: [Int]
     , 1:xs :: [Int]
@@ -546,9 +546,9 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , head [1,0] :: Int
     , head [-1] :: Int
     , head (x:ys) :: Int
-    , head [x,0] :: Int
+    , head (x:[0]) :: Int
     , head (0:ys) :: Int
-    , head [0,0] :: Int
+    , head (0:[0]) :: Int
     , head (y:xs) :: Int
     , head [y] :: Int
     , head (1:xs) :: Int
@@ -657,8 +657,8 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , [-1,0] :: [Int]
     , [2] :: [Int]
     , x:zs :: [Int]
-    , [x,0,0] :: [Int]
-    , [x,1] :: [Int]
+    , x:[0,0] :: [Int]
+    , x:[1] :: [Int]
     , x:x:xs :: [Int]
     , [x,x] :: [Int]
     , x:0:xs :: [Int]
@@ -666,8 +666,8 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , x:tail xs :: [Int]
     , x:tail [] :: [Int]
     , 0:zs :: [Int]
-    , [0,0,0] :: [Int]
-    , [0,1] :: [Int]
+    , 0:[0,0] :: [Int]
+    , 0:[1] :: [Int]
     , 0:x:xs :: [Int]
     , [0,x] :: [Int]
     , 0:0:xs :: [Int]
@@ -675,13 +675,13 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , 0:tail xs :: [Int]
     , 0:tail [] :: [Int]
     , y:ys :: [Int]
-    , [y,0] :: [Int]
+    , y:[0] :: [Int]
     , 1:ys :: [Int]
-    , [1,0] :: [Int]
+    , 1:[0] :: [Int]
     , id x:ys :: [Int]
-    , [id x,0] :: [Int]
+    , id x:[0] :: [Int]
     , id 0:ys :: [Int]
-    , [id 0,0] :: [Int]
+    , id 0:[0] :: [Int]
     , z:xs :: [Int]
     , [z] :: [Int]
     , (-1):xs :: [Int]
@@ -1047,9 +1047,9 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , id (head [1,0]) :: Int
     , id (head [-1]) :: Int
     , id (head (x:ys)) :: Int
-    , id (head [x,0]) :: Int
+    , id (head (x:[0])) :: Int
     , id (head (0:ys)) :: Int
-    , id (head [0,0]) :: Int
+    , id (head (0:[0])) :: Int
     , id (head (y:xs)) :: Int
     , id (head [y]) :: Int
     , id (head (1:xs)) :: Int
@@ -1654,8 +1654,8 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , head [-1,0] :: Int
     , head [2] :: Int
     , head (x:zs) :: Int
-    , head [x,0,0] :: Int
-    , head [x,1] :: Int
+    , head (x:[0,0]) :: Int
+    , head (x:[1]) :: Int
     , head (x:x:xs) :: Int
     , head [x,x] :: Int
     , head (x:0:xs) :: Int
@@ -1663,8 +1663,8 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , head (x:tail xs) :: Int
     , head (x:tail []) :: Int
     , head (0:zs) :: Int
-    , head [0,0,0] :: Int
-    , head [0,1] :: Int
+    , head (0:[0,0]) :: Int
+    , head (0:[1]) :: Int
     , head (0:x:xs) :: Int
     , head [0,x] :: Int
     , head (0:0:xs) :: Int
@@ -1672,13 +1672,13 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , head (0:tail xs) :: Int
     , head (0:tail []) :: Int
     , head (y:ys) :: Int
-    , head [y,0] :: Int
+    , head (y:[0]) :: Int
     , head (1:ys) :: Int
-    , head [1,0] :: Int
+    , head (1:[0]) :: Int
     , head (id x:ys) :: Int
-    , head [id x,0] :: Int
+    , head (id x:[0]) :: Int
     , head (id 0:ys) :: Int
-    , head [id 0,0] :: Int
+    , head (id 0:[0]) :: Int
     , head (z:xs) :: Int
     , head [z] :: Int
     , head ((-1):xs) :: Int
@@ -2003,14 +2003,14 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , [2,0] :: [Int]
     , [-2] :: [Int]
     , x:xs' :: [Int]
-    , [x,0,0,0] :: [Int]
-    , [x,0,1] :: [Int]
-    , [x,1,0] :: [Int]
-    , [x,-1] :: [Int]
+    , x:[0,0,0] :: [Int]
+    , x:[0,1] :: [Int]
+    , x:[1,0] :: [Int]
+    , x:[-1] :: [Int]
     , x:x:ys :: [Int]
-    , [x,x,0] :: [Int]
+    , x:x:[0] :: [Int]
     , x:0:ys :: [Int]
-    , [x,0,0] :: [Int]
+    , x:0:[0] :: [Int]
     , x:y:xs :: [Int]
     , [x,y] :: [Int]
     , x:1:xs :: [Int]
@@ -2028,14 +2028,14 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , x:sort xs :: [Int]
     , x:sort [] :: [Int]
     , 0:xs' :: [Int]
-    , [0,0,0,0] :: [Int]
-    , [0,0,1] :: [Int]
-    , [0,1,0] :: [Int]
-    , [0,-1] :: [Int]
+    , 0:[0,0,0] :: [Int]
+    , 0:[0,1] :: [Int]
+    , 0:[1,0] :: [Int]
+    , 0:[-1] :: [Int]
     , 0:x:ys :: [Int]
-    , [0,x,0] :: [Int]
+    , 0:x:[0] :: [Int]
     , 0:0:ys :: [Int]
-    , [0,0,0] :: [Int]
+    , 0:0:[0] :: [Int]
     , 0:y:xs :: [Int]
     , [0,y] :: [Int]
     , 0:1:xs :: [Int]
@@ -2053,8 +2053,8 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , 0:sort xs :: [Int]
     , 0:sort [] :: [Int]
     , y:zs :: [Int]
-    , [y,0,0] :: [Int]
-    , [y,1] :: [Int]
+    , y:[0,0] :: [Int]
+    , y:[1] :: [Int]
     , y:x:xs :: [Int]
     , [y,x] :: [Int]
     , y:0:xs :: [Int]
@@ -2062,8 +2062,8 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , y:tail xs :: [Int]
     , y:tail [] :: [Int]
     , 1:zs :: [Int]
-    , [1,0,0] :: [Int]
-    , [1,1] :: [Int]
+    , 1:[0,0] :: [Int]
+    , 1:[1] :: [Int]
     , 1:x:xs :: [Int]
     , [1,x] :: [Int]
     , 1:0:xs :: [Int]
@@ -2071,8 +2071,8 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , 1:tail xs :: [Int]
     , 1:tail [] :: [Int]
     , id x:zs :: [Int]
-    , [id x,0,0] :: [Int]
-    , [id x,1] :: [Int]
+    , id x:[0,0] :: [Int]
+    , id x:[1] :: [Int]
     , id x:x:xs :: [Int]
     , [id x,x] :: [Int]
     , id x:0:xs :: [Int]
@@ -2080,8 +2080,8 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , id x:tail xs :: [Int]
     , id x:tail [] :: [Int]
     , id 0:zs :: [Int]
-    , [id 0,0,0] :: [Int]
-    , [id 0,1] :: [Int]
+    , id 0:[0,0] :: [Int]
+    , id 0:[1] :: [Int]
     , id 0:x:xs :: [Int]
     , [id 0,x] :: [Int]
     , id 0:0:xs :: [Int]
@@ -2089,33 +2089,33 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , id 0:tail xs :: [Int]
     , id 0:tail [] :: [Int]
     , z:ys :: [Int]
-    , [z,0] :: [Int]
+    , z:[0] :: [Int]
     , (-1):ys :: [Int]
-    , [-1,0] :: [Int]
+    , (-1):[0] :: [Int]
     , id y:ys :: [Int]
-    , [id y,0] :: [Int]
+    , id y:[0] :: [Int]
     , id 1:ys :: [Int]
-    , [id 1,0] :: [Int]
+    , id 1:[0] :: [Int]
     , id (id x):ys :: [Int]
-    , [id (id x),0] :: [Int]
+    , id (id x):[0] :: [Int]
     , id (id 0):ys :: [Int]
-    , [id (id 0),0] :: [Int]
+    , id (id 0):[0] :: [Int]
     , negate x:ys :: [Int]
-    , [negate x,0] :: [Int]
+    , negate x:[0] :: [Int]
     , negate 0:ys :: [Int]
-    , [negate 0,0] :: [Int]
+    , negate 0:[0] :: [Int]
     , abs x:ys :: [Int]
-    , [abs x,0] :: [Int]
+    , abs x:[0] :: [Int]
     , abs 0:ys :: [Int]
-    , [abs 0,0] :: [Int]
+    , abs 0:[0] :: [Int]
     , head xs:ys :: [Int]
-    , [head xs,0] :: [Int]
+    , head xs:[0] :: [Int]
     , head []:ys :: [Int]
-    , [head [],0] :: [Int]
+    , head []:[0] :: [Int]
     , ord c:ys :: [Int]
-    , [ord c,0] :: [Int]
+    , ord c:[0] :: [Int]
     , ord 'a':ys :: [Int]
-    , [ord 'a',0] :: [Int]
+    , ord 'a':[0] :: [Int]
     , x':xs :: [Int]
     , [x'] :: [Int]
     , 2:xs :: [Int]
@@ -2190,9 +2190,9 @@ filterT isComplete tiers :: [[ Expr ]]  =
     , tail [1,0] :: [Int]
     , tail [-1] :: [Int]
     , tail (x:ys) :: [Int]
-    , tail [x,0] :: [Int]
+    , tail (x:[0]) :: [Int]
     , tail (0:ys) :: [Int]
-    , tail [0,0] :: [Int]
+    , tail (0:[0]) :: [Int]
     , tail (y:xs) :: [Int]
     , tail [y] :: [Int]
     , tail (1:xs) :: [Int]

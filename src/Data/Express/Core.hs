@@ -457,9 +457,6 @@ showsPrecExpr d e@(Value ":" _ :$ _ :$ _) =
   (es,Value "[]" _) -> showString "["
                      . foldr (.) id (intersperse (showString ",") [showsPrecExpr 0 e | e <- es])
                      . showString "]"
-  (es,Value ('[':cs) _) -> showString "["
-                         . foldr (.) id (intersperse (showString ",") [showsPrecExpr 0 e | e <- es])
-                         . showString (',':cs)
   (es,Value "\"\"" _)
     | hasConstTail es -> let (cs,etc) = span isConst (reverse es)
                          in showParen (not (null etc) && d > prec ":")

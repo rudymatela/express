@@ -529,19 +529,19 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , elem 0 xs :: Bool
   , elem 1 _ :: Bool
   , [_] :: [Int]
-  , [_,0] :: [Int]
-  , [_,1] :: [Int]
-  , [_,-1] :: [Int]
-  , [_,0,0] :: [Int]
-  , [_,0,1] :: [Int]
-  , [_,1,0] :: [Int]
-  , [_,0,0,0] :: [Int]
+  , _:[0] :: [Int]
+  , _:[1] :: [Int]
+  , _:[-1] :: [Int]
+  , _:[0,0] :: [Int]
+  , _:[0,1] :: [Int]
+  , _:[1,0] :: [Int]
+  , _:[0,0,0] :: [Int]
   , [x] :: [Int]
-  , [x,0] :: [Int]
-  , [x,1] :: [Int]
-  , [x,0,0] :: [Int]
+  , x:[0] :: [Int]
+  , x:[1] :: [Int]
+  , x:[0,0] :: [Int]
   , [y] :: [Int]
-  , [y,0] :: [Int]
+  , y:[0] :: [Int]
   , [z] :: [Int]
   , 0:_ :: [Int]
   , 0:xs :: [Int]
@@ -663,11 +663,11 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , (-1) + 0 :: Int
   , elem 0 [] :: Bool
   , [0] :: [Int]
-  , [0,0] :: [Int]
-  , [0,1] :: [Int]
-  , [0,0,0] :: [Int]
+  , 0:[0] :: [Int]
+  , 0:[1] :: [Int]
+  , 0:[0,0] :: [Int]
   , [1] :: [Int]
-  , [1,0] :: [Int]
+  , 1:[0] :: [Int]
   , [-1] :: [Int]
   , insert 0 [] :: [Int]
   , [] ++ [0] :: [Int]
@@ -1270,11 +1270,11 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , negate (0 + x) :: Int
   , negate (1 + _) :: Int
   , head [_] :: Int
-  , head [_,0] :: Int
-  , head [_,1] :: Int
-  , head [_,0,0] :: Int
+  , head (_:[0]) :: Int
+  , head (_:[1]) :: Int
+  , head (_:[0,0]) :: Int
   , head [x] :: Int
-  , head [x,0] :: Int
+  , head (x:[0]) :: Int
   , head [y] :: Int
   , head (0:_) :: Int
   , head (0:xs) :: Int
@@ -1293,7 +1293,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , sort [_] :: [Int]
   , sort (0:_) :: [Int]
   , tail [_] :: [Int]
-  , tail [_,0] :: [Int]
+  , tail (_:[0]) :: [Int]
   , tail [x] :: [Int]
   , tail (0:_) :: [Int]
   , tail (0:xs) :: [Int]
@@ -1453,17 +1453,17 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , 0:tail xs :: [Int]
   , 1:tail _ :: [Int]
   , [ord _] :: [Int]
-  , [ord _,0] :: [Int]
+  , ord _:[0] :: [Int]
   , [ord c] :: [Int]
   , ord ' ':_ :: [Int]
   , ord 'a':_ :: [Int]
   , ord 'a':xs :: [Int]
   , [id _] :: [Int]
-  , [id _,0] :: [Int]
-  , [id _,1] :: [Int]
-  , [id _,0,0] :: [Int]
+  , id _:[0] :: [Int]
+  , id _:[1] :: [Int]
+  , id _:[0,0] :: [Int]
   , [id x] :: [Int]
-  , [id x,0] :: [Int]
+  , id x:[0] :: [Int]
   , [id y] :: [Int]
   , id 0:_ :: [Int]
   , id 0:xs :: [Int]
@@ -1472,19 +1472,19 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , id 1:xs :: [Int]
   , id (-1):_ :: [Int]
   , [abs _] :: [Int]
-  , [abs _,0] :: [Int]
+  , abs _:[0] :: [Int]
   , [abs x] :: [Int]
   , abs 0:_ :: [Int]
   , abs 0:xs :: [Int]
   , abs 1:_ :: [Int]
   , [negate _] :: [Int]
-  , [negate _,0] :: [Int]
+  , negate _:[0] :: [Int]
   , [negate x] :: [Int]
   , negate 0:_ :: [Int]
   , negate 0:xs :: [Int]
   , negate 1:_ :: [Int]
   , [head _] :: [Int]
-  , [head _,0] :: [Int]
+  , head _:[0] :: [Int]
   , [head xs] :: [Int]
   , head []:_ :: [Int]
   , head []:xs :: [Int]
@@ -1585,7 +1585,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , negate (id (head [])) :: Int
   , negate (abs (id 0)) :: Int
   , head [0] :: Int
-  , head [0,0] :: Int
+  , head (0:[0]) :: Int
   , head [1] :: Int
   , tail [0] :: [Int]
   , False || not True :: Bool
@@ -1603,7 +1603,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , 0:tail [] :: [Int]
   , [ord 'a'] :: [Int]
   , [id 0] :: [Int]
-  , [id 0,0] :: [Int]
+  , id 0:[0] :: [Int]
   , [id 1] :: [Int]
   , [abs 0] :: [Int]
   , [negate 0] :: [Int]
@@ -1875,7 +1875,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , elem (id (id _)) _ :: Bool
   , _:tail (tail _) :: [Int]
   , [_,x] :: [Int]
-  , [_,x,0] :: [Int]
+  , _:x:[0] :: [Int]
   , [_,y] :: [Int]
   , _:0:_ :: [Int]
   , _:0:xs :: [Int]
@@ -1884,7 +1884,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , _:1:xs :: [Int]
   , _:(-1):_ :: [Int]
   , [x,_] :: [Int]
-  , [x,_,0] :: [Int]
+  , x:_:[0] :: [Int]
   , x:0:_ :: [Int]
   , x:0:xs :: [Int]
   , x:1:_ :: [Int]
@@ -2194,7 +2194,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , insert _ (0:_) :: [Int]
   , insert 0 (_:_) :: [Int]
   , _ ++ [_] :: [Int]
-  , _ ++ [_,0] :: [Int]
+  , _ ++ (_:[0]) :: [Int]
   , _ ++ [x] :: [Int]
   , _ ++ (0:xs) :: [Int]
   , xs ++ [_] :: [Int]
@@ -2208,7 +2208,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , (_:xs) ++ [] :: [Int]
   , [_] ++ _ :: [Int]
   , [_] ++ xs :: [Int]
-  , [_,0] ++ _ :: [Int]
+  , (_:[0]) ++ _ :: [Int]
   , (x:_) ++ [] :: [Int]
   , [x] ++ _ :: [Int]
   , (0:_) ++ xs :: [Int]
@@ -2321,9 +2321,9 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , (0 + _) + _ :: Int
   , (1 + _) + _ :: Int
   , [_,_] :: [Int]
-  , [_,_,0] :: [Int]
-  , [_,_,1] :: [Int]
-  , [_,_,0,0] :: [Int]
+  , _:_:[0] :: [Int]
+  , _:_:[1] :: [Int]
+  , _:_:[0,0] :: [Int]
   , [x,x] :: [Int]
   , _ ++ (_ ++ []) :: [Int]
   , _ ++ ([] ++ _) :: [Int]
@@ -2430,7 +2430,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , head (tail _):_ :: [Int]
   , [_ * _] :: [Int]
   , [_ + _] :: [Int]
-  , [_ + _,0] :: [Int]
+  , _ + _:[0] :: [Int]
   , insert _ [_] :: [Int]
   , _ ++ (0:_) :: [Int]
   , _ ++ (1:_) :: [Int]
@@ -2659,18 +2659,18 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , id (id 0) + x :: Int
   , id (id 1) + _ :: Int
   , [_,0] :: [Int]
-  , [_,0,0] :: [Int]
+  , _:0:[0] :: [Int]
   , [_,1] :: [Int]
   , _:([] ++ []) :: [Int]
   , [x,0] :: [Int]
   , [0,_] :: [Int]
-  , [0,_,0] :: [Int]
+  , 0:_:[0] :: [Int]
   , [0,x] :: [Int]
   , 0:1:_ :: [Int]
   , [1,_] :: [Int]
   , 1:0:_ :: [Int]
   , [id (id _)] :: [Int]
-  , [id (id _),0] :: [Int]
+  , id (id _):[0] :: [Int]
   , [id (id x)] :: [Int]
   , id (id 0):_ :: [Int]
   , id (id 0):xs :: [Int]
@@ -2701,11 +2701,11 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , id (negate (0 + x)) :: Int
   , id (negate (1 + _)) :: Int
   , id (head [_]) :: Int
-  , id (head [_,0]) :: Int
-  , id (head [_,1]) :: Int
-  , id (head [_,0,0]) :: Int
+  , id (head (_:[0])) :: Int
+  , id (head (_:[1])) :: Int
+  , id (head (_:[0,0])) :: Int
   , id (head [x]) :: Int
-  , id (head [x,0]) :: Int
+  , id (head (x:[0])) :: Int
   , id (head [y]) :: Int
   , id (head (0:_)) :: Int
   , id (head (0:xs)) :: Int
@@ -2806,7 +2806,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , head [ord _] :: Int
   , head (ord 'a':_) :: Int
   , head [id _] :: Int
-  , head [id _,0] :: Int
+  , head (id _:[0]) :: Int
   , head [id x] :: Int
   , head (id 0:_) :: Int
   , head (id 0:xs) :: Int
@@ -2948,7 +2948,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , id (negate 0 + 0) :: Int
   , [id (id 0)] :: [Int]
   , id (head [0]) :: Int
-  , id (head [0,0]) :: Int
+  , id (head (0:[0])) :: Int
   , id (head [1]) :: Int
   , id (0 + ord 'a') :: Int
   , id (0 + head []) :: Int
@@ -3750,7 +3750,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , negate (id _ + id _) :: Int
   , negate (id (id _) + _) :: Int
   , head [_,_] :: Int
-  , head [_,_,0] :: Int
+  , head (_:_:[0]) :: Int
   , head (id (head _):_) :: Int
   , tail [_,_] :: [Int]
   , _ + id (id (abs _)) :: Int
@@ -3804,12 +3804,12 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , _:tail [_] :: [Int]
   , _:_:tail [] :: [Int]
   , [_,id _] :: [Int]
-  , [_,id _,0] :: [Int]
+  , _:id _:[0] :: [Int]
   , [_,abs _] :: [Int]
   , [_,negate _] :: [Int]
   , 0:head _:_ :: [Int]
   , [id _,_] :: [Int]
-  , [id _,_,0] :: [Int]
+  , id _:_:[0] :: [Int]
   , id (id (head _)):_ :: [Int]
   , [abs _,_] :: [Int]
   , [negate _,_] :: [Int]
@@ -3990,7 +3990,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , id (id (negate (_ + 0))) :: Int
   , id (id (negate (0 + _))) :: Int
   , id (id (head [_])) :: Int
-  , id (id (head [_,0])) :: Int
+  , id (id (head (_:[0]))) :: Int
   , id (id (head [x])) :: Int
   , id (id (head (0:_))) :: Int
   , id (id (head (0:xs))) :: Int
@@ -4026,7 +4026,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , id (negate (id _ + 0)) :: Int
   , id (negate (id 0 + _)) :: Int
   , id (head [id _]) :: Int
-  , id (head [id _,0]) :: Int
+  , id (head (id _:[0])) :: Int
   , id (head [id x]) :: Int
   , id (head (id 0:_)) :: Int
   , id (head (id 0:xs)) :: Int
@@ -4548,7 +4548,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , (id _ + id _) + _ :: Int
   , (id (id _) + _) + _ :: Int
   , [_,_,_] :: [Int]
-  , [_,_,_,0] :: [Int]
+  , _:_:_:[0] :: [Int]
   , id (id (_ * (_ + _))) :: Int
   , id (id ((_ + _) * _)) :: Int
   , id (id (_ + _ * _)) :: Int
@@ -4717,7 +4717,7 @@ sort $ take 5040 $ list  ::  [ Expr ]  =
   , [id _,id _] :: [Int]
   , [id (id _),_] :: [Int]
   , id (head [_,_]) :: Int
-  , id (head [_,_,0]) :: Int
+  , id (head (_:_:[0])) :: Int
   , head [_,id _] :: Int
   , head [id _,_] :: Int
   , id (head (0:(_ ++ _))) :: Int
@@ -5707,7 +5707,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id (id (head (_:xs))) :: Int
   , id (id (head (_:ys))) :: Int
   , id (id (head [_])) :: Int
-  , id (id (head [_,0])) :: Int
+  , id (id (head (_:[0]))) :: Int
   , id (id (head (_:tail _))) :: Int
   , id (id (head (_:_:_))) :: Int
   , id (id (head (_:_:xs))) :: Int
@@ -6272,9 +6272,9 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (_:ys)) :: Int
   , id (head (_:zs)) :: Int
   , id (head [_]) :: Int
-  , id (head [_,0]) :: Int
-  , id (head [_,1]) :: Int
-  , id (head [_,0,0]) :: Int
+  , id (head (_:[0])) :: Int
+  , id (head (_:[1])) :: Int
+  , id (head (_:[0,0])) :: Int
   , id (head (_:sort _)) :: Int
   , id (head (_:tail _)) :: Int
   , id (head (_:tail xs)) :: Int
@@ -6284,7 +6284,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (_:_:xs)) :: Int
   , id (head (_:_:ys)) :: Int
   , id (head [_,_]) :: Int
-  , id (head [_,_,0]) :: Int
+  , id (head (_:_:[0])) :: Int
   , id (head (_:_:tail _)) :: Int
   , id (head (_:_:_:_)) :: Int
   , id (head (_:_:_:xs)) :: Int
@@ -6328,7 +6328,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (x:xs)) :: Int
   , id (head (x:ys)) :: Int
   , id (head [x]) :: Int
-  , id (head [x,0]) :: Int
+  , id (head (x:[0])) :: Int
   , id (head (x:tail _)) :: Int
   , id (head (x:_:_)) :: Int
   , id (head (x:_:xs)) :: Int
@@ -6347,7 +6347,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (0:xs)) :: Int
   , id (head (0:ys)) :: Int
   , id (head [0]) :: Int
-  , id (head [0,0]) :: Int
+  , id (head (0:[0])) :: Int
   , id (head (0:tail _)) :: Int
   , id (head (0:_:_)) :: Int
   , id (head (0:_:xs)) :: Int
@@ -6373,7 +6373,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (id _:xs)) :: Int
   , id (head (id _:ys)) :: Int
   , id (head [id _]) :: Int
-  , id (head [id _,0]) :: Int
+  , id (head (id _:[0])) :: Int
   , id (head (id _:tail _)) :: Int
   , id (head (id _:_:_)) :: Int
   , id (head (id _:_:xs)) :: Int
@@ -7616,9 +7616,9 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , head (_:ys) :: Int
   , head (_:zs) :: Int
   , head [_] :: Int
-  , head [_,0] :: Int
-  , head [_,1] :: Int
-  , head [_,0,0] :: Int
+  , head (_:[0]) :: Int
+  , head (_:[1]) :: Int
+  , head (_:[0,0]) :: Int
   , head (_:sort _) :: Int
   , head (_:tail _) :: Int
   , head (_:tail xs) :: Int
@@ -7628,7 +7628,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , head (_:_:xs) :: Int
   , head (_:_:ys) :: Int
   , head [_,_] :: Int
-  , head [_,_,0] :: Int
+  , head (_:_:[0]) :: Int
   , head (_:_:tail _) :: Int
   , head (_:_:_:_) :: Int
   , head (_:_:_:xs) :: Int
@@ -7672,7 +7672,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , head (x:xs) :: Int
   , head (x:ys) :: Int
   , head [x] :: Int
-  , head [x,0] :: Int
+  , head (x:[0]) :: Int
   , head (x:tail _) :: Int
   , head (x:_:_) :: Int
   , head (x:_:xs) :: Int
@@ -7691,7 +7691,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , head (0:xs) :: Int
   , head (0:ys) :: Int
   , head [0] :: Int
-  , head [0,0] :: Int
+  , head (0:[0]) :: Int
   , head (0:tail _) :: Int
   , head (0:_:_) :: Int
   , head (0:_:xs) :: Int
@@ -7717,7 +7717,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , head (id _:xs) :: Int
   , head (id _:ys) :: Int
   , head [id _] :: Int
-  , head [id _,0] :: Int
+  , head (id _:[0]) :: Int
   , head (id _:tail _) :: Int
   , head (id _:_:_) :: Int
   , head (id _:_:xs) :: Int
@@ -7855,7 +7855,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , tail (_:xs) :: [Int]
   , tail (_:ys) :: [Int]
   , tail [_] :: [Int]
-  , tail [_,0] :: [Int]
+  , tail (_:[0]) :: [Int]
   , tail (_:tail _) :: [Int]
   , tail (_:_:_) :: [Int]
   , tail (_:_:xs) :: [Int]
@@ -9087,13 +9087,13 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , _:zs :: [Int]
   , _:xs' :: [Int]
   , [_] :: [Int]
-  , [_,0] :: [Int]
-  , [_,1] :: [Int]
-  , [_,-1] :: [Int]
-  , [_,0,0] :: [Int]
-  , [_,0,1] :: [Int]
-  , [_,1,0] :: [Int]
-  , [_,0,0,0] :: [Int]
+  , _:[0] :: [Int]
+  , _:[1] :: [Int]
+  , _:[-1] :: [Int]
+  , _:[0,0] :: [Int]
+  , _:[0,1] :: [Int]
+  , _:[1,0] :: [Int]
+  , _:[0,0,0] :: [Int]
   , _:sort _ :: [Int]
   , _:sort xs :: [Int]
   , _:sort [] :: [Int]
@@ -9117,9 +9117,9 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , _:_:ys :: [Int]
   , _:_:zs :: [Int]
   , [_,_] :: [Int]
-  , [_,_,0] :: [Int]
-  , [_,_,1] :: [Int]
-  , [_,_,0,0] :: [Int]
+  , _:_:[0] :: [Int]
+  , _:_:[1] :: [Int]
+  , _:_:[0,0] :: [Int]
   , _:_:sort _ :: [Int]
   , _:_:tail _ :: [Int]
   , _:_:tail xs :: [Int]
@@ -9129,7 +9129,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , _:_:_:xs :: [Int]
   , _:_:_:ys :: [Int]
   , [_,_,_] :: [Int]
-  , [_,_,_,0] :: [Int]
+  , _:_:_:[0] :: [Int]
   , _:_:_:tail _ :: [Int]
   , _:_:_:_:_ :: [Int]
   , _:_:_:_:xs :: [Int]
@@ -9173,7 +9173,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , _:x:xs :: [Int]
   , _:x:ys :: [Int]
   , [_,x] :: [Int]
-  , [_,x,0] :: [Int]
+  , _:x:[0] :: [Int]
   , _:x:tail _ :: [Int]
   , _:x:_:_ :: [Int]
   , _:x:_:xs :: [Int]
@@ -9192,7 +9192,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , _:0:xs :: [Int]
   , _:0:ys :: [Int]
   , [_,0] :: [Int]
-  , [_,0,0] :: [Int]
+  , _:0:[0] :: [Int]
   , _:0:tail _ :: [Int]
   , _:0:_:_ :: [Int]
   , _:0:_:xs :: [Int]
@@ -9218,7 +9218,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , _:id _:xs :: [Int]
   , _:id _:ys :: [Int]
   , [_,id _] :: [Int]
-  , [_,id _,0] :: [Int]
+  , _:id _:[0] :: [Int]
   , _:id _:tail _ :: [Int]
   , _:id _:_:_ :: [Int]
   , _:id _:_:xs :: [Int]
@@ -9330,9 +9330,9 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , x:ys :: [Int]
   , x:zs :: [Int]
   , [x] :: [Int]
-  , [x,0] :: [Int]
-  , [x,1] :: [Int]
-  , [x,0,0] :: [Int]
+  , x:[0] :: [Int]
+  , x:[1] :: [Int]
+  , x:[0,0] :: [Int]
   , x:sort _ :: [Int]
   , x:tail _ :: [Int]
   , x:tail xs :: [Int]
@@ -9342,7 +9342,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , x:_:xs :: [Int]
   , x:_:ys :: [Int]
   , [x,_] :: [Int]
-  , [x,_,0] :: [Int]
+  , x:_:[0] :: [Int]
   , x:_:tail _ :: [Int]
   , x:_:_:_ :: [Int]
   , x:_:_:xs :: [Int]
@@ -9386,7 +9386,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , y:xs :: [Int]
   , y:ys :: [Int]
   , [y] :: [Int]
-  , [y,0] :: [Int]
+  , y:[0] :: [Int]
   , y:tail _ :: [Int]
   , y:_:_ :: [Int]
   , y:_:xs :: [Int]
@@ -9406,9 +9406,9 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , 0:ys :: [Int]
   , 0:zs :: [Int]
   , [0] :: [Int]
-  , [0,0] :: [Int]
-  , [0,1] :: [Int]
-  , [0,0,0] :: [Int]
+  , 0:[0] :: [Int]
+  , 0:[1] :: [Int]
+  , 0:[0,0] :: [Int]
   , 0:sort _ :: [Int]
   , 0:tail _ :: [Int]
   , 0:tail xs :: [Int]
@@ -9418,7 +9418,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , 0:_:xs :: [Int]
   , 0:_:ys :: [Int]
   , [0,_] :: [Int]
-  , [0,_,0] :: [Int]
+  , 0:_:[0] :: [Int]
   , 0:_:tail _ :: [Int]
   , 0:_:_:_ :: [Int]
   , 0:_:_:xs :: [Int]
@@ -9462,7 +9462,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , 1:xs :: [Int]
   , 1:ys :: [Int]
   , [1] :: [Int]
-  , [1,0] :: [Int]
+  , 1:[0] :: [Int]
   , 1:tail _ :: [Int]
   , 1:_:_ :: [Int]
   , 1:_:xs :: [Int]
@@ -9489,7 +9489,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , ord _:xs :: [Int]
   , ord _:ys :: [Int]
   , [ord _] :: [Int]
-  , [ord _,0] :: [Int]
+  , ord _:[0] :: [Int]
   , ord _:tail _ :: [Int]
   , ord _:_:_ :: [Int]
   , ord _:_:xs :: [Int]
@@ -9514,9 +9514,9 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id _:ys :: [Int]
   , id _:zs :: [Int]
   , [id _] :: [Int]
-  , [id _,0] :: [Int]
-  , [id _,1] :: [Int]
-  , [id _,0,0] :: [Int]
+  , id _:[0] :: [Int]
+  , id _:[1] :: [Int]
+  , id _:[0,0] :: [Int]
   , id _:sort _ :: [Int]
   , id _:tail _ :: [Int]
   , id _:tail xs :: [Int]
@@ -9526,7 +9526,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id _:_:xs :: [Int]
   , id _:_:ys :: [Int]
   , [id _,_] :: [Int]
-  , [id _,_,0] :: [Int]
+  , id _:_:[0] :: [Int]
   , id _:_:tail _ :: [Int]
   , id _:_:_:_ :: [Int]
   , id _:_:_:xs :: [Int]
@@ -9570,7 +9570,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id x:xs :: [Int]
   , id x:ys :: [Int]
   , [id x] :: [Int]
-  , [id x,0] :: [Int]
+  , id x:[0] :: [Int]
   , id x:tail _ :: [Int]
   , id x:_:_ :: [Int]
   , id x:_:xs :: [Int]
@@ -9589,7 +9589,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id 0:xs :: [Int]
   , id 0:ys :: [Int]
   , [id 0] :: [Int]
-  , [id 0,0] :: [Int]
+  , id 0:[0] :: [Int]
   , id 0:tail _ :: [Int]
   , id 0:_:_ :: [Int]
   , id 0:_:xs :: [Int]
@@ -9615,7 +9615,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , id (id _):xs :: [Int]
   , id (id _):ys :: [Int]
   , [id (id _)] :: [Int]
-  , [id (id _),0] :: [Int]
+  , id (id _):[0] :: [Int]
   , id (id _):tail _ :: [Int]
   , id (id _):_:_ :: [Int]
   , id (id _):_:xs :: [Int]
@@ -9683,7 +9683,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , abs _:xs :: [Int]
   , abs _:ys :: [Int]
   , [abs _] :: [Int]
-  , [abs _,0] :: [Int]
+  , abs _:[0] :: [Int]
   , abs _:tail _ :: [Int]
   , abs _:_:_ :: [Int]
   , abs _:_:xs :: [Int]
@@ -9719,7 +9719,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , negate _:xs :: [Int]
   , negate _:ys :: [Int]
   , [negate _] :: [Int]
-  , [negate _,0] :: [Int]
+  , negate _:[0] :: [Int]
   , negate _:tail _ :: [Int]
   , negate _:_:_ :: [Int]
   , negate _:_:xs :: [Int]
@@ -9755,7 +9755,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , head _:xs :: [Int]
   , head _:ys :: [Int]
   , [head _] :: [Int]
-  , [head _,0] :: [Int]
+  , head _:[0] :: [Int]
   , head _:tail _ :: [Int]
   , head _:_:_ :: [Int]
   , head _:_:xs :: [Int]
@@ -9801,7 +9801,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , _ + _:xs :: [Int]
   , _ + _:ys :: [Int]
   , [_ + _] :: [Int]
-  , [_ + _,0] :: [Int]
+  , _ + _:[0] :: [Int]
   , _ + _:tail _ :: [Int]
   , _ + _:_:_ :: [Int]
   , _ + _:_:xs :: [Int]
@@ -9917,7 +9917,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , _ ++ (_:xs) :: [Int]
   , _ ++ (_:ys) :: [Int]
   , _ ++ [_] :: [Int]
-  , _ ++ [_,0] :: [Int]
+  , _ ++ (_:[0]) :: [Int]
   , _ ++ (_:tail _) :: [Int]
   , _ ++ (_:_:_) :: [Int]
   , _ ++ (_:_:xs) :: [Int]
@@ -10027,7 +10027,7 @@ sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  =
   , [_] ++ xs :: [Int]
   , [_] ++ [] :: [Int]
   , [_] ++ (_:_) :: [Int]
-  , [_,0] ++ _ :: [Int]
+  , (_:[0]) ++ _ :: [Int]
   , (_:tail _) ++ _ :: [Int]
   , (_:_:_) ++ _ :: [Int]
   , (_:_:_) ++ xs :: [Int]
@@ -11049,7 +11049,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id (id (head (0:xs))) :: Int
   , id (id (head (0:_:_))) :: Int
   , id (id (head (1:_))) :: Int
-  , id (id (head [_,0])) :: Int
+  , id (id (head (_:[0]))) :: Int
   , id (id (head [_])) :: Int
   , id (id (head (_:_))) :: Int
   , id (id (head (_:xs))) :: Int
@@ -11460,7 +11460,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (tail (id _:_))) :: Int
   , id (head (tail (_ ++ _))) :: Int
   , id (head ((-1):_)) :: Int
-  , id (head [0,0]) :: Int
+  , id (head (0:[0])) :: Int
   , id (head [0]) :: Int
   , id (head (0:_)) :: Int
   , id (head (0:xs)) :: Int
@@ -11478,9 +11478,9 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (1:_)) :: Int
   , id (head (1:xs)) :: Int
   , id (head (1:_:_)) :: Int
-  , id (head [_,0,0]) :: Int
-  , id (head [_,0]) :: Int
-  , id (head [_,1]) :: Int
+  , id (head (_:[0,0])) :: Int
+  , id (head (_:[0])) :: Int
+  , id (head (_:[1])) :: Int
   , id (head [_]) :: Int
   , id (head (_:_)) :: Int
   , id (head (_:xs)) :: Int
@@ -11496,7 +11496,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (_:0:xs)) :: Int
   , id (head (_:0:_:_)) :: Int
   , id (head (_:1:_)) :: Int
-  , id (head [_,_,0]) :: Int
+  , id (head (_:_:[0])) :: Int
   , id (head [_,_]) :: Int
   , id (head (_:_:_)) :: Int
   , id (head (_:_:xs)) :: Int
@@ -11535,7 +11535,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (_:(_ ++ (_:_)))) :: Int
   , id (head (_:(xs ++ _))) :: Int
   , id (head (_:((_:_) ++ _))) :: Int
-  , id (head [x,0]) :: Int
+  , id (head (x:[0])) :: Int
   , id (head [x]) :: Int
   , id (head (x:_)) :: Int
   , id (head (x:xs)) :: Int
@@ -11573,7 +11573,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id (head (id 0:xs)) :: Int
   , id (head (id 0:_:_)) :: Int
   , id (head (id 1:_)) :: Int
-  , id (head [id _,0]) :: Int
+  , id (head (id _:[0])) :: Int
   , id (head [id _]) :: Int
   , id (head (id _:_)) :: Int
   , id (head (id _:xs)) :: Int
@@ -12655,7 +12655,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , head (tail (id _:_)) :: Int
   , head (tail (_ ++ _)) :: Int
   , head ((-1):_) :: Int
-  , head [0,0] :: Int
+  , head (0:[0]) :: Int
   , head [0] :: Int
   , head (0:_) :: Int
   , head (0:xs) :: Int
@@ -12673,9 +12673,9 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , head (1:_) :: Int
   , head (1:xs) :: Int
   , head (1:_:_) :: Int
-  , head [_,0,0] :: Int
-  , head [_,0] :: Int
-  , head [_,1] :: Int
+  , head (_:[0,0]) :: Int
+  , head (_:[0]) :: Int
+  , head (_:[1]) :: Int
   , head [_] :: Int
   , head (_:_) :: Int
   , head (_:xs) :: Int
@@ -12691,7 +12691,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , head (_:0:xs) :: Int
   , head (_:0:_:_) :: Int
   , head (_:1:_) :: Int
-  , head [_,_,0] :: Int
+  , head (_:_:[0]) :: Int
   , head [_,_] :: Int
   , head (_:_:_) :: Int
   , head (_:_:xs) :: Int
@@ -12730,7 +12730,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , head (_:(_ ++ (_:_))) :: Int
   , head (_:(xs ++ _)) :: Int
   , head (_:((_:_) ++ _)) :: Int
-  , head [x,0] :: Int
+  , head (x:[0]) :: Int
   , head [x] :: Int
   , head (x:_) :: Int
   , head (x:xs) :: Int
@@ -12768,7 +12768,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , head (id 0:xs) :: Int
   , head (id 0:_:_) :: Int
   , head (id 1:_) :: Int
-  , head [id _,0] :: Int
+  , head (id _:[0]) :: Int
   , head [id _] :: Int
   , head (id _:_) :: Int
   , head (id _:xs) :: Int
@@ -12899,7 +12899,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , tail (0:xs) :: [Int]
   , tail (0:_:_) :: [Int]
   , tail (1:_) :: [Int]
-  , tail [_,0] :: [Int]
+  , tail (_:[0]) :: [Int]
   , tail [_] :: [Int]
   , tail (_:_) :: [Int]
   , tail (_:xs) :: [Int]
@@ -14128,9 +14128,9 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , (-1):_ :: [Int]
   , (-1):xs :: [Int]
   , (-1):_:_ :: [Int]
-  , [0,0,0] :: [Int]
-  , [0,0] :: [Int]
-  , [0,1] :: [Int]
+  , 0:[0,0] :: [Int]
+  , 0:[0] :: [Int]
+  , 0:[1] :: [Int]
   , [0] :: [Int]
   , 0:_ :: [Int]
   , 0:xs :: [Int]
@@ -14146,7 +14146,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , 0:0:xs :: [Int]
   , 0:0:_:_ :: [Int]
   , 0:1:_ :: [Int]
-  , [0,_,0] :: [Int]
+  , 0:_:[0] :: [Int]
   , [0,_] :: [Int]
   , 0:_:_ :: [Int]
   , 0:_:xs :: [Int]
@@ -14185,7 +14185,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , 0:(_ ++ (_:_)) :: [Int]
   , 0:(xs ++ _) :: [Int]
   , 0:((_:_) ++ _) :: [Int]
-  , [1,0] :: [Int]
+  , 1:[0] :: [Int]
   , [1] :: [Int]
   , 1:_ :: [Int]
   , 1:xs :: [Int]
@@ -14200,13 +14200,13 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , 1:id _:_ :: [Int]
   , 1:(_ ++ _) :: [Int]
   , 2:_ :: [Int]
-  , [_,-1] :: [Int]
-  , [_,0,0,0] :: [Int]
-  , [_,0,0] :: [Int]
-  , [_,0,1] :: [Int]
-  , [_,0] :: [Int]
-  , [_,1,0] :: [Int]
-  , [_,1] :: [Int]
+  , _:[-1] :: [Int]
+  , _:[0,0,0] :: [Int]
+  , _:[0,0] :: [Int]
+  , _:[0,1] :: [Int]
+  , _:[0] :: [Int]
+  , _:[1,0] :: [Int]
+  , _:[1] :: [Int]
   , [_] :: [Int]
   , _:_ :: [Int]
   , _:xs :: [Int]
@@ -14232,7 +14232,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , _:tail (id _:_) :: [Int]
   , _:tail (_ ++ _) :: [Int]
   , _:(-1):_ :: [Int]
-  , [_,0,0] :: [Int]
+  , _:0:[0] :: [Int]
   , [_,0] :: [Int]
   , _:0:_ :: [Int]
   , _:0:xs :: [Int]
@@ -14250,9 +14250,9 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , _:1:_ :: [Int]
   , _:1:xs :: [Int]
   , _:1:_:_ :: [Int]
-  , [_,_,0,0] :: [Int]
-  , [_,_,0] :: [Int]
-  , [_,_,1] :: [Int]
+  , _:_:[0,0] :: [Int]
+  , _:_:[0] :: [Int]
+  , _:_:[1] :: [Int]
   , [_,_] :: [Int]
   , _:_:_ :: [Int]
   , _:_:xs :: [Int]
@@ -14268,7 +14268,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , _:_:0:xs :: [Int]
   , _:_:0:_:_ :: [Int]
   , _:_:1:_ :: [Int]
-  , [_,_,_,0] :: [Int]
+  , _:_:_:[0] :: [Int]
   , [_,_,_] :: [Int]
   , _:_:_:_ :: [Int]
   , _:_:_:xs :: [Int]
@@ -14307,7 +14307,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , _:_:(_ ++ (_:_)) :: [Int]
   , _:_:(xs ++ _) :: [Int]
   , _:_:((_:_) ++ _) :: [Int]
-  , [_,x,0] :: [Int]
+  , _:x:[0] :: [Int]
   , [_,x] :: [Int]
   , _:x:_ :: [Int]
   , _:x:xs :: [Int]
@@ -14345,7 +14345,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , _:id 0:xs :: [Int]
   , _:id 0:_:_ :: [Int]
   , _:id 1:_ :: [Int]
-  , [_,id _,0] :: [Int]
+  , _:id _:[0] :: [Int]
   , [_,id _] :: [Int]
   , _:id _:_ :: [Int]
   , _:id _:xs :: [Int]
@@ -14444,9 +14444,9 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , _:((x:_) ++ _) :: [Int]
   , _:((id _:_) ++ _) :: [Int]
   , _:((_ ++ _) ++ _) :: [Int]
-  , [x,0,0] :: [Int]
-  , [x,0] :: [Int]
-  , [x,1] :: [Int]
+  , x:[0,0] :: [Int]
+  , x:[0] :: [Int]
+  , x:[1] :: [Int]
   , [x] :: [Int]
   , x:_ :: [Int]
   , x:xs :: [Int]
@@ -14462,7 +14462,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , x:0:xs :: [Int]
   , x:0:_:_ :: [Int]
   , x:1:_ :: [Int]
-  , [x,_,0] :: [Int]
+  , x:_:[0] :: [Int]
   , [x,_] :: [Int]
   , x:_:_ :: [Int]
   , x:_:xs :: [Int]
@@ -14502,7 +14502,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , x:(xs ++ _) :: [Int]
   , x:((_:_) ++ _) :: [Int]
   , x':_ :: [Int]
-  , [y,0] :: [Int]
+  , y:[0] :: [Int]
   , [y] :: [Int]
   , y:_ :: [Int]
   , y:xs :: [Int]
@@ -14525,7 +14525,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , ord 'a':_ :: [Int]
   , ord 'a':xs :: [Int]
   , ord 'a':_:_ :: [Int]
-  , [ord _,0] :: [Int]
+  , ord _:[0] :: [Int]
   , [ord _] :: [Int]
   , ord _:_ :: [Int]
   , ord _:xs :: [Int]
@@ -14557,7 +14557,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , abs 0:xs :: [Int]
   , abs 0:_:_ :: [Int]
   , abs 1:_ :: [Int]
-  , [abs _,0] :: [Int]
+  , abs _:[0] :: [Int]
   , [abs _] :: [Int]
   , abs _:_ :: [Int]
   , abs _:xs :: [Int]
@@ -14589,7 +14589,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , abs (head _):_ :: [Int]
   , abs (_ + _):_ :: [Int]
   , id (-1):_ :: [Int]
-  , [id 0,0] :: [Int]
+  , id 0:[0] :: [Int]
   , [id 0] :: [Int]
   , id 0:_ :: [Int]
   , id 0:xs :: [Int]
@@ -14607,9 +14607,9 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id 1:_ :: [Int]
   , id 1:xs :: [Int]
   , id 1:_:_ :: [Int]
-  , [id _,0,0] :: [Int]
-  , [id _,0] :: [Int]
-  , [id _,1] :: [Int]
+  , id _:[0,0] :: [Int]
+  , id _:[0] :: [Int]
+  , id _:[1] :: [Int]
   , [id _] :: [Int]
   , id _:_ :: [Int]
   , id _:xs :: [Int]
@@ -14625,7 +14625,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id _:0:xs :: [Int]
   , id _:0:_:_ :: [Int]
   , id _:1:_ :: [Int]
-  , [id _,_,0] :: [Int]
+  , id _:_:[0] :: [Int]
   , [id _,_] :: [Int]
   , id _:_:_ :: [Int]
   , id _:_:xs :: [Int]
@@ -14664,7 +14664,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id _:(_ ++ (_:_)) :: [Int]
   , id _:(xs ++ _) :: [Int]
   , id _:((_:_) ++ _) :: [Int]
-  , [id x,0] :: [Int]
+  , id x:[0] :: [Int]
   , [id x] :: [Int]
   , id x:_ :: [Int]
   , id x:xs :: [Int]
@@ -14702,7 +14702,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , id (id 0):xs :: [Int]
   , id (id 0):_:_ :: [Int]
   , id (id 1):_ :: [Int]
-  , [id (id _),0] :: [Int]
+  , id (id _):[0] :: [Int]
   , [id (id _)] :: [Int]
   , id (id _):_ :: [Int]
   , id (id _):xs :: [Int]
@@ -14763,7 +14763,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , negate 0:xs :: [Int]
   , negate 0:_:_ :: [Int]
   , negate 1:_ :: [Int]
-  , [negate _,0] :: [Int]
+  , negate _:[0] :: [Int]
   , [negate _] :: [Int]
   , negate _:_ :: [Int]
   , negate _:xs :: [Int]
@@ -14799,7 +14799,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , head []:_ :: [Int]
   , head []:xs :: [Int]
   , head []:_:_ :: [Int]
-  , [head _,0] :: [Int]
+  , head _:[0] :: [Int]
   , [head _] :: [Int]
   , head _:_ :: [Int]
   , head _:xs :: [Int]
@@ -14853,7 +14853,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , _ + 0:xs :: [Int]
   , _ + 0:_:_ :: [Int]
   , _ + 1:_ :: [Int]
-  , [_ + _,0] :: [Int]
+  , _ + _:[0] :: [Int]
   , [_ + _] :: [Int]
   , _ + _:_ :: [Int]
   , _ + _:xs :: [Int]
@@ -14981,7 +14981,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , _ ++ (0:xs) :: [Int]
   , _ ++ (0:_:_) :: [Int]
   , _ ++ (1:_) :: [Int]
-  , _ ++ [_,0] :: [Int]
+  , _ ++ (_:[0]) :: [Int]
   , _ ++ [_] :: [Int]
   , _ ++ (_:_) :: [Int]
   , _ ++ (_:xs) :: [Int]
@@ -15055,7 +15055,7 @@ sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  =
   , (0:xs) ++ _ :: [Int]
   , (0:_:_) ++ _ :: [Int]
   , (1:_) ++ _ :: [Int]
-  , [_,0] ++ _ :: [Int]
+  , (_:[0]) ++ _ :: [Int]
   , [_] ++ [] :: [Int]
   , [_] ++ _ :: [Int]
   , [_] ++ xs :: [Int]
