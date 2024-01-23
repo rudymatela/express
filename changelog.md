@@ -2,6 +2,20 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* fix pretty-printing bug:
+  an expression encoding `x:y:([] ++ _) :: [Int]`
+  was being displayed as `[x,y,] ++ _ :: [Int]`.
+
+* make ordering of `typesIn` consistent between GHC 9.8 and earlier versions
+
+* fix a test failure on GHC 9.6 (previous GHC versions unaffected)
+
+* simplify and improve testing, new benchmark and minor updates
+
+
 v1.0.12
 -------
 
