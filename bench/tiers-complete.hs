@@ -1,11 +1,11 @@
--- tiers.hs -- prints tiers of expressions
+-- tiers-complete.hs -- prints tiers of complete expressions
 --
 -- Copyright (c) 2019-2024 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
-
-
-
-
+--
+-- Complete expressions are those without any holes _.
+--
+-- This is closely related to tiers.hs
 import Test
 import Data.List (intercalate, nub)
 import Test.LeanCheck.Tiers (showTiers)
@@ -23,9 +23,9 @@ printTiers n = putStrLn . init . unlines . map ("  " ++) . lines . showTiers n
 
 main :: IO ()
 main  =  do
-  putStrLn $ "isNub (list :: [Expr])  =  "
-          ++ show (isNub (take 5040 list :: [Expr]))
-  putStrLn $ "map length (tiers :: [[ Expr ]])  =  "
-          ++ showDotsLongerThan 9 (map length (tiers :: [[Expr]]))
-  putStrLn $ "tiers :: [[ Expr ]]  ="
-  printTiers 7 (tiers :: [[Expr]])
+  putStrLn $ "isNub (filter isComplete list :: [Expr])  =  "
+          ++ show (isNub (take 5040 $ filter isComplete list))
+  putStrLn $ "map length (filterT isComplete tiers :: [[ Expr ]])  =  "
+          ++ showDotsLongerThan 9 (map length (filterT isComplete tiers :: [[Expr]]))
+  putStrLn $ "filterT isComplete tiers :: [[ Expr ]]  ="
+  printTiers 7 (filterT isComplete tiers :: [[Expr]])

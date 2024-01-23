@@ -1,6 +1,6 @@
 # Makefile for express
 #
-# Copyright:   (c) 2015-2021 Rudy Matela
+# Copyright:   (c) 2015-2024 Rudy Matela
 # License:     3-Clause BSD  (see the file LICENSE)
 # Maintainer:  Rudy Matela <rudy@matela.com.br>
 TESTS = \
@@ -34,6 +34,7 @@ BENCHS = \
   bench/pairs \
   bench/sort \
   bench/tiers \
+  bench/tiers-complete \
   $(EGS)
 GHCIMPORTDIRS = src:test
 GHCFLAGS = -O2 -v0 $(shell grep -q "Arch Linux" /etc/lsb-release && echo -dynamic)

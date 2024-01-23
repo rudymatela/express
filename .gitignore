@@ -25,6 +25,7 @@ bench/match-triexpr
 bench/pairs
 bench/sort
 bench/tiers
+bench/tiers-complete
 test/canon
 test/core
 test/express

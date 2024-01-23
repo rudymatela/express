@@ -167,6 +167,34 @@ bench/sort: \
   test/Test/ListableExpr.hs \
   bench/sort.hs \
   mk/toplibs
+bench/tiers-complete.o: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  src/Data/Express/Utils/Typeable.hs \
+  src/Data/Express/Utils/TH.hs \
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils.hs \
+  src/Data/Express/Utils/List.hs \
+  src/Data/Express.hs \
+  src/Data/Express/Name.hs \
+  src/Data/Express/Name/Derive.hs \
+  src/Data/Express/Match.hs \
+  src/Data/Express/Map.hs \
+  src/Data/Express/Instances.hs \
+  src/Data/Express/Hole.hs \
+  src/Data/Express/Fold.hs \
+  src/Data/Express/Fixtures.hs \
+  src/Data/Express/Express.hs \
+  src/Data/Express/Express/Derive.hs \
+  src/Data/Express/Core.hs \
+  src/Data/Express/Canon.hs \
+  src/Data/Express/Basic.hs \
+  bench/tiers-complete.hs
+bench/tiers-complete: \
+  test/Test.hs \
+  test/Test/ListableExpr.hs \
+  bench/tiers-complete.hs \
+  mk/toplibs
 bench/tiers.o: \
   test/Test.hs \
   test/Test/ListableExpr.hs \
