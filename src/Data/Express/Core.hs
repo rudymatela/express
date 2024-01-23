@@ -452,18 +452,26 @@ showsPrecExpr d (Value s _) | isInfixedPrefix s = showString $ toPrefix s
 showsPrecExpr d (Value s _) | isNegativeLiteral s = showParen (d > 0) $ showString s
 showsPrecExpr d (Value s _) = showParen sp $ showString s
   where sp = if atomic s then isInfix s else maybe True (d >) $ outernmostPrec s
-showsPrecExpr d (Value ":" _ :$ e1 :$ e2)
-  | isConst e1 && mtyp e1 == Just (typeOf (undefined :: Char)) =
-  case showsTailExpr e2 "" of
-    '\"':cs  -> showString ("\"" ++ (init . tail) (showsPrecExpr 0 e1 "") ++ cs)
-    cs -> showParen (d > prec ":")
-        $ showsOpExpr ":" e1 . showString ":" . showString cs
-showsPrecExpr d (Value ":" _ :$ e1 :$ e2) =
-  case showsTailExpr e2 "" of
-    "[]" -> showString "[" . showsPrecExpr 0 e1 . showString "]"
-    '[':cs -> showString "[" . showsPrecExpr 0 e1 . showString "," . showString cs
-    cs -> showParen (d > prec ":")
-        $ showsOpExpr ":" e1 . showString ":" . showString cs
+showsPrecExpr d e@(Value ":" _ :$ _ :$ _) =
+  case unfoldEnd e of
+  (es,Value "[]" _) -> showString "["
+                     . foldr (.) id (intersperse (showString ",") [showsPrecExpr 0 e | e <- es])
+                     . showString "]"
+  (es,Value ('[':cs) _) -> showString "["
+                         . foldr (.) id (intersperse (showString ",") [showsPrecExpr 0 e | e <- es])
+                         . showString (',':cs)
+  (es,Value "\"\"" _)
+    | hasConstTail es -> let (cs,etc) = span isConst (reverse es)
+                         in showParen (not (null etc) && d > prec ":")
+                          $ foldr (.) id (intersperse (showString ":") $ [showsOpExpr ":" e | e <- reverse etc])
+                          . showString [':' | not (null etc)]
+                          . showString "\""
+                          . foldr (.) id [showString . init . tail $ s | Value s _ <- reverse cs]
+                          . showString "\""
+  (es,end) -> showParen (d > prec ":")
+            $ foldr (.) id (intersperse (showString ":") $ [showsOpExpr ":" e | e <- es++[end]])
+  where
+  hasConstTail  =  not . null . takeWhile isConst . reverse
 showsPrecExpr d ee | isTuple ee = showParen True
                                 $ foldr1 (\s1 s2 -> s1 . showString "," . s2)
                                          (showsPrecExpr 0 `map` unfoldTuple ee)
@@ -527,20 +535,6 @@ showsPrecExpr d (e1 :$ e2) = showParen (d > prec " ")
 dotdot :: Expr -> Bool
 dotdot (Value (c:_) _)  =  isNumber c || isLower c || c == '_' || c == '\''
 dotdot _  =  False
-
--- bad smell here, repeated code!
-showsTailExpr :: Expr -> String -> String
-showsTailExpr (Value ":" _ :$ e1 :$ e2)
-  | isConst e1 && mtyp e1 == Just (typeOf (undefined :: Char)) =
-  case showsPrecExpr 0 e2 "" of
-    '\"':cs  -> showString ("\"" ++ (init . tail) (showsPrecExpr 0 e1 "") ++ cs)
-    cs -> showsOpExpr ":" e1 . showString ":" . showsTailExpr e2
-showsTailExpr (Value ":" _ :$ e1 :$ e2) =
-  case showsPrecExpr 0 e2 "" of
-    "[]" -> showString "[" . showsPrecExpr 0 e1 . showString "]"
-    '[':cs -> showString "[" . showsPrecExpr 0 e1 . showString "," . showString cs
-    cs -> showsOpExpr ":" e1 . showString ":" . showsTailExpr e2
-showsTailExpr e = showsOpExpr ":" e
 
 showsOpExpr :: String -> Expr -> String -> String
 showsOpExpr op = showsPrecExpr (prec op + 1)
@@ -752,6 +746,22 @@ unfoldTuple = u . unfoldApp
   u (Value cs _:es) | not (null es) && cs == replicate (length es - 1) ',' = es
   u _   = []
 
+-- | /O(n)/.
+-- Unfold a list 'Expr' into a list of values and a terminator.
+--
+-- This works for lists "terminated" by an arbitrary expression.
+-- One can later check the second value of the return tuple
+-- to see if it is a proper list or string by comparing the
+-- string representation with @[]@ or @""@.
+--
+-- This is used in the implementation of 'showsPrecExpr'.
+unfoldEnd :: Expr -> ([Expr],Expr)
+unfoldEnd (Value ":"  _ :$ e :$ es)  =  (e:) `first` unfoldEnd es
+                                        where  first f (x,y)  =  (f x, y)
+unfoldEnd e                          =  ([],e)
+
+-- | /O(1)/.
+-- Checks if a given expression is a tuple.
 isTuple :: Expr -> Bool
 isTuple = not . null . unfoldTuple
 
