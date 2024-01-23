@@ -72,7 +72,7 @@ main  =  do
     , value "+" ((+) :: Int -> Int -> Int)
     , value "*" ((*) :: Int -> Int -> Int)
     , value "foldr" (foldr :: (Int -> Int -> Int) -> Int -> [Int] -> Int)
-    , value "enumFromTo" (enumFromTo :: Int -> Int -> [Int])
+    , value ".." (enumFromTo :: Int -> Int -> [Int])
     ]
 
   conjure "second"  second   listPrimitives

@@ -8,7 +8,7 @@ factorial :: Int -> Int
 cannot conjure
 
 factorial :: Int -> Int
-factorial x  =  foldr (*) 1 (enumFromTo 1 x)
+factorial x  =  foldr (*) 1 [1..x]
 
 second :: [Int] -> Int
 second xs  =  head (tail xs)
