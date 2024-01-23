@@ -157,4 +157,7 @@ tests n =
   , show (cc -:- dd -:- emptyString -++- cs_) == "c:d:(\"\" ++ _) :: [Char]"
   , show (ae -:- bee -:- emptyString -++- cs_) == "'a':'b':(\"\" ++ _) :: [Char]"
 
+  , show (zero -:- one -:- two -:- nil) == "[0,1,2] :: [Int]"
+  , show (zero -:- val [1,2::Int]) == "[0,1,2] :: [Int]" -- TODO: change to 0:[1,2] :: [Int]
+  , show (xx -:- yy -:- val [3,4::Int]) == "[x,y,3,4] :: [Int]" -- TODO: change to x:y:[3,4] :: [Int]
   ]
