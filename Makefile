@@ -96,15 +96,15 @@ test-via-cabal:
 test-via-stack:
 	stack test express:test:main --ghc-options="$(GHCFLAGS) -O0" --system-ghc --no-install-ghc --no-terminal
 
-diff-test: $(patsubst %,%.diff-test,$(BENCHS))
+diff-test: $(patsubst %,%.diff,$(BENCHS))
 
-update-diff-test: $(patsubst %,%.update-diff-test,$(BENCHS))
+txt: $(patsubst %,%.txt,$(BENCHS))
 
-%.diff-test: %
-	./$< | diff -rud test/model/$<.out -
+%.diff: %
+	./$< | diff -rud $<.txt -
 
-%.update-diff-test: %
-	./$< >           test/model/$<.out
+%.txt: %
+	./$< >$<.txt
 
 test-via-everything: test test-via-cabal test-via-stack
 

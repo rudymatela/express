@@ -37,8 +37,8 @@ extra-source-files: .gitignore
                   , mk/Toplibs.hs
                   , stack.yaml
                   , test/sdist
-                  , test/model/bench/*.out
-                  , test/model/eg/*.out
+                  , bench/*.txt
+                  , eg/*.txt
                   , bench/versions
                   , bench/runtime/zero/versions
                   , bench/runtime/zero/bench/*.runtime
