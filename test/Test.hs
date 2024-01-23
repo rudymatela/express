@@ -1,6 +1,6 @@
 -- |
 -- Module      : Test
--- Copyright   : (c) 2019-2021 Rudy Matela
+-- Copyright   : (c) 2019-2024 Rudy Matela
 -- License     : 3-Clause BSD  (see the file LICENSE)
 -- Maintainer  : Rudy Matela <rudy@matela.com.br>
 --
@@ -33,7 +33,7 @@ module Test
   )
 where
 
-import System.Environment (getArgs)
+import System.Environment (getArgs, getProgName)
 import System.Exit (exitFailure)
 import Data.List (elemIndices)
 import Data.Typeable (TypeRep, typeOf)
@@ -49,11 +49,11 @@ import Data.Express.Fixtures
 import Data.Express.Utils.List
 import Data.Express.Utils.Typeable
 
-reportTests :: [Bool] -> IO ()
-reportTests tests =
+reportTests :: String -> [Bool] -> IO ()
+reportTests s tests =
   case elemIndices False tests of
-    [] -> putStrLn "+++ Tests passed!"
-    is -> do putStrLn ("*** Failed tests:" ++ show is)
+    [] -> putStrLn $ s ++ ": tests passed"
+    is -> do putStrLn (s ++ ": failed tests:" ++ show is)
              exitFailure
 
 getMaxTestsFromArgs :: Int -> IO Int
@@ -65,8 +65,9 @@ getMaxTestsFromArgs n = do
 
 mainTest :: (Int -> [Bool]) -> Int -> IO ()
 mainTest tests n' = do
+  pn <- getProgName
   n <- getMaxTestsFromArgs n'
-  reportTests (tests n)
+  reportTests pn (tests n)
 
 tyBool :: TypeRep
 tyBool  =  typeOf (undefined :: Bool)
