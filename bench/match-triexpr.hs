@@ -1,6 +1,6 @@
 -- triexpr.hs -- how long it takes to match expressions in a Triexpr?
 --
--- Copyright (c) 2021 Rudy Matela.
+-- Copyright (c) 2021-2024 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 --
 -- This program has the same parameters as other match*.hs benchmarks.

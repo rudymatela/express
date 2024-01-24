@@ -1,6 +1,6 @@
 -- u-extrapolate.hs -- micro Extrapolate / Extrapolite
 --
--- Copyright (c) 2019-2021 Rudy Matela.
+-- Copyright (c) 2019-2024 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 --
 -- A small property-based testing library capable of generalizing

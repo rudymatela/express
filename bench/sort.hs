@@ -1,6 +1,6 @@
 -- ord.hs -- prints different expression sortins:
 --
--- Copyright (c) 2019-2021 Rudy Matela.
+-- Copyright (c) 2019-2024 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 import Data.List (intercalate, nub)

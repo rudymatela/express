@@ -1,6 +1,6 @@
 -- pairs.hs -- a thousand pairs of expressions
 --
--- Copyright (c) 2019-2021 Rudy Matela.
+-- Copyright (c) 2019-2024 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 import Test
 import System.Environment (getArgs)

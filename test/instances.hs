@@ -1,4 +1,4 @@
--- Copyright (c) 2017-2021 Rudy Matela.
+-- Copyright (c) 2017-2024 Rudy Matela.
 -- Distributed under the 3-Clause BSD licence (see the file LICENSE).
 {-# LANGUAGE NoMonomorphismRestriction #-} -- ACK!
 import Test
