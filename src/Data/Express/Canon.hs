@@ -62,8 +62,7 @@ canonicalizationWith namesFor e = cr (vars e) []
                    else (e, n `varAsTypeOf` e):bs
     where
     existingNames = [n | (_,Value ('_':n) _) <- bs]
-    freshNames = namesFor e \\ existingNames
-    n = head freshNames
+    (n:_) = namesFor e \\ existingNames
 
 -- |
 -- Like 'isCanonical' but allows specifying
@@ -294,8 +293,8 @@ fastCanonicalVariations e
                .  map (fill e) . fillings 0
                $  [h | h <- hs', typ h == typ h']
   where
-  hs' = holes e
-  h' = head hs'
+  hs'     =  holes e
+  (h':_)  =  hs'
 
   names  =  variableNamesFromTemplate "x" \\ varnames e
 
@@ -326,7 +325,7 @@ fastMostGeneralVariation e  =  fill e (zipWith varAsTypeOf names (holes e))
 fastMostSpecificVariation :: Expr -> Expr
 fastMostSpecificVariation e  =  fill e (map (name `varAsTypeOf`) (holes e))
   where
-  name  =  head $ variableNamesFromTemplate "x" \\ varnames e
+  (name:_)  =  variableNamesFromTemplate "x" \\ varnames e
 
 -- |
 -- Variable names existing in a given Expr.

@@ -463,7 +463,7 @@ showsPrecExpr d e@(Value ":" _ :$ _ :$ _) =
                           $ foldr (.) id (intersperse (showString ":") $ [showsOpExpr ":" e | e <- reverse etc])
                           . showString [':' | not (null etc)]
                           . showString "\""
-                          . foldr (.) id [showString . init . tail $ s | Value s _ <- reverse cs]
+                          . foldr (.) id [showString . init . drop 1 $ s | Value s _ <- reverse cs]
                           . showString "\""
   (es,end) -> showParen (d > prec ":")
             $ foldr (.) id (intersperse (showString ":") $ [showsOpExpr ":" e | e <- es++[end]])

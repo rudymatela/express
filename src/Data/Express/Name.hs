@@ -141,10 +141,10 @@ instance Name a => Name (Maybe a) where
 instance (Name a, Name b) => Name (Either a b) where
   name exy  =  "e" ++ n ++ m
     where
-    Left x  = exy
-    Right y = exy
-    n = name x
-    m = head $ names y \\ [n]
+    Left x   =  exy
+    Right y  =  exy
+    n        =  name x
+    (m:_)    =  delete n $ names y
 
 -- |
 -- > names (undefined :: (Int,Int)) = ["xy", "zw", "xy'", ...]
@@ -153,8 +153,8 @@ instance (Name a, Name b) => Name (a,b) where
   name xy  =  n ++ m
     where
     (x,y)  =  xy
-    n  =  name x
-    m  =  head $ names y \\ [n]
+    n      =  name x
+    (m:_)  =  delete n $ names y
 
 -- |
 -- > names (undefined :: (Int,Int,Int)) = ["xyz","uvw", ...]
@@ -163,9 +163,9 @@ instance (Name a, Name b, Name c) => Name (a,b,c) where
   name xyz  =  n ++ m ++ o
     where
     (x,y,z)  =  xyz
-    n  =  name x
-    m  =  head $ names y \\ [n]
-    o  =  head $ names z \\ [n,m]
+    n        =  name x
+    (m:_)    =  names y \\ [n]
+    (o:_)    =  names z \\ [n,m]
 
 -- |
 -- > names (undefined :: ((),(),(),())) = ["uuuu", "uuuu1", ...]
@@ -177,7 +177,7 @@ instance (Name a, Name b, Name c, Name d) => Name (a,b,c,d) where
 -- > names (undefined :: [Int]) = ["xs", "ys", "zs", "xs'", ...]
 -- > names (undefined :: [Bool]) = ["ps", "qs", "rs", "ps'", ...]
 instance Name a => Name [a] where
-  name xs  =  name (head xs) ++ "s"
+  name xs  =  name x ++ "s"  where  (x:_) = xs
 
 -- |
 -- Returns na infinite list of variable names from the given type:
