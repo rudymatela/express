@@ -47,7 +47,7 @@ import Prelude hiding (map, lookup)
 --
 -- In the representation,
 -- 'Nothing' matches an App and 'Just' 'Expr' an expression.
-data Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) (Expr,a))]
+newtype Triexpr a = Triexpr [(Maybe Expr, Either (Triexpr a) (Expr,a))]
   deriving (Eq, Ord, Show)
 
 -- | An empty 'Triexpr'.
