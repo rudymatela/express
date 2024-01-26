@@ -146,8 +146,11 @@ prepare-legacy-test:
 
 hlint: ..hlint
 
+test.hlint:  HLINT_EXTRA = --ignore "Redundant ==" \
+                           --ignore "Use null"
+
 %.hlint:
-	hlint \
+	hlint $(HLINT_EXTRA) \
 	  --ignore "Use import/export shortcut" \
 	  --ignore "Redundant bracket" \
 	  --ignore "Use lambda-case" \
