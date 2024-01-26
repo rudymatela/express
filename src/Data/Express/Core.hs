@@ -404,7 +404,7 @@ evl :: Typeable a => Expr -> a
 evl e  =  r
   where
   r  =  eval err e
-  err = error $ "evl: cannot evaluate Expr `" ++ show e ++ "' at the " ++ show (typeOf r) ++ " type"
+  err  =  error $ "evl: cannot evaluate Expr `" ++ show e ++ "' at the " ++ show (typeOf r) ++ " type"
 
 -- | /O(n)/.
 -- Evaluates an expression to a terminal 'Dynamic' value when possible.
