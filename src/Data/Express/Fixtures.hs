@@ -210,8 +210,8 @@ module Data.Express.Fixtures
   -- ** Enum
   , enumFrom',   (-..)
   , enumFromTo', (-..-)
-  , enumFromThen', (-...)
-  , enumFromThenTo', (-...-)
+  , enumFromThen', (--..)
+  , enumFromThenTo', (--..-)
   )
 where
 
@@ -1826,16 +1826,18 @@ type EnumFrom a  =  (a -> [a])
 
 -- | 'enumFrom' lifted over 'Expr's named as @".."@ for pretty-printing.
 --
--- > > (-..) one
+-- > > one -.. ()
 -- > [1..] :: [Int]
 --
 -- Works for 'Int's, 'Bool's and 'Char's.
-(-..) :: Expr -> Expr
-(-..)  =  mk1 "(-..)"
-  [ value ".." (enumFrom :: EnumFrom Int)
-  , value ".." (enumFrom :: EnumFrom Bool)
-  , value ".." (enumFrom :: EnumFrom Char)
-  ]
+(-..) :: Expr -> () -> Expr
+e -.. _  =  mk e
+  where
+  mk  =  mk1 "(-..)"
+      [ value ".." (enumFrom :: EnumFrom Int)
+      , value ".." (enumFrom :: EnumFrom Bool)
+      , value ".." (enumFrom :: EnumFrom Char)
+      ]
 
 -- | 'enumFromTo' lifted over 'Expr's
 --
@@ -1874,14 +1876,16 @@ type EnumFromThen a  =  (a -> a -> [a])
 
 -- | 'enumFromThen' lifted over 'Expr's but named as @",.."@ for pretty printing.
 --
--- > > zero -... ten
+-- > > (zero,ten) --.. ()
 -- > [0,10..] :: [Int]
-(-...) :: Expr -> Expr -> Expr
-(-...)  =  mk2 "(-...)"
-  [ value ",.." (enumFromThen :: EnumFromThen Int)
-  , value ",.." (enumFromThen :: EnumFromThen Bool)
-  , value ",.." (enumFromThen :: EnumFromThen Char)
-  ]
+(--..) :: (Expr,Expr) -> () -> Expr
+(e1,e2) --.. _  =  mk e1 e2
+  where
+  mk  =  mk2 "(--..)"
+      [ value ",.." (enumFromThen :: EnumFromThen Int)
+      , value ",.." (enumFromThen :: EnumFromThen Bool)
+      , value ",.." (enumFromThen :: EnumFromThen Char)
+      ]
 
 -- | 'enumFromThenTo' lifted over 'Expr's.
 --
@@ -1897,11 +1901,13 @@ type EnumFromThenTo a  =  (a -> a -> a -> [a])
 
 -- | 'enumFromThenTo' lifted over 'Expr's but named as @",.."@ for pretty-printing.
 --
--- > > (zero -...- two) ten
+-- > > (zero,two) --..- ten
 -- > [0,2..10] :: [Int]
-(-...-) :: Expr -> Expr -> Expr -> Expr
-(-...-)  =  mk3 "(-...-)"
-  [ value ",.." (enumFromThenTo :: EnumFromThenTo Int)
-  , value ",.." (enumFromThenTo :: EnumFromThenTo Bool)
-  , value ",.." (enumFromThenTo :: EnumFromThenTo Char)
-  ]
+(--..-) :: (Expr,Expr) -> Expr -> Expr
+(e1, e2) --..- e3  =  mk e1 e2 e3
+  where
+  mk  =  mk3 "(--..-)"
+      [ value ",.." (enumFromThenTo :: EnumFromThenTo Int)
+      , value ",.." (enumFromThenTo :: EnumFromThenTo Bool)
+      , value ",.." (enumFromThenTo :: EnumFromThenTo Char)
+      ]

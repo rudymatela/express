@@ -201,10 +201,10 @@ tests n =
   , evl  (enumFromTo' zero four) == [0,1,2,3,4 :: Int]
 
   -- [<n> .. <m>] --
-  , show ((-..) false) == "[False ..] :: [Bool]"
-  , evl  ((-..) false) == [False,True]
-  , show ((-..) true)  == "[True ..] :: [Bool]"
-  , evl  ((-..) true)  == [True]
+  , show (false -.. ()) == "[False ..] :: [Bool]"
+  , evl  (false -.. ()) == [False,True]
+  , show (true  -.. ())  == "[True ..] :: [Bool]"
+  , evl  (true  -.. ())  == [True]
   , show (false -..- false) == "[False .. False] :: [Bool]"
   , evl  (false -..- false) == [False]
   , show (false -..- true)  == "[False .. True] :: [Bool]"
@@ -214,7 +214,7 @@ tests n =
   , show (true  -..- true)  == "[True .. True] :: [Bool]"
   , evl  (true  -..- true)  == [True]
 
-  , show ((-..) zero) == "[0..] :: [Int]"
+  , show (zero -.. ()) == "[0..] :: [Int]"
   , show (zero -..- four) == "[0..4] :: [Int]"
   , evl  (zero -..- four) == [0,1,2,3,4 :: Int]
   , show (minusTwo -..- minusOne) == "[-2 .. -1] :: [Int]"
@@ -222,7 +222,7 @@ tests n =
   , show (minusTwo -..- two) == "[-2 .. 2] :: [Int]"
   , evl  (minusTwo -..- two) == [-2,-1,0,1,2 :: Int]
 
-  , show ((-..) ae) == "['a'..] :: [Char]"
+  , show (ae -.. ()) == "['a'..] :: [Char]"
   , show (ae -..- dee) == "['a'..'d'] :: [Char]"
   , evl  (ae -..- dee) == "abcd"
 
@@ -242,36 +242,36 @@ tests n =
   , evl  (enumFromThenTo' zero two four) == [0,2,4 :: Int]
 
   -- [<n>, <m> .. <o>] --
-  , show ((-...) false true) == "[False, True ..] :: [Bool]"
-  , evl  ((-...) false true) == [False,True]
-  , show ((-...) true false)  == "[True, False ..] :: [Bool]"
-  , evl  ((-...) true false)  == [True,False]
-  , show ((false -...- false) true) == "[False, False .. True] :: [Bool]"
-  , show ((false -...- true)  true) == "[False, True .. True] :: [Bool]"
-  , evl  ((false -...- true)  true) == [False,True]
+  , show ((false,true) --.. ()) == "[False, True ..] :: [Bool]"
+  , evl  ((false,true) --.. ()) == [False,True]
+  , show ((true,false) --.. ()) == "[True, False ..] :: [Bool]"
+  , evl  ((true,false) --.. ()) == [True,False]
+  , show ((false,false) --..- true) == "[False, False .. True] :: [Bool]"
+  , show ((false,true)  --..- true) == "[False, True .. True] :: [Bool]"
+  , evl  ((false,true)  --..- true) == [False,True]
 
-  , show ((-...) zero one) == "[0,1..] :: [Int]"
-  , show ((zero -...- two) four) == "[0,2..4] :: [Int]"
-  , evl  ((zero -...- two) four) == [0,2,4 :: Int]
-  , show ((minusTwo -...- one) minusOne)  == "[-2, 1 .. -1] :: [Int]"
-  , evl  ((minusTwo -...- one) minusOne) == [-2 :: Int]
-  , show ((minusTwo -...- zero) two) == "[-2, 0 .. 2] :: [Int]"
-  , evl  ((minusTwo -...- zero) two) == [-2,0,2 :: Int]
+  , show ((zero,one) --.. ()) == "[0,1..] :: [Int]"
+  , show ((zero,two) --..- four) == "[0,2..4] :: [Int]"
+  , evl  ((zero,two) --..- four) == [0,2,4 :: Int]
+  , show ((minusTwo,one) --..- minusOne)  == "[-2, 1 .. -1] :: [Int]"
+  , evl  ((minusTwo,one) --..- minusOne) == [-2 :: Int]
+  , show ((minusTwo,zero) --..- two) == "[-2, 0 .. 2] :: [Int]"
+  , evl  ((minusTwo,zero) --..- two) == [-2,0,2 :: Int]
 
-  , show ((-...) ae bee) == "['a','b'..] :: [Char]"
-  , show ((ae -...- bee) dee) == "['a','b'..'d'] :: [Char]"
-  , evl  ((ae -...- bee) dee) == "abcd"
-  , show ((ae -...- dee) zed) == "['a','d'..'z'] :: [Char]"
-  , evl  ((ae -...- dee) zed) == "adgjmpsvy"
+  , show ((ae,bee) --.. ()) == "['a','b'..] :: [Char]"
+  , show ((ae,bee) --..- dee) == "['a','b'..'d'] :: [Char]"
+  , evl  ((ae,bee) --..- dee) == "abcd"
+  , show ((ae,dee) --..- zed) == "['a','d'..'z'] :: [Char]"
+  , evl  ((ae,dee) --..- zed) == "adgjmpsvy"
 
-  , show ((xx -...- yy) zz) == "[x,y..z] :: [Int]"
-  , show ((pp -...- qq) rr) == "[p,q..r] :: [Bool]"
-  , show ((cc -...- dd) cc) == "[c,d..c] :: [Char]"
+  , show ((xx,yy) --..- zz) == "[x,y..z] :: [Int]"
+  , show ((pp,qq) --..- rr) == "[p,q..r] :: [Bool]"
+  , show ((cc,dd) --..- cc) == "[c,d..c] :: [Char]"
 
-  , show ((zero -...- yy) zz) == "[0,y..z] :: [Int]"
-  , show ((pp -...- true) true) == "[p, True .. True] :: [Bool]"
-  , show ((cc -...- dd) zed) == "[c,d..'z'] :: [Char]"
-  , show ((ae -...- dd) cc)  == "['a',d..c] :: [Char]"
+  , show ((zero,yy) --..- zz) == "[0,y..z] :: [Int]"
+  , show ((pp,true) --..- true) == "[p, True .. True] :: [Bool]"
+  , show ((cc,dd) --..- zed) == "[c,d..'z'] :: [Char]"
+  , show ((ae,dd) --..- cc)  == "['a',d..c] :: [Char]"
 
   , show (twelve `div'`  five) == "12 `div` 5 :: Int"
   , show (twelve `mod'`  five) == "12 `mod` 5 :: Int"
