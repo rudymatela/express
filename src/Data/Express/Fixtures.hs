@@ -562,14 +562,14 @@ minusTwo  =  val (-2 :: Int)
 -- > > ff one
 -- > f 1 :: Int
 ff :: Expr -> Expr
-ff = (ffE :$)
+ff  =  (ffE :$)
 
 -- | A variable @f@ of 'Int -> Int' type encoded as an 'Expr'.
 --
 -- > > ffE
 -- > f :: Int -> Int
 ffE :: Expr
-ffE = var "f" (undefined :: Int -> Int)
+ffE  =  var "f" (undefined :: Int -> Int)
 
 -- | A variable function @g@ of 'Int -> Int' type lifted over the 'Expr' type.
 --
@@ -579,28 +579,28 @@ ffE = var "f" (undefined :: Int -> Int)
 -- > > gg minusTwo
 -- > gg (-2) :: Int
 gg :: Expr -> Expr
-gg = (ggE :$)
+gg  =  (ggE :$)
 
 -- | A variable @g@ of 'Int -> Int' type encoded as an 'Expr'.
 --
 -- > > ggE
 -- > g :: Int -> Int
 ggE :: Expr
-ggE = var "g" (undefined :: Int -> Int)
+ggE  =  var "g" (undefined :: Int -> Int)
 
 -- | A variable function @h@ of 'Int -> Int' type lifted over the 'Expr' type.
 --
 -- > > hh zz
 -- > h z :: Int
 hh :: Expr -> Expr
-hh = (hhE :$)
+hh  =  (hhE :$)
 
 -- | A variable @h@ of 'Int -> Int' type encoded as an 'Expr'.
 --
 -- > > hhE
 -- > h :: Int -> Int
 hhE :: Expr
-hhE = var "h" (undefined :: Int -> Int)
+hhE  =  var "h" (undefined :: Int -> Int)
 
 mk1 :: String -> [Expr] -> Expr -> Expr
 mk1 nm efs ex  =  headOr (err nm efs [ex]) $ efs >$$ ex
@@ -708,7 +708,7 @@ ooE  =  var "`o`" (undefined :: Int -> Int -> Int)
 -- > > xx -+- (yy -+- zz)
 -- > x + (y + z) :: Int
 (-+-) :: Expr -> Expr -> Expr
-e1 -+- e2 = plus :$ e1 :$ e2
+e1 -+- e2  =  plus :$ e1 :$ e2
 infixl 6 -+-
 
 -- | The operator '+' for the 'Int' type.  (See also '-+-'.)
@@ -722,7 +722,7 @@ infixl 6 -+-
 -- > > plus :$ xx :$ yy
 -- > x + y :: Int
 plus :: Expr
-plus = value "+" ((+) :: Int -> Int -> Int)
+plus  =  value "+" ((+) :: Int -> Int -> Int)
 
 -- | The operator '*' for the 'Int' type lifted over the 'Expr' type.  (See also 'times'.)
 --
@@ -735,7 +735,7 @@ plus = value "+" ((+) :: Int -> Int -> Int)
 -- > > two -*- xx
 -- > 2 * x :: Int
 (-*-) :: Expr -> Expr -> Expr
-e1 -*- e2 = times :$ e1 :$ e2
+e1 -*- e2  =  times :$ e1 :$ e2
 infixl 7 -*-
 
 -- | The operator '*' for the 'Int' type.  (See also '-*-'.)
@@ -880,7 +880,7 @@ idChar    =  value "id" (id :: Id Char)
 idInts    =  value "id" (id :: Id [Int])
 idBools   =  value "id" (id :: Id [Bool])
 idString  =  value "id" (id :: Id String)
-type Id a = a -> a
+type Id a  =  a -> a
 
 -- | The 'const' function lifted over the 'Expr' type.
 --
@@ -957,7 +957,7 @@ signumE  =  value "signum" (signum :: Int -> Int)
 -- > > evl (odd' two) :: Bool
 -- > False
 odd' :: Expr -> Expr
-odd' = (oddE :$) where oddE = value "odd" (odd :: Int -> Bool)
+odd'  =  (oddE :$) where oddE = value "odd" (odd :: Int -> Bool)
 
 -- | 'even' with an 'Int' argument lifted over the 'Expr' type.
 --
@@ -967,7 +967,7 @@ odd' = (oddE :$) where oddE = value "odd" (odd :: Int -> Bool)
 -- > > evl (even' two) :: Bool
 -- > True
 even' :: Expr -> Expr
-even' = (evenE :$) where evenE = value "even" (even :: Int -> Bool)
+even'  =  (evenE :$) where evenE = value "even" (even :: Int -> Bool)
 
 -- | A hole of 'Char' type encoded as an 'Expr'.
 --
@@ -1074,14 +1074,14 @@ zee  =  val 'z'
 -- > > space
 -- > ' ' :: Char
 space :: Expr
-space = val ' '
+space  =  val ' '
 
 -- | The line break character encoded as an 'Expr'
 --
 -- > > lineBreak
 -- > '\n' :: Char
 lineBreak :: Expr
-lineBreak = val '\n'
+lineBreak  =  val '\n'
 
 -- | The 'ord' function lifted over 'Expr'
 --
@@ -1091,11 +1091,11 @@ lineBreak = val '\n'
 -- > > evl (ord' bee)
 -- > 98
 ord' :: Expr -> Expr
-ord' = (ordE :$)
+ord'  =  (ordE :$)
 
 -- | The 'ord' function encoded as an 'Expr'
 ordE :: Expr
-ordE = value "ord" ord
+ordE  =  value "ord" ord
 
 -- | A typed hole of @[Int]@ type encoded as an 'Expr'.
 --
@@ -1162,7 +1162,7 @@ consInt, consBool, consChar :: Expr
 consInt   =  value ":" ((:) :: Cons Int)
 consBool  =  value ":" ((:) :: Cons Bool)
 consChar  =  value ":" ((:) :: Cons Char)
-type Cons a = a -> [a] -> [a]
+type Cons a  =  a -> [a] -> [a]
 
 -- | 'unit' constructs a list with a single element.
 --   This works for elements of type 'Int', 'Char' and 'Bool'.
@@ -1388,7 +1388,7 @@ elem'  =  mk2 "elem'"
   , value "$" (($) :: Apply [Char])
   ]
 infixl 6 -$-
-type Apply a = (a -> a) -> a -> a
+type Apply a  =  (a -> a) -> a -> a
 
 -- | Constructs an equation between two 'Expr's.
 --
@@ -1410,7 +1410,7 @@ type Apply a = (a -> a) -> a -> a
   , value "==" ((==) :: Comparison [Char])
   ]
 infix 4 -==-
-type Comparison a = a -> a -> Bool
+type Comparison a  =  a -> a -> Bool
 
 -- | Constructs an inequation between two 'Expr's.
 --
@@ -1497,7 +1497,7 @@ if'  =  mk3 "if'"
   where
   iff :: Bool -> a -> a -> a
   iff p x y  =  if p then x else y
-type If a = Bool -> a -> a -> a
+type If a  =  Bool -> a -> a -> a
 
 -- | A function @case :: Bool -> a -> a -> a@ lifted over the 'Expr' type
 --   that encodes case-of-False-True functionality.
@@ -1536,7 +1536,7 @@ caseBool  =  mk3 "caseBool"
   caseB p x y  =  case p of
                   False -> x
                   True -> y
-type CaseB a = Bool -> a -> a -> a
+type CaseB a  =  Bool -> a -> a -> a
 
 -- | A function @case :: Ordering -> a -> a -> a -> a@ lifted over the 'Expr' type
 --   that encodes case-of-LT-EQ-GT functionality.
@@ -1567,7 +1567,7 @@ caseOrdering  =  mk4 "caseOrdering"
                     LT -> x
                     EQ -> y
                     GT -> z
-type CaseO a = Ordering -> a -> a -> a -> a
+type CaseO a  =  Ordering -> a -> a -> a -> a
 
 -- | Constructs an 'Expr'-encoded 'compare' operation between two 'Expr's.
 --
@@ -1586,7 +1586,7 @@ compare'  =  mk2 "compare'"
   , value "compare" (compare :: Compare [Bool])
   , value "compare" (compare :: Compare [Char])
   ]
-type Compare a = a -> a -> Ordering
+type Compare a  =  a -> a -> Ordering
 
 -- | 'Nothing' bound to the 'Maybe' 'Int' type encoded as an 'Expr'.
 --
@@ -1626,7 +1626,7 @@ just  =  mk1 "just"
 
 -- | An infix synonym of 'pair'.
 (-|-) :: Expr -> Expr -> Expr
-(-|-) = pair
+(-|-)  =  pair
 
 -- | The pair constructor lifted over 'Expr's.
 --
@@ -1639,43 +1639,43 @@ pair  =  mk2 "pair"
   , value "," ((,) :: Pair Bool Int)
   , value "," ((,) :: Pair Bool Bool)
   ]
-type Pair a b = a -> b -> (a,b)
+type Pair a b  =  a -> b -> (a,b)
 
 -- | The pair constructor (@ :: ... -> (Int,Int) @) encoded as an 'Expr'.
 comma :: Expr
-comma = value "," ((,) :: Pair Int Int)
+comma  =  value "," ((,) :: Pair Int Int)
 
 -- | The triple/trio constructor lifted over 'Expr's.
 --
 -- This only works for the 'Int' element type.
 triple :: Expr -> Expr -> Expr -> Expr
-triple e1 e2 e3 = ccE :$ e1 :$ e2 :$ e3
+triple e1 e2 e3  =  ccE :$ e1 :$ e2 :$ e3
   where
-  ccE = value ",," ((,,) :: Int -> Int -> Int -> (Int,Int,Int))
+  ccE  =  value ",," ((,,) :: Int -> Int -> Int -> (Int,Int,Int))
 
 -- | The quadruple constructor lifted over 'Expr's.
 --
 -- This only works for the 'Int' element type.
 quadruple :: Expr -> Expr -> Expr -> Expr -> Expr
-quadruple e1 e2 e3 e4 = cccE :$ e1 :$ e2 :$ e3 :$ e4
+quadruple e1 e2 e3 e4  =  cccE :$ e1 :$ e2 :$ e3 :$ e4
   where
-  cccE = value ",,," ((,,,) :: Int -> Int -> Int -> Int -> (Int,Int,Int,Int))
+  cccE  =  value ",,," ((,,,) :: Int -> Int -> Int -> Int -> (Int,Int,Int,Int))
 
 -- | The quintuple constructor lifted over 'Expr's.
 --
 -- This only works for the 'Int' element type.
 quintuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr
-quintuple e1 e2 e3 e4 e5 = ccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5
+quintuple e1 e2 e3 e4 e5  =  ccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5
   where
-  ccccE = value ",,,," ((,,,,) :: Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int))
+  ccccE  =  value ",,,," ((,,,,) :: Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int))
 
 -- | The sixtuple constructor lifted over 'Expr's.
 --
 -- This only works for the 'Int' element type.
 sixtuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr -> Expr
-sixtuple e1 e2 e3 e4 e5 e6 = cccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5 :$ e6
+sixtuple e1 e2 e3 e4 e5 e6  =  cccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5 :$ e6
   where
-  cccccE = value ",,,,," ((,,,,,) :: Int -> Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int,Int))
+  cccccE  =  value ",,,,," ((,,,,,) :: Int -> Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int,Int))
 
 -- | A typed hole of @[Bool]@ type encoded as an 'Expr'.
 --
@@ -1785,7 +1785,7 @@ compose  =  value "." ((.) :: Compose Int)
   , value "." ((.) :: Compose [Bool])
   , value "." ((.) :: Compose [Char])
   ]
-type Compose a = (a -> a) -> (a -> a) -> (a -> a)
+type Compose a  =  (a -> a) -> (a -> a) -> (a -> a)
 
 -- | 'map' over the 'Int' element type encoded as an 'Expr'
 --
@@ -1808,7 +1808,7 @@ map'  =  mk2 "map'"
   , value "map" (map :: Map [Bool])
   , value "map" (map :: Map [Char])
   ]
-type Map a = (a -> a) -> [a] -> [a]
+type Map a  =  (a -> a) -> [a] -> [a]
 
 -- | 'enumFrom' lifted over 'Expr's.
 --

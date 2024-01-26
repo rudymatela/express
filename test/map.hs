@@ -6,10 +6,10 @@ import Test.LeanCheck.Function
 import Data.Express.Utils.List (isNub)
 
 main :: IO ()
-main = mainTest tests 5040
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
-tests n =
+tests n  =
   [ True
 
   -- the order should not matter for //

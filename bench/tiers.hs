@@ -12,14 +12,14 @@ import Test.LeanCheck.Tiers (showTiers)
 import Data.Express.Utils.List
 
 showDotsLongerThan :: Show a => Int -> [a] -> String
-showDotsLongerThan n xs = "["
-                       ++ intercalate "," (dotsLongerThan n $ map show xs)
-                       ++ "]"
+showDotsLongerThan n xs  =  "["
+                         ++ intercalate "," (dotsLongerThan n $ map show xs)
+                         ++ "]"
   where
-  dotsLongerThan n xs = take n xs ++ ["..." | not . null $ drop n xs]
+  dotsLongerThan n xs  =  take n xs ++ ["..." | not . null $ drop n xs]
 
 printTiers :: Show a => Int -> [[a]] -> IO ()
-printTiers n = putStrLn . init . unlines . map ("  " ++) . lines . showTiers n
+printTiers n  =  putStrLn . init . unlines . map ("  " ++) . lines . showTiers n
 
 main :: IO ()
 main  =  do

@@ -241,5 +241,5 @@ e // s  =  mapSubexprs (`lookup` s) e
 renameVarsBy :: (String -> String) -> Expr -> Expr
 renameVarsBy f = mapValues f'
   where
-  f' (Value ('_':n) t) = Value ('_':f n) t
-  f' e = e
+  f' (Value ('_':n) t)  =  Value ('_':f n) t
+  f' e  =  e

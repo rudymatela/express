@@ -153,7 +153,7 @@ deriving instance Typeable Expr
 -- > > value "sort" (sort :: [Bool] -> [Bool])
 -- > sort :: [Bool] -> [Bool]
 value :: Typeable a => String -> a -> Expr
-value s x = Value s (toDyn x)
+value s x  =  Value s (toDyn x)
 
 -- | /O(1)/.
 -- A shorthand for 'value' for values that are 'Show' instances.
@@ -173,7 +173,7 @@ value s x = Value s (toDyn x)
 -- > val 'a'   =  value "'a'" 'a'
 -- > val True  =  value "True" True
 val :: (Typeable a, Show a) => a -> Expr
-val x = value (show x) x
+val x  =  value (show x) x
 
 -- | /O(n)/.
 -- Creates an 'Expr' representing a function application.
@@ -195,7 +195,7 @@ val x = value (show x) x
 e1 $$ e2 | isIllTyped e  =  Nothing
          | otherwise     =  Just e
   where
-  e = e1 :$ e2
+  e  =  e1 :$ e2
 
 -- | /O(1)/.
 -- Creates an 'Expr' representing a variable with the given name and argument
@@ -214,7 +214,7 @@ e1 $$ e2 | isIllTyped e  =  Nothing
 -- a variable is just a 'value' whose string representation
 -- starts with underscore (@'_'@).
 var :: Typeable a => String -> a -> Expr
-var s a = value ('_':s) (undefined `asTypeOf` a)
+var s a  =  value ('_':s) (undefined `asTypeOf` a)
 
 -- | /O(n)/.
 -- Computes the type of an expression.  This raises errors, but this should
@@ -274,8 +274,8 @@ typ  =  either err id . etyp
 -- > > etyp ((absE :$ bee) :$ one)
 -- > Left (Int -> Int, Char)
 etyp :: Expr -> Either (TypeRep, TypeRep) TypeRep
-etyp (Value _ d) = Right $ dynTypeRep d
-etyp (e1 :$ e2) = case (etyp e1, etyp e2) of
+etyp (Value _ d)  =  Right $ dynTypeRep d
+etyp (e1 :$ e2)  =  case (etyp e1, etyp e2) of
   (Right t1, Right t2) -> case t1 `funResultTy` t2 of
                           Nothing -> Left (t1,t2)
                           Just t  -> Right t
@@ -368,7 +368,7 @@ isFun  =  isFunTy . typ
 -- > > evaluate $ negateE :$ bee :: Maybe Int
 -- > Nothing
 evaluate :: Typeable a => Expr -> Maybe a
-evaluate e = toDynamic e >>= fromDynamic
+evaluate e  =  toDynamic e >>= fromDynamic
 
 -- | /O(n)/.
 -- Evaluates an expression when possible (correct type).
@@ -387,7 +387,7 @@ evaluate e = toDynamic e >>= fromDynamic
 -- > > eval 0 $ two -+- val '3' :: Int
 -- > 0
 eval :: Typeable a => a -> Expr -> a
-eval x e = fromMaybe x (evaluate e)
+eval x e  =  fromMaybe x (evaluate e)
 
 -- | /O(n)/.
 -- Evaluates an expression when possible (correct type).
@@ -401,9 +401,9 @@ eval x e = fromMaybe x (evaluate e)
 --
 -- This may raise errors, please consider using 'eval' or 'evaluate'.
 evl :: Typeable a => Expr -> a
-evl e = r
+evl e  =  r
   where
-  r = eval err e
+  r  =  eval err e
   err = error $ "evl: cannot evaluate Expr `" ++ show e ++ "' at the " ++ show (typeOf r) ++ " type"
 
 -- | /O(n)/.
@@ -419,23 +419,23 @@ evl e = r
 -- > > toDynamic $ value "abs" (abs :: Int -> Int) :$ val 'a'
 -- > Nothing
 toDynamic :: Expr -> Maybe Dynamic
-toDynamic (Value _ x) = Just x
-toDynamic (e1 :$ e2)  = do v1 <- toDynamic e1
-                           v2 <- toDynamic e2
-                           dynApply v1 v2
+toDynamic (Value _ x)  =  Just x
+toDynamic (e1 :$ e2)  =  do v1 <- toDynamic e1
+                            v2 <- toDynamic e2
+                            dynApply v1 v2
 
 -- | Shows 'Expr's with their types.
 --
 -- > > show (value "not" not :$ val False)
 -- > "not False :: Bool"
 instance Show Expr where
-  showsPrec d e = showParen (d > 10)
-                $ showsPrecExpr 0 e
-                . showString " :: "
-                . showsTypeExpr e
+  showsPrec d e  =  showParen (d > 10)
+                 $  showsPrecExpr 0 e
+                 .  showString " :: "
+                 .  showsTypeExpr e
 
 showsTypeExpr :: Expr -> String -> String
-showsTypeExpr e = case etyp e of
+showsTypeExpr e  =  case etyp e of
   Left (t1,t2) -> showString "ill-typed # "
                 . shows t1
                 . showString " $ "
@@ -444,15 +444,15 @@ showsTypeExpr e = case etyp e of
   Right t -> shows t
 
 showsPrecExpr :: Int -> Expr -> String -> String
-showsPrecExpr d (Value "_" _) = showString "_" -- a hole
+showsPrecExpr d (Value "_" _)  =  showString "_" -- a hole
 showsPrecExpr d (Value ('_':s) _)  -- a variable
-  | isInfixedPrefix s = showString $ toPrefix s
-  | otherwise         = showParen (isInfix s) $ showString s
-showsPrecExpr d (Value s _) | isInfixedPrefix s = showString $ toPrefix s
-showsPrecExpr d (Value s _) | isNegativeLiteral s = showParen (d > 0) $ showString s
-showsPrecExpr d (Value s _) = showParen sp $ showString s
+  | isInfixedPrefix s  =  showString $ toPrefix s
+  | otherwise          =  showParen (isInfix s) $ showString s
+showsPrecExpr d (Value s _) | isInfixedPrefix s  =  showString $ toPrefix s
+showsPrecExpr d (Value s _) | isNegativeLiteral s  =  showParen (d > 0) $ showString s
+showsPrecExpr d (Value s _)  =  showParen sp $ showString s
   where sp = if atomic s then isInfix s else maybe True (d >) $ outernmostPrec s
-showsPrecExpr d e@(Value ":" _ :$ _ :$ _) =
+showsPrecExpr d e@(Value ":" _ :$ _ :$ _)  =
   case unfoldEnd e of
   (es,Value "[]" _) -> showString "["
                      . foldr (.) id (intersperse (showString ",") [showsPrecExpr 0 e | e <- es])
@@ -472,61 +472,61 @@ showsPrecExpr d e@(Value ":" _ :$ _ :$ _) =
 showsPrecExpr d ee | isTuple ee = showParen True
                                 $ foldr1 (\s1 s2 -> s1 . showString "," . s2)
                                          (showsPrecExpr 0 `map` unfoldTuple ee)
-showsPrecExpr d (Value "if" _ :$ ep :$ ex :$ ey) =
+showsPrecExpr d (Value "if" _ :$ ep :$ ex :$ ey)  =
   showParen (d >= 0) $ showString "if "    . showsPrecExpr 0 ep
                      . showString " then " . showsPrecExpr 0 ex
                      . showString " else " . showsPrecExpr 0 ey
-showsPrecExpr d (Value "case" _ :$ ep :$ ex :$ ey) | typ ep == boolTy =
+showsPrecExpr d (Value "case" _ :$ ep :$ ex :$ ey) | typ ep == boolTy  =
   showParen (d >= 0) $ showString "case "         . showsPrecExpr 0 ep
                      . showString " of False -> " . showsPrecExpr 0 ex
                      . showString "; True -> "    . showsPrecExpr 0 ey
-showsPrecExpr d (Value "case" _ :$ eo :$ ex :$ ey :$ ez) | typ eo == orderingTy =
+showsPrecExpr d (Value "case" _ :$ eo :$ ex :$ ey :$ ez) | typ eo == orderingTy  =
   showParen (d >= 0) $ showString "case "      . showsPrecExpr 0 eo
                      . showString " of LT -> " . showsPrecExpr 0 ex
                      . showString "; EQ -> "   . showsPrecExpr 0 ey
                      . showString "; GT -> "   . showsPrecExpr 0 ez
-showsPrecExpr d (Value ",.." _ :$ ex :$ ey :$ ez) =
+showsPrecExpr d (Value ",.." _ :$ ex :$ ey :$ ez)  =
   showString "[" . showsPrecExpr 0 ex
                  . showString (if dotdot ex && dotdot ey && dotdot ez then "," else ", ")
                  . showsPrecExpr 0 ey
                  . showString (if dotdot ex && dotdot ey && dotdot ez then ".." else " .. ")
                  . showsPrecExpr 0 ez
                  . showString "]"
-showsPrecExpr d (Value ",.." _ :$ ex :$ ey) =
+showsPrecExpr d (Value ",.." _ :$ ex :$ ey)  =
   showString "[" . showsPrecExpr 0 ex
                  . showString (if dotdot ex && dotdot ey then "," else ", ")
                  . showsPrecExpr 0 ey
                  . showString (if dotdot ex && dotdot ey then "..]" else " ..]")
-showsPrecExpr d (Value ".." _ :$ ex :$ ey) =
+showsPrecExpr d (Value ".." _ :$ ex :$ ey)  =
   showString "[" . showsPrecExpr 0 ex
                  . showString (if dotdot ex && dotdot ey then ".." else " .. ")
                  . showsPrecExpr 0 ey
                  . showString "]"
-showsPrecExpr d (Value ".." _ :$ ex) =
+showsPrecExpr d (Value ".." _ :$ ex)  =
   showString "[" . showsPrecExpr 0 ex . showString (if dotdot ex then "..]" else " ..]")
 showsPrecExpr d (Value f' _ :$ e1 :$ e2)
-  | isInfix f = showParen (d > prec f)
-              $ showsOpExpr f e1
-              . showString " " . showString f . showString " "
-              . showsOpExpr f e2
-  | otherwise = showParen (d > prec " ")
-              $ showString f
-              . showString " " . showsOpExpr " " e1
-              . showString " " . showsOpExpr " " e2
+  | isInfix f  =  showParen (d > prec f)
+               $  showsOpExpr f e1
+               .  showString " " . showString f . showString " "
+               .  showsOpExpr f e2
+  | otherwise  =  showParen (d > prec " ")
+               $  showString f
+               .  showString " " . showsOpExpr " " e1
+               .  showString " " . showsOpExpr " " e2
   where
-  f = case f' of "_" -> "_"   -- holes are shown as _
-                 ('_':f) -> f -- on variables we drop the preceding _
-                 f -> f       -- constants as themselves
+  f  =  case f' of "_" -> "_"   -- holes are shown as _
+                   ('_':f) -> f -- on variables we drop the preceding _
+                   f -> f       -- constants as themselves
 showsPrecExpr d (Value f' _ :$ e1)
-  | isInfix f = showParen True $ showsOpExpr f e1 . showString " " . showString f
+  | isInfix f  =  showParen True $ showsOpExpr f e1 . showString " " . showString f
   where
-  f = case f' of "_" -> "_"   -- holes are shown as _
-                 ('_':f) -> f -- on variables we drop the preceding _
-                 f -> f       -- constants as themselves
-showsPrecExpr d (e1 :$ e2) = showParen (d > prec " ")
-                           $ showsPrecExpr (prec " ") e1
-                           . showString " "
-                           . showsPrecExpr (prec " " + 1) e2
+  f  =  case f' of "_" -> "_"   -- holes are shown as _
+                   ('_':f) -> f -- on variables we drop the preceding _
+                   f -> f       -- constants as themselves
+showsPrecExpr d (e1 :$ e2)  =  showParen (d > prec " ")
+                            $  showsPrecExpr (prec " ") e1
+                            .  showString " "
+                            .  showsPrecExpr (prec " " + 1) e2
 
 -- Can we avoid a space using @[<n>..<m>]@?
 dotdot :: Expr -> Bool
@@ -534,7 +534,7 @@ dotdot (Value (c:_) _)  =  isNumber c || isLower c || c == '_' || c == '\''
 dotdot _  =  False
 
 showsOpExpr :: String -> Expr -> String -> String
-showsOpExpr op = showsPrecExpr (prec op + 1)
+showsOpExpr op  =  showsPrecExpr (prec op + 1)
 
 -- | /O(n)/.
 -- Like 'showPrecExpr' but
@@ -552,7 +552,7 @@ showsOpExpr op = showsPrecExpr (prec op + 1)
 -- > > showOpExpr " " (two -*- three)
 -- > "(2 * 3)"
 showOpExpr :: String -> Expr -> String
-showOpExpr op = showPrecExpr (prec op + 1)
+showOpExpr op  =  showPrecExpr (prec op + 1)
 
 -- | /O(n)/.
 -- Like 'showExpr' but allows specifying the surrounding precedence.
@@ -563,7 +563,7 @@ showOpExpr op = showPrecExpr (prec op + 1)
 -- > > showPrecExpr 7 (one -+- two)
 -- > "(1 + 2)"
 showPrecExpr :: Int -> Expr -> String
-showPrecExpr n e = showsPrecExpr n e ""
+showPrecExpr n e  =  showsPrecExpr n e ""
 
 -- | /O(n)/.
 -- Returns a string representation of an expression.
@@ -576,7 +576,7 @@ showPrecExpr n e = showsPrecExpr n e ""
 -- > > putStrLn $ showExpr $ (pp -||- true) -&&- (qq -||- false)
 -- > (p || True) && (q || False)
 showExpr :: Expr -> String
-showExpr = showPrecExpr (-1)
+showExpr  =  showPrecExpr (-1)
 
 -- | /O(n)/.
 -- Does not evaluate values when comparing, but rather uses their
@@ -598,7 +598,7 @@ instance Eq Expr where
 -- when they have smaller complexity ('compareComplexity')
 -- or when they come first lexicographically ('compareLexicographically').
 instance Ord Expr where
-  compare = compareComplexity <> compareLexicographically
+  compare  =  compareComplexity <> compareLexicographically
 
 -- | /O(n)/.
 -- Compares the complexity of two 'Expr's.
@@ -711,8 +711,8 @@ compareQuickly  =  cmp
 unfoldApp :: Expr -> [Expr]
 unfoldApp e  =  u e []
   where
-  u (ef :$ ex) = u ef . (ex:)
-  u ex         = (ex:)
+  u (ef :$ ex)  =  u ef . (ex:)
+  u ex          =  (ex:)
 
 -- | /O(n)/.
 -- Unfold a tuple 'Expr' into a list of values.
@@ -738,10 +738,10 @@ unfoldApp e  =  u e []
 --       This is intentional, allowing the 'Show' 'Expr' instance
 --       to present @(,) 1 2@ differently than @(1,2)@.
 unfoldTuple :: Expr -> [Expr]
-unfoldTuple = u . unfoldApp
+unfoldTuple  =  u . unfoldApp
   where
-  u (Value cs _:es) | not (null es) && cs == replicate (length es - 1) ',' = es
-  u _   = []
+  u (Value cs _:es) | not (null es) && cs == replicate (length es - 1) ','  =  es
+  u _  =  []
 
 -- | /O(n)/.
 -- Unfold a list 'Expr' into a list of values and a terminator.
@@ -760,7 +760,7 @@ unfoldEnd e                          =  ([],e)
 -- | /O(1)/.
 -- Checks if a given expression is a tuple.
 isTuple :: Expr -> Bool
-isTuple = not . null . unfoldTuple
+isTuple  =  not . null . unfoldTuple
 
 -- | /O(n)/.
 -- Check if an 'Expr' has a variable.  (By convention, any value whose

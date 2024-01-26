@@ -4,10 +4,10 @@
 import Test
 
 main :: IO ()
-main = mainTest tests 5040
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
-tests n =
+tests n  =
   [ True
 
   , holds n $ \es e -> es >$$ e == es >$$< [e]

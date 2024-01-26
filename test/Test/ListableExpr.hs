@@ -104,36 +104,36 @@ newtype SameTypedPairsE  =  SameTypedPairsE { unSameTypedPairsE :: [(Expr,Expr)]
 newtype Ill  =  Ill { unIll :: Expr }
 
 
-instance Show E0  where  show (E0 e) = show e
-instance Show EV  where  show (EV e) = show e
+instance Show E0  where  show (E0 e)  =  show e
+instance Show EV  where  show (EV e)  =  show e
 
-instance Show IntE  where  show (IntE e) = show e
+instance Show IntE  where  show (IntE e)  =  show e
 
-instance Show IntE0  where  show (IntE0 e) = show e
-instance Show IntEV  where  show (IntEV e) = show e
+instance Show IntE0  where  show (IntE0 e)  =  show e
+instance Show IntEV  where  show (IntEV e)  =  show e
 
-instance Show IntToIntE  where  show (IntToIntE e) = show e
-instance Show IntToIntToIntE  where  show (IntToIntToIntE e) = show e
+instance Show IntToIntE  where  show (IntToIntE e)  =  show e
+instance Show IntToIntToIntE  where  show (IntToIntToIntE e)  =  show e
 
-instance Show BoolE  where  show (BoolE e) = show e
+instance Show BoolE  where  show (BoolE e)  =  show e
 
-instance Show BoolE0  where  show (BoolE0 e) = show e
-instance Show BoolEV  where  show (BoolEV e) = show e
+instance Show BoolE0  where  show (BoolE0 e)  =  show e
+instance Show BoolEV  where  show (BoolEV e)  =  show e
 
-instance Show BoolToBoolE  where  show (BoolToBoolE e) = show e
-instance Show BoolToBoolToBoolE  where  show (BoolToBoolToBoolE e) = show e
+instance Show BoolToBoolE  where  show (BoolToBoolE e)  =  show e
+instance Show BoolToBoolToBoolE  where  show (BoolToBoolToBoolE e)  =  show e
 
-instance Show IntsE  where  show (IntsE e) = show e
+instance Show IntsE  where  show (IntsE e)  =  show e
 
-instance Show IntsE0  where  show (IntsE0 e) = show e
-instance Show IntsEV  where  show (IntsEV e) = show e
+instance Show IntsE0  where  show (IntsE0 e)  =  show e
+instance Show IntsEV  where  show (IntsEV e)  =  show e
 
-instance Show CharE  where  show (CharE e) = show e
+instance Show CharE  where  show (CharE e)  =  show e
 
-instance Show CharE0  where  show (CharE0 e) = show e
-instance Show CharEV  where  show (CharEV e) = show e
+instance Show CharE0  where  show (CharE0 e)  =  show e
+instance Show CharEV  where  show (CharEV e)  =  show e
 
-instance Show SameTypeE  where  show (SameTypeE e1 e2) = show (e1,e2)
+instance Show SameTypeE  where  show (SameTypeE e1 e2)  =  show (e1,e2)
 
 instance Show SameTypedPairsE  where  show (SameTypedPairsE ees)  =  show ees
 
@@ -146,7 +146,7 @@ newtype IntsE0  =  IntsE0 { unIntsE0 :: Expr }
 -- | Varialbe of 'Ints' type.
 newtype IntsEV  =  IntsEV { unIntsEV :: Expr }
 
-instance Show Ill where  show (Ill e) = show e
+instance Show Ill where  show (Ill e)  =  show e
 
 instance Listable IntE  where
   tiers  =  mapT IntE
@@ -235,17 +235,17 @@ instance Listable CharE0 where
   tiers  =  (CharE0 . val) `mapT` (tiers :: [[Char]])
 
 instance Listable SameTypeE where
-  tiers = cons1 (\(IntE  e1, IntE  e2) -> SameTypeE e1 e2) `ofWeight` 0
-       \/ cons1 (\(BoolE e1, BoolE e2) -> SameTypeE e1 e2) `ofWeight` 1
-       \/ cons1 (\(IntsE e1, IntsE e2) -> SameTypeE e1 e2) `ofWeight` 1
-       \/ cons1 (\(CharE e1, CharE e2) -> SameTypeE e1 e2) `ofWeight` 2
-       \/ cons1 (\(IntToIntE e1, IntToIntE e2)     -> SameTypeE e1 e2) `ofWeight` 2
-       \/ cons1 (\(BoolToBoolE e1, BoolToBoolE e2) -> SameTypeE e1 e2) `ofWeight` 2
-       \/ cons1 (\(BoolToBoolToBoolE e1, BoolToBoolToBoolE e2) -> SameTypeE e1 e2) `ofWeight` 2
-       \/ cons1 (\(IntToIntToIntE e1, IntToIntToIntE e2)       -> SameTypeE e1 e2) `ofWeight` 2
+  tiers  =  cons1 (\(IntE  e1, IntE  e2) -> SameTypeE e1 e2) `ofWeight` 0
+        \/ cons1 (\(BoolE e1, BoolE e2) -> SameTypeE e1 e2) `ofWeight` 1
+        \/ cons1 (\(IntsE e1, IntsE e2) -> SameTypeE e1 e2) `ofWeight` 1
+        \/ cons1 (\(CharE e1, CharE e2) -> SameTypeE e1 e2) `ofWeight` 2
+        \/ cons1 (\(IntToIntE e1, IntToIntE e2)     -> SameTypeE e1 e2) `ofWeight` 2
+        \/ cons1 (\(BoolToBoolE e1, BoolToBoolE e2) -> SameTypeE e1 e2) `ofWeight` 2
+        \/ cons1 (\(BoolToBoolToBoolE e1, BoolToBoolToBoolE e2) -> SameTypeE e1 e2) `ofWeight` 2
+        \/ cons1 (\(IntToIntToIntE e1, IntToIntToIntE e2)       -> SameTypeE e1 e2) `ofWeight` 2
 
 instance Listable SameTypedPairsE where
-  tiers = cons1 (SameTypedPairsE . map unSameTypeE) `ofWeight` 0
+  tiers  =  cons1 (SameTypedPairsE . map unSameTypeE) `ofWeight` 0
 
 instance Listable E0 where
   tiers  =  mapT E0

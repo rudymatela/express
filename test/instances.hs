@@ -4,10 +4,10 @@
 import Test
 
 main :: IO ()
-main = mainTest tests 5040
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
-tests n =
+tests n  =
   [ True
 
   , eval undefined (eqFor (undefined :: Int) :$ one :$ one) == True
@@ -62,11 +62,11 @@ tests n =
   , lookupName preludeNameInstances (val [[[0::A]]]) == "xsss"
   ]
   where
-  eqFor = head . reifyEq
-  lessEqFor = head . reifyOrd
-  lessFor = head . tail . reifyOrd
---compareFor = head . reifyOrd
-  nameFor = head . reifyName
+  eqFor  =  head . reifyEq
+  lessEqFor  =  head . reifyOrd
+  lessFor  =  head . tail . reifyOrd
+--compareFor  =  head . reifyOrd
+  nameFor  =  head . reifyName
 
 functions :: [Expr]
 functions  =  concat

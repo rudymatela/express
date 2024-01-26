@@ -129,7 +129,7 @@ mkEq (==)  =
   , value "/=" (/=)
   ]
   where
-  x /= y = not (x == y)
+  x /= y  =  not (x == y)
 
 -- | /O(1)/.
 -- Builds a reified 'Ord' instance from the given 'compare' function.
@@ -265,7 +265,7 @@ mkComparison n' is e1 e2  =  fromMaybe (val False) $ do
   e1e <- findValidApp os e1
   e1e $$ e2
   where
-  os = [eq | eq@(Value n _) <- is, n == n']
+  os  =  [eq | eq@(Value n _) <- is, n == n']
 
 -- | /O(n+m)./
 -- Returns an equation between two expressions
@@ -313,7 +313,7 @@ lookupName is e  =  maybe d (eval "x") (findValidApp es e)
   t  =  typ e
   d | isFunTy t  =  "f"
     | otherwise  =  'x' : replicate (countListTy t) 's'
-  es = [e | e@(Value "name" _) <- is]
+  es  =  [e | e@(Value "name" _) <- is]
 
 -- | /O(n+m)./
 -- A mix between 'lookupName' and 'names':
@@ -352,7 +352,7 @@ infixl 1 -:>
 -- A list of reified 'Name' instances
 -- for an arbitrary selection of types from the Haskell "Prelude".
 preludeNameInstances :: [Expr]
-preludeNameInstances = concat
+preludeNameInstances  =  concat
   [ reifyName (u :: ())
   , reifyName (u :: Bool)
   , reifyName (u :: Int)

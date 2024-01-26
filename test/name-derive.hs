@@ -6,10 +6,10 @@ import Test
 
 import Data.Express.Utils.List
 
-data Peano = Zero | Succ Peano deriving Show
-data List a = a :- List a | Nil deriving Show
-data Bush a = Bush a :-: Bush a | Leaf a deriving (Show, Eq)
-data Tree a = Node (Tree a) a (Tree a) | Null deriving (Show, Eq)
+data Peano  =  Zero | Succ Peano deriving Show
+data List a  =  a :- List a | Nil deriving Show
+data Bush a  =  Bush a :-: Bush a | Leaf a deriving (Show, Eq)
+data Tree a  =  Node (Tree a) a (Tree a) | Null deriving (Show, Eq)
 
 instance Num Peano where
   Zero + n  =  n
@@ -49,10 +49,10 @@ deriveNameIfNeeded ''Maybe
 deriveNameIfNeeded ''Either
 
 main :: IO ()
-main = mainTest tests 5040
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
-tests n =
+tests n  =
   [ True
 
   , name (undefined :: Peano) == "x"

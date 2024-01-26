@@ -90,14 +90,14 @@ trueCanonicalVariations  =  discardLater isInstanceOf
 candidateEquationsFrom :: [Expr] -> [Expr]
 candidateEquationsFrom es'  =  [e1 -==- e2 | e1 <- es, e2 <- es, e1 >= e2]
   where
-  es = candidateExprsFrom es'
+  es  =  candidateExprsFrom es'
 
 candidateExprsFrom :: [Expr] -> [Expr]
 candidateExprsFrom  =  concat . take 5 . expressionsT
   where
   expressionsT ds  =  [ds] \/ (delay $ productMaybeWith ($$) es es)
     where
-    es = expressionsT ds
+    es  =  expressionsT ds
 
 isTrue :: Expr -> Bool
 isTrue  =  all (eval False) . take 60 . grounds
@@ -117,11 +117,11 @@ tiersFor e  =  case show (typ e) of
 ex -==- ey  =  head $
   [eqn | eq <- eqs, let eqn = eq :$ ex :$ ey, isWellTyped eqn] ++ [val False]
   where
-  eqs = [ value "==" ((==) :: Int -> Int -> Bool)
-        , value "==" ((==) :: Bool -> Bool -> Bool)
-        , value "==" ((==) :: [Int] -> [Int] -> Bool)
-        , value "==" ((==) :: [Bool] -> [Bool] -> Bool)
-        ]
+  eqs  =  [ value "==" ((==) :: Int -> Int -> Bool)
+          , value "==" ((==) :: Bool -> Bool -> Bool)
+          , value "==" ((==) :: [Int] -> [Int] -> Bool)
+          , value "==" ((==) :: [Bool] -> [Bool] -> Bool)
+          ]
 
 lhs, rhs :: Expr -> Expr
 lhs (((Value "==" _) :$ e) :$ _)  =  e

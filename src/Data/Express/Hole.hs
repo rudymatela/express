@@ -43,14 +43,14 @@ import Data.Express.Utils.String (variableNamesFromTemplate)
 -- > > "p" `varAsTypeOf` val False
 -- > p :: Bool
 varAsTypeOf :: String -> Expr -> Expr
-varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
+varAsTypeOf n  =  Value ('_':n) . undefine . fromMaybe err . toDynamic
   where
-  err = error "varAsTypeOf: could not compile Dynamic value, type error?"
+  err  =  error "varAsTypeOf: could not compile Dynamic value, type error?"
   undefine :: Dynamic -> Dynamic
 #if __GLASGOW_HASKELL__ >= 806
-  undefine (Dynamic t v) = (Dynamic t undefined)
+  undefine (Dynamic t v)  =  (Dynamic t undefined)
 #else
-  undefine = id -- there's no way to do this using the old Data.Dynamic API.
+  undefine  =  id -- there's no way to do this using the old Data.Dynamic API.
 #endif
 
 -- | /O(1)/.
@@ -62,7 +62,7 @@ varAsTypeOf n = Value ('_':n) . undefine . fromMaybe err . toDynamic
 -- > > holeAsTypeOf $ val (1::Int)
 -- > _ :: Int
 holeAsTypeOf :: Expr -> Expr
-holeAsTypeOf = ("" `varAsTypeOf`)
+holeAsTypeOf  =  ("" `varAsTypeOf`)
 
 -- | /O(1)/.
 -- Creates an 'Expr' representing a typed hole of the given argument type.
@@ -79,7 +79,7 @@ holeAsTypeOf = ("" `varAsTypeOf`)
 -- > hole x = var "" x
 -- > hole x = value "_" x
 hole :: Typeable a => a -> Expr
-hole a = var "" (undefined `asTypeOf` a)
+hole a  =  var "" (undefined `asTypeOf` a)
 
 -- | /O(1)/.
 -- Checks if an 'Expr' represents a typed hole.
@@ -259,11 +259,11 @@ listVarsAsTypeOf s e  =  map (`varAsTypeOf` e) (variableNamesFromTemplate s)
 -- > > fill (i_ -+- i_ -+- i_) [xx, val 'c', yy]
 -- > (x + _) + _ :: Int
 fill :: Expr -> [Expr] -> Expr
-fill e = fst . fill' e
+fill e  =  fst . fill' e
   where
   fill' :: Expr -> [Expr] -> (Expr,[Expr])
-  fill' (e1 :$ e2) es = let (e1',es')  = fill' e1 es
-                            (e2',es'') = fill' e2 es'
-                        in (e1' :$ e2', es'')
-  fill' eh (e:es) | isHole eh && typ eh == typ e = (e,es)
-  fill' e es = (e,es)
+  fill' (e1 :$ e2) es  =  let (e1',es')  = fill' e1 es
+                              (e2',es'')  =  fill' e2 es'
+                          in (e1' :$ e2', es'')
+  fill' eh (e:es) | isHole eh && typ eh == typ e  =  (e,es)
+  fill' e es  =  (e,es)

@@ -6,10 +6,10 @@ import Data.Express.Utils.List
 import Test.LeanCheck.Error (errorToNothing)
 
 main :: IO ()
-main = mainTest tests 5040
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
-tests n =
+tests n  =
   [ True
 
   -- smart constructors and evaluation

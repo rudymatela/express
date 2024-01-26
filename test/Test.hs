@@ -57,14 +57,14 @@ reportTests s tests =
              exitFailure
 
 getMaxTestsFromArgs :: Int -> IO Int
-getMaxTestsFromArgs n = do
+getMaxTestsFromArgs n  =  do
   as <- getArgs
   return $ case as of
              (s:_) -> read s
              _     -> n
 
 mainTest :: (Int -> [Bool]) -> Int -> IO ()
-mainTest tests n' = do
+mainTest tests n'  =  do
   pn <- getProgName
   n <- getMaxTestsFromArgs n'
   reportTests pn (tests n)
@@ -217,5 +217,5 @@ funRules  =
   ]
 
 (-=-) :: Expr -> Expr -> (Expr,Expr)
-e1 -=- e2 = (e1, e2)
+e1 -=- e2  =  (e1, e2)
 infix 0 -=-

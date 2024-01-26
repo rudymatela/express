@@ -64,16 +64,16 @@ tests n =
   ]
 
 evaluateInt :: Expr -> Maybe Int
-evaluateInt = evaluate
+evaluateInt  =  evaluate
 
 evaluateBool :: Expr -> Maybe Bool
-evaluateBool = evaluate
+evaluateBool  =  evaluate
 
 evaluateInts :: Expr -> Maybe [Int]
-evaluateInts = evaluate
+evaluateInts  =  evaluate
 
 evaluateIntToInt :: Expr -> Maybe (Int -> Int)
-evaluateIntToInt = evaluate
+evaluateIntToInt  =  evaluate
 
 evaluateChar :: Expr -> Maybe Char
-evaluateChar = evaluate
+evaluateChar  =  evaluate

@@ -13,7 +13,7 @@ main  =  do
           (n:_) -> read n
   putStrLn . unlines . map showCompare $ take n (list :: [(Expr,Expr)])
   where
-  showCompare (e1,e2) = concat
+  showCompare (e1,e2)  =  concat
     [ show e1
     , " `compare` "
     , show e2

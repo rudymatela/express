@@ -7,10 +7,10 @@ import Data.Express.Utils.String
 import Data.Express.Utils.Typeable
 
 main :: IO ()
-main = mainTest tests 5040
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
-tests n =
+tests n  =
   [ True
 
   , holds n $ \xs -> nubSort xs == nub (sort xs :: [Int])

@@ -45,7 +45,7 @@ import Data.Express.Utils
 -- > (zero -+- (one -+- two)) `match` (xx -+- yy)           =  Just [(xx,zero), (yy,one-+-two)]
 -- > (zero -+- (one -+- two)) `match` (xx -+- (yy -+- yy))  =  Nothing
 match :: Expr -> Expr -> Maybe [(Expr,Expr)]
-match = matchWith []
+match  =  matchWith []
 
 -- |
 -- Like 'match' but allowing predefined bindings.
@@ -53,7 +53,7 @@ match = matchWith []
 -- > matchWith [(xx,zero)] (zero -+- one) (xx -+- yy)  =  Just [(xx,zero), (yy,one)]
 -- > matchWith [(xx,one)]  (zero -+- one) (xx -+- yy)  =  Nothing
 matchWith :: [(Expr,Expr)] -> Expr -> Expr -> Maybe [(Expr,Expr)]
-matchWith bs e1' e2' = m e1' e2' bs
+matchWith bs e1' e2'  =  m e1' e2' bs
   where
   m :: Expr -> Expr -> [(Expr,Expr)] -> Maybe [(Expr,Expr)]
   m (f1 :$ x1) (f2 :$ x2)             =  m f1 f2 >=> m x1 x2
@@ -63,12 +63,12 @@ matchWith bs e1' e2' = m e1' e2' bs
     | otherwise                       =  const Nothing
 
 updateAssignments :: (Expr,Expr) -> [(Expr,Expr)] -> Maybe [(Expr,Expr)]
-updateAssignments (e,e') = \bs ->
+updateAssignments (e,e')  =  \bs ->
   case lookup e bs of
-    Nothing  -> Just ((e,e'):bs)
-    Just e'' -> if e'' == e'
-                then Just bs
-                else Nothing
+  Nothing  -> Just ((e,e'):bs)
+  Just e'' -> if e'' == e'
+              then Just bs
+              else Nothing
 
 -- |
 -- Given two 'Expr's,
@@ -94,7 +94,7 @@ updateAssignments (e,e') = \bs ->
 -- > (zero -+- (yy -+- xx)) `isInstanceOf` (zero -+- yy)  =  True
 -- >  (one -+- (yy -+- xx)) `isInstanceOf` (zero -+- yy)  =  False
 isInstanceOf :: Expr -> Expr -> Bool
-e1 `isInstanceOf` e2 = isJust $ e1 `match` e2
+e1 `isInstanceOf` e2  =  isJust $ e1 `match` e2
 
 
 -- |
@@ -129,4 +129,4 @@ e1 `hasInstanceOf` e2  =  any (`isInstanceOf` e2) (subexprs e1)
 -- > > xx `isSubexprOf` yy
 -- > False
 isSubexprOf :: Expr -> Expr -> Bool
-isSubexprOf e = (e `elem`) . subexprs
+isSubexprOf e  =  (e `elem`) . subexprs

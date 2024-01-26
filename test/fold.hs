@@ -3,10 +3,10 @@
 import Test
 
 main :: IO ()
-main = mainTest tests 5040
+main  =  mainTest tests 5040
 
 tests :: Int -> [Bool]
-tests n =
+tests n  =
   [ True
 
   , holds n $ \e1 e2 -> (e1,e2) == unfoldPair (foldPair (e1,e2))
