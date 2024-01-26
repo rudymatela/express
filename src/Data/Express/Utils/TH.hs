@@ -301,8 +301,7 @@ c |=>| qds  =  map (=>++ c) `fmap` qds
 (|++|) = liftM2 (++)
 
 mergeIFns :: DecsQ -> DecsQ
-mergeIFns qds = do ds <- qds
-                   return $ map m' ds
+mergeIFns  =  fmap (map m')
   where
 #if __GLASGOW_HASKELL__ < 800
   m' (InstanceD   c ts ds) = InstanceD   c ts [foldr1 m ds]
@@ -312,9 +311,7 @@ mergeIFns qds = do ds <- qds
   FunD n cs1 `m` FunD _ cs2 = FunD n (cs1 ++ cs2)
 
 mergeI :: DecsQ -> DecsQ -> DecsQ
-qds1 `mergeI` qds2 = do ds1 <- qds1
-                        ds2 <- qds2
-                        return $ ds1 `m` ds2
+mergeI  =  liftM2 m
   where
 #if __GLASGOW_HASKELL__ < 800
   [InstanceD   c ts ds1] `m` [InstanceD   _ _ ds2] = [InstanceD   c ts (ds1 ++ ds2)]
@@ -323,15 +320,14 @@ qds1 `mergeI` qds2 = do ds1 <- qds1
 #endif
 
 whereI :: DecsQ -> [Dec] -> DecsQ
-qds `whereI` w = do ds <- qds
-                    return $ map (`aw` w) ds
+qds `whereI` w  =  fmap (map (`aw` w)) qds
+  where
 #if __GLASGOW_HASKELL__ < 800
-  where aw (InstanceD   c ts ds) w' = InstanceD   c ts (ds++w')
-        aw d                     _  = d
+  aw (InstanceD   c ts ds) w' = InstanceD   c ts (ds++w')
 #else
-  where aw (InstanceD o c ts ds) w' = InstanceD o c ts (ds++w')
-        aw d                     _  = d
+  aw (InstanceD o c ts ds) w' = InstanceD o c ts (ds++w')
 #endif
+  aw d                     _  = d
 
 -- > nubMerge xs ys == nub (merge xs ys)
 -- > nubMerge xs ys == nub (sort (xs ++ ys))
