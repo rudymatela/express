@@ -313,7 +313,7 @@ typesInList :: [TypeRep] -> [TypeRep]
 typesInList ts  =  nubSortBy compareTy $ tins ts []
   where
   tin t  =  (t:) . tins (typeRepArgs t)
-  tins ts  =  foldr (.) id (map tin ts)
+  tins  =  foldr ((.) . tin) id
 
 -- | An infix alias for 'mkFunTy'.  It is right associative.
 (->::) :: TypeRep -> TypeRep -> TypeRep
