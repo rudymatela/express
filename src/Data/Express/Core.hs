@@ -244,7 +244,8 @@ var s a  =  value ('_':s) (undefined `asTypeOf` a)
 typ :: Expr -> TypeRep
 typ  =  either err id . etyp
   where
-  err (t1, t2)  =  error $ "type mismatch, cannot apply `"
+  err (t1, t2)  =  errorOn "typ"
+                $  "type mismatch, cannot apply `"
                 ++ show t1 ++ "' to `" ++ show t2 ++ "'"
 
 -- | /O(n)/.
@@ -404,7 +405,7 @@ evl :: Typeable a => Expr -> a
 evl e  =  r
   where
   r  =  eval err e
-  err  =  error $ "evl: cannot evaluate Expr `" ++ show e ++ "' at the " ++ show (typeOf r) ++ " type"
+  err  =  errorOn "evl" $ "cannot evaluate Expr `" ++ show e ++ "' at the " ++ show (typeOf r) ++ " type"
 
 -- | /O(n)/.
 -- Evaluates an expression to a terminal 'Dynamic' value when possible.
@@ -1238,3 +1239,6 @@ depth _         =  1
 height :: Expr -> Int
 height (e1 :$ e2)  =  1 + height e1 `max` height e2
 height _           =  1
+
+errorOn :: String -> String -> a
+errorOn fn msg  =  error $ "Data.Express." ++ fn ++ ": " ++ msg
