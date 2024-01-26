@@ -144,11 +144,15 @@ prepare-legacy-test:
 	cabal-ghc-7.8  v1-install $(ALL_DEPS)
 	# (v2-) library installation is supported on GHC 8.0+ only)
 
-hlint:
+hlint: ..hlint
+
+%.hlint:
 	hlint \
 	  --ignore "Use import/export shortcut" \
 	  --ignore "Redundant bracket" \
-	  .
+	  --ignore "Use lambda-case" \
+	  --ignore "Use typeRep" \
+	  $*
 
 markdown: README.html
 
