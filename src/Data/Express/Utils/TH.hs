@@ -83,35 +83,32 @@ reallyDeriveCascading cls reallyDerive t =
   =<< t `typeConCascadingArgsThat` (`isntInstanceOf` cls)
 
 typeConArgs :: Name -> Q [Name]
-typeConArgs t = do
+typeConArgs t  =  do
   is <- isTypeSynonym t
   if is
-    then liftM typeConTs $ typeSynonymType t
-    else liftM (nubMerges . map typeConTs . concat . map snd) $ typeConstructors t
+  then typeConTs `fmap` typeSynonymType t
+  else (nubMerges . map typeConTs . concatMap snd) `fmap` typeConstructors t
   where
   typeConTs :: Type -> [Name]
-  typeConTs (AppT t1 t2) = typeConTs t1 `nubMerge` typeConTs t2
-  typeConTs (SigT t _) = typeConTs t
-  typeConTs (VarT _) = []
-  typeConTs (ConT n) = [n]
+  typeConTs (AppT t1 t2)  =  typeConTs t1 `nubMerge` typeConTs t2
+  typeConTs (SigT t _)  =  typeConTs t
+  typeConTs (VarT _)  =  []
+  typeConTs (ConT n)  =  [n]
 #if __GLASGOW_HASKELL__ >= 800
-  -- typeConTs (PromotedT n) = [n] ?
-  typeConTs (InfixT  t1 n t2) = typeConTs t1 `nubMerge` typeConTs t2
-  typeConTs (UInfixT t1 n t2) = typeConTs t1 `nubMerge` typeConTs t2
-  typeConTs (ParensT t) = typeConTs t
+  -- typeConTs (PromotedT n)  =  [n] ?
+  typeConTs (InfixT  t1 n t2)  =  typeConTs t1 `nubMerge` typeConTs t2
+  typeConTs (UInfixT t1 n t2)  =  typeConTs t1 `nubMerge` typeConTs t2
+  typeConTs (ParensT t)  =  typeConTs t
 #endif
-  typeConTs _ = []
+  typeConTs _  =  []
 
 typeConArgsThat :: Name -> (Name -> Q Bool) -> Q [Name]
-typeConArgsThat t p = do
-  targs <- typeConArgs t
-  tbs   <- mapM (\t' -> do is <- p t'; return (t',is)) targs
-  return [t' | (t',p) <- tbs, p]
+t `typeConArgsThat` p  =  filterM p =<< typeConArgs t
 
 typeConCascadingArgsThat :: Name -> (Name -> Q Bool) -> Q [Name]
-t `typeConCascadingArgsThat` p = do
+t `typeConCascadingArgsThat` p  =  do
   ts <- t `typeConArgsThat` p
-  let p' t' = do is <- p t'; return $ t' `notElem` (t:ts) && is
+  let p' t'  =  (t' `notElem` t:ts &&) `fmap` p t'
   tss <- mapM (`typeConCascadingArgsThat` p') ts
   return $ nubMerges (ts:tss)
 
@@ -132,22 +129,26 @@ t `typeConCascadingArgsThat` p = do
 -- > > putStrLn $(stringE . show =<< normalizeType ''[])
 -- > (AppT (ConT ''[]) (VarT a),[VarT a])
 normalizeType :: Name -> Q (Type, [Type])
-normalizeType t = do
+normalizeType t  =  do
   ar <- typeArity t
   vs <- newVarTs ar
   return (foldl AppT (ConT t) vs, vs)
   where
     newNames :: [String] -> Q [Name]
-    newNames = mapM newName
+    newNames  =  mapM newName
     newVarTs :: Int -> Q [Type]
-    newVarTs n = liftM (map VarT)
-               $ newNames (take n . map (:[]) $ cycle ['a'..'z'])
+    newVarTs n  =  map VarT
+            `fmap` newNames (take n . map (:[]) $ cycle ['a'..'z'])
 
 -- |
 -- Normalizes a type by applying it to units to make it star-kinded.
 -- (cf. 'normalizeType')
+--
+-- > normalizeTypeUnits ''Int    === [t| Int |]
+-- > normalizeTypeUnits ''Maybe  === [t| Maybe () |]
+-- > normalizeTypeUnits ''Either === [t| Either () () |]
 normalizeTypeUnits :: Name -> Q Type
-normalizeTypeUnits t = do
+normalizeTypeUnits t  =  do
   ar <- typeArity t
   return (foldl AppT (ConT t) (replicate ar (TupleT 0)))
 
@@ -163,14 +164,14 @@ normalizeTypeUnits t = do
 -- > > putStrLn $(stringE . show =<< ''Int `isInstanceOf` ''Fractional)
 -- > False
 isInstanceOf :: Name -> Name -> Q Bool
-isInstanceOf tn cl = do
+isInstanceOf tn cl  =  do
   ty <- normalizeTypeUnits tn
   isInstance cl [ty]
 
 -- |
 -- The negation of 'isInstanceOf'.
 isntInstanceOf :: Name -> Name -> Q Bool
-isntInstanceOf tn cl = liftM not (isInstanceOf tn cl)
+isntInstanceOf tn  =  fmap not . isInstanceOf tn
 
 -- | Given a type name, return the number of arguments taken by that type.
 -- Examples in partially broken TH:
@@ -196,22 +197,22 @@ isntInstanceOf tn cl = liftM not (isInstanceOf tn cl)
 -- > > putStrLn $(stringE . show =<< typeArity ''String)
 -- > 0
 --
--- This works for Data's and Newtype's and it is useful when generating
--- typeclass instances.
+-- This works for data and newtype declarations and
+-- it is useful when generating typeclass instances.
 typeArity :: Name -> Q Int
-typeArity t = do
-  ti <- reify t
-  return . length $ case ti of
+typeArity t  =  fmap arity $ reify t
+  where
+  arity  =  length . args
 #if __GLASGOW_HASKELL__ < 800
-    TyConI (DataD    _ _ ks _ _) -> ks
-    TyConI (NewtypeD _ _ ks _ _) -> ks
+  args (TyConI (DataD    _ _ ks   _ _))  =  ks
+  args (TyConI (NewtypeD _ _ ks   _ _))  =  ks
 #else
-    TyConI (DataD    _ _ ks _ _ _) -> ks
-    TyConI (NewtypeD _ _ ks _ _ _) -> ks
+  args (TyConI (DataD    _ _ ks _ _ _))  =  ks
+  args (TyConI (NewtypeD _ _ ks _ _ _))  =  ks
 #endif
-    TyConI (TySynD _ ks _) -> ks
-    _ -> error $ "error (typeArity): symbol " ++ show t
-              ++ " is not a newtype, data or type synonym"
+  args (TyConI (TySynD _ ks _))          =  ks
+  args _  =  errorOn "typeArity"
+          $  "neither newtype nor data nor type synonym: " ++ show t
 
 -- |
 -- Given a type 'Name',
@@ -236,23 +237,23 @@ typeArity t = do
 -- > > putStrLn $(stringE . show =<< typeConstructors ''Point)
 -- > [('Pt,[ConT ''Int, ConT ''Int])]
 typeConstructors :: Name -> Q [(Name,[Type])]
-typeConstructors t = do
-  ti <- reify t
-  return . map simplify $ case ti of
-#if __GLASGOW_HASKELL__ < 800
-    TyConI (DataD    _ _ _ cs _) -> cs
-    TyConI (NewtypeD _ _ _ c  _) -> [c]
-#else
-    TyConI (DataD    _ _ _ _ cs _) -> cs
-    TyConI (NewtypeD _ _ _ _ c  _) -> [c]
-#endif
-    _ -> error $ "error (typeConstructors): symbol " ++ show t
-              ++ " is neither newtype nor data"
+typeConstructors t  =  fmap (map normalize . cons) $ reify t
   where
-  simplify (NormalC n ts)  = (n,map snd ts)
-  simplify (RecC    n ts)  = (n,map trd ts)
-  simplify (InfixC  t1 n t2) = (n,[snd t1,snd t2])
-  trd (x,y,z) = z
+#if __GLASGOW_HASKELL__ < 800
+  cons (TyConI (DataD    _ _ _   cs _))  =  cs
+  cons (TyConI (NewtypeD _ _ _   c  _))  =  [c]
+#else
+  cons (TyConI (DataD    _ _ _ _ cs _))  =  cs
+  cons (TyConI (NewtypeD _ _ _ _ c  _))  =  [c]
+#endif
+  cons _  =  errorOn "typeConstructors"
+          $  "neither newtype nor data: " ++ show t
+  normalize (NormalC n ts)   =  (n,map snd ts)
+  normalize (RecC    n ts)   =  (n,map trd ts)
+  normalize (InfixC  t1 n t2)  =  (n,[snd t1,snd t2])
+  normalize _  =  errorOn "typeConstructors"
+               $  "unexpected unhandled case when called with " ++ show t
+  trd (x,y,z)  =  z
 
 -- |
 -- Is the given 'Name' a type synonym?
@@ -266,11 +267,10 @@ typeConstructors t = do
 -- > > putStrLn $(stringE . show =<< isTypeSynonym ''String)
 -- > True
 isTypeSynonym :: Name -> Q Bool
-isTypeSynonym t = do
-  ti <- reify t
-  return $ case ti of
-    TyConI (TySynD _ _ _) -> True
-    _                     -> False
+isTypeSynonym  =  fmap is . reify
+  where
+  is (TyConI (TySynD _ _ _))  =  True
+  is _                        =  False
 
 -- |
 -- Resolves a type synonym.
@@ -278,27 +278,24 @@ isTypeSynonym t = do
 -- > > putStrLn $(stringE . show =<< typeSynonymType ''String)
 -- > AppT ListT (ConT ''Char)
 typeSynonymType :: Name -> Q Type
-typeSynonymType t = do
-  ti <- reify t
-  return $ case ti of
-    TyConI (TySynD _ _ t') -> t'
-    _ -> error $ "error (typeSynonymType): symbol " ++ show t
-              ++ " is not a type synonym"
+typeSynonymType t  =  fmap typ $ reify t
+  where
+  typ (TyConI (TySynD _ _ t'))  =  t'
+  typ _  =  errorOn "typeSynonymType" $ "not a type synonym: " ++ show t
 
 -- Append to instance contexts in a declaration.
 --
 -- > sequence [[|Eq b|],[|Eq c|]] |=>| [t|instance Eq a => Cl (Ty a) where f=g|]
--- > == [t| instance (Eq a, Eq b, Eq c) => Cl (Ty a) where f = g |]
+-- > == [t| instance (Eq a, Eq b, Eq c) => Cl (Ty a) where f  =  g |]
 (|=>|) :: Cxt -> DecsQ -> DecsQ
-c |=>| qds = do ds <- qds
-                return $ map (`ac` c) ds
+c |=>| qds  =  map (=>++ c) `fmap` qds
+  where
 #if __GLASGOW_HASKELL__ < 800
-  where ac (InstanceD c ts ds) c' = InstanceD (c++c') ts ds
-        ac d                   _  = d
+  (InstanceD   c ts ds) =>++ c'  =  InstanceD   (c++c') ts ds
 #else
-  where ac (InstanceD o c ts ds) c' = InstanceD o (c++c') ts ds
-        ac d                     _  = d
+  (InstanceD o c ts ds) =>++ c'  =  InstanceD o (c++c') ts ds
 #endif
+  d                     =>++ _   =  d
 
 (|++|) :: DecsQ -> DecsQ -> DecsQ
 (|++|) = liftM2 (++)
@@ -339,14 +336,14 @@ qds `whereI` w = do ds <- qds
 -- > nubMerge xs ys == nub (merge xs ys)
 -- > nubMerge xs ys == nub (sort (xs ++ ys))
 nubMerge :: Ord a => [a] -> [a] -> [a]
-nubMerge [] ys = ys
-nubMerge xs [] = xs
-nubMerge (x:xs) (y:ys) | x < y     = x :    xs  `nubMerge` (y:ys)
-                       | x > y     = y : (x:xs) `nubMerge`    ys
-                       | otherwise = x :    xs  `nubMerge`    ys
+nubMerge [] ys  =  ys
+nubMerge xs []  =  xs
+nubMerge (x:xs) (y:ys) | x < y      =  x :    xs  `nubMerge` (y:ys)
+                       | x > y      =  y : (x:xs) `nubMerge`    ys
+                       | otherwise  =  x :    xs  `nubMerge`    ys
 
 nubMerges :: Ord a => [[a]] -> [a]
-nubMerges = foldr nubMerge []
+nubMerges  =  foldr nubMerge []
 
 typeConstructorsArgNames :: Name -> Q [(Name,[Name])]
 typeConstructorsArgNames t = do
@@ -399,3 +396,6 @@ toBounded t  =  ForallT [PlainTV n SpecifiedSpec | n <- unboundVars t] [] t
 -- | Same as toBounded but lifted over 'Q'
 toBoundedQ :: TypeQ -> TypeQ
 toBoundedQ  =  liftM toBounded
+
+errorOn :: String -> String -> a
+errorOn fn msg  =  error $ "Data.Express.Derive.Utils." ++ fn ++ ": " ++ msg
