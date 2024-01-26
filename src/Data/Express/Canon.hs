@@ -289,8 +289,8 @@ mostSpecificCanonicalVariation e  =  canonicalizeKeeping (nonHoleVars e)
 fastCanonicalVariations :: Expr -> [Expr]
 fastCanonicalVariations e
   | null hs'   =  [e]
-  | otherwise  =  concatMap fastCanonicalVariations
-               .  map (fill e) . fillings 0
+  | otherwise  =  concatMap (fastCanonicalVariations . fill e)
+               .  fillings 0
                $  [h | h <- hs', typ h == typ h']
   where
   hs'     =  holes e
@@ -351,7 +351,7 @@ nonHoleVars  =  filter (not . isHole) . nubVars
 --
 -- This function is not exported.
 canonicalizeKeeping :: [Expr] -> Expr -> Expr
-canonicalizeKeeping vs e  =  canonicalizeWith namesFor e
+canonicalizeKeeping vs  =  canonicalizeWith namesFor
   where
   nm (Value ('_':n) _)  =  n
   namesFor v | v `elem` vs  =  nm v : err
