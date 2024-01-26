@@ -125,7 +125,7 @@ foldTrio (e1,e2,e3)  =  value ",," (undefined :: ExprTrio) :$ e1 :$ e2 :$ e3
 unfoldTrio :: Expr -> (Expr,Expr,Expr)
 unfoldTrio (Value ",," _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
 unfoldTrio (Value "(,,)" _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
-unfoldTrio e  =  error "unfoldTrio" $ "not an Expr trio: " ++ show e
+unfoldTrio e  =  errorOn "unfoldTrio" $ "not an Expr trio: " ++ show e
 
 data ExprList = ExprList
 
