@@ -15,11 +15,11 @@ printL =  putStrLn . showL
 
 main :: IO ()
 main  =  do
-  putStrLn $ "sort $ take 5040 $ list  ::  [ Expr ]  ="
+  putStrLn "sort $ take 5040 $ list  ::  [ Expr ]  ="
   printL (sort $ take 5040 $ list :: [Expr])
 
-  putStrLn $ "sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  ="
+  putStrLn "sortBy compareLexicographically $ take 5040 $ list  ::  [ Expr ]  ="
   printL (sortBy compareLexicographically $ take 5040 $ list :: [Expr])
 
-  putStrLn $ "sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  ="
+  putStrLn "sortBy compareQuickly $ take 5040 $ list  ::  [ Expr ]  ="
   printL (sortBy compareQuickly $ take 5040 $ list :: [Expr])

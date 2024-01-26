@@ -19,6 +19,6 @@ query e  =  listToMaybe [(e1,ms,e2) | (e1,e2) <- sort allRules, ms <- maybeToLis
 
 main :: IO ()
 main  =  do
-  putStrLn $ unlines $ map showEq $ allRules
-  putStrLn $ unlines $ map show $ mapMaybe query $ take 1080 $ exprs
+  putStrLn $ unlines $ map showEq allRules
+  putStrLn $ unlines $ map show $ mapMaybe query $ take 1080 exprs
   print $ (== ']') $ last $ show $ mapMaybe query exprs

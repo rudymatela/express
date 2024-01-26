@@ -19,8 +19,8 @@ query e  =  listToMaybe $ T.lookup e trie
 
 main :: IO ()
 main  =  do
-  putStrLn $ unlines $ map showEq $ allRules
-  putStrLn $ unlines $ map show $ mapMaybe query $ take 1080 $ exprs
+  putStrLn $ unlines $ map showEq allRules
+  putStrLn $ unlines $ map show $ mapMaybe query $ take 1080 exprs
   print $ (== ']') $ last $ show $ mapMaybe query exprs
 
 trie :: Triexpr Expr
