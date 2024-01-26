@@ -43,9 +43,12 @@ import Data.Express.Utils.String (variableNamesFromTemplate)
 -- > > "p" `varAsTypeOf` val False
 -- > p :: Bool
 varAsTypeOf :: String -> Expr -> Expr
-varAsTypeOf n  =  Value ('_':n) . undefine . fromMaybe err . toDynamic
+varAsTypeOf n e  =  Value ('_':n) . undefine . fromMaybe err . toDynamic $ e
   where
-  err  =  error "varAsTypeOf: could not compile Dynamic value, type error?"
+  err  =  error
+       $ "Data.Express.varAsTypeOf: could not compile Dynamic value for `"
+       ++ show e
+       ++ "' with name " ++ n
   undefine :: Dynamic -> Dynamic
 #if __GLASGOW_HASKELL__ >= 806
   undefine (Dynamic t v)  =  (Dynamic t undefined)
