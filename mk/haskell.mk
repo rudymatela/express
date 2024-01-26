@@ -92,8 +92,9 @@ depend:
 install-dependencies:
 	if [ -n "$(INSTALL_DEPS)" ]; then \
 		cabal update && \
-		$(CABAL_INSTALL) $(INSTALL_DEPS); \
+		$(CABAL_INSTALL) $(INSTALL_DEPS) || true; \
 	fi
+	# above, "|| true" is needed for cabal >= 3.10.2
 
 # haddock rules
 haddock: doc/index.html
