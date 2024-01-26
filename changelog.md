@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v1.0.14 (January 2024)
+----------------------
 
 * `Data.Express`: add `>$$<`, `>$$` and `$$<`.
 
