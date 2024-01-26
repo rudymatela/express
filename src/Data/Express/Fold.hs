@@ -162,6 +162,7 @@ fold (e:es)  =  value ":"  ExprList :$ e :$ fold es
 -- > > unfold $ expr [1,2,3::Int]
 -- > [1 :: Int,2 :: Int,3 :: Int]
 unfold :: Expr -> [Expr]
+unfold (Value "\"\"" _)           =  []
 unfold (Value "[]" _)             =  []
 unfold (Value ":"  _ :$ e :$ es)  =  e : unfold es
 unfold e  =  errorOn "unfold" $ "cannot unfold expression: " ++ show e
