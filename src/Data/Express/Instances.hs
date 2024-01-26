@@ -308,7 +308,7 @@ mkComparisonLE  =  mkComparison "<="
 -- > > lookupName [] (val False)
 -- > "x"
 lookupName :: [Expr] -> Expr -> String
-lookupName is e  =  fromMaybe d $ eval "x" <$> findValidApp es e
+lookupName is e  =  maybe d (eval "x") (findValidApp es e)
   where
   t  =  typ e
   d | isFunTy t  =  "f"

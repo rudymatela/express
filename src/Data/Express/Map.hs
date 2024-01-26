@@ -185,7 +185,7 @@ mapSubexprs f  =  m
 -- Given that the argument list has length /m/,
 -- this function is /O(n*m)/.
 (//-) :: Expr -> [(Expr,Expr)] -> Expr
-e //- s  =  mapValues (flip lookupId s) e
+e //- s  =  mapValues (`lookupId` s) e
 
 -- | /O(n*n*m)/.
 -- Substitute subexpressions in an expression
@@ -221,7 +221,7 @@ e //- s  =  mapValues (flip lookupId s) e
 -- comparing two expressions is /O(n)/ in the worst case,
 -- and we may need to compare with /n/ subexpressions in the worst case.
 (//) :: Expr -> [(Expr,Expr)] -> Expr
-e // s  =  mapSubexprs (flip lookup s) e
+e // s  =  mapSubexprs (`lookup` s) e
 
 -- | Rename variables in an 'Expr'.
 --
