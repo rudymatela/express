@@ -454,10 +454,12 @@ src/Data/Express/Match.o: \
 src/Data/Express/Name/Derive.o: \
   src/Data/Express/Utils/TH.hs \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
   src/Data/Express/Name.hs \
   src/Data/Express/Name/Derive.hs
 src/Data/Express/Name.o: \
   src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs \
   src/Data/Express/Name.hs
 src/Data/Express.o: \
   src/Data/Express/Utils/Typeable.hs \
@@ -493,7 +495,8 @@ src/Data/Express/Utils.o: \
   src/Data/Express/Utils.hs \
   src/Data/Express/Utils/List.hs
 src/Data/Express/Utils/String.o: \
-  src/Data/Express/Utils/String.hs
+  src/Data/Express/Utils/String.hs \
+  src/Data/Express/Utils/List.hs
 src/Data/Express/Utils/TH.o: \
   src/Data/Express/Utils/TH.hs
 src/Data/Express/Utils/Typeable.o: \

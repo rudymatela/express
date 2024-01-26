@@ -22,6 +22,7 @@ module Data.Express.Utils.String
 where
 
 import Data.Char
+import Data.Express.Utils.List
 
 -- | Unquotes a string if possible, otherwise, this is just an identity.
 --
@@ -58,7 +59,7 @@ unquote s = s
 --
 -- but this does not cause problems for (all?) most cases.
 atomic :: String -> Bool
-atomic s | all (not . isSpace) s = True
+atomic s        | none isSpace s = True
 atomic ('\'':s) | last s == '\'' = True
 atomic ('"':s)  | last s == '"'  = True
 atomic ('[':s)  | last s == ']'  = True

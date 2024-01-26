@@ -13,6 +13,7 @@ module Data.Express.Utils.List
   , isPermutationOf
   , isSubsetOf
   , isNub
+  , none
   , lookupId
   , (+++)
   , module Data.List
@@ -92,6 +93,16 @@ isPermutationOf  =  (==) `on` sort
 -- > isNub [2,1,2]  =  False
 isNub :: Ord a => [a] -> Bool
 isNub xs  =  length (nubSort xs) == length xs
+
+-- | Determines whether no element of the given list satisfies the predicate.
+--
+-- > > none even [3,5,7,11,13]
+-- > True
+--
+-- > > none even [7,5,3,2]
+-- > False
+none :: (a -> Bool) -> [a] -> Bool
+none p  =  not . any p
 
 -- | /O(n)/.
 -- Like 'lookup' but returns the key itself if nothing is found.
