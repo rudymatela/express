@@ -5,9 +5,15 @@ Changelog for Express
 upcoming
 --------
 
+* `Data.Express`: add `>$$<`, `>$$` and `$$<`.
+
 * fix pretty-printing bug:
   an expression encoding `x:y:([] ++ _) :: [Int]`
   was being displayed as `[x,y,] ++ _ :: [Int]`.
+
+* `Data.Express.Fixtures`: update `-..`, `--..` and `--..-`.
+
+* improve pretty-printing
 
 * make ordering of `typesIn` consistent between GHC 9.8 and earlier versions
 
