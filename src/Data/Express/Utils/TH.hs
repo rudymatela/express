@@ -52,7 +52,7 @@ deriveWhenNeededX warnExisting cls reallyDerive t  =  do
   is <- t `isInstanceOf` cls
   if is
   then do
-    unless (not warnExisting)
+    when warnExisting
       (reportWarning $ "Instance " ++ showJustName cls ++ " " ++ showJustName t
                     ++ " already exists, skipping derivation")
     return []
