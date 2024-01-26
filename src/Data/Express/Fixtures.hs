@@ -602,6 +602,25 @@ hh = (hhE :$)
 hhE :: Expr
 hhE = var "h" (undefined :: Int -> Int)
 
+mk1 :: String -> [Expr] -> Expr -> Expr
+mk1 nm efs ex  =  headOr (err nm efs [ex]) $ efs >$$ ex
+
+mk2 :: String -> [Expr] -> Expr -> Expr -> Expr
+mk2 nm efs ex ey  =  headOr (err nm efs [ex,ey]) $ efs >$$ ex >$$ ey
+
+mk3 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr
+mk3 nm efs ex ey ez  =  headOr (err nm efs [ex,ey,ez]) $ efs >$$ ex >$$ ey >$$ ez
+
+mk4 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr -> Expr
+mk4 nm efs ex ey ez ew  =  headOr (err nm efs [ex,ey,ez,ew]) $ efs >$$ ex >$$ ey >$$ ez >$$ ew
+
+err :: String -> [Expr] -> [Expr] -> Expr
+err fn efs exs  =  error
+                $  fn ++ ": unhandled type: "
+                ++ intercalate ", " (map show exs)
+                ++ "\n    accepted types are:\n"
+                ++ unlines (map (("    " ++) . show) efs)
+
 -- | A variable binary operator @?@ lifted over the 'Expr' type.
 --   Works for 'Int', 'Bool', 'Char', @[Int]@ and 'String'.
 --
@@ -614,16 +633,13 @@ hhE = var "h" (undefined :: Int -> Int)
 -- > > xx -?- qq
 -- > *** Exception: (-?-): cannot apply `(?) :: * -> * -> *` to `x :: Int' and `q :: Bool'.  Unhandled types?
 (-?-) :: Expr -> Expr -> Expr
-ex -?- ey  =  fromMaybe err $ ($$ ey) $ headOr err $ mapMaybe ($$ ex)
+(-?-)  =  mk2 "(-?-)"
   [ var "?" (undefined :: Int -> Int -> Int)
   , var "?" (undefined :: Bool -> Bool -> Bool)
   , var "?" (undefined :: Char -> Char -> Char)
   , var "?" (undefined :: [Int] -> [Int] -> [Int])
   , var "?" (undefined :: String -> String -> String)
   ]
-  where
-  err  =  error $ "(-?-): cannot apply `(?) :: * -> * -> *` to `"
-               ++ show ex ++ "' and `" ++ show ey ++ "'.  Unhandled types?"
 
 -- | A variable binary operator @?@ encoded as an 'Expr' (cf. '-?-')
 --
@@ -647,16 +663,13 @@ question  =  var "?" (undefined :: Int -> Int -> Int)
 -- > > xx `oo` qq
 -- > *** Exception: (-?-): cannot apply `o :: * -> * -> *` to `x :: Int' and `q :: Bool'.  Unhandled types?
 oo :: Expr -> Expr -> Expr
-ex `oo` ey  =  fromMaybe err $ ($$ ey) $ headOr err $ mapMaybe ($$ ex)
+oo  =  mk2 "oo"
   [ var "`o`" (undefined :: Int -> Int -> Int)
   , var "`o`" (undefined :: Bool -> Bool -> Bool)
   , var "`o`" (undefined :: Char -> Char -> Char)
   , var "`o`" (undefined :: [Int] -> [Int] -> [Int])
   , var "`o`" (undefined :: String -> String -> String)
   ]
-  where
-  err  =  error $ "oo: cannot apply `o :: * -> * -> *` to `"
-               ++ show ex ++ "' and `" ++ show ey ++ "'.  Unhandled types?"
 
 -- | A variable binary function @o@ encoded as an 'Expr' (cf. 'oo')
 --
@@ -821,7 +834,7 @@ remE  =  value "`rem`" (rem :: Int -> Int -> Int)
 -- > > evl (id' true) :: Bool
 -- > True :: Bool
 id' :: Expr -> Expr
-id' e  =  headOr err $ mapMaybe ($$ e)
+id'  =  mk1 "id'"
   [ idInt
   , idBool
   , idChar
@@ -829,8 +842,6 @@ id' e  =  headOr err $ mapMaybe ($$ e)
   , idBools
   , idString
   ]
-  where
-  err  =  error $ "id': unhandled type " ++ show (typ e)
 
 -- | The function 'id' for the 'Int' type encoded as an 'Expr'.  (See also 'id''.)
 --
@@ -862,7 +873,7 @@ type Id a = a -> a
 --
 -- This works for the argument types 'Int', 'Char', 'Bool' and their lists.
 const' :: Expr -> Expr -> Expr
-const' e1 e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
+const'  =  mk2 "const'"
   [ value "const" (const :: Int -> Int -> Int)
   , value "const" (const :: Bool -> Bool -> Bool)
   , value "const" (const :: Char -> Char -> Char)
@@ -870,8 +881,6 @@ const' e1 e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
   , value "const" (const :: [Bool] -> [Bool] -> [Bool])
   , value "const" (const :: String -> String -> String)
   ]
-  where
-  err  =  error $ "const': unhandled type " ++ show (typ e1)
 
 -- | 'negate' over the 'Int' type lifted over the 'Expr' type.
 --
@@ -1166,14 +1175,12 @@ unit e  =  e -:- nil'
 -- > > bee -:- unit cee
 -- > "bc" :: [Char]
 (-:-) :: Expr -> Expr -> Expr
-e1 -:- e2  =  (:$ e2) . headOr err $ mapMaybe ($$ e1)
+(-:-)  =  mk2 "(-:-)"
   [ consInt
   , consBool
   , consChar
   , value ":" ((:) :: Cons (Maybe Int))
   ]
-  where
-  err  =  error $ "(-:-): unhandled type " ++ show (typ e1)
 infixr 5 -:-
 
 -- | Append for list of 'Int's encoded as an 'Expr'.
@@ -1189,13 +1196,11 @@ appendInt  =  value "++" ((++) :: [Int] -> [Int] -> [Int])
 -- > > (bee -:- unit cee) -:- unit dee
 -- > "bc" -++- "c" :: [Char]
 (-++-) :: Expr -> Expr -> Expr
-e1 -++- e2 = (:$ e2) . headOr err $ mapMaybe ($$ e1)
+(-++-)  =  mk2 "(-++-)"
   [ value "++" ((++) :: [Int] -> [Int] -> [Int])
   , value "++" ((++) :: String -> String -> String)
   , value "++" ((++) :: [Bool] -> [Bool] -> [Bool])
   ]
-  where
-  err  =  error $ "(-++-): unhandled type " ++ show (typ e1)
 infixr 5 -++-
 
 -- | List 'head' lifted over the 'Expr' type.
@@ -1213,13 +1218,11 @@ infixr 5 -++-
 -- > > evl $ head' $ unit one :: Int
 -- > 1
 head' :: Expr -> Expr
-head' exs = headOr err $ mapMaybe ($$ exs)
+head'  =  mk1 "head'"
   [ value "head" (head :: [Int] -> Int)
   , value "head" (head :: [Char] -> Char)
   , value "head" (head :: [Bool] -> Bool)
   ]
-  where
-  err  =  error $ "head': cannot apply `head :: [a] -> a` to `" ++ show exs ++ "'."
 
 -- | List 'tail' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1236,13 +1239,11 @@ head' exs = headOr err $ mapMaybe ($$ exs)
 -- > > evl $ tail' $ zero -:- unit two :: [Int]
 -- > [2]
 tail' :: Expr -> Expr
-tail' exs = headOr err $ mapMaybe ($$ exs)
+tail'  =  mk1 "tail'"
   [ value "tail" (tail :: [Int] -> [Int])
   , value "tail" (tail :: [Char] -> [Char])
   , value "tail" (tail :: [Bool] -> [Bool])
   ]
-  where
-  err  =  error $ "tail': unhandled type " ++ show (typ exs)
 
 -- | List 'null' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1256,13 +1257,11 @@ tail' exs = headOr err $ mapMaybe ($$ exs)
 -- > > evl $ null' nil :: Bool
 -- > True
 null' :: Expr -> Expr
-null' exs = headOr err $ mapMaybe ($$ exs)
+null'  =  mk1 "null'"
   [ value "null" (null :: [Int] -> Bool)
   , value "null" (null :: [Char] -> Bool)
   , value "null" (null :: [Bool] -> Bool)
   ]
-  where
-  err  =  error $ "null': unhandled type " ++ show (typ exs)
 
 -- | List 'length' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1279,13 +1278,11 @@ null' exs = headOr err $ mapMaybe ($$ exs)
 -- > > evl $ length' $ unit one :: Int
 -- > 1
 length' :: Expr -> Expr
-length' exs = headOr err $ mapMaybe ($$ exs)
+length'  =  mk1 "length'"
   [ value "length" (length :: [Int] -> Int)
   , value "length" (length :: [Char] -> Int)
   , value "length" (length :: [Bool] -> Int)
   ]
-  where
-  err  =  error $ "length': cannot apply `length :: [a] -> a` to `" ++ show exs ++ "'."
 
 -- | List 'init' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1302,13 +1299,11 @@ length' exs = headOr err $ mapMaybe ($$ exs)
 -- > > evl $ init' $ zero -:- unit two :: [Int]
 -- > [0]
 init' :: Expr -> Expr
-init' exs = headOr err $ mapMaybe ($$ exs)
+init'  =  mk1 "init'"
   [ value "init" (init :: [Int] -> [Int])
   , value "init" (init :: [Char] -> [Char])
   , value "init" (init :: [Bool] -> [Bool])
   ]
-  where
-  err  =  error $ "init': unhandled type " ++ show (typ exs)
 
 -- | List 'sort' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1325,13 +1320,11 @@ init' exs = headOr err $ mapMaybe ($$ exs)
 -- > > evl $ sort' $ two -:- unit one :: [Int]
 -- > [1,2]
 sort' :: Expr -> Expr
-sort' exs = headOr err $ mapMaybe ($$ exs)
+sort'  =  mk1 "sort'"
   [ value "sort" (sort :: [Int] -> [Int])
   , value "sort" (sort :: [Char] -> [Char])
   , value "sort" (sort :: [Bool] -> [Bool])
   ]
-  where
-  err  =  error $ "sort': unhandled type " ++ show (typ exs)
 
 -- | List 'insert' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1342,13 +1335,11 @@ sort' exs = headOr err $ mapMaybe ($$ exs)
 -- > > insert' false (false -:- unit true)
 -- > insert False [False,True] :: [Bool]
 insert' :: Expr -> Expr -> Expr
-insert' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
+insert'  =  mk2 "insert'"
   [ value "insert" (insert :: Int -> [Int] -> [Int])
   , value "insert" (insert :: Bool -> [Bool] -> [Bool])
   , value "insert" (insert :: Char -> String -> String)
   ]
-  where
-  err  =  error $ "insert': unhandled type " ++ show (typ ex)
 
 -- | List 'elem' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1359,13 +1350,11 @@ insert' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
 -- > > evl $ elem' false (false -:- unit true) :: Bool
 -- > True
 elem' :: Expr -> Expr -> Expr
-elem' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
+elem'  =  mk2 "elem'"
   [ value "elem" (elem :: Int -> [Int] -> Bool)
   , value "elem" (elem :: Bool -> [Bool] -> Bool)
   , value "elem" (elem :: Char -> String -> Bool)
   ]
-  where
-  err  =  error $ "elem': unhandled type " ++ show (typ ex)
 
 -- | '$' lifted over 'Expr's
 --
@@ -1374,7 +1363,7 @@ elem' ex exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ex)
 --
 -- Works for 'Int', 'Bool', 'Char' argument types and their lists.
 (-$-) :: Expr -> Expr -> Expr
-ef -$- ex = (:$ ex) . headOr err $ mapMaybe ($$ ef)
+(-$-)  =  mk2 "(-$-)"
   [ value "$" (($) :: Apply Int)
   , value "$" (($) :: Apply Bool)
   , value "$" (($) :: Apply Char)
@@ -1382,8 +1371,6 @@ ef -$- ex = (:$ ex) . headOr err $ mapMaybe ($$ ef)
   , value "$" (($) :: Apply [Bool])
   , value "$" (($) :: Apply [Char])
   ]
-  where
-  err  =  error $ "(-$-): unhandled type " ++ show (typ ef)
 infixl 6 -$-
 type Apply a = (a -> a) -> a -> a
 
@@ -1397,7 +1384,7 @@ type Apply a = (a -> a) -> a -> a
 --
 -- This works for the 'Int', 'Bool', 'Char' argument types and their lists.
 (-==-) :: Expr -> Expr -> Expr
-ex -==- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-==-)  =  mk2 "(-==-)"
   [ value "==" ((==) :: Comparison ())
   , value "==" ((==) :: Comparison Int)
   , value "==" ((==) :: Comparison Bool)
@@ -1406,8 +1393,6 @@ ex -==- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   , value "==" ((==) :: Comparison [Bool])
   , value "==" ((==) :: Comparison [Char])
   ]
-  where
-  err  =  error $ "(-==-): unhandled type " ++ show (typ ex)
 infix 4 -==-
 type Comparison a = a -> a -> Bool
 
@@ -1419,7 +1404,7 @@ type Comparison a = a -> a -> Bool
 -- > > cc -/=- ae
 -- > c /= 'a' :: Bool
 (-/=-) :: Expr -> Expr -> Expr
-ex -/=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-/=-)  =  mk2 "(-/=-)"
   [ value "/=" ((/=) :: Comparison ())
   , value "/=" ((/=) :: Comparison Int)
   , value "/=" ((/=) :: Comparison Bool)
@@ -1428,8 +1413,6 @@ ex -/=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   , value "/=" ((/=) :: Comparison [Bool])
   , value "/=" ((/=) :: Comparison [Char])
   ]
-  where
-  err  =  error $ "(-/=-): unhandled type " ++ show (typ ex)
 infix 4 -/=-
 
 -- | Constructs a less-than-or-equal inequation between two 'Expr's.
@@ -1440,7 +1423,7 @@ infix 4 -/=-
 -- > > cc -<=- ae
 -- > c <= 'a' :: Bool
 (-<=-) :: Expr -> Expr -> Expr
-ex -<=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-<=-)  =  mk2 "(-<=-)"
   [ value "<=" ((<=) :: Comparison ())
   , value "<=" ((<=) :: Comparison Int)
   , value "<=" ((<=) :: Comparison Bool)
@@ -1449,8 +1432,6 @@ ex -<=- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   , value "<=" ((<=) :: Comparison [Bool])
   , value "<=" ((<=) :: Comparison [Char])
   ]
-  where
-  err  =  error $ "(-<=-): unhandled type " ++ show (typ ex)
 infix 4 -<=-
 
 -- | Constructs a less-than inequation between two 'Expr's.
@@ -1461,7 +1442,7 @@ infix 4 -<=-
 -- > > cc -<- bee
 -- > c < 'b' :: Bool
 (-<-) :: Expr -> Expr -> Expr
-ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-<-)  =  mk2 "(-<-)"
   [ value "<" ((<) :: Comparison ())
   , value "<" ((<) :: Comparison Int)
   , value "<" ((<) :: Comparison Bool)
@@ -1470,8 +1451,6 @@ ex -<- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   , value "<" ((<) :: Comparison [Bool])
   , value "<" ((<) :: Comparison [Char])
   ]
-  where
-  err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
 infix 4 -<-
 
 -- | A function @if :: Bool -> a -> a -> a@ lifted over the 'Expr' type
@@ -1490,7 +1469,7 @@ infix 4 -<-
 -- > > evl $ if' true (val 't') (val 'f') :: Char
 -- > 't'
 if' :: Expr -> Expr -> Expr -> Expr
-if' ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
+if'  =  mk3 "if'"
   [ value "if" (iff :: If ())
   , value "if" (iff :: If Int)
   , value "if" (iff :: If Bool)
@@ -1500,7 +1479,6 @@ if' ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
   , value "if" (iff :: If [Char])
   ]
   where
-  err  =  error $ "if': unhandled type " ++ show (typ ex)
   iff :: Bool -> a -> a -> a
   iff p x y  =  if p then x else y
 type If a = Bool -> a -> a -> a
@@ -1528,7 +1506,7 @@ type If a = Bool -> a -> a -> a
 -- Instead of using this, you are perhaps better of using if encoded as an
 -- expression.  This is just here to be consistent with 'caseOrdering'.
 caseBool :: Expr -> Expr -> Expr -> Expr
-caseBool ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
+caseBool  =  mk3 "caseBool"
   [ value "case" (caseB :: CaseB ())
   , value "case" (caseB :: CaseB Int)
   , value "case" (caseB :: CaseB Bool)
@@ -1538,7 +1516,6 @@ caseBool ep ex ey  =  (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ ep)
   , value "case" (caseB :: CaseB [Char])
   ]
   where
-  err  =  error $ "caseBool: unhandled type " ++ show (typ ex)
   caseB :: Bool -> a -> a -> a
   caseB p x y  =  case p of
                   False -> x
@@ -1559,7 +1536,7 @@ type CaseB a = Bool -> a -> a -> a
 -- By convention cases are given in 'LT', 'EQ' and 'GT' order
 -- as @LT < EQ < GT@ and @data Ordering = LT | EQ | GT@.
 caseOrdering :: Expr -> Expr -> Expr -> Expr -> Expr
-caseOrdering eo ex ey ez  =  (:$ ez) . (:$ ey) . headOr err . mapMaybe ($$ ex) $ map (:$ eo)
+caseOrdering  =  mk4 "caseOrdering"
   [ value "case" (caseO :: CaseO ())
   , value "case" (caseO :: CaseO Int)
   , value "case" (caseO :: CaseO Bool)
@@ -1569,7 +1546,6 @@ caseOrdering eo ex ey ez  =  (:$ ez) . (:$ ey) . headOr err . mapMaybe ($$ ex) $
   , value "case" (caseO :: CaseO [Char])
   ]
   where
-  err  =  error $ "caseOrdering: unhandled type " ++ show (typ ex)
   caseO :: Ordering -> a -> a -> a -> a
   caseO o x y z  =  case o of
                     LT -> x
@@ -1585,7 +1561,7 @@ type CaseO a = Ordering -> a -> a -> a -> a
 -- > > compare' ae bee
 -- > compare 'a' 'b' :: Ordering
 compare' :: Expr -> Expr -> Expr
-compare' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+compare'  =  mk2 "compare'"
   [ value "compare" (compare :: Compare ())
   , value "compare" (compare :: Compare Int)
   , value "compare" (compare :: Compare Bool)
@@ -1594,8 +1570,6 @@ compare' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   , value "compare" (compare :: Compare [Bool])
   , value "compare" (compare :: Compare [Char])
   ]
-  where
-  err  =  error $ "(-<-): unhandled type " ++ show (typ ex)
 type Compare a = a -> a -> Ordering
 
 -- | 'Nothing' bound to the 'Maybe' 'Int' type encoded as an 'Expr'.
@@ -1629,12 +1603,10 @@ justBool     =  value "Just" (Just :: Bool -> Maybe Bool)
 -- > > just false
 -- > Just False :: Maybe Bool
 just :: Expr -> Expr
-just ex  =  headOr err $ mapMaybe ($$ ex)
+just  =  mk1 "just"
   [ justInt
   , justBool
   ]
-  where
-  err  =  error $ "just: unhandled type " ++ show (typ ex)
 
 -- | An infix synonym of 'pair'.
 (-|-) :: Expr -> Expr -> Expr
@@ -1790,7 +1762,7 @@ compose  =  value "." ((.) :: Compose Int)
 --
 -- This works for 'Int', 'Bool', 'Char' and their lists.
 (-.-) :: Expr -> Expr -> Expr
-ex -.- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-.-)  =  mk2 "(-.-)"
   [ value "." ((.) :: Compose ())
   , value "." ((.) :: Compose Int)
   , value "." ((.) :: Compose Bool)
@@ -1799,8 +1771,6 @@ ex -.- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
   , value "." ((.) :: Compose [Bool])
   , value "." ((.) :: Compose [Char])
   ]
-  where
-  err  =  error $ "(-.-): unhandled type " ++ show (typ ex)
 type Compose a = (a -> a) -> (a -> a) -> (a -> a)
 
 -- | 'map' over the 'Int' element type encoded as an 'Expr'
@@ -1815,7 +1785,7 @@ mapE  =  value "map" (map :: Map Int)
 -- > > map' absE (unit one)
 -- > map abs [1] :: [Int]
 map' :: Expr -> Expr -> Expr
-map' ef exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ef)
+map'  =  mk2 "map'"
   [ value "map" (map :: Map ())
   , value "map" (map :: Map Int)
   , value "map" (map :: Map Bool)
@@ -1824,8 +1794,6 @@ map' ef exs  =  (:$ exs) . headOr err $ mapMaybe ($$ ef)
   , value "map" (map :: Map [Bool])
   , value "map" (map :: Map [Char])
   ]
-  where
-  err  =  error $ "map': unhandled type " ++ show (typ ef)
 type Map a = (a -> a) -> [a] -> [a]
 
 -- | 'enumFrom' lifted over 'Expr's.
@@ -1835,13 +1803,11 @@ type Map a = (a -> a) -> [a] -> [a]
 --
 -- Works for 'Int's, 'Bool's and 'Char's.
 enumFrom' :: Expr -> Expr
-enumFrom' ex  =  headOr err $ mapMaybe ($$ ex)
+enumFrom'  =  mk1 "enumFrom'"
   [ value "enumFrom" (enumFrom :: EnumFrom Int)
   , value "enumFrom" (enumFrom :: EnumFrom Bool)
   , value "enumFrom" (enumFrom :: EnumFrom Char)
   ]
-  where
-  err  =  error $ "enumFrom': unhandled type " ++ show (typ ex)
 type EnumFrom a  =  (a -> [a])
 
 -- | 'enumFrom' lifted over 'Expr's named as @".."@ for pretty-printing.
@@ -1851,26 +1817,22 @@ type EnumFrom a  =  (a -> [a])
 --
 -- Works for 'Int's, 'Bool's and 'Char's.
 (-..) :: Expr -> Expr
-(-..) ex  =  headOr err $ mapMaybe ($$ ex)
+(-..)  =  mk1 "(-..)"
   [ value ".." (enumFrom :: EnumFrom Int)
   , value ".." (enumFrom :: EnumFrom Bool)
   , value ".." (enumFrom :: EnumFrom Char)
   ]
-  where
-  err  =  error $ "(-..): unhandled type " ++ show (typ ex)
 
 -- | 'enumFromTo' lifted over 'Expr's
 --
 -- > > enumFromTo' zero four
 -- > enumFromTo 0 4 :: [Int]
 enumFromTo' :: Expr -> Expr -> Expr
-enumFromTo' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+enumFromTo'  =  mk2 "enumFromTo'"
   [ value "enumFromTo" (enumFromTo :: EnumFromTo Int)
   , value "enumFromTo" (enumFromTo :: EnumFromTo Bool)
   , value "enumFromTo" (enumFromTo :: EnumFromTo Char)
   ]
-  where
-  err  =  error $ "enumFromTo': unhandled type " ++ show (typ ex)
 type EnumFromTo a  =  (a -> a -> [a])
 
 -- | 'enumFromTo' lifted over 'Expr's but named as @".."@ for pretty-printing.
@@ -1878,26 +1840,22 @@ type EnumFromTo a  =  (a -> a -> [a])
 -- > > zero -..- four
 -- > [0..4] :: [Int]
 (-..-) :: Expr -> Expr -> Expr
-ex -..- ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-..-)  =  mk2 "(-..-)"
   [ value ".." (enumFromTo :: EnumFromTo Int)
   , value ".." (enumFromTo :: EnumFromTo Bool)
   , value ".." (enumFromTo :: EnumFromTo Char)
   ]
-  where
-  err  =  error $ "-..-: unhandled type " ++ show (typ ex)
 
 -- | 'enumFromThen' lifted over 'Expr's
 --
 -- > > enumFromThen' zero ten
 -- > enumFromThen 0 10 :: [Int]
 enumFromThen' :: Expr -> Expr -> Expr
-enumFromThen' ex ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+enumFromThen'  =  mk2 "enumFromThen'"
   [ value "enumFromThen" (enumFromThen :: EnumFromThen Int)
   , value "enumFromThen" (enumFromThen :: EnumFromThen Bool)
   , value "enumFromThen" (enumFromThen :: EnumFromThen Char)
   ]
-  where
-  err  =  error $ "enumFromThen': unhandled type " ++ show (typ ex)
 type EnumFromThen a  =  (a -> a -> [a])
 
 -- | 'enumFromThen' lifted over 'Expr's but named as @",.."@ for pretty printing.
@@ -1905,26 +1863,22 @@ type EnumFromThen a  =  (a -> a -> [a])
 -- > > zero -... ten
 -- > [0,10..] :: [Int]
 (-...) :: Expr -> Expr -> Expr
-ex -... ey  =  (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-...)  =  mk2 "(-...)"
   [ value ",.." (enumFromThen :: EnumFromThen Int)
   , value ",.." (enumFromThen :: EnumFromThen Bool)
   , value ",.." (enumFromThen :: EnumFromThen Char)
   ]
-  where
-  err  =  error $ "-..-: unhandled type " ++ show (typ ex)
 
 -- | 'enumFromThenTo' lifted over 'Expr's.
 --
 -- > > enumFromThenTo' zero two ten
 -- > enumFromThenTo 0 2 10 :: [Int]
 enumFromThenTo' :: Expr -> Expr -> Expr -> Expr
-enumFromThenTo' ex ey ez  =  (:$ ez) . (:$ ey) . headOr err $ mapMaybe ($$ ex)
+enumFromThenTo'  =  mk3 "enumFromThenTo'"
   [ value "enumFromThenTo" (enumFromThenTo :: EnumFromThenTo Int)
   , value "enumFromThenTo" (enumFromThenTo :: EnumFromThenTo Bool)
   , value "enumFromThenTo" (enumFromThenTo :: EnumFromThenTo Char)
   ]
-  where
-  err  =  error $ "enumFromThenTo': unhandled type " ++ show (typ ex)
 type EnumFromThenTo a  =  (a -> a -> a -> [a])
 
 -- | 'enumFromThenTo' lifted over 'Expr's but named as @",.."@ for pretty-printing.
@@ -1932,10 +1886,8 @@ type EnumFromThenTo a  =  (a -> a -> a -> [a])
 -- > > (zero -...- two) ten
 -- > [0,2..10] :: [Int]
 (-...-) :: Expr -> Expr -> Expr -> Expr
-(ex -...- ey) ez  =  (:$ ez) . (:$ ey) . headOr err $ mapMaybe ($$ ex)
+(-...-)  =  mk3 "(-...-)"
   [ value ",.." (enumFromThenTo :: EnumFromThenTo Int)
   , value ",.." (enumFromThenTo :: EnumFromThenTo Bool)
   , value ",.." (enumFromThenTo :: EnumFromThenTo Char)
   ]
-  where
-  err  =  error $ "-..-: unhandled type " ++ show (typ ex)
