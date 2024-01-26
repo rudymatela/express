@@ -631,7 +631,15 @@ err fn efs exs  =  error
 -- > p ? q :: Bool
 --
 -- > > xx -?- qq
--- > *** Exception: (-?-): cannot apply `(?) :: * -> * -> *` to `x :: Int' and `q :: Bool'.  Unhandled types?
+-- > *** Exception: (-?-): unhandled type: 1 :: Int, False :: Bool
+-- >     accepted types are:
+-- >     (?) :: Int -> Int -> Int
+-- >     (?) :: Bool -> Bool -> Bool
+-- >     (?) :: Char -> Char -> Char
+-- >     (?) :: [Int] -> [Int] -> [Int]
+-- >     (?) :: [Char] -> [Char] -> [Char]
+-- >     (?) :: Int -> [Int] -> [Int]
+-- >     (?) :: Char -> [Char] -> [Char]
 (-?-) :: Expr -> Expr -> Expr
 (-?-)  =  mk2 "(-?-)"
   [ var "?" (undefined :: Int -> Int -> Int)
@@ -639,6 +647,8 @@ err fn efs exs  =  error
   , var "?" (undefined :: Char -> Char -> Char)
   , var "?" (undefined :: [Int] -> [Int] -> [Int])
   , var "?" (undefined :: String -> String -> String)
+  , var "?" (undefined :: Int -> [Int] -> [Int])
+  , var "?" (undefined :: Char -> String -> String)
   ]
 
 -- | A variable binary operator @?@ encoded as an 'Expr' (cf. '-?-')
@@ -661,7 +671,13 @@ question  =  var "?" (undefined :: Int -> Int -> Int)
 -- > p `o` q :: Bool
 --
 -- > > xx `oo` qq
--- > *** Exception: (-?-): cannot apply `o :: * -> * -> *` to `x :: Int' and `q :: Bool'.  Unhandled types?
+-- > *** Exception: oo: unhandled type: 1 :: Int, False :: Bool
+-- >     accepted types are:
+-- >     o :: Int -> Int -> Int
+-- >     o :: Bool -> Bool -> Bool
+-- >     o :: Char -> Char -> Char
+-- >     o :: [Int] -> [Int] -> [Int]
+-- >     o :: [Char] -> [Char] -> [Char]
 oo :: Expr -> Expr -> Expr
 oo  =  mk2 "oo"
   [ var "`o`" (undefined :: Int -> Int -> Int)
