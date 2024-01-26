@@ -56,7 +56,7 @@ tests n =
   , holds n $ isVar . unCharEV
 
   -- counter-examples are of the right type
-  , (counterExample n $ \(IntE xx) -> False) == Just ["_ :: Int"]
+  , counterExample n (\(IntE xx) -> False) == Just ["_ :: Int"]
 
   , isNub (take (n`div`10) list :: [Expr])
   , isNub (take (n`div`10) $ map unSameTypeE list)

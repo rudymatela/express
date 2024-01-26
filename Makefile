@@ -147,7 +147,9 @@ prepare-legacy-test:
 hlint: ..hlint
 
 test.hlint:  HLINT_EXTRA = --ignore "Redundant ==" \
-                           --ignore "Use null"
+                           --ignore "Use null" \
+                           --ignore "Redundant $$" \
+                           --ignore "Use isNothing"
 
 %.hlint:
 	hlint $(HLINT_EXTRA) \

@@ -98,7 +98,7 @@ data SameTypeE  =  SameTypeE Expr Expr
 unSameTypeE :: SameTypeE -> (Expr,Expr)
 unSameTypeE (SameTypeE e1 e2)  =  (e1,e2)
 
-data SameTypedPairsE  =  SameTypedPairsE { unSameTypedPairsE :: [(Expr,Expr)] }
+newtype SameTypedPairsE  =  SameTypedPairsE { unSameTypedPairsE :: [(Expr,Expr)] }
 
 -- | Ill typed expressions.
 newtype Ill  =  Ill { unIll :: Expr }

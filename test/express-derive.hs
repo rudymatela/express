@@ -26,8 +26,8 @@ deriveListable ''Tree
 
 -- Nested datatype cascade
 data Nested  =  Nested N0 (N1 Int) (N2 Int Int) deriving (Eq, Show, Typeable)
-data N0      =  R0 Int deriving (Eq, Show, Typeable)
-data N1 a    =  R1 a   deriving (Eq, Show, Typeable)
+newtype N0   =  R0 Int deriving (Eq, Show, Typeable)
+newtype N1 a =  R1 a   deriving (Eq, Show, Typeable)
 data N2 a b  =  R2 a b deriving (Eq, Show, Typeable)
 
 deriveExpressCascading ''Nested

@@ -16,8 +16,8 @@ tests n =
   [ True
 
   , length allRules == 99
-  , all isWellTyped $ map fst allRules
-  , all isWellTyped $ map snd allRules
+  , all (isWellTyped . fst) allRules
+  , all (isWellTyped . snd) allRules
 
   , T.lookup zero  trie == []
   , T.lookup one   trie == []
