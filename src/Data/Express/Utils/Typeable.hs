@@ -140,7 +140,7 @@ finalResultTy t
 unFunTy :: TypeRep -> (TypeRep,TypeRep)
 unFunTy t
   | isFunTy t = let (f,[a,b]) = splitTyConApp t in (a,b)
-  | otherwise = error $ "error (unFunTy): `" ++ show t ++ "` is not a function type"
+  | otherwise = errorOn "unFunTy" $ "`" ++ show t ++ "' is not a function type"
 
 -- | Returns the argument 'TypeRep' of a given functional 'TypeRep'.
 --
@@ -177,11 +177,11 @@ resultTy = snd . unFunTy
 --   > > > elementTy $ typeOf (undefined :: [Bool])
 --   > Bool
 --   > > > elementTy $ typeOf (undefined :: Bool)
---   > *** Exception: error (elementTy): `Bool' is not a list type
+--   > *** Exception: Data.Express.Utils.Typeable.elementTy: `Bool' is not a list type
 elementTy :: TypeRep -> TypeRep
 elementTy t
   | isListTy t = let (_,[a]) = splitTyConApp t in a
-  | otherwise = error $ "error (elementTy): `" ++ show t ++ "' is not a list type"
+  | otherwise = errorOn "elementTy" $ "`" ++ show t ++ "' is not a list type"
 
 -- | The 'Bool' type encoded as a 'TypeRep'.
 boolTy :: TypeRep
@@ -319,3 +319,6 @@ typesInList ts  =  nubSortBy compareTy $ tins ts []
 (->::) :: TypeRep -> TypeRep -> TypeRep
 (->::) = mkFunTy
 infixr 9 ->::
+
+errorOn :: String -> String -> a
+errorOn fn msg  =  error $ "Data.Express.Utils.Typeable." ++ fn ++ ": " ++ msg
