@@ -22,8 +22,8 @@ upcoming
 * simplify and improve testing, new benchmark and minor updates
 
 
-v1.0.12
--------
+v1.0.12 (July 2023)
+-------------------
 
 * make ordering of `typesIn` consistent between GHC 9.6 and earlier versions
 
@@ -37,8 +37,8 @@ v1.0.12
 * miscellaneous improvements in build and CI scripts
 
 
-v1.0.10
--------
+v1.0.10 (April 2022)
+--------------------
 
 * show function-encoded Ordering case expressions exceptionally
 
@@ -49,8 +49,8 @@ v1.0.10
 * minor updates in Makefile and CI scripts
 
 
-v1.0.8
-------
+v1.0.8 (September 2021)
+-----------------------
 
 * `Data.Express.Express.Derive`:
   fix generation of `-:` and `->:` in earlier GHC's.
@@ -59,8 +59,8 @@ v1.0.8
   add `unboundVars`, `toBounded` and `toBoundedQ`.
 
 
-v1.0.6
-------
+v1.0.6 (September 2021)
+-----------------------
 
 * fix pretty printing of unapplied infixed variable functions:
   use `f :: ...`  instead of ``(`f`) :: ...``
@@ -71,8 +71,8 @@ v1.0.6
 * minor fixes in README
 
 
-v1.0.4
-------
+v1.0.4 (July 2021)
+------------------
 
 * deeply encode `Ratio`s
 * add `Express (Complex a)` instance
@@ -80,8 +80,8 @@ v1.0.4
 * `deriveName` now uses `x` for `Num` instances
 
 
-v1.0.2
-------
+v1.0.2 (July 2021)
+------------------
 
 * more Express instances:
 	- `Double` & `Float`
@@ -92,24 +92,24 @@ v1.0.2
 * minor fix in README
 
 
-v1.0.0
-------
+v1.0.0 (July 2021)
+------------------
 
 This release indicates that the `Data.Express` API is now stable.
 
 * no changes since v0.2.0 or v0.1.16.
 
 
-v0.2.0
-------
+v0.2.0 (July 2021)
+------------------
 
 This release indicates that the `Data.Express` API is stable.
 
 * no changes since v0.1.16
 
 
-v0.1.16
--------
+v0.1.16 (July 2021)
+-------------------
 
 * add `five`, `six`, ... `twelve` to `Data.Express.Fixtures`.
 
@@ -121,8 +121,8 @@ v0.1.16
 * 100% Haddock coverage on most modules including REPL examples.
 
 
-v0.1.14
--------
+v0.1.14 (June 2021)
+-------------------
 
 * permit and pretty-print `[<n>..<m>]` notations.
 
@@ -132,8 +132,8 @@ v0.1.14
 	- before they were simply x, y, z
 
 
-v0.1.12
--------
+v0.1.12 (May 2021)
+------------------
 
 * `Data.Express.Fixtures`, add several symbols:
 	- `hh` and `hhE`;
@@ -150,8 +150,8 @@ v0.1.12
 * Retire Travis as the CI
 
 
-v0.1.10
--------
+v0.1.10 (May 2021)
+------------------
 
 * add the `hasHole` and `isComplete` functions
 * add the `encompasses` function
@@ -164,8 +164,8 @@ v0.1.10
 * add this changelog
 
 
-v0.1.8
-------
+v0.1.8 (April 2021)
+-------------------
 
 * slightly change behaviour of `canonicalVariations` and related functions.
 * add more fixtures and improve fixtures' documentation
@@ -173,8 +173,8 @@ v0.1.8
 * use GitHub actions as CI
 
 
-v0.1.6
-------
+v0.1.6 (April 2021)
+-------------------
 
 * add `compareLexicographically` and `compareQuickly`
 * define behaviour of `canonicalVariations` for some undefined cases
@@ -182,8 +182,8 @@ v0.1.6
 * improve tests
 
 
-v0.1.4
-------
+v0.1.4 (April 2021)
+-------------------
 
 * add the `fill` and `isFun` functions
 * `Data.Express.Fixtures`: more fixtures, define fixity
@@ -191,7 +191,8 @@ v0.1.4
 * improve documentation, tests and lint
 
 
-v0.1.3
-------
+v0.1.3 (March 2020)
+-------------------
 
-See the git commit log for v0.1.3 and previous versions.
+See the git commit log for v0.1.3 and previous versions
+down to as early as February 2019.
