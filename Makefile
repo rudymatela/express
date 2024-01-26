@@ -6,6 +6,7 @@
 TESTS = \
   test/main \
   test/core \
+  test/basic \
   test/map \
   test/instances \
   test/fixtures \

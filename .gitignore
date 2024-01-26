@@ -28,6 +28,7 @@ bench/tiers
 bench/tiers-complete
 test/canon
 test/core
+test/basic
 test/express
 test/express-derive
 test/fixtures

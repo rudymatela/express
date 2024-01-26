@@ -105,6 +105,14 @@ test-suite core
   build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.10
   default-language:    Haskell2010
 
+test-suite basic
+  type:                exitcode-stdio-1.0
+  main-is:             basic.hs
+  hs-source-dirs:      test
+  other-modules:       Test, Test.ListableExpr
+  build-depends:       base >= 4 && < 5, express, leancheck >= 0.9.10
+  default-language:    Haskell2010
+
 test-suite canon
   type:                exitcode-stdio-1.0
   main-is:             canon.hs

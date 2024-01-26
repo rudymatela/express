@@ -174,6 +174,11 @@ module Data.Express
   , nubVars
   , nubConsts
 
+  -- -- -- Data.Express.Basic exports -- -- --
+  , (>$$<)
+  , (>$$)
+  , ($$<)
+
   -- -- -- Data.Express.Map exports -- -- --
 
   -- ** Mapping subexpressions
