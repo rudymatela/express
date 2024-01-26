@@ -27,5 +27,5 @@ main  =  do
           ++ show (isNub (take 5040 $ filter isComplete list))
   putStrLn $ "map length (filterT isComplete tiers :: [[ Expr ]])  =  "
           ++ showDotsLongerThan 11 (map length (filterT isComplete tiers :: [[Expr]]))
-  putStrLn $ "filterT isComplete tiers :: [[ Expr ]]  ="
+  putStrLn "filterT isComplete tiers :: [[ Expr ]]  ="
   printTiers 8 (filterT isComplete tiers :: [[Expr]])
