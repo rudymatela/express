@@ -82,7 +82,7 @@ foldPair (e1,e2)  =  value "," (undefined :: ExprPair) :$ e1 :$ e2
 unfoldPair :: Expr -> (Expr,Expr)
 unfoldPair (Value "," _ :$ e1 :$ e2) = (e1,e2)
 unfoldPair (Value "(,)" _ :$ e1 :$ e2) = (e1,e2)
-unfoldPair _  =  error "unfoldPair: not an Expr pair"
+unfoldPair e  =  errorOn "unfoldPair" $ "not an Expr pair: " ++ show e
 
 data ExprTrio = ExprTrio
 
@@ -125,7 +125,7 @@ foldTrio (e1,e2,e3)  =  value ",," (undefined :: ExprTrio) :$ e1 :$ e2 :$ e3
 unfoldTrio :: Expr -> (Expr,Expr,Expr)
 unfoldTrio (Value ",," _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
 unfoldTrio (Value "(,,)" _ :$ e1 :$ e2 :$ e3) = (e1,e2,e3)
-unfoldTrio _  =  error "unfoldTrio: not an Expr trio"
+unfoldTrio e  =  error "unfoldTrio" $ "not an Expr trio: " ++ show e
 
 data ExprList = ExprList
 
@@ -164,10 +164,13 @@ fold (e:es)  =  value ":"  ExprList :$ e :$ fold es
 unfold :: Expr -> [Expr]
 unfold (Value "[]" _)             =  []
 unfold (Value ":"  _ :$ e :$ es)  =  e : unfold es
-unfold e  =  error $ "unfold: cannot unfold expression: " ++ show e
+unfold e  =  errorOn "unfold" $ "cannot unfold expression: " ++ show e
 
 #if __GLASGOW_HASKELL__ == 708
 deriving instance Typeable ExprPair
 deriving instance Typeable ExprTrio
 deriving instance Typeable ExprList
 #endif
+
+errorOn :: String -> String -> a
+errorOn fn msg  =  error $ "Data.Express." ++ fn ++ ": " ++ msg
