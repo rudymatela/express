@@ -78,7 +78,7 @@ reallyDeriveCascading :: Name -> (Name -> DecsQ) -> Name -> DecsQ
 reallyDeriveCascading cls reallyDerive t =
       return . concat
   =<< mapM reallyDerive
-  =<< filterM (liftM not . isTypeSynonym)
+  =<< filterM (fmap not . isTypeSynonym)
   =<< return . (t:) . delete t
   =<< t `typeConCascadingArgsThat` (`isntInstanceOf` cls)
 
@@ -395,7 +395,7 @@ toBounded t  =  ForallT [PlainTV n SpecifiedSpec | n <- unboundVars t] [] t
 
 -- | Same as toBounded but lifted over 'Q'
 toBoundedQ :: TypeQ -> TypeQ
-toBoundedQ  =  liftM toBounded
+toBoundedQ  =  fmap toBounded
 
 errorOn :: String -> String -> a
 errorOn fn msg  =  error $ "Data.Express.Derive.Utils." ++ fn ++ ": " ++ msg
