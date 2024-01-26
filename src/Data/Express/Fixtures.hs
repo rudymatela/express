@@ -1617,14 +1617,12 @@ just  =  mk1 "just"
 -- This works for the 'Int' and 'Bool' element types
 -- by differently from 'foldPair' by returning a well-typed expression.
 pair :: Expr -> Expr -> Expr
-pair x y  =  comma :$ x :$ y
-  where
-  comma  =  case (show $ typ x, show $ typ y) of
-            ("Int", "Int")  -> value "," ((,) :: Pair Int Int)
-            ("Int", "Bool") -> value "," ((,) :: Pair Int Bool)
-            ("Bool","Int")  -> value "," ((,) :: Pair Bool Int)
-            ("Bool","Bool") -> value "," ((,) :: Pair Bool Bool)
-            (t,t')          -> error $ "(-:-): unhandled types " ++ t ++ " " ++ t'
+pair  =  mk2 "pair"
+  [ value "," ((,) :: Pair Int Int)
+  , value "," ((,) :: Pair Int Bool)
+  , value "," ((,) :: Pair Bool Int)
+  , value "," ((,) :: Pair Bool Bool)
+  ]
 type Pair a b = a -> b -> (a,b)
 
 -- | The pair constructor (@ :: ... -> (Int,Int) @) encoded as an 'Expr'.
