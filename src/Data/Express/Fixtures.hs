@@ -206,6 +206,7 @@ module Data.Express.Fixtures
   , mapE
   , (-.-)
   , map'
+  , filter'
 
   -- ** Enum
   , enumFrom',   (-..)
@@ -2001,6 +2002,24 @@ map'  =  mk2 "map'"
   , value "map" (map :: Map [Char])
   ]
 type Map a  =  (a -> a) -> [a] -> [a]
+
+
+-- | 'filter' lifted over 'Expr's.
+--
+-- > > filter' absE (unit one)
+-- > filter odd [1] :: [Int]
+filter' :: Expr -> Expr -> Expr
+filter'  =  mk2 "filter'"
+  [ value "filter" (filter :: Filter ())
+  , value "filter" (filter :: Filter Int)
+  , value "filter" (filter :: Filter Bool)
+  , value "filter" (filter :: Filter Char)
+  , value "filter" (filter :: Filter [Int])
+  , value "filter" (filter :: Filter [Bool])
+  , value "filter" (filter :: Filter [Char])
+  ]
+type Filter a  =  (a -> Bool) -> [a] -> [a]
+
 
 -- | 'enumFrom' lifted over 'Expr's.
 --
