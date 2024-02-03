@@ -130,6 +130,9 @@ tests n  =
   , show (ff2 xx one) == "f x 1 :: Int"
   , show (ff2 false pp) == "f False p :: Bool"
   , show (ff2 xxs zero) == "f xs 0 :: Int"
+  , show (ff3 xx one zero) == "f x 1 0 :: Int"
+  , show (ff3 false pp true) == "f False p True :: Bool"
+  , show (ff3 xxs zero yy) == "f xs 0 y :: Int"
 
   -- Char --
 

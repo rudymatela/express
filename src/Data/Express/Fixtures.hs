@@ -137,7 +137,7 @@ module Data.Express.Fixtures
   , gg, ggE
   , hh, hhE
   , oo, ooE
-  , ff2
+  , ff2, ff3
   , question
   , (-?-)
   , (-$-)
@@ -657,6 +657,34 @@ ff2  =  mk2 "ff2"
   ]
 type F2 a b  =  a -> b -> b
 type F21 a  =  F2 a a
+
+-- | A variable function @f@ of 'a -> a -> a -> a' type lifted over the 'Expr' type.
+--   This works for 'Int', 'Bool', 'Char' and their lists
+--
+-- > > ff3 xx yy zz
+-- > f x y z :: Int
+--
+-- > > ff3 one two three
+-- > f 1 2 3 :: Int
+--
+-- The result type is bound to the type of the last argument.
+ff3 :: Expr -> Expr -> Expr -> Expr
+ff3  =  mk3 "ff3"
+  [ var "f" (undefined :: F31 Int)
+  , var "f" (undefined :: F31 Bool)
+  , var "f" (undefined :: F31 Char)
+  , var "f" (undefined :: F31 [Int])
+  , var "f" (undefined :: F31 [Bool])
+  , var "f" (undefined :: F31 String)
+  , var "f" (undefined :: F3 Int Int [Int])
+  , var "f" (undefined :: F3 Int [Int] Int)
+  , var "f" (undefined :: F3 [Int] Int Int)
+  , var "f" (undefined :: F3 Int [Int] [Int])
+  , var "f" (undefined :: F3 [Int] Int [Int])
+  , var "f" (undefined :: F3 [Int] [Int] Int)
+  ]
+type F3 a b c  =  a -> b -> c -> c
+type F31 a  =  F3 a a a
 
 -- | A variable binary operator @?@ lifted over the 'Expr' type.
 --   Works for 'Int', 'Bool', 'Char', @[Int]@ and 'String'.
