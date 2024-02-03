@@ -1636,6 +1636,12 @@ just  =  mk1 "just"
 type Just a  =  a -> Maybe a
 
 -- | An infix synonym of 'pair'.
+--
+-- > > zero -|- xxs
+-- (0,xs) :: (Int,[Int])
+--
+-- > > ae -|- (bee -:- unit cee)
+-- > ('a',"bc") :: (Char,[Char])
 (-|-) :: Expr -> Expr -> Expr
 (-|-)  =  pair
 
@@ -1643,6 +1649,9 @@ type Just a  =  a -> Maybe a
 --
 -- This works for some variations of 'Int', 'Bool' and 'Char' element types
 -- and their lists.
+--
+-- > > pair zero xxs
+-- (0,xs) :: (Int,[Int])
 --
 -- Differently from 'foldPair', when this works,-
 -- it always constructs a well-typed expression.
@@ -1673,11 +1682,32 @@ comma  =  value "," ((,) :: Pair Int Int)
 
 -- | The triple/trio constructor lifted over 'Expr's.
 --
--- This only works for the 'Int' element type.
+-- This only works for some combinations
+-- of the 'Int', 'Bool' and 'Char' element types
+-- and their lists.
 triple :: Expr -> Expr -> Expr -> Expr
-triple e1 e2 e3  =  ccE :$ e1 :$ e2 :$ e3
-  where
-  ccE  =  value ",," ((,,) :: Int -> Int -> Int -> (Int,Int,Int))
+triple  =  mk3 "triple"
+  [ value ",," ((,,) :: Trio1 Int)
+  , value ",," ((,,) :: Trio1 Bool)
+  , value ",," ((,,) :: Trio1 Char)
+  , value ",," ((,,) :: Trio1 [Int])
+  , value ",," ((,,) :: Trio1 [Bool])
+  , value ",," ((,,) :: Trio1 [Char])
+  , value ",," ((,,) :: Trio Int Int [Int])
+  , value ",," ((,,) :: Trio Int [Int] Int)
+  , value ",," ((,,) :: Trio [Int] Int Int)
+  , value ",," ((,,) :: Trio Int [Int] [Int])
+  , value ",," ((,,) :: Trio [Int] Int [Int])
+  , value ",," ((,,) :: Trio [Int] [Int] Int)
+  , value ",," ((,,) :: Trio Int Int Bool)
+  , value ",," ((,,) :: Trio Int Bool Int)
+  , value ",," ((,,) :: Trio Bool Int Int)
+  , value ",," ((,,) :: Trio Int Bool Bool)
+  , value ",," ((,,) :: Trio Bool Int Bool)
+  , value ",," ((,,) :: Trio Bool Bool Int)
+  ]
+type Trio a b c  =  a -> b -> c -> (a,b,c)
+type Trio1 a  =  Trio a a a
 
 -- | The quadruple constructor lifted over 'Expr's.
 --
