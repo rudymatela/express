@@ -602,25 +602,6 @@ hh  =  (hhE :$)
 hhE :: Expr
 hhE  =  var "h" (undefined :: Int -> Int)
 
-mk1 :: String -> [Expr] -> Expr -> Expr
-mk1 nm efs ex  =  headOr (err nm efs [ex]) $ efs >$$ ex
-
-mk2 :: String -> [Expr] -> Expr -> Expr -> Expr
-mk2 nm efs ex ey  =  headOr (err nm efs [ex,ey]) $ efs >$$ ex >$$ ey
-
-mk3 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr
-mk3 nm efs ex ey ez  =  headOr (err nm efs [ex,ey,ez]) $ efs >$$ ex >$$ ey >$$ ez
-
-mk4 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr -> Expr
-mk4 nm efs ex ey ez ew  =  headOr (err nm efs [ex,ey,ez,ew]) $ efs >$$ ex >$$ ey >$$ ez >$$ ew
-
-err :: String -> [Expr] -> [Expr] -> Expr
-err fn efs exs  =  error
-                $  fn ++ ": unhandled type: "
-                ++ intercalate ", " (map show exs)
-                ++ "\n    accepted types are:\n"
-                ++ unlines (map (("    " ++) . show) efs)
-
 -- | A variable binary operator @?@ lifted over the 'Expr' type.
 --   Works for 'Int', 'Bool', 'Char', @[Int]@ and 'String'.
 --
@@ -1911,3 +1892,22 @@ type EnumFromThenTo a  =  (a -> a -> a -> [a])
       , value ",.." (enumFromThenTo :: EnumFromThenTo Bool)
       , value ",.." (enumFromThenTo :: EnumFromThenTo Char)
       ]
+
+mk1 :: String -> [Expr] -> Expr -> Expr
+mk1 nm efs ex  =  headOr (err nm efs [ex]) $ efs >$$ ex
+
+mk2 :: String -> [Expr] -> Expr -> Expr -> Expr
+mk2 nm efs ex ey  =  headOr (err nm efs [ex,ey]) $ efs >$$ ex >$$ ey
+
+mk3 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr
+mk3 nm efs ex ey ez  =  headOr (err nm efs [ex,ey,ez]) $ efs >$$ ex >$$ ey >$$ ez
+
+mk4 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr -> Expr
+mk4 nm efs ex ey ez ew  =  headOr (err nm efs [ex,ey,ez,ew]) $ efs >$$ ex >$$ ey >$$ ez >$$ ew
+
+err :: String -> [Expr] -> [Expr] -> Expr
+err fn efs exs  =  error
+                $  fn ++ ": unhandled type: "
+                ++ intercalate ", " (map show exs)
+                ++ "\n    accepted types are:\n"
+                ++ unlines (map (("    " ++) . show) efs)
