@@ -1228,11 +1228,17 @@ appendInt  =  value "++" ((++) :: [Int] -> [Int] -> [Int])
 -- > "bc" -++- "c" :: [Char]
 (-++-) :: Expr -> Expr -> Expr
 (-++-)  =  mk2 "(-++-)"
-  [ value "++" ((++) :: [Int] -> [Int] -> [Int])
-  , value "++" ((++) :: String -> String -> String)
-  , value "++" ((++) :: [Bool] -> [Bool] -> [Bool])
+  [ value "++" ((++) :: Append Int)
+  , value "++" ((++) :: Append Char)
+  , value "++" ((++) :: Append Bool)
+  , value "++" ((++) :: Append [Int])
+  , value "++" ((++) :: Append [Char])
+  , value "++" ((++) :: Append [Bool])
+  , value "++" ((++) :: Append (Int,Int))
+  , value "++" ((++) :: Append (Maybe Int))
   ]
 infixr 5 -++-
+type Append a  =  [a] -> [a] -> [a]
 
 -- | List 'head' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1250,10 +1256,16 @@ infixr 5 -++-
 -- > 1
 head' :: Expr -> Expr
 head'  =  mk1 "head'"
-  [ value "head" (head :: [Int] -> Int)
-  , value "head" (head :: [Char] -> Char)
-  , value "head" (head :: [Bool] -> Bool)
+  [ value "head" (head :: Head Int)
+  , value "head" (head :: Head Char)
+  , value "head" (head :: Head Bool)
+  , value "head" (head :: Head [Int])
+  , value "head" (head :: Head [Char])
+  , value "head" (head :: Head [Bool])
+  , value "head" (head :: Head (Int,Int))
+  , value "head" (head :: Head (Maybe Int))
   ]
+type Head a  =  [a] -> a
 
 -- | List 'tail' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1271,10 +1283,16 @@ head'  =  mk1 "head'"
 -- > [2]
 tail' :: Expr -> Expr
 tail'  =  mk1 "tail'"
-  [ value "tail" (tail :: [Int] -> [Int])
-  , value "tail" (tail :: [Char] -> [Char])
-  , value "tail" (tail :: [Bool] -> [Bool])
+  [ value "tail" (tail :: Tail Int)
+  , value "tail" (tail :: Tail Char)
+  , value "tail" (tail :: Tail Bool)
+  , value "tail" (tail :: Tail [Int])
+  , value "tail" (tail :: Tail [Char])
+  , value "tail" (tail :: Tail [Bool])
+  , value "tail" (tail :: Tail (Int,Int))
+  , value "tail" (tail :: Tail (Maybe Int))
   ]
+type Tail a  =  [a] -> [a]
 
 -- | List 'null' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1289,10 +1307,16 @@ tail'  =  mk1 "tail'"
 -- > True
 null' :: Expr -> Expr
 null'  =  mk1 "null'"
-  [ value "null" (null :: [Int] -> Bool)
-  , value "null" (null :: [Char] -> Bool)
-  , value "null" (null :: [Bool] -> Bool)
+  [ value "null" (null :: Null Int)
+  , value "null" (null :: Null Char)
+  , value "null" (null :: Null Bool)
+  , value "null" (null :: Null [Int])
+  , value "null" (null :: Null [Char])
+  , value "null" (null :: Null [Bool])
+  , value "null" (null :: Null (Int,Int))
+  , value "null" (null :: Null (Maybe Int))
   ]
+type Null a  =  [a] -> Bool
 
 -- | List 'length' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1310,10 +1334,16 @@ null'  =  mk1 "null'"
 -- > 1
 length' :: Expr -> Expr
 length'  =  mk1 "length'"
-  [ value "length" (length :: [Int] -> Int)
-  , value "length" (length :: [Char] -> Int)
-  , value "length" (length :: [Bool] -> Int)
+  [ value "length" (length :: Length Int)
+  , value "length" (length :: Length Char)
+  , value "length" (length :: Length Bool)
+  , value "length" (length :: Length [Int])
+  , value "length" (length :: Length [Char])
+  , value "length" (length :: Length [Bool])
+  , value "length" (length :: Length (Int,Int))
+  , value "length" (length :: Length (Maybe Int))
   ]
+type Length a  =  [a] -> Int
 
 -- | List 'init' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1331,10 +1361,16 @@ length'  =  mk1 "length'"
 -- > [0]
 init' :: Expr -> Expr
 init'  =  mk1 "init'"
-  [ value "init" (init :: [Int] -> [Int])
-  , value "init" (init :: [Char] -> [Char])
-  , value "init" (init :: [Bool] -> [Bool])
+  [ value "init" (init :: Init Int)
+  , value "init" (init :: Init Char)
+  , value "init" (init :: Init Bool)
+  , value "init" (init :: Init [Int])
+  , value "init" (init :: Init [Char])
+  , value "init" (init :: Init [Bool])
+  , value "init" (init :: Init (Int,Int))
+  , value "init" (init :: Init (Maybe Int))
   ]
+type Init a  =  Tail a
 
 -- | List 'sort' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1352,10 +1388,16 @@ init'  =  mk1 "init'"
 -- > [1,2]
 sort' :: Expr -> Expr
 sort'  =  mk1 "sort'"
-  [ value "sort" (sort :: [Int] -> [Int])
-  , value "sort" (sort :: [Char] -> [Char])
-  , value "sort" (sort :: [Bool] -> [Bool])
+  [ value "sort" (sort :: Sort Int)
+  , value "sort" (sort :: Sort Char)
+  , value "sort" (sort :: Sort Bool)
+  , value "sort" (sort :: Sort [Int])
+  , value "sort" (sort :: Sort [Char])
+  , value "sort" (sort :: Sort [Bool])
+  , value "sort" (sort :: Sort (Int,Int))
+  , value "sort" (sort :: Sort (Maybe Int))
   ]
+type Sort a  =  Tail a
 
 -- | List 'insert' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1367,10 +1409,16 @@ sort'  =  mk1 "sort'"
 -- > insert False [False,True] :: [Bool]
 insert' :: Expr -> Expr -> Expr
 insert'  =  mk2 "insert'"
-  [ value "insert" (insert :: Int -> [Int] -> [Int])
-  , value "insert" (insert :: Bool -> [Bool] -> [Bool])
-  , value "insert" (insert :: Char -> String -> String)
+  [ value "insert" (insert :: Insert Int)
+  , value "insert" (insert :: Insert Char)
+  , value "insert" (insert :: Insert Bool)
+  , value "insert" (insert :: Insert [Int])
+  , value "insert" (insert :: Insert [Char])
+  , value "insert" (insert :: Insert [Bool])
+  , value "insert" (insert :: Insert (Int,Int))
+  , value "insert" (insert :: Insert (Maybe Int))
   ]
+type Insert a  =  Cons a
 
 -- | List 'elem' lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1382,10 +1430,16 @@ insert'  =  mk2 "insert'"
 -- > True
 elem' :: Expr -> Expr -> Expr
 elem'  =  mk2 "elem'"
-  [ value "elem" (elem :: Int -> [Int] -> Bool)
-  , value "elem" (elem :: Bool -> [Bool] -> Bool)
-  , value "elem" (elem :: Char -> String -> Bool)
+  [ value "elem" (elem :: Elem Int)
+  , value "elem" (elem :: Elem Char)
+  , value "elem" (elem :: Elem Bool)
+  , value "elem" (elem :: Elem [Int])
+  , value "elem" (elem :: Elem [Char])
+  , value "elem" (elem :: Elem [Bool])
+  , value "elem" (elem :: Elem (Int,Int))
+  , value "elem" (elem :: Elem (Maybe Int))
   ]
+type Elem a  =  a -> [a] -> Bool
 
 -- | '$' lifted over 'Expr's
 --
@@ -1401,6 +1455,10 @@ elem'  =  mk2 "elem'"
   , value "$" (($) :: Apply [Int])
   , value "$" (($) :: Apply [Bool])
   , value "$" (($) :: Apply [Char])
+  , value "$" (($) :: Apply (Int,Int))
+  , value "$" (($) :: Apply (Bool,Bool))
+  , value "$" (($) :: Apply (Char,Char))
+  , value "$" (($) :: Apply (Maybe Int))
   ]
 infixl 6 -$-
 type Apply a  =  (a -> a) -> a -> a
@@ -1423,6 +1481,14 @@ type Apply a  =  (a -> a) -> a -> a
   , value "==" ((==) :: Comparison [Int])
   , value "==" ((==) :: Comparison [Bool])
   , value "==" ((==) :: Comparison [Char])
+  , value "==" ((==) :: Comparison [[Int]])
+  , value "==" ((==) :: Comparison [[Bool]])
+  , value "==" ((==) :: Comparison [[Char]])
+  , value "==" ((==) :: Comparison (Int,Int))
+  , value "==" ((==) :: Comparison (Bool,Bool))
+  , value "==" ((==) :: Comparison (Char,Char))
+  , value "==" ((==) :: Comparison (Maybe Int))
+  , value "==" ((==) :: Comparison (Int,Int,Int))
   ]
 infix 4 -==-
 type Comparison a  =  a -> a -> Bool
@@ -1443,6 +1509,14 @@ type Comparison a  =  a -> a -> Bool
   , value "/=" ((/=) :: Comparison [Int])
   , value "/=" ((/=) :: Comparison [Bool])
   , value "/=" ((/=) :: Comparison [Char])
+  , value "/=" ((/=) :: Comparison [[Int]])
+  , value "/=" ((/=) :: Comparison [[Bool]])
+  , value "/=" ((/=) :: Comparison [[Char]])
+  , value "/=" ((/=) :: Comparison (Int,Int))
+  , value "/=" ((/=) :: Comparison (Bool,Bool))
+  , value "/=" ((/=) :: Comparison (Char,Char))
+  , value "/=" ((/=) :: Comparison (Maybe Int))
+  , value "/=" ((/=) :: Comparison (Int,Int,Int))
   ]
 infix 4 -/=-
 
@@ -1462,6 +1536,14 @@ infix 4 -/=-
   , value "<=" ((<=) :: Comparison [Int])
   , value "<=" ((<=) :: Comparison [Bool])
   , value "<=" ((<=) :: Comparison [Char])
+  , value "<=" ((<=) :: Comparison [[Int]])
+  , value "<=" ((<=) :: Comparison [[Bool]])
+  , value "<=" ((<=) :: Comparison [[Char]])
+  , value "<=" ((<=) :: Comparison (Int,Int))
+  , value "<=" ((<=) :: Comparison (Bool,Bool))
+  , value "<=" ((<=) :: Comparison (Char,Char))
+  , value "<=" ((<=) :: Comparison (Maybe Int))
+  , value "<=" ((<=) :: Comparison (Int,Int,Int))
   ]
 infix 4 -<=-
 
@@ -1481,6 +1563,14 @@ infix 4 -<=-
   , value "<" ((<) :: Comparison [Int])
   , value "<" ((<) :: Comparison [Bool])
   , value "<" ((<) :: Comparison [Char])
+  , value "<" ((<) :: Comparison [[Int]])
+  , value "<" ((<) :: Comparison [[Bool]])
+  , value "<" ((<) :: Comparison [[Char]])
+  , value "<" ((<) :: Comparison (Int,Int))
+  , value "<" ((<) :: Comparison (Bool,Bool))
+  , value "<" ((<) :: Comparison (Char,Char))
+  , value "<" ((<) :: Comparison (Maybe Int))
+  , value "<" ((<) :: Comparison (Int,Int,Int))
   ]
 infix 4 -<-
 
@@ -1508,6 +1598,9 @@ if'  =  mk3 "if'"
   , value "if" (iff :: If [Int])
   , value "if" (iff :: If [Bool])
   , value "if" (iff :: If [Char])
+  , value "if" (iff :: If [[Int]])
+  , value "if" (iff :: If [[Bool]])
+  , value "if" (iff :: If [[Char]])
   ]
   where
   iff :: Bool -> a -> a -> a
@@ -1600,6 +1693,9 @@ compare'  =  mk2 "compare'"
   , value "compare" (compare :: Compare [Int])
   , value "compare" (compare :: Compare [Bool])
   , value "compare" (compare :: Compare [Char])
+  , value "compare" (compare :: Compare [[Int]])
+  , value "compare" (compare :: Compare [[Bool]])
+  , value "compare" (compare :: Compare [[Char]])
   ]
 type Compare a  =  a -> a -> Ordering
 
