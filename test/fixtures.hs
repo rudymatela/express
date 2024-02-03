@@ -290,4 +290,11 @@ tests n  =
   , evl (negate' twelve `mod'`  seven) == (2 :: Int)
   , evl (negate' twelve `quot'` seven) == (-1 :: Int)
   , evl (negate' twelve `rem'`  seven) == (-5 :: Int)
+
+  -- Maybe
+  , show (just xx) == "Just x :: Maybe Int"
+  , show (just ae) == "Just 'a' :: Maybe Char"
+  , show (just xxs) == "Just xs :: Maybe [Int]"
+  , show (just pps) == "Just ps :: Maybe [Bool]"
+  , show (just false) == "Just False :: Maybe Bool"
   ]
