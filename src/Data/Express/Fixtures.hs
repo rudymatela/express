@@ -1617,7 +1617,8 @@ justBool     =  value "Just" (Just :: Bool -> Maybe Bool)
 
 -- | The 'Just' constructor lifted over the 'Expr' type.
 --
--- This works for the 'Bool' and 'Int' argument types.
+-- This works for the 'Bool', 'Int', 'Char' argument types
+-- and their lists.
 --
 -- > > just zero
 -- > Just 0 :: Maybe Int
@@ -1627,7 +1628,12 @@ just :: Expr -> Expr
 just  =  mk1 "just"
   [ justInt
   , justBool
+  , value "Just" (Just :: Just Char)
+  , value "Just" (Just :: Just [Int])
+  , value "Just" (Just :: Just [Bool])
+  , value "Just" (Just :: Just String)
   ]
+type Just a  =  a -> Maybe a
 
 -- | An infix synonym of 'pair'.
 (-|-) :: Expr -> Expr -> Expr
