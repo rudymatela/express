@@ -1657,12 +1657,12 @@ type Just a  =  a -> Maybe a
 -- it always constructs a well-typed expression.
 pair :: Expr -> Expr -> Expr
 pair  =  mk2 "pair"
-  [ value "," ((,) :: Pair Int Int)
-  , value "," ((,) :: Pair Bool Bool)
-  , value "," ((,) :: Pair Char Char)
-  , value "," ((,) :: Pair [Int] [Int])
-  , value "," ((,) :: Pair [Bool] [Bool])
-  , value "," ((,) :: Pair [Char] [Char])
+  [ value "," ((,) :: Pair1 Int)
+  , value "," ((,) :: Pair1 Bool)
+  , value "," ((,) :: Pair1 Char)
+  , value "," ((,) :: Pair1 [Int])
+  , value "," ((,) :: Pair1 [Bool])
+  , value "," ((,) :: Pair1 [Char])
   , value "," ((,) :: Pair Int [Int])
   , value "," ((,) :: Pair Bool [Bool])
   , value "," ((,) :: Pair Char [Char])
@@ -1673,8 +1673,12 @@ pair  =  mk2 "pair"
   , value "," ((,) :: Pair Bool Int)
   , value "," ((,) :: Pair Int Char)
   , value "," ((,) :: Pair Char Int)
+  , value "," ((,) :: Pair Int (Int,Int))
+  , value "," ((,) :: Pair (Int,Int) Int)
+  , value "," ((,) :: Pair1 (Int,Int))
   ]
 type Pair a b  =  a -> b -> (a,b)
+type Pair1 a  =  Pair a a
 
 -- | The pair constructor (@ :: ... -> (Int,Int) @) encoded as an 'Expr'.
 comma :: Expr

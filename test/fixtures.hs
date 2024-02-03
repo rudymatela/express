@@ -308,6 +308,7 @@ tests n  =
   , show (ae -|- (bee -:- unit cee)) == "('a',\"bc\") :: (Char,[Char])"
   , show (xx -|- xxs) == "(x,xs) :: (Int,[Int])"
   , show (xxs -|- xx) == "(xs,x) :: ([Int],Int)"
+  , show (xx -|- (xx -|- xx)) == "(x,(x,x)) :: (Int,(Int,Int))"
 
   -- Trios
   , show (triple zero one two) == "(0,1,2) :: (Int,Int,Int)"
