@@ -2,6 +2,16 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* No changes in the main API
+
+* `Data.Fixtures`: support more types in existing functions
+
+* `Data.Fixtures`: add `filter'`, `drop'`, `take'`, `foldr'`, `ff2`, `ff3`, ...
+
+
 v1.0.14 (January 2024)
 ----------------------
 
