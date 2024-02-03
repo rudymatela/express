@@ -1149,6 +1149,7 @@ nilInt, nilBool, nilChar :: Expr
 nilInt   =  val ([] :: [Int])
 nilBool  =  val ([] :: [Bool])
 nilChar  =  value "[]" ([] :: [Char])
+nilInts  =  val ([] :: [[Int]])
 
 -- | The list constructor with 'Int' as element type encoded as an 'Expr'.
 --
@@ -1180,9 +1181,11 @@ type Cons a  =  a -> [a] -> [a]
 unit :: Expr -> Expr
 unit e  =  e -:- nil'
   where
-  nil' | typ e == typ i_  =  nil
+  nil' | typ e == typ i_  =  nilInt
        | typ e == typ c_  =  emptyString
        | typ e == typ b_  =  nilBool
+       | typ e == typ is_  =  nilInts
+       | otherwise  =  err "unit" [e] [nil,emptyString,nilBool,nilInts]
 
 -- | The list constructor lifted over the 'Expr' type.
 --   Works for the element types 'Int', 'Char' and 'Bool'.
@@ -1200,7 +1203,14 @@ unit e  =  e -:- nil'
   [ consInt
   , consBool
   , consChar
+  , value ":" ((:) :: Cons [Int])
+  , value ":" ((:) :: Cons [Bool])
+  , value ":" ((:) :: Cons String)
+  , value ":" ((:) :: Cons (Int,Int))
+  , value ":" ((:) :: Cons (Bool,Bool))
+  , value ":" ((:) :: Cons (Char,Char))
   , value ":" ((:) :: Cons (Maybe Int))
+  , value ":" ((:) :: Cons (Either Int Int))
   ]
 infixr 5 -:-
 
