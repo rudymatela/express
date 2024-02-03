@@ -554,7 +554,8 @@ minusOne  =  val (-1 :: Int)
 minusTwo :: Expr
 minusTwo  =  val (-2 :: Int)
 
--- | A variable function @f@ of 'Int -> Int' type lifted over the 'Expr' type.
+-- | A variable function @f@ of 'a -> a' type lifted over the 'Expr' type.
+--   This works for 'Int', 'Bool', 'Char' and their lists
 --
 -- > > ff xx
 -- > f x :: Int
@@ -562,7 +563,15 @@ minusTwo  =  val (-2 :: Int)
 -- > > ff one
 -- > f 1 :: Int
 ff :: Expr -> Expr
-ff  =  (ffE :$)
+ff  =  mk1 "ff"
+  [ var "f" (undefined :: F Int)
+  , var "f" (undefined :: F Bool)
+  , var "f" (undefined :: F Char)
+  , var "f" (undefined :: F [Int])
+  , var "f" (undefined :: F [Bool])
+  , var "f" (undefined :: F String)
+  ]
+type F a  =  a -> a
 
 -- | A variable @f@ of 'Int -> Int' type encoded as an 'Expr'.
 --
@@ -571,7 +580,8 @@ ff  =  (ffE :$)
 ffE :: Expr
 ffE  =  var "f" (undefined :: Int -> Int)
 
--- | A variable function @g@ of 'Int -> Int' type lifted over the 'Expr' type.
+-- | A variable function @g@ of 'a -> a' type lifted over the 'Expr' type.
+--   This works for 'Int', 'Bool', 'Char' and their lists.
 --
 -- > > gg yy
 -- > g y :: Int
@@ -579,7 +589,14 @@ ffE  =  var "f" (undefined :: Int -> Int)
 -- > > gg minusTwo
 -- > gg (-2) :: Int
 gg :: Expr -> Expr
-gg  =  (ggE :$)
+gg  =  mk1 "gg"
+  [ var "g" (undefined :: F Int)
+  , var "g" (undefined :: F Bool)
+  , var "g" (undefined :: F Char)
+  , var "g" (undefined :: F [Int])
+  , var "g" (undefined :: F [Bool])
+  , var "g" (undefined :: F String)
+  ]
 
 -- | A variable @g@ of 'Int -> Int' type encoded as an 'Expr'.
 --
@@ -593,7 +610,14 @@ ggE  =  var "g" (undefined :: Int -> Int)
 -- > > hh zz
 -- > h z :: Int
 hh :: Expr -> Expr
-hh  =  (hhE :$)
+hh  =  mk1 "hh"
+  [ var "h" (undefined :: F Int)
+  , var "h" (undefined :: F Bool)
+  , var "h" (undefined :: F Char)
+  , var "h" (undefined :: F [Int])
+  , var "h" (undefined :: F [Bool])
+  , var "h" (undefined :: F String)
+  ]
 
 -- | A variable @h@ of 'Int -> Int' type encoded as an 'Expr'.
 --

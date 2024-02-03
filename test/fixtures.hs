@@ -87,6 +87,11 @@ tests n  =
   , show (gg yy) == "g y :: Int"
   , show (ff one) == "f 1 :: Int"
   , show (gg minusTwo) == "g (-2) :: Int"
+  , show (ff xxs) == "f xs :: [Int]"
+  , show (ff emptyString) == "f \"\" :: [Char]"
+  , show (gg (yy -:- yys)) == "g (y:ys) :: [Int]"
+  , show (hh (ae -:- ccs)) == "h ('a':cs) :: [Char]"
+  , show (and' (hh pps)) == "and (h ps) :: Bool"
 
   , show idE == "id :: Int -> Int"
   , show negateE == "negate :: Int -> Int"
