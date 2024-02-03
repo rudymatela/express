@@ -126,6 +126,11 @@ tests n  =
   , show (ooE :$ xx) == "(x `o`) :: Int -> Int"
   , show (ooE :$ xx :$ yy) == "x `o` y :: Int"
 
+  -- a -> a -> ... -> a
+  , show (ff2 xx one) == "f x 1 :: Int"
+  , show (ff2 false pp) == "f False p :: Bool"
+  , show (ff2 xxs zero) == "f xs 0 :: Int"
+
   -- Char --
 
   , show c_ == "_ :: Char"
