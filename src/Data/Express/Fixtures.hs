@@ -137,7 +137,7 @@ module Data.Express.Fixtures
   , gg, ggE
   , hh, hhE
   , oo, ooE
-  , ff2, ff3
+  , ff2, ff3, ff4
   , question
   , (-?-)
   , (-$-)
@@ -685,6 +685,38 @@ ff3  =  mk3 "ff3"
   ]
 type F3 a b c  =  a -> b -> c -> c
 type F31 a  =  F3 a a a
+
+-- | A variable function @f@ of 'a -> a -> a -> a -> a' type lifted over the 'Expr' type.
+--   This works for 'Int', 'Bool', 'Char' and their lists
+--
+-- > > ff3 xx yy zz xx'
+-- > f x y z xx' :: Int
+--
+-- > > ff3 one two three four
+-- > f 1 2 3 4 :: Int
+--
+-- The result type is bound to the type of the last argument.
+ff4 :: Expr -> Expr -> Expr -> Expr -> Expr
+ff4  =  mk4 "ff4"
+  [ var "f" (undefined :: F41 Int)
+  , var "f" (undefined :: F41 Bool)
+  , var "f" (undefined :: F41 Char)
+  , var "f" (undefined :: F41 [Int])
+  , var "f" (undefined :: F41 [Bool])
+  , var "f" (undefined :: F41 String)
+  , var "f" (undefined :: F4 Int Int Int [Int])
+  , var "f" (undefined :: F4 Int Int [Int] Int)
+  , var "f" (undefined :: F4 Int [Int] Int Int)
+  , var "f" (undefined :: F4 [Int] Int Int Int)
+  , var "f" (undefined :: F4 Int [Int] [Int] [Int])
+  , var "f" (undefined :: F4 [Int] Int [Int] [Int])
+  , var "f" (undefined :: F4 [Int] [Int] Int [Int])
+  , var "f" (undefined :: F4 [Int] [Int] [Int] Int)
+  , var "f" (undefined :: F4 Int Int [Int] [Int])
+  , var "f" (undefined :: F4 [Int] [Int] Int Int)
+  ]
+type F4 a b c d  =  a -> b -> c -> d -> d
+type F41 a  =  F4 a a a a
 
 -- | A variable binary operator @?@ lifted over the 'Expr' type.
 --   Works for 'Int', 'Bool', 'Char', @[Int]@ and 'String'.
