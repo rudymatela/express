@@ -313,4 +313,12 @@ tests n  =
   -- Trios
   , show (triple zero one two) == "(0,1,2) :: (Int,Int,Int)"
   , show (triple xx one xxs) == "(x,1,xs) :: (Int,Int,[Int])"
+
+  -- Further tuplings
+  , show (quadruple zero one two three) == "(0,1,2,3) :: (Int,Int,Int,Int)"
+  , show (quintuple zero one two three four) == "(0,1,2,3,4) :: (Int,Int,Int,Int,Int)"
+  , show (sixtuple zero one two three four five) == "(0,1,2,3,4,5) :: (Int,Int,Int,Int,Int,Int)"
+  , show (quadruple pp qq rr pp') == "(p,q,r,p') :: (Bool,Bool,Bool,Bool)"
+  , show (quintuple pp qq rr pp' qq) == "(p,q,r,p',q) :: (Bool,Bool,Bool,Bool,Bool)"
+  , show (sixtuple pp qq rr pp' qq false) == "(p,q,r,p',q,False) :: (Bool,Bool,Bool,Bool,Bool,Bool)"
   ]

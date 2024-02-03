@@ -1686,7 +1686,7 @@ comma  =  value "," ((,) :: Pair Int Int)
 
 -- | The triple/trio constructor lifted over 'Expr's.
 --
--- This only works for some combinations
+-- This works for some combinations
 -- of the 'Int', 'Bool' and 'Char' element types
 -- and their lists.
 triple :: Expr -> Expr -> Expr -> Expr
@@ -1715,27 +1715,50 @@ type Trio1 a  =  Trio a a a
 
 -- | The quadruple constructor lifted over 'Expr's.
 --
--- This only works for the 'Int' element type.
+-- This works for some combinations
+-- of the 'Int', 'Bool' and 'Char' element types
+-- and their lists.
 quadruple :: Expr -> Expr -> Expr -> Expr -> Expr
-quadruple e1 e2 e3 e4  =  cccE :$ e1 :$ e2 :$ e3 :$ e4
-  where
-  cccE  =  value ",,," ((,,,) :: Int -> Int -> Int -> Int -> (Int,Int,Int,Int))
+quadruple  =  mk4 "quadruple"
+  [ value ",,," ((,,,) :: Quartet1 Int)
+  , value ",,," ((,,,) :: Quartet1 Bool)
+  , value ",,," ((,,,) :: Quartet1 Char)
+  , value ",,," ((,,,) :: Quartet1 [Int])
+  , value ",,," ((,,,) :: Quartet1 [Bool])
+  , value ",,," ((,,,) :: Quartet1 [Char])
+  ]
+type Quartet a b c d  =  a -> b -> c -> d -> (a,b,c,d)
+type Quartet1 a  =  Quartet a a a a
 
 -- | The quintuple constructor lifted over 'Expr's.
 --
 -- This only works for the 'Int' element type.
 quintuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr
-quintuple e1 e2 e3 e4 e5  =  ccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5
-  where
-  ccccE  =  value ",,,," ((,,,,) :: Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int))
+quintuple  =  mk5 "quintuple"
+  [ value ",,,," ((,,,,) :: Quintet1 Int)
+  , value ",,,," ((,,,,) :: Quintet1 Bool)
+  , value ",,,," ((,,,,) :: Quintet1 Char)
+  , value ",,,," ((,,,,) :: Quintet1 [Int])
+  , value ",,,," ((,,,,) :: Quintet1 [Bool])
+  , value ",,,," ((,,,,) :: Quintet1 [Char])
+  ]
+type Quintet a b c d e  =  a -> b -> c -> d -> e -> (a,b,c,d,e)
+type Quintet1 a  =  Quintet a a a a a
 
 -- | The sixtuple constructor lifted over 'Expr's.
 --
 -- This only works for the 'Int' element type.
 sixtuple :: Expr -> Expr -> Expr -> Expr -> Expr -> Expr -> Expr
-sixtuple e1 e2 e3 e4 e5 e6  =  cccccE :$ e1 :$ e2 :$ e3 :$ e4 :$ e5 :$ e6
-  where
-  cccccE  =  value ",,,,," ((,,,,,) :: Int -> Int -> Int -> Int -> Int -> Int -> (Int,Int,Int,Int,Int,Int))
+sixtuple  =  mk6 "sixtuple"
+  [ value ",,,,," ((,,,,,) :: Sextet1 Int)
+  , value ",,,,," ((,,,,,) :: Sextet1 Bool)
+  , value ",,,,," ((,,,,,) :: Sextet1 Char)
+  , value ",,,,," ((,,,,,) :: Sextet1 [Int])
+  , value ",,,,," ((,,,,,) :: Sextet1 [Bool])
+  , value ",,,,," ((,,,,,) :: Sextet1 [Char])
+  ]
+type Sextet a b c d e f  =  a -> b -> c -> d -> e -> f -> (a,b,c,d,e,f)
+type Sextet1 a  =  Sextet a a a a a a
 
 -- | A typed hole of @[Bool]@ type encoded as an 'Expr'.
 --
@@ -1979,10 +2002,20 @@ mk2 :: String -> [Expr] -> Expr -> Expr -> Expr
 mk2 nm efs ex ey  =  headOr (err nm efs [ex,ey]) $ efs >$$ ex >$$ ey
 
 mk3 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr
-mk3 nm efs ex ey ez  =  headOr (err nm efs [ex,ey,ez]) $ efs >$$ ex >$$ ey >$$ ez
+mk3 nm efs ex ey ez  =  headOr (err nm efs [ex,ey,ez])
+                     $  efs >$$ ex >$$ ey >$$ ez
 
 mk4 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr -> Expr
-mk4 nm efs ex ey ez ew  =  headOr (err nm efs [ex,ey,ez,ew]) $ efs >$$ ex >$$ ey >$$ ez >$$ ew
+mk4 nm efs ex ey ez ew  =  headOr (err nm efs [ex,ey,ez,ew])
+                        $  efs >$$ ex >$$ ey >$$ ez >$$ ew
+
+mk5 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr -> Expr -> Expr
+mk5 nm efs ex ey ez ew ev  =  headOr (err nm efs [ex,ey,ez,ew,ev])
+                           $  efs >$$ ex >$$ ey >$$ ez >$$ ew >$$ ev
+
+mk6 :: String -> [Expr] -> Expr -> Expr -> Expr -> Expr -> Expr -> Expr -> Expr
+mk6 nm efs ex ey ez ew ev eu  =  headOr (err nm efs [ex,ey,ez,ew,ev,eu])
+                              $  efs >$$ ex >$$ ey >$$ ez >$$ ew >$$ ev >$$ eu
 
 err :: String -> [Expr] -> [Expr] -> Expr
 err fn efs exs  =  error
