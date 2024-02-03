@@ -178,11 +178,16 @@ tests n  =
   , show (head' $ zero -:- unit two) == "head [0,2] :: Int"
   , show (tail' $ zero -:- unit two) == "tail [0,2] :: [Int]"
   , show (init' $ zero -:- unit two) == "init [0,2] :: [Int]"
+  , show (drop' two $ zero -:- unit two) == "drop 2 [0,2] :: [Int]"
+  , show (take' three $ zero -:- unit two) == "take 3 [0,2] :: [Int]"
 
   , evl (unit one) == [1 :: Int]
   , evl (head' $ unit one) == (1 :: Int)
   , evl (tail' $ zero -:- unit two) == ([2] :: [Int])
   , evl (init' $ zero -:- unit two) == ([0] :: [Int])
+
+  , evl (drop' one $ zero -:- unit two) == ([2] :: [Int])
+  , evl (take' one $ zero -:- unit two) == ([0] :: [Int])
 
   -- String --
 

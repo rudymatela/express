@@ -177,6 +177,8 @@ module Data.Express.Fixtures
   , elem'
   , sort'
   , insert'
+  , drop'
+  , take'
   , bs_, pps, qqs
   , and', or'
   , sum', product'
@@ -1532,6 +1534,48 @@ elem'  =  mk2 "elem'"
   , value "elem" (elem :: Elem (Maybe Int))
   ]
 type Elem a  =  a -> [a] -> Bool
+
+-- | List 'drop' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > drop' zero nilInt
+-- > drop 0 [] :: [Int]
+--
+-- > > drop' one (false -:- unit true)
+-- > drop 1 [False,True] :: [Bool]
+drop' :: Expr -> Expr -> Expr
+drop'  =  mk2 "drop'"
+  [ value "drop" (drop :: Drop Int)
+  , value "drop" (drop :: Drop Char)
+  , value "drop" (drop :: Drop Bool)
+  , value "drop" (drop :: Drop [Int])
+  , value "drop" (drop :: Drop [Char])
+  , value "drop" (drop :: Drop [Bool])
+  , value "drop" (drop :: Drop (Int,Int))
+  , value "drop" (drop :: Drop (Maybe Int))
+  ]
+type Drop a  =  Int -> [a] -> [a]
+
+-- | List 'take' lifted over the 'Expr' type.
+--   Works for the element types 'Int', 'Char' and 'Bool'.
+--
+-- > > take' zero nilInt
+-- > take 0 [] :: [Int]
+--
+-- > > take' one (false -:- unit true)
+-- > take 1 [False,True] :: [Bool]
+take' :: Expr -> Expr -> Expr
+take'  =  mk2 "take'"
+  [ value "take" (take :: Take Int)
+  , value "take" (take :: Take Char)
+  , value "take" (take :: Take Bool)
+  , value "take" (take :: Take [Int])
+  , value "take" (take :: Take [Char])
+  , value "take" (take :: Take [Bool])
+  , value "take" (take :: Take (Int,Int))
+  , value "take" (take :: Take (Maybe Int))
+  ]
+type Take a  =  Int -> [a] -> [a]
 
 -- | '$' lifted over 'Expr's
 --
