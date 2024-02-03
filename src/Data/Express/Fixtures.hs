@@ -209,6 +209,7 @@ module Data.Express.Fixtures
   , mapE
   , (-.-)
   , map'
+  , foldr'
   , filter'
 
   -- ** Enum
@@ -2137,6 +2138,27 @@ map'  =  mk2 "map'"
   , value "map" (map :: Map [Char])
   ]
 type Map a  =  (a -> a) -> [a] -> [a]
+
+
+-- | 'foldr' lifted over 'Expr's.
+--
+-- > > foldr' plus zero (unit one)
+-- > foldr (+) zero [1] :: [Int]
+foldr' :: Expr -> Expr -> Expr -> Expr
+foldr'  =  mk3 "foldr'"
+  [ value "foldr" (foldr :: Foldr1 ())
+  , value "foldr" (foldr :: Foldr1 Int)
+  , value "foldr" (foldr :: Foldr1 Bool)
+  , value "foldr" (foldr :: Foldr1 Char)
+  , value "foldr" (foldr :: Foldr1 [Int])
+  , value "foldr" (foldr :: Foldr1 [Bool])
+  , value "foldr" (foldr :: Foldr1 [Char])
+  , value "foldr" (foldr :: Foldr Int [Int])
+  , value "foldr" (foldr :: Foldr Bool [Bool])
+  , value "foldr" (foldr :: Foldr Char [Char])
+  ]
+type Foldr a b  =  (a -> b -> b) -> b -> [a] -> b
+type Foldr1 a  =  Foldr a a
 
 
 -- | 'filter' lifted over 'Expr's.

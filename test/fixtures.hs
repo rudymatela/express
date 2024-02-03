@@ -337,4 +337,10 @@ tests n  =
   , show (quadruple pp qq rr pp') == "(p,q,r,p') :: (Bool,Bool,Bool,Bool)"
   , show (quintuple pp qq rr pp' qq) == "(p,q,r,p',q) :: (Bool,Bool,Bool,Bool,Bool)"
   , show (sixtuple pp qq rr pp' qq false) == "(p,q,r,p',q,False) :: (Bool,Bool,Bool,Bool,Bool,Bool)"
+
+  -- higher order
+  , show (map' absE (unit minusOne)) == "map abs [-1] :: [Int]"
+  , evl (map' absE (unit minusOne)) == [1 :: Int]
+  , show (foldr' plus zero (unit one)) == "foldr (+) 0 [1] :: Int"
+  , evl (foldr' plus zero (unit one)) == (1 :: Int)
   ]
