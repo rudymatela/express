@@ -1782,6 +1782,9 @@ pair  =  mk2 "pair"
   , value "," ((,) :: Pair Int (Int,Int))
   , value "," ((,) :: Pair (Int,Int) Int)
   , value "," ((,) :: Pair1 (Int,Int))
+  , value "," ((,) :: Pair1 [[Int]])
+  , value "," ((,) :: Pair1 [[Bool]])
+  , value "," ((,) :: Pair1 [[Char]])
   ]
 type Pair a b  =  a -> b -> (a,b)
 type Pair1 a  =  Pair a a
