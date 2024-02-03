@@ -1641,14 +1641,29 @@ type Just a  =  a -> Maybe a
 
 -- | The pair constructor lifted over 'Expr's.
 --
--- This works for the 'Int' and 'Bool' element types
--- by differently from 'foldPair' by returning a well-typed expression.
+-- This works for some variations of 'Int', 'Bool' and 'Char' element types
+-- and their lists.
+--
+-- Differently from 'foldPair', when this works,-
+-- it always constructs a well-typed expression.
 pair :: Expr -> Expr -> Expr
 pair  =  mk2 "pair"
   [ value "," ((,) :: Pair Int Int)
+  , value "," ((,) :: Pair Bool Bool)
+  , value "," ((,) :: Pair Char Char)
+  , value "," ((,) :: Pair [Int] [Int])
+  , value "," ((,) :: Pair [Bool] [Bool])
+  , value "," ((,) :: Pair [Char] [Char])
+  , value "," ((,) :: Pair Int [Int])
+  , value "," ((,) :: Pair Bool [Bool])
+  , value "," ((,) :: Pair Char [Char])
+  , value "," ((,) :: Pair [Int] Int)
+  , value "," ((,) :: Pair [Bool] Bool)
+  , value "," ((,) :: Pair [Char] Char)
   , value "," ((,) :: Pair Int Bool)
   , value "," ((,) :: Pair Bool Int)
-  , value "," ((,) :: Pair Bool Bool)
+  , value "," ((,) :: Pair Int Char)
+  , value "," ((,) :: Pair Char Int)
   ]
 type Pair a b  =  a -> b -> (a,b)
 

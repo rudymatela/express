@@ -297,4 +297,15 @@ tests n  =
   , show (just xxs) == "Just xs :: Maybe [Int]"
   , show (just pps) == "Just ps :: Maybe [Bool]"
   , show (just false) == "Just False :: Maybe Bool"
+
+  -- Pairs
+  , show (zero -|- one) == "(0,1) :: (Int,Int)"
+  , show (xx -|- yy) == "(x,y) :: (Int,Int)"
+  , show (zz -|- xx) == "(z,x) :: (Int,Int)"
+  , show (zz -|- (xx -+- yy)) == "(z,x + y) :: (Int,Int)"
+  , show (false -|- true) == "(False,True) :: (Bool,Bool)"
+  , show (bee -|- ae) == "('b','a') :: (Char,Char)"
+  , show (ae -|- (bee -:- unit cee)) == "('a',\"bc\") :: (Char,[Char])"
+  , show (xx -|- xxs) == "(x,xs) :: (Int,[Int])"
+  , show (xxs -|- xx) == "(xs,x) :: ([Int],Int)"
   ]
