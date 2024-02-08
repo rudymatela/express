@@ -112,7 +112,7 @@
 -- There may still be a /m/ cost associated with the values stored in 'Expr's.
 {-# LANGUAGE CPP #-}
 module Data.Express
-  ( 
+  (
   -- -- -- Data.Express.Core exports -- -- --
 
   -- * The Expr datatype
