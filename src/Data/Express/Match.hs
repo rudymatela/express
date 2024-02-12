@@ -93,6 +93,12 @@ updateAssignments (e,e')  =  \bs ->
 -- >   (yy -+- (yy -+- xx)) `isInstanceOf`   (xx -+- yy)  =  True
 -- > (zero -+- (yy -+- xx)) `isInstanceOf` (zero -+- yy)  =  True
 -- >  (one -+- (yy -+- xx)) `isInstanceOf` (zero -+- yy)  =  False
+--
+-- This function works on ill-typed expressions
+-- so long as the leaf/atom types match:
+--
+-- > > foldPair (xx -+- zero, xx) `isInstanceOf` foldPair (yy -+- zero, yy)
+-- > True
 isInstanceOf :: Expr -> Expr -> Bool
 e1 `isInstanceOf` e2  =  isJust $ e1 `match` e2
 
