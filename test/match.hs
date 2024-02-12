@@ -34,6 +34,9 @@ tests n  =
   , not $ foldPair (xx -+- zero, xx) `isInstanceOf`
           foldPair (yy, yy -+- zero)
 
+  ,       (xx -:- xxs) `isInstanceOf` (yy -:- yys)
+  , not $ (xx -:- xxs) `isInstanceOf` (pp -:- pps)
+
   , holds n $ \(IntE e1) (IntE e2) -> match (e1 -+- e2) (xx -+- yy) == Just [(yy,e2),(xx,e1)]
   , holds n $ \(IntE e)            -> match (e -+- e)   (xx -+- xx) == Just [(xx,e)]
   , holds n $ \(IntE e1) (IntE e2) -> e1 /= e2 ==> match (e1 -+- e2) (xx -+- xx) == Nothing
