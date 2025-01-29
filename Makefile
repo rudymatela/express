@@ -110,6 +110,9 @@ txt: $(patsubst %,%.txt,$(BENCHS))
 
 test-via-everything: test test-via-cabal test-via-stack
 
+test-on-ghc-9.10:
+	make test GHC=ghc-9.10 GHCIMPORTDIRS=src:test:../leancheck/src
+
 legacy-test: # needs ghc-8.8 .. ghc-7.8 installed as such
 	make clean  &&  make test -j GHC=ghc-8.8
 	make clean  &&  make test -j GHC=ghc-8.6
