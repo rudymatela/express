@@ -7,7 +7,7 @@ import Test
 import Data.Express.Utils.List
 
 data Peano  =  Zero | Succ Peano deriving Show
-data List a  =  a :- List a | Nil deriving Show
+data Lst a  =  a :- Lst a | Nil deriving Show
 data Bush a  =  Bush a :-: Bush a | Leaf a deriving (Show, Eq)
 data Tree a  =  Node (Tree a) a (Tree a) | Null deriving (Show, Eq)
 
@@ -25,7 +25,7 @@ instance Num Peano where
   Succ n - Succ m  =  n - m
 
 deriveName ''Peano
-deriveName ''List
+deriveName ''Lst
 deriveName ''Bush
 deriveName ''Tree
 
@@ -56,10 +56,10 @@ tests n  =
   [ True
 
   , name (undefined :: Peano) == "x"
-  , name (undefined :: List Int) == "l"
+  , name (undefined :: Lst Int) == "l"
   , name (undefined :: Bush Int) == "b"
   , name (undefined :: Tree Int) == "t"
-  , name (undefined :: List Bool) == "l"
+  , name (undefined :: Lst Bool) == "l"
   , name (undefined :: Bush Bool) == "b"
   , name (undefined :: Tree Bool) == "t"
 

@@ -8,19 +8,19 @@ import Test hiding ((-:), (->:))
 
 data Choice  =  Ae | Bee | Cee deriving (Show, Eq, Typeable)
 data Peano  =  Zero | Succ Peano deriving (Show, Eq, Typeable)
-data List a  =  a :- List a | Nil deriving (Show, Eq, Typeable)
+data Lst a  =  a :- Lst a | Nil deriving (Show, Eq, Typeable)
 data Bush a  =  Bush a :-: Bush a | Leaf a deriving (Show, Eq, Typeable)
 data Tree a  =  Node (Tree a) a (Tree a) | Null deriving (Show, Eq, Typeable)
 
 deriveExpress ''Choice
 deriveExpress ''Peano
-deriveExpress ''List
+deriveExpress ''Lst
 deriveExpress ''Bush
 deriveExpress ''Tree
 
 deriveListable ''Choice
 deriveListable ''Peano
-deriveListable ''List
+deriveListable ''Lst
 deriveListable ''Bush
 deriveListable ''Tree
 
@@ -73,8 +73,8 @@ tests n  =
   , holds n (exprIsVal :: Choice -> Bool)
   , fails n (exprIsVal :: Peano -> Bool)
 
-  , fails n (exprIsVal :: List Int -> Bool)
-  , fails n (exprIsVal :: List Bool -> Bool)
+  , fails n (exprIsVal :: Lst Int -> Bool)
+  , fails n (exprIsVal :: Lst Bool -> Bool)
 
   , fails n (exprIsVal :: Bush Int -> Bool)
   , fails n (exprIsVal :: Bush Bool -> Bool)
@@ -85,8 +85,8 @@ tests n  =
   , holds n (exprIsValUnderEvaluate :: Choice -> Bool)
   , holds n (exprIsValUnderEvaluate :: Peano -> Bool)
 
-  , holds n (exprIsValUnderEvaluate :: List Int -> Bool)
-  , holds n (exprIsValUnderEvaluate :: List Bool -> Bool)
+  , holds n (exprIsValUnderEvaluate :: Lst Int -> Bool)
+  , holds n (exprIsValUnderEvaluate :: Lst Bool -> Bool)
 
   , holds n (exprIsValUnderEvaluate :: Bush Int -> Bool)
   , holds n (exprIsValUnderEvaluate :: Bush Bool -> Bool)
