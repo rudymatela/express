@@ -113,40 +113,9 @@ test-via-everything: test test-via-cabal test-via-stack
 test-on-ghc-9.10:
 	make test GHC=ghc-9.10 GHCIMPORTDIRS=src:test:../leancheck/src
 
-legacy-test: # needs ghc-8.8 .. ghc-7.8 installed as such
-	make clean  &&  make test -j GHC=ghc-8.8
-	make clean  &&  make test -j GHC=ghc-8.6
-	make clean  &&  make test -j GHC=ghc-8.4
-	make clean  &&  make test -j GHC=ghc-8.2
-	make clean  &&  make test -j GHC=ghc-8.0
-	make clean  &&  make test -j GHC=ghc-7.10
-	make clean  &&  make test -j GHC=ghc-7.8
-	make clean  &&  make test -j
-
-legacy-test-via-cabal: # needs similarly named cabal wrappers
-	cabal clean  &&  cabal-ghc-8.8  configure  &&  cabal-ghc-8.8  test
-	cabal clean  &&  cabal-ghc-8.6  configure  &&  cabal-ghc-8.6  test
-	cabal clean  &&  cabal-ghc-8.4  configure  &&  cabal-ghc-8.4  test
-	cabal clean  &&  cabal-ghc-8.2  configure  &&  cabal-ghc-8.2  test
-	cabal clean  &&  cabal-ghc-8.0  configure  &&  cabal-ghc-8.0  test
-	cabal clean  &&  cabal-ghc-7.10 configure  &&  cabal-ghc-7.10 test
-	cabal clean  &&  cabal-ghc-7.8  configure  &&  cabal-ghc-7.8  test
-	cabal clean  &&  cabal test
-
 prepare:
 	cabal update
 	cabal install $(ALL_DEPS) --lib
-
-prepare-legacy-test:
-	cabal update
-	cabal-ghc-8.8  install $(ALL_DEPS) --lib
-	cabal-ghc-8.6  install $(ALL_DEPS) --lib
-	cabal-ghc-8.4  install $(ALL_DEPS) --lib
-	cabal-ghc-8.2  install $(ALL_DEPS) --lib
-	cabal-ghc-8.0  install $(ALL_DEPS) --lib
-	cabal-ghc-7.10 v1-install $(ALL_DEPS)
-	cabal-ghc-7.8  v1-install $(ALL_DEPS)
-	# (v2-) library installation is supported on GHC 8.0+ only)
 
 hlint: ..hlint
 
