@@ -2,8 +2,8 @@ Changelog for Express
 =====================
 
 
-upcoming
---------
+v1.0.18 (January 2025)
+----------------------
 
 * No changes the API.
 
