@@ -159,7 +159,7 @@ jobs:
             ~/.ghcup
             /usr/local/.ghcup/bin
             /usr/local/.ghcup/db
-            /usr/local/.ghcup/ghc/9.0.2
+            /usr/local/.ghcup/ghc/9.4.8
           key:          v1-${{ runner.os }}-ghcup-${{ hashFiles('stack.yaml') }}
           restore-keys: v1-${{ runner.os }}-ghcup-
 
