@@ -2,6 +2,18 @@ Changelog for Express
 =====================
 
 
+upcoming
+--------
+
+* No changes the API.
+
+* Minor improvements in Haddock documentation.
+
+* Fix build of tests on GHC >= 9.10.  (Libs unaffected)
+
+* Rework CI scripts and add a couple more tests.
+
+
 v1.0.16 (February 2024)
 -----------------------
 
